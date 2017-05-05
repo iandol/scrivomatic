@@ -1,0 +1,160 @@
+#!/usr/bin/env ruby
+
+require 'open3' # ruby standard library class to handle stderr and stdout
+require 'optparse' # ruby standard option parser
+require 'pp' #pretty print
+require 'pry'
+
+class Scrivomatic
+	attr_accessor :options
+	attr_reader :version, :cmd, :runLog
+	VER = '1.0.1'
+	OPTIONS = Struct.new(:input,:output,:tool,:envpath,:verbose)
+	DEFENVPATH = "/usr/local/bin:" + ENV['HOME'] + "/bin"
+	
+	################################constructor
+	def initialize # set up class
+		@options = OPTIONS.new(nil,nil,"pandocomatic",nil,false)
+		@version = VER
+		@options[:envpath] = DEFENVPATH
+		@cmd = ""
+		@runLog = ""
+	end
+	
+	################################run tool
+	def runTool()
+		
+		toolPath = `which #{@options[:tool]}`.chomp
+		
+		@cmd = toolPath + " -i '" + @options[:input] + "'"
+		if @options[:output].is_a? String
+			@cmd += " -o " + @options[:output]
+		end
+		
+		toolPath = `which #{@options[:tool]}`.chomp
+		
+		@runLog+= "::: Will try to run #{@cmd}\n"
+		
+		puts "==================\n" + `#{toolPath} -v`
+		
+		if File.exist?(toolPath)
+			Open3.popen3(@cmd) do |stdin, stdout, stderr, wait_thr|
+				while line = stdout.gets
+					@runLog+= "::: " + line + "\n"
+				end
+				exit_status = wait_thr.value
+				@runLog+= "::: exit status: " + exit_status.to_s
+				unless exit_status.success?
+					while line = stderr.gets
+						STDERR.puts "!!! " + line
+						@runLog+=  "!!! " + line
+					end
+					abort "FAILED TO RUN !!! #{cmd}"
+				end
+			end
+		else
+			@runLog+= "Tool doesn't exist!!!"
+			STDOUT.puts "Tool doesn't exist!!!"
+			raise "Couldn't find the tool to run, please supply a path"
+		end
+	end #end runTool()
+	
+	################################parse inputs
+	def parseInputs(arg)
+		optparse = OptionParser.new do|opts|
+			opts.banner = "Usage: Scrivomatic V" + @version + " -i FILE [options]"
+
+			opts.on("-i", "--input FILE", "Input file?") do |v|
+				@options[:input] = v
+			end
+
+			opts.on("-o", "--output [FILE]", "Output file? Can be ignored for pandocomatic.") do |v|
+				@options[:output] = v
+			end
+			
+			opts.on("-t", "--tool [program]", "Tool to use? Default is pandocomatic") do |v|
+				@options[:tool] = v
+			end
+
+			opts.on("-p", "--path [dirpath]", "Path to Search for Tools?") do |v|
+				@options[:envpath] = v + ":" + @options[:envpath]
+			end
+
+			opts.on("-v", "--[no-]verbose", "Run verbosely?") do |v|
+				@options[:verbose] = v
+			end
+
+			opts.on("-h", "--help", "Prints this help!") do
+				puts optparse
+				exit
+			end
+			
+		end # end OptionParser
+		
+		optparse.parse!
+		if @options[:input].nil?
+			STDOUT.puts "!!!---Scrivomatic requires an INPUT file!"
+			exit
+		end
+	end # end parseInputs
+	
+	################################make env path
+	def makePath
+		pathtest = ENV['HOME'] + "/.rbenv/shims"
+		if File.directory?(pathtest) # did user use rebenv to install?
+			@options[:envpath] += ":" + pathtest
+		end
+		pathtest = ENV['HOME'] + "/anaconda3/bin"
+		if File.directory?(pathtest) # did user use rebenv to install?
+			@options[:envpath] += ":" + pathtest
+		end
+		pathtest = ENV['HOME'] + "/anaconda/bin"
+		if File.directory?(pathtest) # did user use rebenv to install?
+			@options[:envpath] += ":" + pathtest
+		end
+		@options[:envpath].gsub!(/(\/\/)/, '/')
+		@options[:envpath].gsub!(/(::)/, ':')
+		@options[:envpath].gsub!(/:$/, '') #remove final colon
+		ENV['PATH'] = @options[:envpath] + ":" + ENV['PATH']
+	end # end makePath()
+	
+	################################set version
+	def version=(verin)
+		@version = verin
+	end
+	
+	################################logger
+	def mylog(msg)
+		if @options[:verbose] == true
+			STDOUT.puts msg
+		end
+	end
+	
+	################################print summary report
+	def printReport
+		if @options[:verbose] == true
+			puts "\n=== Scrivomatic V" + @version + " Report @ " + Time.now.to_s + " ==="
+			puts "Working directory: " + `pwd`
+			puts "=======Input Options:=======" 
+			pp self
+			puts "=======ENV PATH:=======" 
+			puts ENV['PATH']
+			puts "=======TOOL PATHS:======="
+			puts `echo "---ruby: $(which ruby)" `
+			puts `echo "---python: $(which python)" `
+			puts `echo "---rbenv: $(which rbenv)"` 
+			puts `echo "---pandoc: $(which pandoc)" `
+			puts `echo "---pandocomatic: $(which pandocomatic)" `
+			puts `echo "---panzer: $(which panzer)" `
+			puts "=======TOOL OUTPUT:======="
+			puts @runLog
+		end
+	end
+
+end # end Scrivomatic
+
+scriv = Scrivomatic.new
+scriv.parseInputs(ARGV)
+scriv.makePath()
+scriv.runTool()
+scriv.printReport()
