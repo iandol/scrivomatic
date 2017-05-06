@@ -135,6 +135,10 @@ class Scrivomatic
 			@options[:envpath] += ":" + pathtest
 		end
 		
+		if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
+			ENV['LANG'] = 'en_GB.UTF-8'
+		end
+		
 		@options[:envpath].gsub!(/(\/\/)/, '/')
 		@options[:envpath].gsub!(/(::)/, ':')
 		@options[:envpath].gsub!(/:$/, '') #remove final colon
