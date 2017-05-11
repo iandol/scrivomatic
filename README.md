@@ -45,13 +45,15 @@ And compile to a Multimarkdown file `mydoc.md`. Then you just run `pandocomatic 
 ```
 
 ## Requirements ##
-You need to install Pandoc and either Pandocomatic (uses Ruby) or Panzer (uses Python). This requires a minimal amount of typing into the terminal. I prefer Pandocomatic as it is a bit more flexible in output options, but Panzer is more powerful in specifying the input options. For macOS you can [install manually](http://pandoc.org/installing.html), but it is better to use [Homebrew](https://brew.sh/) to install Pandoc as `brew` can keep everything up to date:
+Apart from **Scrivener**, you need to install **Pandoc** and either **Pandocomatic** (uses Ruby) or **Panzer** (uses Python). This requires a minimal amount of typing into the terminal. I prefer Pandocomatic as it is a bit more flexible in output options, but Panzer is more 'elegant' in specifying the input options.   
+
+For Pandoc on macOS you can [install manually](http://pandoc.org/installing.html), but it is generally better to use [Homebrew](https://brew.sh/) to install Pandoc as `brew` can keep everything up to date:
 
 ```shell
 > brew install pandoc
 ```
 
-You use Ruby's `gem` to install Pandocomatic (putting the binary in `/usr/local/lib`):
+You use Ruby's `gem` command (built in to macOS) to install Pandocomatic (putting the binary in `/usr/local/bin`):
 
 ```shell
 > sudo gem install pandocomatic -u /usr/local/bin

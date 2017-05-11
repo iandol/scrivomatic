@@ -12,7 +12,7 @@ if ARGV[-1] == 'DEBUG' # Enable remote debugger
 	require 'byebug'
 	Byebug.wait_connection = true
 	Byebug.start_server('localhost', 1048)
-	STDOUT.puts "!!!---DEBUG Server started on localhost:1048"
+	STDOUT.puts "\n!!!---DEBUG Server started on localhost:1048 @ " + Time.now.to_s
 	SDEBUG = true # scrivomatic debug
 	CDEBUG = false # tool debug
 	ARGV.pop
@@ -34,9 +34,8 @@ class Scrivomatic
 	
 	################################constructor
 	def initialize # set up class
-		@options = OPTIONS.new(nil,nil,nil,"pandocomatic",nil,false)
+		@options = OPTIONS.new(nil,nil,nil,"pandocomatic",DEFENVPATH,false)
 		@version = VER
-		@options[:envpath] = DEFENVPATH
 		@cmd = ''
 		@runLog = ''
 	end
@@ -46,16 +45,14 @@ class Scrivomatic
 		
 		toolPath = `which #{@options[:command]}`.chomp
 		
-		if not @options[:input].nil?
-			@cmd = toolPath + ' "' + @options[:input] + '"'
-		elsif not ARGV.nil?
-			@cmd = toolPath + ' "' + ARGV[1] + '"'
-		end
 		if not @options[:output].nil?
 			@cmd += ' --output "' + @options[:output] + '"'
 		end
 		if !@options[:to].nil? && @options[:command] != 'pandocomatic'
 			@cmd += ' --to "' + @options[:to] + '"'
+		end
+		if not @options[:input].nil?
+			@cmd = toolPath + ' "' + @options[:input] + '"'
 		end
 		
 		if CDEBUG && @options[:command] == 'panzer'
@@ -88,7 +85,7 @@ class Scrivomatic
 		optparse = OptionParser.new do|opts|
 			opts.banner = "Scrivomatic V" + @version + "\n"
 			opts.banner += "=======================\n"
-			opts.banner += "Scrivomatic is a wrapper script around pandocomatic or panzer, that sets up the environment path and other settings so they can be run from any other process, even if that process has a restrictive path.\n\n"
+			opts.banner += "Scrivomatic is a wrapper script around pandocomatic or panzer, that sets up the environment path, enforces UTF8 encoding and other settings so they can be run from any other process.\n\n"
 			opts.banner += "Usage: scrivomatic --input FILE [additional options]"
 
 			opts.on("-i", "--input FILE", "Input file?") do |v|
@@ -124,8 +121,12 @@ class Scrivomatic
 		
 		optparse.parse!
 		if @options[:input].nil?
-			puts optparse
-			abort "\n\n!!!---scrivomatic::parseInputs requires: --input FILE!"
+			if ARGV.nil?
+				puts optparse
+				abort "\n\n!!!---scrivomatic::parseInputs requires a valid file: --input FILE!"
+			else
+				@options[:input] = ARGV[0] #we assume it was passed without -i flag
+			end
 		end
 		
 	end # end parseInputs
