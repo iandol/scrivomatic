@@ -28,7 +28,7 @@ end
 class Scrivomatic
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.3'
+	VER = '1.0.4'
 	OPTIONS = Struct.new(:input,:output,:to,:command,:envpath,:verbose)
 	DEFENVPATH = '/usr/local/bin:' + ENV['HOME'] + '/bin'
 	
@@ -134,20 +134,26 @@ class Scrivomatic
 	################################make env path
 	def makePath
 		
-		# did user use rebenv?
-		pathtest = ENV['HOME'] + "/.rbenv/shims"
+		# did user install anaconda python?
+		pathtest = ENV['HOME'] + "/anaconda/bin"
 		if File.directory?(pathtest) 
 			@options[:envpath] += ":" + pathtest
 		end
 		
-		# did user use anaconda3 python?
+		# did user install anaconda3 python?
 		pathtest = ENV['HOME'] + "/anaconda3/bin"
 		if File.directory?(pathtest) 
 			@options[:envpath] += ":" + pathtest
 		end
 		
-		# did user use anaconda python?
-		pathtest = ENV['HOME'] + "/anaconda/bin"
+		# did user install rebenv?
+		pathtest = ENV['HOME'] + "/.rbenv/shims"
+		if File.directory?(pathtest) 
+			@options[:envpath] += ":" + pathtest
+		end
+		
+		# did user install MacTeX?
+		pathtest = "/Library/TeX/texbin"
 		if File.directory?(pathtest) 
 			@options[:envpath] += ":" + pathtest
 		end
@@ -174,18 +180,19 @@ class Scrivomatic
 		if @options[:verbose] == true
 			puts "\n=== Scrivomatic V" + @version + " Report @ " + Time.now.to_s + " ==="
 			puts 'Working directory: ' + `pwd`
-			puts '=======Input Options:======='
+			puts '====== Input Options: ======'
 			pp self.options
-			puts '=======ENV PATH:======='
+			puts '====== Final ENV PATH: ======'
 			puts ENV['PATH']
-			puts '=======TOOL PATHS:======='
+			puts '====== TOOL PATHS: ======'
 			puts `echo "---pandoc: $(which pandoc)" `
 			puts `echo "---pandocomatic: $(which pandocomatic)" `
 			puts `echo "---panzer: $(which panzer)" `
 			puts `echo "---ruby: $(which ruby)" `.chomp + " | VERSION: #{RUBY_VERSION}"
 			puts `echo "---python: $(which python)" `
-			puts `echo "---rbenv: $(which rbenv)"` 
-			puts '=======COMMAND OUTPUT:======='
+			puts `echo "---rbenv: $(which rbenv)"`
+			puts `echo "---xelatex: $(which xelatex)"`
+			puts '====== COMMAND OUTPUT: ======'
 			puts @runLog
 		end
 	end

@@ -69,7 +69,7 @@ And Python's `pip` if you want to use Panzer instead:
 Please read the documentation for pandocomatic to understand the full plethora of options. A sample file is included above. You need to put this pandocomatic configuration file `pandocomatic.yaml` in the pandoc DATA-DIR, which is `$HOME/.pandoc` by default. If you want to use Panzer, it uses a file called `styles.yaml` placed in `$HOME/.panzer`. I place my custom templates in `$HOME/.pandoc/templates` and my bibliography and style files in `$HOME/.pandoc`
 
 ## scrivomatic wrapper script ##
-I have also made a small tool, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), which can be run from anywhere and ensures the search path and environment are correct for pandocomatic, panzer and Pandoc. By default, Scrivener cannot run Pandocomatic or panzer as it uses a restrictive environment. I use `scrivomatic` to enable Scrivener to trigger the tools properly. Save `scrivomatic` to ~/Downloads, then move it to a directory on your path. 
+I have also made a small tool, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), which can be run from anywhere and ensures the search path and environment are correct for pandocomatic, panzer and Pandoc. Scrivomatic automatically adds paths for `brew` and `MacTeX`, and if you've used [rbenv](https://github.com/rbenv/rbenv) or [anaconda](https://www.continuum.io/anaconda-overview) to install pandocomatic or panzer it adds these too. Save `scrivomatic` to ~/Downloads, then move it to a directory on your path. 
 
 ```shell
 mkdir -p $HOME/bin
@@ -77,11 +77,11 @@ mv $HOME/Downloads/scrivomatic $HOME/bin
 chmod 755 $HOME/bin/scrivomatic
 ```
 
-To run scrivomatic from Scrivener (with a `-v` verbose log put on your desktop, make sure you replace YOURUSERNAME with your macOS user name):
+To run scrivomatic from Scrivener (with a `-v` verbose log placed in the compile directory):
 
 ```
 path: /Users/YOURUSERNAME/bin/scrivomatic
-Arguments: -i "<$inputfile>" -o "<$outputname>.docx" -v >> /Users/YOURUSERNAME/Desktop/scrivomatic.log 2>&1 
+Arguments: -i "<$inputfile>" -o "<$outputname>.docx" -v >> scrivomatic.log 2>&1 
 ```
 
 Then use your magic sauce to trigger this on a Scrivener compile automagically.
