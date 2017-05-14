@@ -28,13 +28,13 @@ end
 class Scrivomatic
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.4'
-	OPTIONS = Struct.new(:input,:output,:to,:command,:envpath,:verbose)
+	VER = '1.0.5'
+	OPT = Struct.new(:input,:output,:to,:command,:envpath,:verbose)
 	DEFENVPATH = '/usr/local/bin:' + ENV['HOME'] + '/bin'
 	
 	################################constructor
 	def initialize # set up class
-		@options = OPTIONS.new(nil,nil,nil,"pandocomatic",DEFENVPATH,false)
+		@options = OPT.new(nil,nil,nil,"pandocomatic",DEFENVPATH,false)
 		@version = VER
 		@cmd = ''
 		@runLog = ''
@@ -48,17 +48,20 @@ class Scrivomatic
 		if not @options[:output].nil?
 			@cmd += ' --output "' + @options[:output] + '"'
 		end
-		if !@options[:to].nil? && @options[:command] != 'pandocomatic'
+		if not @options[:to].nil?
 			@cmd += ' --to "' + @options[:to] + '"'
 		end
+		if @options[:verbose] == true && @options[:command] == 'pandocomatic'
+			@cmd += ' --debug'
+		elsif @options[:verbose] == true && @options[:command] == 'panzer'
+			@cmd += " ---debug \"panzerlogs\""
+		end
 		if not @options[:input].nil?
-			@cmd = toolPath + ' "' + @options[:input] + '"'
+			@cmd = toolPath + @cmd + ' "' + @options[:input] + '"'
 		end
 		
-		if CDEBUG && @options[:command] == 'panzer'
-			@cmd += " ---debug \"#{ENV['HOME']}/Desktop/panzerlog\""
-		elsif CDEBUG # we can pass a debug commad just to the command
-			@cmd += '  DEBUG'
+		if CDEBUG
+			@cmd += " DEBUG"
 		end
 		
 		@runLog+= ":: Will try to run #{@cmd} \n"
@@ -69,7 +72,7 @@ class Scrivomatic
 					@runLog+= "::: " + line.chomp + "\n"
 				end
 				exit_status = wait_thr.value
-				@runLog+= "::: exit status: " + exit_status.to_s
+				@runLog+= ":: exit status: " + exit_status.to_s
 				if not exit_status.success?
 					abort "!!!---scrivomatic::runCommand() FAILED TO RUN #{cmd}!!!"
 				end
@@ -199,9 +202,7 @@ class Scrivomatic
 
 end #--------------- end Scrivomatic
 
-if SDEBUG
-	byebug
-end
+if SDEBUG; byebug; end
 
 scriv = Scrivomatic.new
 scriv.parseInputs(ARGV)
