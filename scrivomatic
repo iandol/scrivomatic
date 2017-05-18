@@ -5,6 +5,7 @@ Encoding.default_internal = Encoding::UTF_8
 
 require 'open3' # ruby standard library class to handle stderr and stdout
 require 'optparse' # ruby standard option parser
+require 'Shellwords' #escapes strings to run in the shell
 require 'pp' #pretty print
 
 if ARGV[-1] == 'DEBUG' # Enable remote debugger
@@ -92,11 +93,11 @@ class Scrivomatic
 			opts.banner += "Usage: scrivomatic --input FILE [additional options]"
 
 			opts.on("-i", "--input FILE", "Input file?") do |v|
-				@options[:input] = v
+				@options[:input] = v.shellescape
 			end
 
 			opts.on("-o", "--output [file]", "Output file? Can be ignored for pandocomatic.") do |v|
-				@options[:output] = v
+				@options[:output] = v.shellescape
 			end
 			
 			opts.on("-t", "--to [format]", "Pandoc Format? Can be ignored for pandocomatic.") do |v|
@@ -108,7 +109,7 @@ class Scrivomatic
 			end
 
 			opts.on("-p", "--path [dirpath]", "Path to Search for Commands?") do |v|
-				@options[:envpath] = v + ":" + @options[:envpath]
+				@options[:envpath] = v.shellescape + ":" + @options[:envpath]
 			end
 
 			opts.on("-v", "--[no-]verbose", "Verbose output?") do |v|
