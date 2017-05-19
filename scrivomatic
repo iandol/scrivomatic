@@ -11,9 +11,11 @@ require 'pp' #pretty print
 if ARGV[-1] == 'DEBUG' # Enable remote debugger
 	require 'byebug/core'
 	require 'byebug'
+	PORT = 8989 
+	STDOUT.puts "\n!!!---DEBUG Server started on localhost:#{PORT} @ " + Time.now.to_s
+	STDOUT.puts " "
 	Byebug.wait_connection = true
-	Byebug.start_server('localhost', 1048)
-	STDOUT.puts "\n!!!---DEBUG Server started on localhost:1048 @ " + Time.now.to_s
+	Byebug.start_server('127.0.0.1', PORT)
 	SDEBUG = true # scrivomatic debug
 	CDEBUG = false # tool debug
 	ARGV.pop
@@ -65,7 +67,7 @@ class Scrivomatic
 			@cmd += " DEBUG"
 		end
 		
-		@runLog+= ":: Will try to run #{@cmd} \n"
+		@runLog+= ":: Will try to run [[ #{@cmd} ]]\n"
 		
 		if File.exist?(toolPath)
 			Open3.popen2e(@cmd) do |stdin, oe, wait_thr|
@@ -180,12 +182,12 @@ class Scrivomatic
 	end
 	
 	################################print summary report
-	def printReport
+	def printInfo
 		if @options[:verbose] == true
 			puts "\n=== Scrivomatic V" + @version + " Report @ " + Time.now.to_s + " ==="
 			puts 'Working directory: ' + `pwd`
 			puts '====== Input Options: ======'
-			pp self.options
+			pp @options
 			puts '====== Final ENV PATH: ======'
 			puts ENV['PATH']
 			puts '====== TOOL PATHS: ======'
@@ -196,6 +198,15 @@ class Scrivomatic
 			puts `echo "---python: $(which python)" `
 			puts `echo "---rbenv: $(which rbenv)"`
 			puts `echo "---xelatex: $(which xelatex)"`
+			puts " "
+			puts "running #{@options[:command]}..."
+			puts " "
+		end
+	end
+	
+	################################print summary report
+	def printReport
+		if @options[:verbose] == true && @runLog != ''
 			puts '====== COMMAND OUTPUT: ======'
 			puts @runLog
 		end
@@ -208,5 +219,6 @@ if SDEBUG; byebug; end
 scriv = Scrivomatic.new
 scriv.parseInputs(ARGV)
 scriv.makePath()
+scriv.printInfo()
 scriv.runCommand()
 scriv.printReport()
