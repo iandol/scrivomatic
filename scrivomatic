@@ -12,8 +12,7 @@ if ARGV[-1] == 'DEBUG' # Enable remote debugger
 	require 'byebug/core'
 	require 'byebug'
 	PORT = 8989 
-	STDOUT.puts "\n!!!---DEBUG Server started on localhost:#{PORT} @ " + Time.now.to_s
-	STDOUT.puts " "
+	STDOUT.puts "\n!!!---DEBUG Server started on localhost:#{PORT} @ " + Time.now.to_s + "\n\n"
 	Byebug.wait_connection = true
 	Byebug.start_server('127.0.0.1', PORT)
 	SDEBUG = true # scrivomatic debug
@@ -184,7 +183,8 @@ class Scrivomatic
 	################################print summary report
 	def printInfo
 		if @options[:verbose] == true
-			puts "\n=== Scrivomatic V" + @version + " Report @ " + Time.now.to_s + " ==="
+      puts "\n=== ##################################################### ==="
+			puts "=== Scrivomatic V" + @version + " Report @ " + Time.now.to_s + " ==="
 			puts 'Working directory: ' + `pwd`
 			puts '====== Input Options: ======'
 			pp @options
