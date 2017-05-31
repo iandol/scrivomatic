@@ -5,7 +5,7 @@ Encoding.default_internal = Encoding::UTF_8
 
 require 'open3' # ruby standard library class to handle stderr and stdout
 require 'optparse' # ruby standard option parser
-require 'Shellwords' #escapes strings to run in the shell
+require 'shellwords' #escapes strings to run in the shell
 require 'pp' #pretty print
 
 if ARGV[-1] == 'DEBUG' # Enable remote debugger
@@ -18,7 +18,7 @@ if ARGV[-1] == 'DEBUG' # Enable remote debugger
 	SDEBUG = true # scrivomatic debug
 	CDEBUG = false # tool debug
 	ARGV.pop
-elsif ARGV[-1] == 'CDEBUG'
+elsif ARGV[-1] == 'CDEBUG' # we pass through the debug trigger to the tools
 	SDEBUG = false # scrivomatic debug
 	CDEBUG = true # tool debug
 	ARGV.pop
@@ -30,7 +30,7 @@ end
 class Scrivomatic
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.5'
+	VER = '1.0.6'
 	OPT = Struct.new(:input,:output,:to,:command,:envpath,:verbose)
 	DEFENVPATH = '/usr/local/bin:' + ENV['HOME'] + '/bin'
 	
@@ -63,7 +63,7 @@ class Scrivomatic
 		end
 		
 		if CDEBUG
-			@cmd += " DEBUG"
+			@cmd += " DEBUG" #pass through DEBUG as last parameter
 		end
 		
 		@runLog+= ":: Will try to run [[ #{@cmd} ]]\n"
@@ -180,7 +180,7 @@ class Scrivomatic
 		@version = verin
 	end
 	
-	################################print summary report
+	################################print initial report
 	def printInfo
 		if @options[:verbose] == true
       puts "\n=== ##################################################### ==="

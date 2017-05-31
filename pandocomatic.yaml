@@ -5,25 +5,25 @@ templates:
     pandoc:
       from: markdown
       to: latex
-      latex-engine: "xelatex"
+      latex-engine: xelatex
       standalone: true
       filter: pandoc-citeproc
-      bibliography: /Users/MYNAME/.pandoc/core.bib
-      csl: /Users/MYNAME/.pandoc/apa.csl
+      bibliography: "/Users/MYNAME/.pandoc/core.bib"
+      csl: "/Users/MYNAME/.pandoc/apa.csl"
       metadata: 
         - "mainfont='Hoefler Text'"  
         - "sansfont='Avenir Next'"  
         - "monofont='Menlo'"  
-        - "CJKmainfont='Arial Unicode MS'"
+        - "CJKmainfont='PingFang SC'"
         - "lang='en-GB'"  
         - "papersize='A4'"  
         - "documentclass='article'"
-        - "fontsize='14pt'"
+        - "fontsize='12pt'"
         - "linestretch='1.75'"
-        - "geometry='margin=4cm'"
+        - "geometry='margin=3cm'"
         - "notes-after-punctuation=false"  
         - "link-citations=true"  
-      template: /Users/MYNAME/.pandoc/templates/custom.latex
+      template: "/Users/MYNAME/.pandoc/templates/custom.latex"
       dpi: 300
       toc: true
       toc-depth: 4
@@ -37,11 +37,11 @@ templates:
       to: docx
       standalone: true
       filter: pandoc-citeproc
-      bibliography: /Users/MYNAME/.pandoc/core.bib
-      csl: /Users/MYNAME/.pandoc/apa.csl
-      reference-docx: /Users/MYNAME/.pandoc/templates/custom.docx
+      bibliography: "/Users/MYNAME/.pandoc/core.bib"
+      csl: "/Users/MYNAME/.pandoc/apa.csl"
+      reference-docx: "/Users/MYNAME/.pandoc/templates/custom.docx"
       dpi: 300
-      toc: false
+      toc: true
       toc-depth: 4
       base-header-level: 1
       metadata: 
@@ -56,9 +56,9 @@ templates:
       to: odt
       standalone: true
       filter: pandoc-citeproc
-      bibliography: /Users/MYNAME/.pandoc/core.bib
-      csl: /Users/MYNAME/.pandoc/apa.csl
-      reference-odt: /Users/MYNAME/.pandoc/templates/custom.odt
+      bibliography: "/Users/MYNAME/.pandoc/core.bib"
+      csl: "/Users/MYNAME/.pandoc/apa.csl"
+      reference-odt: "/Users/MYNAME/.pandoc/templates/custom.odt"
       dpi: 300
       toc: false
       toc-depth: 4
@@ -77,9 +77,9 @@ templates:
       number-sections: true
       section-divs: true
       filter: pandoc-citeproc
-      bibliography: /Users/MYNAME/.pandoc/core.bib
-      csl: /Users/MYNAME/.pandoc/apa.csl
-      template: /Users/MYNAME/.pandoc/templates/custom.html
+      bibliography: "/Users/MYNAME/.pandoc/core.bib"
+      csl: "/Users/MYNAME/.pandoc/apa.csl"
+      template: "/Users/MYNAME/.pandoc/templates/custom.html"
       css: "/Users/MYNAME/.pandoc/templates/custom.css"
       self-contained: true
       dpi: 300
@@ -97,7 +97,7 @@ templates:
       from: markdown
       to: docx
       standalone: true
-      reference-docx: /Users/MYNAME/.pandoc/templates/custom.docx
+      reference-docx: "/Users/MYNAME/.pandoc/templates/custom.docx"
       toc: false
       base-header-level: 1
     postprocessors: []
@@ -108,7 +108,7 @@ templates:
       from: markdown
       to: odt
       standalone: true
-      reference-docx: /Users/MYNAME/.pandoc/templates/custom.odt
+      reference-docx: "/Users/MYNAME/.pandoc/templates/custom.odt"
       toc: false
       base-header-level: 1
     postprocessors: []
@@ -131,14 +131,13 @@ templates:
     pandoc:
       from: markdown
       to: latex
-      latex-engine: "xelatex"
       standalone: true
       toc: true
       metadata: 
         - "lang='en-GB'"  
         - "papersize='A4'"  
         - "documentclass='article'"
-        - "fontsize='16pt'"
+        - "fontsize='12pt'"
         - "linestretch='1.75'"
     postprocessors: []
 
