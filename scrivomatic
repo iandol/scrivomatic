@@ -142,25 +142,25 @@ class Scrivomatic
 		# did user install anaconda python?
 		pathtest = ENV['HOME'] + "/anaconda/bin"
 		if File.directory?(pathtest) 
-			@options[:envpath] += ":" + pathtest
+			@options[:envpath] = pathtest + ":" + @options[:envpath]
 		end
 		
 		# did user install anaconda3 python?
 		pathtest = ENV['HOME'] + "/anaconda3/bin"
 		if File.directory?(pathtest) 
-			@options[:envpath] += ":" + pathtest
-		end
-		
-		# did user install rebenv?
-		pathtest = ENV['HOME'] + "/.rbenv/shims"
-		if File.directory?(pathtest) 
-			@options[:envpath] += ":" + pathtest
+			@options[:envpath] = pathtest + ":" + @options[:envpath]
 		end
 		
 		# did user install MacTeX?
 		pathtest = "/Library/TeX/texbin"
 		if File.directory?(pathtest) 
-			@options[:envpath] += ":" + pathtest
+			@options[:envpath] = pathtest + ":" + @options[:envpath]
+		end
+
+		# did user install rebenv?
+		pathtest = ENV['HOME'] + "/.rbenv/shims"
+		if File.directory?(pathtest) 
+			@options[:envpath] = pathtest + ":" + @options[:envpath]
 		end
 		
 		if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
@@ -191,8 +191,8 @@ class Scrivomatic
 			puts '====== Final ENV PATH: ======'
 			puts ENV['PATH']
 			puts '====== TOOL PATHS: ======'
-			puts `echo "---pandoc: $(which pandoc)" `
-			puts `echo "---pandocomatic: $(which pandocomatic)" `
+			puts `echo "---pandoc: $(which pandoc) | Ver: $(pandoc -v | head -n 1)"`
+			puts `echo "---pandocomatic: $(which pandocomatic) | Ver: $(pandocomatic -v | head -n 1)"`
 			puts `echo "---panzer: $(which panzer)" `
 			puts `echo "---ruby: $(which ruby)" `.chomp + " | VERSION: #{RUBY_VERSION}"
 			puts `echo "---python: $(which python)" `
