@@ -22,7 +22,7 @@ pandocomatic_:
   use-template:
     - paper-with-refs-html
     - paper-with-refs-docx
----
+...
 
 ```
 
@@ -52,19 +52,19 @@ Apart from **Scrivener**, you need to install **Pandoc** and either **Pandocomat
 
 For Pandoc on macOS you can [install manually](http://pandoc.org/installing.html), but it is generally better to use [Homebrew](https://brew.sh/) to install Pandoc as `brew` can keep everything up to date:
 
-```shell
+```bash
 > brew install pandoc pandoc-citeproc pandoc-crossref
 ```
 
 You use Ruby's `gem` command (built in to macOS) to install Pandocomatic (putting the binary in `/usr/local/bin`):
 
-```shell
+```bash
 > sudo gem install pandocomatic -u /usr/local/bin
 ```
 
 And Python's `pip` (also built in to macOS) if you want to use Panzer instead:
 
-```shell
+```bash
 > pip install git+https://github.com/msprev/panzer
 ```
 
@@ -76,17 +76,31 @@ I place my custom templates in `$HOME/.pandoc/templates` and my bibliography and
 ## scrivomatic wrapper script ##
 I have also made a small tool, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), which can be run from anywhere and ensures the search path and environment are correct for pandocomatic, panzer, LaTeX and Pandoc. Scrivomatic automatically adds the paths for `brew` and `MacTeX` tools, and if you've used [rbenv](https://github.com/rbenv/rbenv) or [anaconda](https://www.continuum.io/anaconda-overview) to install pandocomatic or panzer it adds these too. Save `scrivomatic`, then move it to a directory on your path. 
 
-```shell
+```bash
 mkdir -p $HOME/bin
 mv $HOME/Downloads/scrivomatic $HOME/bin
 chmod 755 $HOME/bin/scrivomatic
 ```
 
-To run scrivomatic from Scrivener (with a `-v` verbose log placed in the compile directory):
+To run scrivomatic from the command line:
 
 ```
+Usage: scrivomatic --input FILE [additional options]
+    -i, --input FILE            Input file?
+    -o, --output [file]         Output file? Can be ignored for pandocomatic.
+    -t, --to [format]           Pandoc Format? Can be ignored for pandocomatic.
+    -c, --command [command]     Command to use? Default is pandocomatic
+    -p, --path [dirpath]        Path to Search for Commands?
+    -b, --build                 If LaTeX, try to run latexmk
+    -v, --[no-]verbose          Verbose output?
+    -h, --help                  Prints this help!
+```
+
+To run scrivomatic from Scrivener (with a `-v` verbose log placed in the compile directory):
+
+```bash
 path: /Users/YOURUSERNAME/bin/scrivomatic
-Arguments: -i "<$inputfile>" -o "<$outputname>.docx" -v >> scrivomatic.log 2>&1 
+Arguments: --input "<$inputfile>" -v >> scrivomatic.log 2>&1
 ```
 
 Then use your magic sauce to trigger this on a Scrivener compile automagically.  

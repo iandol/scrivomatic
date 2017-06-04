@@ -30,7 +30,7 @@ end
 class Scrivomatic
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.6'
+	VER = '1.0.7'
 	OPT = Struct.new(:input,:output,:to,:command,:envpath,:build,:verbose)
 	DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 	
@@ -76,16 +76,12 @@ class Scrivomatic
 				exit_status = wait_thr.value
 				@runLog+= ":: exit status: " + exit_status.to_s
 				if not exit_status.success?
-					abort "!!!---scrivomatic::runCommand() FAILED TO RUN #{cmd}!!!"
+					abort "!!!---scrivomatic::runCommand() popen2e FAILED TO RUN #{cmd}!!!"
 				end
 			end
 		else
 			@runLog+= "Tool doesn't exist!!!"
 			abort "!!!---scrivomatic::runCommand() Couldn't find #{toolPath} to run, please supply a proper path!"
-		end
-
-		if @options[:build]
-			`latexmk -time -xelatex -f *.tex; latexmk -c`
 		end
 
 	end #end runTool()
@@ -118,7 +114,7 @@ class Scrivomatic
 				@options[:envpath] = v.shellescape + ":" + @options[:envpath]
 			end
 
-			opts.on("-b", "--build", "If LaTeX, do we run latexmk?") do |v|
+			opts.on("-b", "--build", "If LaTeX output, try to run latexmk") do |v|
 				@options[:build] = v
 			end
 
@@ -188,22 +184,23 @@ class Scrivomatic
 	def version=(verin)
 		@version = verin
 	end
-	
+
 	################################print initial report
 	def printInfo
 		if @options[:verbose] == true
       puts "\n=== ##################################################### ==="
 			puts "=== Scrivomatic V" + @version + " Report @ " + Time.now.to_s + " ==="
+			puts "Running under Ruby #{RUBY_VERSION}"
 			puts 'Working directory: ' + `pwd`
 			puts '====== Input Options: ======'
 			pp @options
 			puts '====== Final ENV PATH: ======'
 			puts ENV['PATH']
 			puts '====== TOOL PATHS: ======'
-			puts `echo "---pandoc: $(which pandoc) | Ver: $(pandoc -v | head -n 1)"`
-			puts `echo "---pandocomatic: $(which pandocomatic) | Ver: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
+			puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
+			puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
 			puts `echo "---panzer: $(which panzer)" `
-			puts `echo "---ruby: $(which ruby)" `.chomp + " | VERSION: #{RUBY_VERSION}"
+			puts `echo "---ruby: $(which ruby) | V: $(ruby -v)" `
 			puts `echo "---python: $(which python)" `
 			puts `echo "---rbenv: $(which rbenv)"`
 			puts `echo "---xelatex: $(which xelatex)"`
@@ -215,10 +212,49 @@ class Scrivomatic
 	
 	################################print summary report
 	def printReport
-		if @options[:verbose] == true && @runLog != ''
+		if @options[:verbose] && @runLog != ''
 			puts '====== COMMAND OUTPUT: ======'
 			puts @runLog
 		end
+	end
+
+	################################check if we want to run latexmk
+	def postBuild
+		if options.build
+			texPath = options.input.gsub(/\.md$/,".tex")
+			if File.exist?(texPath)
+				xLog = '' #simple log
+				xcmd = "latexmk -pv -time -xelatex -f #{texPath}"
+				puts "\n Building LaTeX file..."
+				Open3.popen2e(xcmd) do |stdin, oe, wait_thr|
+					while line = oe.gets
+						if line.match?(/^(Latexmk:|Run|LaTeX|This is|===|Accumulated)/)
+							xLog+= "::: " + line.chomp + "\n"
+						end
+					end
+					exit_status = wait_thr.value
+					xLog+= ":: exit status: " + exit_status.to_s
+					if not exit_status.success?
+						abort "!!!---scrivomatic::postBuild() popen2e FAILED TO RUN #{xcmd}!!!"
+					end
+				end
+				`latexmk -c -quiet`
+				if @options[:verbose]
+					puts "\n====== RUN LATEXMK on #{texPath}: ======"
+					puts xLog
+				end
+			end
+		end
+	end
+
+
+	################################run all options
+	def go
+		self.makePath()
+		self.printInfo()
+		self.runCommand()
+		self.printReport()
+		self.postBuild()
 	end
 
 end #--------------- end Scrivomatic
@@ -227,7 +263,4 @@ if SDEBUG; byebug; end
 
 scriv = Scrivomatic.new
 scriv.parseInputs(ARGV)
-scriv.makePath()
-scriv.printInfo()
-scriv.runCommand()
-scriv.printReport()
+scriv.go()
