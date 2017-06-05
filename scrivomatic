@@ -1,266 +1,253 @@
 #!/usr/bin/env ruby
 #encoding: utf-8
+
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 require 'open3' # ruby standard library class to handle stderr and stdout
 require 'optparse' # ruby standard option parser
-require 'shellwords' #escapes strings to run in the shell
-require 'pp' #pretty print
+require 'shellwords' # escapes strings to run in the shell
+require 'pp' # pretty print
 
 if ARGV[-1] == 'DEBUG' # Enable remote debugger
-	require 'byebug/core'
-	require 'byebug'
-	PORT = 8989 
-	STDOUT.puts "\n!!!---DEBUG Server started on localhost:#{PORT} @ " + Time.now.to_s + "\n\n"
-	Byebug.wait_connection = true
-	Byebug.start_server('127.0.0.1', PORT)
-	SDEBUG = true # scrivomatic debug
-	CDEBUG = false # tool debug
-	ARGV.pop
+  require 'byebug/core'
+  require 'byebug'
+  PORT = 8989
+  STDOUT.puts "\n!!!---DEBUG Server started on localhost:#{PORT} @ " + Time.now.to_s + "\n\n"
+  Byebug.wait_connection = true
+  Byebug.start_server('127.0.0.1', PORT)
+  SDEBUG = true # scrivomatic debug
+  CDEBUG = false # tool debug
+  ARGV.pop
 elsif ARGV[-1] == 'CDEBUG' # we pass through the debug trigger to the tools
-	SDEBUG = false # scrivomatic debug
-	CDEBUG = true # tool debug
-	ARGV.pop
+  SDEBUG = false # scrivomatic debug
+  CDEBUG = true # tool debug
+  ARGV.pop
 else
-	SDEBUG = false # scrivomatic debug
-	CDEBUG = false # tool debug
+  SDEBUG = false # scrivomatic debug
+  CDEBUG = false # tool debug
 end
 
 class Scrivomatic
-	attr_accessor :options
-	attr_reader :version, :cmd, :runLog
-	VER = '1.0.7'
-	OPT = Struct.new(:input,:output,:to,:command,:envpath,:build,:verbose)
-	DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
-	
-	################################constructor
-	def initialize # set up class
-		@options = OPT.new(nil,nil,nil,"pandocomatic",DEFENVPATH,false,false)
-		@version = VER
-		@cmd = ''
-		@runLog = ''
-	end
-	
-	################################run command
-	def runCommand()
-		
-		toolPath = `which #{@options[:command]}`.chomp
-		
-		if not @options[:output].nil?
-			@cmd += ' --output "' + @options[:output] + '"'
-		end
-		if not @options[:to].nil?
-			@cmd += ' --to "' + @options[:to] + '"'
-		end
-		if @options[:verbose] == true && @options[:command] == 'pandocomatic'
-			@cmd += ' --debug'
-		elsif @options[:verbose] == true && @options[:command] == 'panzer'
-			@cmd += " ---debug \"panzerlogs\""
-		end
-		if not @options[:input].nil?
-			@cmd = toolPath + @cmd + ' "' + @options[:input] + '"'
-		end
-		
-		if CDEBUG
-			@cmd += " DEBUG" #pass through DEBUG as last parameter
-		end
-		
-		@runLog+= ":: Will try to run [[ #{@cmd} ]]\n"
-		
-		if File.exist?(toolPath)
-			Open3.popen2e(@cmd) do |stdin, oe, wait_thr|
-				while line = oe.gets
-					@runLog+= "::: " + line.chomp + "\n"
-				end
-				exit_status = wait_thr.value
-				@runLog+= ":: exit status: " + exit_status.to_s
-				if not exit_status.success?
-					abort "!!!---scrivomatic::runCommand() popen2e FAILED TO RUN #{cmd}!!!"
-				end
-			end
-		else
-			@runLog+= "Tool doesn't exist!!!"
-			abort "!!!---scrivomatic::runCommand() Couldn't find #{toolPath} to run, please supply a proper path!"
-		end
+  attr_accessor :options
+  attr_reader :version, :cmd, :runLog
+  VER = '1.0.7'.freeze
+  OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose)
+  DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
-	end #end runTool()
-	
-	################################parse inputs
-	def parseInputs(arg)
-		optparse = OptionParser.new do|opts|
-			opts.banner = "Scrivomatic V" + @version + "\n"
-			opts.banner += "=======================\n"
-			opts.banner += "Scrivomatic is a wrapper script around pandocomatic or panzer, that sets up the environment path, enforces UTF8 encoding and other settings so they can be run from any other process.\n\n"
-			opts.banner += "Usage: scrivomatic --input FILE [additional options]"
+  # ###############################constructor
+  def initialize # set up class
+    @options = OPT.new(nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false)
+    @version = VER
+    @cmd = ''
+    @runLog = ''
+  end
 
-			opts.on("-i", "--input FILE", "Input file?") do |v|
-				@options[:input] = v.shellescape
-			end
+  # ###############################run command
+  def runCommand
+    toolPath = `which #{@options[:command]}`.chomp
 
-			opts.on("-o", "--output [file]", "Output file? Can be ignored for pandocomatic.") do |v|
-				@options[:output] = v.shellescape
-			end
-			
-			opts.on("-t", "--to [format]", "Pandoc Format? Can be ignored for pandocomatic.") do |v|
-				@options[:to] = v
-			end
-			
-			opts.on("-c", "--command [command]", "Command to use? Default is pandocomatic") do |v|
-				@options[:command] = v
-			end
+    unless @options[:output].nil?
+      @cmd += ' --output "' + @options[:output] + '"'
+    end
+    @cmd += ' --to "' + @options[:to] + '"' unless @options[:to].nil?
+    if @options[:verbose] == true && @options[:command] == 'pandocomatic'
+      @cmd += ' --debug'
+    elsif @options[:verbose] == true && @options[:command] == 'panzer'
+      @cmd += ' ---debug "panzerlogs"'
+    end
+    unless @options[:input].nil?
+      @cmd = toolPath + @cmd + ' "' + @options[:input] + '"'
+    end
 
-			opts.on("-p", "--path [dirpath]", "Path to Search for Commands?") do |v|
-				@options[:envpath] = v.shellescape + ":" + @options[:envpath]
-			end
+    if CDEBUG
+      @cmd += ' DEBUG' # pass through DEBUG as last parameter
+    end
 
-			opts.on("-b", "--build", "If LaTeX output, try to run latexmk") do |v|
-				@options[:build] = v
-			end
+    @runLog += ":: Will try to run [[ #{@cmd} ]]\n"
 
-			opts.on("-v", "--[no-]verbose", "Verbose output?") do |v|
-				@options[:verbose] = v
-			end
+    if File.exist?(toolPath)
+      Open3.popen2e(@cmd) do |_stdin, oe, wait_thr|
+        while line = oe.gets
+          @runLog += '::: ' + line.chomp + "\n"
+        end
+        exit_status = wait_thr.value
+        @runLog += ':: exit status: ' + exit_status.to_s
+        unless exit_status.success?
+          abort "!!!---scrivomatic::runCommand() popen2e FAILED TO RUN #{cmd}!!!"
+        end
+      end
+    else
+      @runLog += "Tool doesn't exist!!!"
+      abort "!!!---scrivomatic::runCommand() Couldn't find #{toolPath} to run, please supply a proper path!"
+    end
+  end # end runTool()
 
-			opts.on("-h", "--help", "Prints this help!") do
-				puts optparse
-				exit(0)
-			end
-			
-		end # end OptionParser
-		
-		optparse.parse!
-		if @options[:input].nil?
-			if ARGV.nil?
-				puts optparse
-				abort "\n\n!!!---scrivomatic::parseInputs requires a valid file: --input FILE!"
-			else
-				@options[:input] = ARGV[0] #we assume it was passed without -i flag
-			end
-		end
-		
-	end # end parseInputs
-	
-	################################make env path
-	def makePath
+  # ###############################parse inputs
+  def parseInputs(_arg)
+    optparse = OptionParser.new do |opts|
+      opts.banner = 'Scrivomatic V' + @version + "\n"
+      opts.banner += "=======================\n"
+      opts.banner += "Scrivomatic is a wrapper script around pandocomatic or panzer, that sets up the environment path, enforces UTF8 encoding and other settings so they can be run from any other process.\n\n"
+      opts.banner += 'Usage: scrivomatic --input FILE [additional options]'
 
-		# did user install MacTeX?
-		pathtest = "/Library/TeX/texbin"
-		if File.directory?(pathtest) 
-			@options[:envpath] = pathtest + ":" + @options[:envpath]
-		end
-		
-		# did user install anaconda python?
-		pathtest = ENV['HOME'] + "/anaconda/bin"
-		if File.directory?(pathtest) 
-			@options[:envpath] = pathtest + ":" + @options[:envpath]
-		end
-		
-		# did user install anaconda3 python?
-		pathtest = ENV['HOME'] + "/anaconda3/bin"
-		if File.directory?(pathtest) 
-			@options[:envpath] = pathtest + ":" + @options[:envpath]
-		end
+      opts.on('-i', '--input FILE', 'Input file?') do |v|
+        @options[:input] = v.shellescape
+      end
 
-		# did user install rebenv?
-		pathtest = ENV['HOME'] + "/.rbenv/shims"
-		if File.directory?(pathtest) 
-			@options[:envpath] = pathtest + ":" + @options[:envpath]
-		end
-		
-		if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
-			ENV['LANG'] = 'en_GB.UTF-8'
-		end
-		
-		@options[:envpath].gsub!(/(\/\/)/, '/')
-		@options[:envpath].gsub!(/(::)/, ':')
-		@options[:envpath].gsub!(/:$/, '') #remove final colon
-		
-		ENV['PATH'] = @options[:envpath] + ":" + ENV['PATH']
-		
-	end # end makePath()
-	
-	################################set version
-	def version=(verin)
-		@version = verin
-	end
+      opts.on('-o', '--output [file]', 'Output file? Can be ignored for pandocomatic.') do |v|
+        @options[:output] = v.shellescape
+      end
 
-	################################print initial report
-	def printInfo
-		if @options[:verbose] == true
+      opts.on('-t', '--to [format]', 'Pandoc Format? Can be ignored for pandocomatic.') do |v|
+        @options[:to] = v
+      end
+
+      opts.on('-c', '--command [command]', 'Command to use? Default is pandocomatic') do |v|
+        @options[:command] = v
+      end
+
+      opts.on('-p', '--path [dirpath]', 'Path to Search for Commands?') do |v|
+        @options[:envpath] = v.shellescape + ':' + @options[:envpath]
+      end
+
+      opts.on('-b', '--build', 'If LaTeX output, try to run latexmk') do |v|
+        @options[:build] = v
+      end
+
+      opts.on('-v', '--[no-]verbose', 'Verbose output?') do |v|
+        @options[:verbose] = v
+      end
+
+      opts.on('-h', '--help', 'Prints this help!') do
+        puts optparse
+        exit(0)
+      end
+    end # end OptionParser
+
+    optparse.parse!
+    if @options[:input].nil?
+      if ARGV.nil?
+        puts optparse
+        abort "\n\n!!!---scrivomatic::parseInputs requires a valid file: --input FILE!"
+      else
+        @options[:input] = ARGV[0] # we assume it was passed without -i flag
+      end
+    end
+  end # end parseInputs
+
+  # ###############################make env path
+  def makePath
+    # did user install MacTeX?
+    pathtest = '/Library/TeX/texbin'
+    if File.directory?(pathtest)
+      @options[:envpath] = pathtest + ':' + @options[:envpath]
+    end
+
+    # did user install anaconda python?
+    pathtest = ENV['HOME'] + '/anaconda/bin'
+    if File.directory?(pathtest)
+      @options[:envpath] = pathtest + ':' + @options[:envpath]
+    end
+
+    # did user install anaconda3 python?
+    pathtest = ENV['HOME'] + '/anaconda3/bin'
+    if File.directory?(pathtest)
+      @options[:envpath] = pathtest + ':' + @options[:envpath]
+    end
+
+    # did user install rebenv?
+    pathtest = ENV['HOME'] + '/.rbenv/shims'
+    if File.directory?(pathtest)
+      @options[:envpath] = pathtest + ':' + @options[:envpath]
+    end
+
+    ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
+
+    @options[:envpath].gsub!(/(\/\/)/, '/')
+    @options[:envpath].gsub!(/(::)/, ':')
+    @options[:envpath].gsub!(/:$/, '') # remove final colon
+
+    ENV['PATH'] = @options[:envpath] + ':' + ENV['PATH']
+  end # end makePath()
+
+  # ###############################set version
+  attr_writer :version
+
+  # ###############################print initial report
+  def printInfo
+    if @options[:verbose] == true
       puts "\n=== ##################################################### ==="
-			puts "=== Scrivomatic V" + @version + " Report @ " + Time.now.to_s + " ==="
-			puts "Running under Ruby #{RUBY_VERSION}"
-			puts 'Working directory: ' + `pwd`
-			puts '====== Input Options: ======'
-			pp @options
-			puts '====== Final ENV PATH: ======'
-			puts ENV['PATH']
-			puts '====== TOOL PATHS: ======'
-			puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
-			puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
-			puts `echo "---panzer: $(which panzer)" `
-			puts `echo "---ruby: $(which ruby) | V: $(ruby -v)" `
-			puts `echo "---python: $(which python)" `
-			puts `echo "---rbenv: $(which rbenv)"`
-			puts `echo "---xelatex: $(which xelatex)"`
-			puts " "
-			puts "running #{@options[:command]}..."
-			puts " "
-		end
-	end
-	
-	################################print summary report
-	def printReport
-		if @options[:verbose] && @runLog != ''
-			puts '====== COMMAND OUTPUT: ======'
-			puts @runLog
-		end
-	end
+      puts '=== Scrivomatic V' + @version + ' Report @ ' + Time.now.to_s + ' ==='
+      puts "Running under Ruby #{RUBY_VERSION}"
+      puts 'Working directory: ' + `pwd`
+      puts '====== Input Options: ======'
+      pp @options
+      puts '====== Final ENV PATH: ======'
+      puts ENV['PATH']
+      puts '====== TOOL PATHS: ======'
+      puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
+      puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
+      puts `echo "---panzer: $(which panzer)" `
+      puts `echo "---ruby: $(which ruby) | V: $(ruby -v)" `
+      puts `echo "---python: $(which python)" `
+      puts `echo "---rbenv: $(which rbenv)"`
+      puts `echo "---xelatex: $(which xelatex)"`
+      puts ' '
+      puts "running #{@options[:command]}..."
+      puts ' '
+    end
+  end
 
-	################################check if we want to run latexmk
-	def postBuild
-		if options.build
-			texPath = options.input.gsub(/\.md$/,".tex")
-			if File.exist?(texPath)
-				xLog = '' #simple log
-				xcmd = "latexmk -pv -time -xelatex -f #{texPath}"
-				puts "\n Building LaTeX file..."
-				Open3.popen2e(xcmd) do |stdin, oe, wait_thr|
-					while line = oe.gets
-						if line.match?(/^(Latexmk:|Run|LaTeX|This is|===|Accumulated)/)
-							xLog+= "::: " + line.chomp + "\n"
-						end
-					end
-					exit_status = wait_thr.value
-					xLog+= ":: exit status: " + exit_status.to_s
-					if not exit_status.success?
-						abort "!!!---scrivomatic::postBuild() popen2e FAILED TO RUN #{xcmd}!!!"
-					end
-				end
-				`latexmk -c -quiet`
-				if @options[:verbose]
-					puts "\n====== RUN LATEXMK on #{texPath}: ======"
-					puts xLog
-				end
-			end
-		end
-	end
+  # ###############################print summary report
+  def printReport
+    if @options[:verbose] && @runLog != ''
+      puts '====== COMMAND OUTPUT: ======'
+      puts @runLog
+    end
+  end
 
+  # ###############################check if we want to run latexmk
+  def postBuild
+    if options.build
+      texPath = options.input.gsub(/\.md$/, '.tex')
+      if File.exist?(texPath)
+        xLog = '' # simple log
+        xcmd = "latexmk -pv -time -xelatex -f #{texPath}"
+        puts "\n Building LaTeX file..."
+        Open3.popen2e(xcmd) do |_stdin, oe, wait_thr|
+          while line = oe.gets
+            if line.match?(/^(Latexmk:|Run|LaTeX|This is|===|Accumulated)/)
+              xLog += '::: ' + line.chomp + "\n"
+              end
+            end
+          exit_status = wait_thr.value
+          xLog += ':: exit status: ' + exit_status.to_s
+          unless exit_status.success?
+            abort "!!!---scrivomatic::postBuild() popen2e FAILED TO RUN #{xcmd}!!!"
+          end
+        end
+        `latexmk -c -quiet`
+        if @options[:verbose]
+          puts "\n====== RUN LATEXMK on #{texPath}: ======"
+          puts xLog
+        end
+      end
+    end
+  end
 
-	################################run all options
-	def go
-		self.makePath()
-		self.printInfo()
-		self.runCommand()
-		self.printReport()
-		self.postBuild()
-	end
-
+  # ###############################run all options
+  def go
+    makePath
+    printInfo
+    runCommand
+    printReport
+    postBuild
+  end
 end #--------------- end Scrivomatic
 
-if SDEBUG; byebug; end
+byebug if SDEBUG
 
 scriv = Scrivomatic.new
 scriv.parseInputs(ARGV)
-scriv.go()
+scriv.go
