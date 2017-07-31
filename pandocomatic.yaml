@@ -1,84 +1,73 @@
 templates:
 #######################################
+  refs:
+    setup: [] #runs a general script to rename files etc.
+    preprocessors: [] #runs on the markdown file
+    pandoc:
+      filter: 'pandoc-citeproc' #process citations
+      bibliography: "/Users/MYNAME/.pandoc/core.bib" #bibtex file
+      csl: "/Users/MYNAME/.pandoc/apa.csl" #CSL style file
+    metadata:
+      notes-after-punctuation: false
+      link-citations: true 
+    postprocessors: [] #runs on the output file (unless it is binary like docx)
+    cleanup: [] #general cleanup script
+#######################################
   paper-with-refs-latex:
-    preprocessors: []
+    extends: ['refs'] #we can inherit from other templates!
     pandoc:
       from: markdown
       to: latex
       latex-engine: xelatex
       standalone: true
-      filter: pandoc-citeproc
-      bibliography: "/Users/MYNAME/.pandoc/core.bib"
-      csl: "/Users/MYNAME/.pandoc/apa.csl"
-      metadata: 
-        - "mainfont='Hoefler Text'"  
-        - "sansfont='Avenir Next'"  
-        - "monofont='Menlo'"  
-        - "CJKmainfont='PingFang SC'"
-        - "lang='en-GB'"  
-        - "papersize='A4'"  
-        - "documentclass='article'"
-        - "fontsize='12pt'"
-        - "linestretch='1.75'"
-        - "geometry='margin=3cm'"
-        - "notes-after-punctuation=false"  
-        - "link-citations=true"  
       template: "/Users/MYNAME/.pandoc/templates/custom.latex"
       dpi: 300
       toc: true
       toc-depth: 4
       base-header-level: 1
-    postprocessors: []
+    metadata: 
+      mainfont: 'Hoefler Text'
+      sansfont: 'Avenir Next'
+      monofont: 'Menlo'
+      CJKmainfont: 'PingFang SC'
+      lang: 'en-GB'
+      papersize: 'A4'
+      documentclass: 'article'
+      fontsize: '12pt'
+      linestretch: '1.75'
+      geometry: 'margin=3cm'
 #######################################
   paper-with-refs-docx:
-    preprocessors: []
+    extends: ['refs'] #we can inherit from other templates!
     pandoc:
       from: markdown
       to: docx
       standalone: true
-      filter: pandoc-citeproc
-      bibliography: "/Users/MYNAME/.pandoc/core.bib"
-      csl: "/Users/MYNAME/.pandoc/apa.csl"
       reference-docx: "/Users/MYNAME/.pandoc/templates/custom.docx"
       dpi: 300
       toc: true
       toc-depth: 4
       base-header-level: 1
-      metadata: 
-        - "notes-after-punctuation=false"  
-        - "link-citations=true"
-    postprocessors: []
 #######################################
   paper-with-refs-odt:
-    preprocessors: []
+    extends: ['refs'] #we can inherit from other templates!
     pandoc:
       from: markdown
       to: odt
       standalone: true
-      filter: pandoc-citeproc
-      bibliography: "/Users/MYNAME/.pandoc/core.bib"
-      csl: "/Users/MYNAME/.pandoc/apa.csl"
       reference-odt: "/Users/MYNAME/.pandoc/templates/custom.odt"
       dpi: 300
       toc: false
       toc-depth: 4
       base-header-level: 1
-      metadata: 
-        - "notes-after-punctuation=false"  
-        - "link-citations=true"
-    postprocessors: []
 #######################################
-  paper-with-refs-html:
-    preprocessors: []
+  paper-no-refs-html:
     pandoc:
       from: markdown
       to: html5
       standalone: true
       number-sections: true
       section-divs: true
-      filter: pandoc-citeproc
-      bibliography: "/Users/MYNAME/.pandoc/core.bib"
-      csl: "/Users/MYNAME/.pandoc/apa.csl"
       template: "/Users/MYNAME/.pandoc/templates/custom.html"
       css: "/Users/MYNAME/.pandoc/templates/custom.css"
       self-contained: true
@@ -86,13 +75,8 @@ templates:
       toc: true
       toc-depth: 4
       base-header-level: 1
-      metadata: 
-        - "notes-after-punctuation=false"  
-        - "link-citations=true"
-    postprocessors: []
 #######################################
   paper-no-refs-docx:
-    preprocessors: []
     pandoc:
       from: markdown
       to: docx
@@ -100,21 +84,8 @@ templates:
       reference-docx: "/Users/MYNAME/.pandoc/templates/custom.docx"
       toc: false
       base-header-level: 1
-    postprocessors: []
-#######################################
-  paper-no-refs-odt:
-    preprocessors: []
-    pandoc:
-      from: markdown
-      to: odt
-      standalone: true
-      reference-docx: "/Users/MYNAME/.pandoc/templates/custom.odt"
-      toc: false
-      base-header-level: 1
-    postprocessors: []
 #######################################
   test:
-    preprocessors: []
     pandoc:
       from: markdown
       to: html5
@@ -124,20 +95,16 @@ templates:
       mathjax: true
       dpi: 300
       toc: false
-    postprocessors: []
 #######################################
   test-latex:
-    preprocessors: []
     pandoc:
       from: markdown
       to: latex
       standalone: true
       toc: true
-      metadata: 
-        - "lang='en-GB'"  
-        - "papersize='A4'"  
-        - "documentclass='article'"
-        - "fontsize='12pt'"
-        - "linestretch='1.75'"
-    postprocessors: []
-
+    metadata: 
+      lang: 'en-GB'  
+      papersize: 'A4' 
+      documentclass: 'article'
+      fontsize: '12pt'
+      linestretch: '1.75'

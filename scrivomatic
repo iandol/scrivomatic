@@ -31,7 +31,7 @@ end
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.7'.freeze
+  VER = '1.0.8'.freeze
   OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
@@ -48,7 +48,7 @@ class Scrivomatic
     toolPath = `which #{@options[:command]}`.chomp
 
     unless @options[:output].nil?
-      @cmd += ' --output "' + @options[:output] + '"'
+      @cmd += ' --output ' + @options[:output] + ' '
     end
     @cmd += ' --to "' + @options[:to] + '"' unless @options[:to].nil?
     if @options[:verbose] == true && @options[:command] == 'pandocomatic'
@@ -57,14 +57,14 @@ class Scrivomatic
       @cmd += ' ---debug "panzerlogs"'
     end
     unless @options[:input].nil?
-      @cmd = toolPath + @cmd + ' "' + @options[:input] + '"'
+      @cmd = toolPath + @cmd + ' ' + @options[:input] + ' '
     end
 
     if CDEBUG
       @cmd += ' DEBUG' # pass through DEBUG as last parameter
     end
 
-    @runLog += ":: Will try to run [[ #{@cmd} ]]\n"
+    @runLog += ":: Running: #{@cmd}\n"
 
     if File.exist?(toolPath)
       Open3.popen2e(@cmd) do |_stdin, oe, wait_thr|
