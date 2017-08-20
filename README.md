@@ -1,4 +1,4 @@
-# Scrivomatic: Scrivener & **_Pandoc_**omatic 
+# Scrivomatic: Scrivener & *Pandoc*[omatic] 
 
 ## Introduction 
 
@@ -6,11 +6,11 @@
 
 [Pandoc](http://pandoc.org/index.html) can then read your compiled document and convert it to **many** output formats. You can use customised templates for Word, LibreOffice, HTML, PDF, slideshows and many others. So, for example, you create a `custom.docx` where you specify your preferred styles/fonts/paragraph/page layouts in Word, and Pandoc can use this when building the DOCX from your Scrivener compile.  
 
-Because of its great power, Pandoc has many command line settings. We can simplify by using[Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) or [Panzer](https://github.com/msprev/panzer), which allow us to specify "templates". For each output format, the template specifies all the Pandoc options in a configuration file. These tools also allow you to run pre– and post–processors for more complex workflows (i.e. a post-processor could move a HTML file to a server automatically). To use the styles in Scrivener, you  specify the style you want for your document in the front–matter, and all the settings are activated and Pandoc is run without any other fussing!
+Because of its great power, Pandoc has many command line settings. We can simplify by using[Pandocomatic (automatic Pandoc 🤓)](https://heerdebeer.org/Software/markdown/pandocomatic/) or [Panzer](https://github.com/msprev/panzer), tools that configure Pandoc via "templates". For each output format, the template specifies all the options, variables and metadata in a configuration file. These tools also allow you to run pre– and post–processors for more complex workflows (i.e. a post-processor could move a HTML file to a web server automatically). To use these templates in Scrivener, you specify its name in the front–matter, and all the settings are activated when Pandoc is run without any other fussing!
 
 ## Requirements 
 
-Apart from **Scrivener**, you need to install **Pandoc** and either **Pandocomatic** or **Panzer**. This requires a minimal amount of typing into the macOS terminal. I prefer Pandocomatic as it is a bit more flexible in terms of its output options.
+Apart from **Scrivener**, you need to install **Pandoc** and either **Pandocomatic** or **Panzer**. This requires a minimal amount of typing into the macOS terminal. I prefer Pandocomatic as it is a more flexible in terms of its [multi]output options.
 
 For Pandoc on macOS you can [install manually](http://pandoc.org/installing.html), but it is generally better to use [Homebrew](https://brew.sh/) to install Pandoc as `brew` can keep everything up to date. So follow the [instructions to install Homebrew](https://brew.sh/) first, then:
 
@@ -18,7 +18,7 @@ For Pandoc on macOS you can [install manually](http://pandoc.org/installing.html
 > brew install pandoc pandoc-citeproc pandoc-crossref
 ```
 
-This should get you a working and up-to-date Pandoc. You should run the command `brew update` every so often to ensure these tools are *kept* up-to-date.
+This should get you a working Pandoc. You should run the command `brew update` every so often to ensure these tools are *kept* up-to-date.
 
 You use Ruby's `gem` command (built in to macOS) to install Pandocomatic (putting the binary in `/usr/local/bin`):
 
@@ -26,7 +26,7 @@ You use Ruby's `gem` command (built in to macOS) to install Pandocomatic (puttin
 > sudo gem install pandocomatic -u /usr/local/bin
 ```
 
-If you prefer to use Panzer, Python's `pip` (also built in to macOS) will install it for you like so:
+You run `sudo gem update` every so often to keep pandocomatic up-to-date. If you prefer to use Panzer, Python's `pip` (also built in to macOS) will install it for you like so:
 
 ```bash
 > pip install git+https://github.com/msprev/panzer
@@ -34,7 +34,7 @@ If you prefer to use Panzer, Python's `pip` (also built in to macOS) will instal
 
 ## Configuration 
 
-The most important folder for this workflow is `$HOME/.pandoc` — this is the official pandoc DATA-DIR, and you should organise your templates, filters and other files there. It is hidden by default, so you need to know [how to unhide it first](https://www.google.com/search?q=unhide+folder+mac). [You can see my working .pandoc folder here](https://github.com/iandol/dotfiles/tree/master/pandoc). I've included a more simple sample `pandocomatic.yaml` file above. This won't work without some modification but it does give you an idea of how this configuration works. You need to put the pandocomatic configuration file in the pandoc DATA-DIR. If you want to use Panzer, it uses a file called `styles.yaml` placed in `$HOME/.panzer`.  
+The most important folder for this workflow is `$HOME/.pandoc` — this is the official pandoc DATA-DIR, and you should organise your templates, filters and other files there. It is hidden by default, so you need to know [how to unhide it first](https://www.google.com/search?q=unhide+folder+mac). You can [explore my working .pandoc folder here](https://github.com/iandol/dotfiles/tree/master/pandoc). I've included a more simple sample `pandocomatic.yaml` file above. This won't work without some modification but it does give you an idea of how this configuration works. You need to put the pandocomatic configuration file in the pandoc DATA-DIR. If you want to use Panzer, it uses a file called `styles.yaml` placed in `$HOME/.panzer`.  
 
 I place all custom templates in `$HOME/.pandoc/templates`, my filters in `$HOME/.pandoc/filters` my bibliography BIB file in `$HOME/.pandoc` and my CSL style files in `$HOME/.pandoc/csl`. 
 
@@ -50,7 +50,7 @@ You can use formatting presets or styles however you want in Scrivener, but reme
 
 ## Compiling your Project: 
 
-In Scrivener, first remove any Compile metadata specified in the user interface so it does not interfere with the Pandoc metadata. Then create a **front–matter** document with a metadata block right at the top like so:
+In Scrivener, first remove any Compile metadata specified in the user interface so it does not interfere with the Pandoc metadata. Then create a **front–matter** document with a metadata block right at the top like so. Note two templates are specified, and `pandocomatic` will run Pandoc twice in this case to generate a HTML & DOCX file:
 
 ```yaml
 ---
@@ -58,6 +58,9 @@ title: "<$projecttitle>"
 author:
   - John Doe
   - Joanna Doe
+keywords: 
+  - sample
+  - pandoc
 pandocomatic_:
   use-template:
     - paper-with-refs-html
@@ -81,9 +84,9 @@ This **front–matter** must be compiled **as–is** in the Scrivener compile se
       reference-docx: templates/custom.docx
       dpi: 300
       toc: true
-      metadata: 
-        - "notes-after-punctuation=false"  
-        - "link-citations=true"
+    metadata: 
+      notes-after-punctuation: false 
+      link-citations: true
     postprocessors: []
 ```
 
