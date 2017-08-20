@@ -1,16 +1,56 @@
-# Scrivomatic: Scrivener + *Pandoc*omatic (or Panzer) #
+# Scrivomatic: Scrivener & **_Pandoc_**omatic 
 
-## Introduction ##
+## Introduction 
 
-[Scrivener](http://literatureandlatte.com) is a program for all kinds of writers, handling the structural organisation *and* constructive process of writing like nothing else. You write and organise your text and reference materials without having to worry about the final "look". The final "look" is handled by a process called compiling, where you choose the output format and select the contents with great flexibility. Although Scrivener uses rich-text internally, it has very good integration with plain text [Markdown](https://en.wikipedia.org/wiki/Markdown). Markdown offers a number of advantages over rich-text in Scrivener: it creates more structured documents without lots of fussing in a Word processor or layout software. For example: figures with figure captions, block quotes, code blocks (with code highlighting) and more are all semantically styled, headings get proper outline levels by default, amongst other advantages. *And for academics, you can generate a full [Bibliography](http://pandoc.org/MANUAL.html#citations)* automatically. This save you time, especially if you compile regularly during collaborative editing.
+[Scrivener](http://literatureandlatte.com) is a program for all kinds of writers, handling the structural organisation *and* constructive process of writing like nothing else. You write and organise your text and reference materials without having to worry about the final "look". The final "look" is handled by a process called compiling, where you choose the output format and select the contents with great flexibility. Although Scrivener uses rich-text internally, it has very good integration with plain text [Markdown](https://en.wikipedia.org/wiki/Markdown). Markdown (MD) offers a number of advantages over rich-text in Scrivener: it creates more structured documents without lots of fussing in a Word processor or layout software. For example: figures with figure captions, block quotes, code blocks (with code highlighting) and more are all semantically styled, headings get proper outline levels by default, amongst other advantages. *And for academics, if you use Pandoc you can generate a full [Bibliography](http://pandoc.org/MANUAL.html#citations)* automatically. This save you time, especially if you compile regularly during collaborative editing. So there are many benefits to compiling to markdown.
 
-The most powerful of all Markdown converters is [Pandoc](http://pandoc.org/index.html), which affords great flexibility in how markdown gets transformed to **many** output formats. You can use customised templates for Word, LibreOffice, HTML, LaTeX and many others. So, for example, you create a `custom.docx` where you specify your preferred styles/fonts/paragraph/page layouts in Word, and Pandoc uses this when generating your DOCX from Scrivener.  
+[Pandoc](http://pandoc.org/index.html) can then read your compiled document and convert it to **many** output formats. You can use customised templates for Word, LibreOffice, HTML, PDF, slideshows and many others. So, for example, you create a `custom.docx` where you specify your preferred styles/fonts/paragraph/page layouts in Word, and Pandoc can use this when building the DOCX from your Scrivener compile.  
 
-The slight downside to Pandoc is a great many options that have to be specified on the command line. To handle this, tools like [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) and [Panzer](https://github.com/msprev/panzer), allow you to set up predefined "styles", where for each output format you can specify all pandoc options in a configuration file. These tools also allow you to run pre– and post–processors and filters for more advanced users. In Scrivener you simply specify the style you want for your document in the metadata, and all the settings are activated and Pandoc is run without any other fussing!  
+Because of its great power, Pandoc has many command line settings. We can simplify by using[Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) or [Panzer](https://github.com/msprev/panzer), which allow us to specify "templates". For each output format, the template specifies all the Pandoc options in a configuration file. These tools also allow you to run pre– and post–processors for more complex workflows (i.e. a post-processor could move a HTML file to a server automatically). To use the styles in Scrivener, you  specify the style you want for your document in the front–matter, and all the settings are activated and Pandoc is run without any other fussing!
 
-## HOW-TO: ##
+## Requirements 
 
-In Scrivener, first remove any Compile metadata specified in the user interface, then create a **front matter** document with a metadata block right at the top like so:
+Apart from **Scrivener**, you need to install **Pandoc** and either **Pandocomatic** or **Panzer**. This requires a minimal amount of typing into the macOS terminal. I prefer Pandocomatic as it is a bit more flexible in terms of its output options.
+
+For Pandoc on macOS you can [install manually](http://pandoc.org/installing.html), but it is generally better to use [Homebrew](https://brew.sh/) to install Pandoc as `brew` can keep everything up to date. So follow the [instructions to install Homebrew](https://brew.sh/) first, then:
+
+```bash
+> brew install pandoc pandoc-citeproc pandoc-crossref
+```
+
+This should get you a working and up-to-date Pandoc. You should run the command `brew update` every so often to ensure these tools are *kept* up-to-date.
+
+You use Ruby's `gem` command (built in to macOS) to install Pandocomatic (putting the binary in `/usr/local/bin`):
+
+```bash
+> sudo gem install pandocomatic -u /usr/local/bin
+```
+
+If you prefer to use Panzer, Python's `pip` (also built in to macOS) will install it for you like so:
+
+```bash
+> pip install git+https://github.com/msprev/panzer
+```
+
+## Configuration 
+
+The most important folder for this workflow is `$HOME/.pandoc` — this is the official pandoc DATA-DIR, and you should organise your templates, filters and other files there. It is hidden by default, so you need to know [how to unhide it first](https://www.google.com/search?q=unhide+folder+mac). [You can see my working .pandoc folder here](https://github.com/iandol/dotfiles/tree/master/pandoc). I've included a more simple sample `pandocomatic.yaml` file above. This won't work without some modification but it does give you an idea of how this configuration works. You need to put the pandocomatic configuration file in the pandoc DATA-DIR. If you want to use Panzer, it uses a file called `styles.yaml` placed in `$HOME/.panzer`.  
+
+I place all custom templates in `$HOME/.pandoc/templates`, my filters in `$HOME/.pandoc/filters` my bibliography BIB file in `$HOME/.pandoc` and my CSL style files in `$HOME/.pandoc/csl`. 
+
+### Tips for writing while in Scrivener 
+
+You can use formatting presets or styles however you want in Scrivener, but remember these will all be stripped out during the compile. I use formatting presets to visualise MD structure in Scrivener (block quotes, code blocks, lists, tables, figure captions):  
+
+![Figure 1 — Note whitespace is visualised and formatting presets are used to give visual structure to the Scrivener environment.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/1.png)  
+
+**One setting is very useful in Scrivener**: Show invisible characters. This is because MD is sensitive to whitespace. You should aim to use whitespace consistently: For a new paragraph and between blocks of content I always use [space][space][return][return]. It is automatic for me and showing invisible characters makes potential formatting issues when compiling simple to fix.
+
+**Use the Binder for all document structure**. Try not to not use Headings within the text itself but form the document hierarchy in the Binder. Scrivener is great at compiling MD headings from the Binder structure.
+
+## Compiling your Project: 
+
+In Scrivener, first remove any Compile metadata specified in the user interface so it does not interfere with the Pandoc metadata. Then create a **front–matter** document with a metadata block right at the top like so:
 
 ```yaml
 ---
@@ -26,7 +66,7 @@ pandocomatic_:
 
 ```
 
-You compile your project to a Multimarkdown file, e.g. `mydoc.md`. Then you just run `pandocomatic mydoc.md` and it handles the Pandoc compile using the specified template (in this case both a HTML and a DOCX file are generated from the same Scrivener compile document). The Pandocomatic configuration file could look like this for the DOCX template specified above, generating a bibliography using the APA style amongst other things:
+This **front–matter** must be compiled **as–is** in the Scrivener compile settings. You compile your project to a Multimarkdown file, e.g. `mydoc.md`. Then you just run `pandocomatic mydoc.md` and it handles the Pandoc compile using the specified template (in this case both a HTML and a DOCX file are generated from the same Scrivener compile document). The Pandocomatic configuration file could look something like this for the DOCX template specified above, generating a bibliography using the APA style amongst other things:
 
 ```yaml
   paper-with-refs-docx:
@@ -37,44 +77,19 @@ You compile your project to a Multimarkdown file, e.g. `mydoc.md`. Then you just
       standalone: true
       filter: pandoc-citeproc
       bibliography: core.bib
-      citation-style: apa.csl
+      citation-style: csl/apa.csl
       reference-docx: templates/custom.docx
       dpi: 300
-      toc: false
+      toc: true
       metadata: 
         - "notes-after-punctuation=false"  
         - "link-citations=true"
     postprocessors: []
 ```
 
-## Requirements ##
-Apart from **Scrivener**, you need to install **Pandoc** and either **Pandocomatic** or **Panzer**. This requires a minimal amount of typing into the terminal. I prefer Pandocomatic as it is a bit more flexible in terms of its output options, but Panzer is more 'elegant' in specifying the input options.   
 
-For Pandoc on macOS you can [install manually](http://pandoc.org/installing.html), but it is generally better to use [Homebrew](https://brew.sh/) to install Pandoc as `brew` can keep everything up to date:
-
-```bash
-> brew install pandoc pandoc-citeproc pandoc-crossref
-```
-
-You use Ruby's `gem` command (built in to macOS) to install Pandocomatic (putting the binary in `/usr/local/bin`):
-
-```bash
-> sudo gem install pandocomatic -u /usr/local/bin
-```
-
-And Python's `pip` (also built in to macOS) if you want to use Panzer instead:
-
-```bash
-> pip install git+https://github.com/msprev/panzer
-```
-
-## Configuration ##
-I've included a sample `pandocomatic.yaml` file above. You need to put this pandocomatic configuration file in the pandoc DATA-DIR, which is `$HOME/.pandoc` by default on macOS. If you want to use Panzer, it uses a file called `styles.yaml` placed in `$HOME/.panzer`.  
-
-I place my custom templates in `$HOME/.pandoc/templates` and my bibliography and style files in `$HOME/.pandoc`
-
-## scrivomatic wrapper script ##
-I have also made a small tool, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), which can be run from anywhere and ensures the search path and environment are correct for pandocomatic, panzer, LaTeX and Pandoc. Scrivomatic automatically adds the paths for `brew` and `MacTeX` tools, and if you've used [rbenv](https://github.com/rbenv/rbenv) or [anaconda](https://www.continuum.io/anaconda-overview) to install pandocomatic or panzer it adds these too. Save `scrivomatic`, then move it to a directory on your path. 
+## Scrivomatic wrapper script 
+I have made a small tool, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), which can be run from anywhere and ensures the search path and environment are correct for pandocomatic, panzer, LaTeX and Pandoc. Scrivomatic automatically adds the paths for `brew` and `MacTeX` installed tools, and if you've used [rbenv](https://github.com/rbenv/rbenv) or [anaconda](https://www.continuum.io/anaconda-overview) to install pandocomatic or panzer it adds these too. Save `scrivomatic`, then move it to a directory on your path. 
 
 ```bash
 mkdir -p $HOME/bin
@@ -86,14 +101,14 @@ To run scrivomatic from the command line:
 
 ```
 Usage: scrivomatic --input FILE [additional options]
-    -i, --input FILE            Input file?
-    -o, --output [file]         Output file? Can be ignored for pandocomatic.
-    -t, --to [format]           Pandoc Format? Can be ignored for pandocomatic.
-    -c, --command [command]     Command to use? Default is pandocomatic
-    -p, --path [dirpath]        Path to Search for Commands?
-    -b, --build                 If LaTeX, try to run latexmk
-    -v, --[no-]verbose          Verbose output?
-    -h, --help                  Prints this help!
+    -i, --input FILE                 Input file?
+    -o, --output [file]              Output file? Can be ignored for pandocomatic.
+    -t, --to [format]                Pandoc Format? Can be ignored for pandocomatic.
+    -c, --command [command]          Command to use? Default is pandocomatic
+    -p, --path [dirpath]             Path to Search for Commands?
+    -b, --build                      If LaTeX output, try to run latexmk
+    -v, --[no-]verbose               Verbose output?
+    -h, --help                       Prints this help!
 ```
 
 To run scrivomatic from Scrivener (with a `-v` verbose log placed in the compile directory):
