@@ -90,6 +90,12 @@ This **front–matter** must be compiled **as–is** in the Scrivener compile se
     postprocessors: []
 ```
 
+## Working with Bookends
+Bookends is an excellent reference manager for macOS which can be configured to output citations in a format compatible with Pandoc. To set this up I'd first follow the excellent tutorial here:
+
+[BSAG » Bookends and Pandoc](https://www.rousette.org.uk/archives/bookends-and-pandoc/)
+
+To output your references as a BIB or a JSON file you can use [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), which you pass an output folder and comma-separated list of groups; or you can run this script directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster, which with a big reference database can save quite a lot of time.
 
 ## Scrivomatic wrapper script 
 I have made a small tool, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), which can be run from anywhere and ensures the search path and environment are correct for pandocomatic, panzer, LaTeX and Pandoc. Scrivomatic automatically adds the paths for `brew` and `MacTeX` installed tools, and if you've used [rbenv](https://github.com/rbenv/rbenv) or [anaconda](https://www.continuum.io/anaconda-overview) to install pandocomatic or panzer it adds these too. Save `scrivomatic`, then move it to a directory on your path. 
