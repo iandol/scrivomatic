@@ -143,7 +143,11 @@ Usage: scrivomatic --input FILE [additional options]
     -v, --[no-]verbose               Verbose output?
     -h, --help                       Prints this help!
 ```
-  
+
+And I include an [Alfred workflow](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/scrivomatic.alfredworkflow) so you can run scrivomatic directly from markdown files selected by Alfred:
+
+![Figure 3 — Alfred Workflow.](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/images/3.png)
+
 
 ## Working with Bookends
 [Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output citations in a format compatible with Pandoc. To set this up I'd first follow the nice tutorial here:
