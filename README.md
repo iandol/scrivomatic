@@ -150,9 +150,9 @@ And I include an [Alfred workflow](https://raw.githubusercontent.com/iandol/scri
 
 
 ## Working with Bookends
-[Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output citations in a format compatible with Pandoc. To set this up I'd first follow the nice tutorial here:
+[Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the nice tutorial here:
 
 [BSAG » Bookends and Pandoc](https://www.rousette.org.uk/archives/bookends-and-pandoc/)
 
-To output your references as a BIB or a JSON file you can use [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), which you pass an output folder and comma-separated list of groups; or you can run this script directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster, and with a big reference database that can save quite a lot of time.
+To export your references as a BIB file you can do tht manually from the Bookends GUI. However, I prefer to do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), which you pass an output folder and comma-separated list of groups. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time.
 
