@@ -104,9 +104,11 @@ class Scrivomatic
 
   # ###############################make env path
   def makePath
+    rubypath = rubyCheck
     pathtest = ['/Library/TeX/texbin',
       ENV['HOME'] + '/anaconda/bin',
       ENV['HOME'] + '/anaconda3/bin',
+      rubypath,
       ENV['HOME'] + '/.rbenv/shims']
     pathtest.each do |p|
       if File.directory?(p)
@@ -119,6 +121,12 @@ class Scrivomatic
     @options[:envpath].gsub!(/:$/, '') # remove final colon
     ENV['PATH'] = @options[:envpath] + ':' + ENV['PATH']
   end # end makePath()
+
+  # ###############################check for RVM
+  def rubyCheck
+    rubypath = `which ruby`
+    return rubypath[0..-6] unless rubypath.empty?
+  end
 
   # ###############################set version
   attr_writer :version
@@ -138,7 +146,7 @@ class Scrivomatic
       puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
       puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
       puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
-      ['rbenv','panzer','python','xelatex'].each do |c|
+      ['rbenv', 'rvm', 'panzer', 'python', 'xelatex'].each do |c|
         loc = `which #{c}`.chomp
         puts "---#{c}: #{loc}" unless loc.empty?
       end
