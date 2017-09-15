@@ -20,7 +20,7 @@ This save you lots of time, especially if you compile regularly during collabora
 
 ### TL;DR
 1. Install Pandoc and Pandocomatic.
-2. Configure one or more templates; you can base them on mine shared below.
+2. Configure one or more templates; you can base them on mine [shared below](#configuration).
 3. In Scrivener, use a **front-matter** document containing the required settings and compile to Multimarkdown.
 4. Scrivener's compile process automatically triggers pandocomatic to automagically create the final output(s).
 
@@ -67,7 +67,7 @@ With Scrivener 3's new [styles system](http://www.literatureandlatte.com/blog/?p
 
 ![Figure 1 — The cursor shows **strong** and blockquote are both applied. Note whitespace is visualised and styles are used to give visual structure to the Scrivener writing environment. These will be transformed into the correct markdown on compile…](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/images/2.png)  
 
-You can download my customised Scrivener 3 [scrivomatic compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/Scrivomatic.scrformat). Install it and you can see how I convert my styles to markdown.  
+You can download my customised Scrivener 3 [compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/Scrivomatic.scrformat). Install it and you can see how I convert styles to markdown.  
 
 **One setting is very useful in Scrivener**: Show invisible characters; this is because markdown is sensitive to whitespace. You should aim to use whitespace consistently: For a new paragraph and between blocks of content I always use \[space\]\[space\]\[return\]\[return\]. It is automatic for me and showing invisible characters makes potential formatting issues when compiling simple to fix.
 
@@ -96,7 +96,7 @@ pandocomatic_:
 
 ```
 
-  This **front–matter** should be compiled **as–is** in the Scrivener compile settings (and indentation in this YAML configurration format must be **spaces** and not **tabs**). The Pandocomatic configuration file could look something like this for the DOCX template specified above; generating a bibliography using the APA style (with linked citations) and a table of contents amongst other things:
+This **front–matter** should be compiled **as–is** in the Scrivener compile settings (indentation in the metadata block must be **spaces**and not **tabs**). The Pandocomatic configuration file could look something like this for the DOCX template specified above; generating a bibliography using the APA style (with linked citations) and a table of contents amongst other things:
 
 ```yaml
   paper-with-refs-docx:
@@ -115,14 +115,14 @@ pandocomatic_:
       link-citations: true
 ```
 
-You specify Multimarkdown as the compile document output and a compile format that specifies a post-processing tool. 
+In Scrivener, you select Multimarkdown as the compile document output and select a compile format that configures a [post-processing tool](#scrivomatic-post-processing-script) to run pandocomatic automatically.
 
 ## Scrivomatic post-processing script 
 
 ![Figure 2 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/images/processing.png)  
-I've built a simple script, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), that runs from Scrivener's post-processing panel and ensures the search path and environment are automatically added. You can also run pandocomatic directly, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` handles this automatically...
+I've built a simple script, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), that runs from Scrivener's post-processing panel and ensures the search path and environment are automatically added. **You can also run pandocomatic directly**, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` handles this automatically...
 
-It automatically adds the paths for `brew` and `MacTeX` installed tools, and if you've used [rbenv](https://github.com/rbenv/rbenv) or [conda](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer it adds these paths too. It can also create a log file of the conversion (so you can check for missing references etc.). Save the [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic) script, move it to a directory on your path, and make sure it can be executed like so:
+It adds the paths for tools installed via `homebrew` and `MacTeX`; and if you've used [rbenv](https://github.com/rbenv/rbenv) or [conda](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer it adds these paths too. It can also generate a log file of the conversion (so you can check for missing references etc.). Save the [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic) script, move it to a directory on your path, and make sure it can be executed like so:
 
 ```bash
 mkdir -p $HOME/bin
