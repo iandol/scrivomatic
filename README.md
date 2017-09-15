@@ -1,8 +1,8 @@
 # Scrivomatic: Scrivener & *Pandoc\{omatic\}*
 
-## Introduction 
+## Introduction
 
-[Scrivener](http://literatureandlatte.com) is a program for all kinds of writers, handling the structural organisation *and* constructive process of writing like nothing else. You write and organise your text, ideas, figures and reference materials all in one place without having to worry about the final "look". The final "look" is handled by a process called compiling, where you choose the output format and select the contents with great flexibility. Although Scrivener uses rich-text internally in the editor, it has very good integration with plain text [Markdown](https://en.wikipedia.org/wiki/Markdown) during compile. Compiling your Scrivener projects via Markdown offers numerous advantages over rich-text: it creates more structured, beautiful and flexible documents without lots of fussing in a Word processor or layout software. For example: 
+[Scrivener](http://literatureandlatte.com) is a program for all kinds of writers, handling the structural organisation *and* constructive process of writing like nothing else. You write and organise your text, ideas, figures and reference materials all in one place without having to worry about the final "look". The final "look" is handled by a process called compiling, where you choose the output format and select the contents with great flexibility. Although Scrivener uses rich-text internally in the editor, it has very good integration with plain text [markdown](https://en.wikipedia.org/wiki/Markdown). Compiling your Scrivener projects via markdown offers numerous advantages over rich-text: it creates more structured, beautiful and flexible documents without lots of fussing in a Word processor or layout software. For example: 
 
 * Binder headings are properly converted into semantic heading levels.
 * Figures and figure captions get proper styling.
@@ -14,9 +14,9 @@
 * For LaTeX users, there is a lot of flexibility using templates and meta-data.
 * For technical writers, you can add semantic custom block and span structures.
 
-This save you lots of time, especially if you compile regularly during collaborative editing. So there are many benefits to compiling to markdown.  
+This save you lots of time, especially if you compile regularly during collaborative editing.  
 
-[Pandoc](http://pandoc.org/index.html) is the most flexible markdown processor for Scrivener, but because of this flexibility, there are many possible settings to configure. To simplify this, there are tools that manage Pandoc via the use of "templates" ([Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) or [Panzer](https://github.com/msprev/panzer)). For each output we would like to set up, the template can specify all the options, variables and metadata in a configuration file. They also allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after compile). To use the templates with Scrivener, you specify its name in the front–matter or metadata, and all the settings are automated when Pandoc is run without any other fussing!
+[Pandoc](http://pandoc.org/index.html) is the most flexible markdown processor for Scrivener, but because of this flexibility, there are many possible settings to configure. To simplify this, you can run Pandoc via the use of "template" tools like [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) or [Panzer](https://github.com/msprev/panzer). For each document output "style", the template can specify all the options, variables and metadata in a configuration file. They also allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after compile). To use the templates with Scrivener, you specify its name in the front–matter or metadata, and all the settings are automated when Pandoc is run without any other fussing!
 
 ### TL;DR
 1. Install Pandoc and Pandocomatic.
