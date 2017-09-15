@@ -16,7 +16,7 @@
 
 This save you lots of time, especially if you compile regularly during collaborative editing. So there are many benefits to compiling to markdown.  
 
-[Pandoc](http://pandoc.org/index.html) is the preferred complment to Scrivener, but because of its great flexibility, it has many settings. To simplify this, there are tools that manage Pandoc via the use of "templates" ([Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) or [Panzer](https://github.com/msprev/panzer)). For each output we would like to set up, the template specifies all the options, variables and metadata in a configuration file. They also allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after compile). To use the templates with Scrivener, you specify its name in the front–matter, and all the settings are activated when Pandoc is run without any other fussing!
+[Pandoc](http://pandoc.org/index.html) is the most flexible markdown processor for Scrivener, but because of this flexibility, there are many possible settings to configure. To simplify this, there are tools that manage Pandoc via the use of "templates" ([Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) or [Panzer](https://github.com/msprev/panzer)). For each output we would like to set up, the template can specify all the options, variables and metadata in a configuration file. They also allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after compile). To use the templates with Scrivener, you specify its name in the front–matter or metadata, and all the settings are automated when Pandoc is run without any other fussing!
 
 ### TL;DR
 1. Install Pandoc and Pandocomatic.
@@ -65,9 +65,9 @@ Normally all the custom templates reside in `$HOME/.pandoc/templates`, filters i
 
 With Scrivener 3's new [styles system](http://www.literatureandlatte.com/blog/?p=1094), there is a huge change to how you can write with markdown. You can use paragraph styles (like blockquote), and inline styles (like emphasis or superscript) as you would writing in rich text (no need to add markdown syntax in the editor). During the new [compile](http://www.literatureandlatte.com/blog/?p=1097), Scrivener can add a prefix/suffix to create the required plain-text markdown. So for example, create an inline bold style called `strong`, and in compile set the prfix to \*\* and suffix to \*\* and Scrivener does the conversion to markdown from the style. In Scrivener 2, you can still use formatting presets, but these will always be stripped out during the compile, so you need to write the markdown directly in the editor. I used to use formatting presets to visualise markdown structure in Scrivener 2 (block quotes, code blocks, lists, tables, figure captions). But in Scrivener 3, I now use styles both to *visualise* structure **and** to *generate* the Pandoc markup itself:  
 
-![Figure 1 — The cursor shows **strong** and blockquote are both applied. Note whitespace is visualised and styles are used to give visual structure to the Scrivener writing environment. These will be transformed into the correct markdown on compile…](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/images/2.png)  
+![Figure 1 — The cursor shows **strong** and blockquote are both applied. Note whitespace is visualised and styles are used to give visual structure to the Scrivener writing environment. These will be transformed into the correct markdown on compile…](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/2.png)  
 
-You can download my customised Scrivener 3 [compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/Scrivomatic.scrformat). Install it and you can see how I convert styles to markdown.  
+You can download my customised Scrivener 3 [compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat). Install it and you can see how I convert styles to markdown.  
 
 **One setting is very useful in Scrivener**: Show invisible characters; this is because markdown is sensitive to whitespace. You should aim to use whitespace consistently: For a new paragraph and between blocks of content I always use \[space\]\[space\]\[return\]\[return\]. It is automatic for me and showing invisible characters makes potential formatting issues when compiling simple to fix.
 
@@ -120,7 +120,7 @@ In Scrivener, you select Multimarkdown as the compile document output and select
 ## Scrivomatic post-processing script 
 
 
-![Figure 2 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/images/processing.png)  
+![Figure 2 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/processing.png)  
 I've built a simple script, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), that runs from Scrivener's post-processing panel and ensures the search path and environment are automatically added. **You can also run pandocomatic directly**, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` handles this automatically...
 
 It adds the paths for tools installed via `homebrew` and `MacTeX`; and if you've used [rbenv](https://github.com/rbenv/rbenv) or [conda](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer it adds these paths too. It can also generate a log file of the conversion (so you can check for missing references etc.). Save the [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic) script, move it to a directory on your path, and make sure it can be executed like so:
@@ -145,9 +145,9 @@ Usage: scrivomatic --input FILE [additional options]
     -h, --help                       Prints this help!
 ```
 
-And I include an [Alfred workflow](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/scrivomatic.alfredworkflow) so you can run scrivomatic directly from markdown files selected by Alfred:
+And I include an [Alfred workflow](https://raw.githubusercontent.com/iandol/scrivomatic/master/scrivomatic.alfredworkflow) so you can run scrivomatic directly from markdown files selected by Alfred:
 
-![Figure 3 — Alfred Workflow.](https://raw.githubusercontent.com/iandol/scrivomatic/Scrivener3/images/3.png)
+![Figure 3 — Alfred Workflow.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/3.png)
 
 ## Working with Bookends
 [Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the nice tutorial here:
