@@ -2,17 +2,28 @@
 require 'open3' # ruby standard library class to handle stderr and stdout
 require 'optparse' # ruby standard option parser
 require 'shellwords' # escapes strings to run in the shell
+if ARGV[-1] == 'DEBUG' # Enable remote debugger
+  require 'byebug/core'
+  require 'byebug'
+  PORT = 8989
+  STDOUT.puts "\n!!!---DEBUG Server started on localhost:#{PORT} @ " + Time.now.to_s + "\n\n"
+  Byebug.wait_connection = true
+  Byebug.start_server('127.0.0.1', PORT)
+  ARGV.pop
+  byebug
+end
+
 
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.9'.freeze
-  OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose)
+  VER = '1.0.10'.freeze
+  OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose, :dry_run)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
   # ###############################constructor
   def initialize # set up class
-    @options = OPT.new(nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false)
+    @options = OPT.new(nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false)
     @version = VER
     @cmd = ''
     @toolPath = ''
@@ -39,20 +50,22 @@ class Scrivomatic
   # ###############################run command
   def runCommand
     @runLog += ":: Running: #{@cmd}\n"
-    if File.exist?(@toolPath)
-      Open3.popen2e(@cmd) do |_stdin, oe, wait_thr|
-        while line = oe.gets
+    if File.exist?(@toolPath) && !options.dry_run
+      Open3.popen2e(@cmd) do |_stdin, oe, thread|
+        while (line = oe.gets)
           @runLog += '::: ' + line.chomp + "\n"
         end
-        exit_status = wait_thr.value
+        exit_status = thread.value
         @runLog += ':: exit status: ' + exit_status.to_s
         unless exit_status.success?
-          abort "!!!---scrivomatic::runCommand() popen2e FAILED TO RUN #{cmd}!!!"
+          @runLog += "!!!---scrivomatic::runCommand() popen2e FAILED TO RUN #{cmd}!!!"
         end
       end
-    else
+    elsif !options.dry_run
       @runLog += "Tool doesn't exist!!!"
-      abort "!!!---scrivomatic::runCommand() Couldn't find #{@toolPath} to run, please supply a proper path!"
+      @runLog += "!!!---scrivomatic::runCommand() Couldn't find #{@toolPath} to run, please supply a proper path!"
+    else
+      @runLog += 'Dry run, nothing actually executed...'
     end
   end 
 
@@ -81,6 +94,9 @@ class Scrivomatic
       opts.on('-b', '--build', 'If LaTeX output, try to run latexmk') do |v|
         @options[:build] = v
       end
+      opts.on('-d', '--dry-run', 'Dry run?') do |v|
+        @options[:dry_run] = v
+      end
       opts.on('-v', '--[no-]verbose', 'Verbose output?') do |v|
         @options[:verbose] = v
       end
@@ -104,11 +120,11 @@ class Scrivomatic
 
   # ###############################make env path
   def makePath
-    rubypath = rubyCheck
+    rvmpath = rvm_check
     pathtest = ['/Library/TeX/texbin',
       ENV['HOME'] + '/anaconda/bin',
       ENV['HOME'] + '/anaconda3/bin',
-      rubypath,
+      rvmpath,
       ENV['HOME'] + '/.rbenv/shims']
     pathtest.each do |p|
       if File.directory?(p)
@@ -123,9 +139,10 @@ class Scrivomatic
   end # end makePath()
 
   # ###############################check for RVM
-  def rubyCheck
-    rubypath = `which ruby`
-    return rubypath[0..-6] unless rubypath.empty?
+  def rvm_check
+    rvm_home = ENV['HOME'] + '/.rvm'
+    return '' unless File.directory?(rvm_home)
+    rvm_home + '/wrappers/default'
   end
 
   # ###############################set version
@@ -146,13 +163,10 @@ class Scrivomatic
       puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
       puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
       puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
-      ['rbenv', 'rvm', 'panzer', 'python', 'xelatex'].each do |c|
-        loc = `which #{c}`.chomp
-        puts "---#{c}: #{loc}" unless loc.empty?
+      %w[rbenv rvm panzer python xelatex].each do |c|
+        location = `which #{c}`.chomp
+        puts "---#{c}: #{location}" unless location.empty?
       end
-      puts ' '
-      puts " Running: #{@options[:command]}..."
-      puts ' '
     end
   end
 
@@ -166,7 +180,7 @@ class Scrivomatic
 
   # ###############################check if we want to run latexmk
   def postBuild
-    if options.build
+    if options.build && !(options.dry_run)
       texPath = options.input.gsub(/\.md$/, '.tex')
       if File.exist?(texPath)
         xLog = '' # simple log

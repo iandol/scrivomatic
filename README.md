@@ -34,16 +34,16 @@ Apart from **Scrivener**, you need to install **Pandoc** and **Pandocomatic**. T
 
 This will get you a working Pandoc. You should run the command `brew update` every so often to ensure these tools are *kept* up-to-date.
 
-You use Ruby's `gem` command (built in to macOS) to install Pandocomatic (putting the binary in `/usr/local/bin`):
+You use Ruby's `gem` command (built in to macOS) to install Pandocomatic (putting the binary in `/usr/local/bin`, as recent macOS versions do not allow `/usr/bin`):
 
 ```bash
-> sudo gem install paru pandocomatic -u /usr/local/bin
+> sudo gem install paru pandocomatic -n /usr/local/bin
 ```
 
 To keep both Pandoc and Pandocomatic *up-to-date*, you can run the update commands like so every week or so:
 
 ```bash
-> brew update; sudo gem update
+> brew update; sudo gem update paru pandocomatic -n /usr/local/bin
 ```
 
 

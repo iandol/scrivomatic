@@ -1,11 +1,16 @@
+### Pandocomatic Configuration ###
+# Important: YAML configuration files uses spaces for indentation to define structure
+# Path values are normally relative to the Pandoc data dir: /Users/MYNAME/.pandoc
+# so csl/apa.csl will be searched as /Users/MYNAME/.pandoc/csl/apa.csl
 templates:
 #######################################
   refs:
-    setup: [] #runs a general script to rename files etc.
-    preprocessors: [] #runs on the markdown file
+    setup: [] #runs a general script to rename or copy files before etc.
+    preprocessors: [] #runs a script on the markdown file itself
     pandoc:
+      standalone: true #create complete document
       filter: 'pandoc-citeproc' #process citations
-      bibliography: "/Users/MYNAME/.pandoc/core.bib" #bibtex file
+      bibliography: "core.bib" #bibtex file, default search path will be your pandoc data-dir
       csl: "/Users/MYNAME/.pandoc/apa.csl" #CSL style file
     metadata:
       notes-after-punctuation: false
@@ -14,17 +19,15 @@ templates:
     cleanup: [] #general cleanup script
 #######################################
   paper-with-refs-latex:
-    extends: ['refs'] #we can inherit from other templates!
+    extends: ['refs'] #we can inherit from other templates
     pandoc:
       from: markdown
       to: latex
-      latex-engine: xelatex
-      standalone: true
-      template: "/Users/MYNAME/.pandoc/templates/custom.latex"
+      template: "templates/custom.latex"
       dpi: 300
       toc: true
       toc-depth: 4
-      base-header-level: 1
+      base-header-level: 2
     metadata: 
       mainfont: 'Hoefler Text'
       sansfont: 'Avenir Next'
@@ -35,31 +38,25 @@ templates:
       documentclass: 'article'
       fontsize: '12pt'
       linestretch: '1.75'
-      geometry: 'margin=3cm'
+      geometry: 'margin=2cm'
 #######################################
   paper-with-refs-docx:
-    extends: ['refs'] #we can inherit from other templates!
+    extends: ['refs'] #we can inherit from other templates
     pandoc:
       from: markdown
       to: docx
-      standalone: true
-      reference-docx: "/Users/MYNAME/.pandoc/templates/custom.docx"
+      reference-docx: "templates/custom.docx"
       dpi: 300
-      toc: true
-      toc-depth: 4
-      base-header-level: 1
+      toc: false
 #######################################
   paper-with-refs-odt:
-    extends: ['refs'] #we can inherit from other templates!
+    extends: ['refs'] #we can inherit from other templates
     pandoc:
       from: markdown
       to: odt
-      standalone: true
-      reference-odt: "/Users/MYNAME/.pandoc/templates/custom.odt"
+      reference-odt: "templates/custom.odt"
       dpi: 300
       toc: false
-      toc-depth: 4
-      base-header-level: 1
 #######################################
   paper-no-refs-html:
     pandoc:
@@ -68,43 +65,10 @@ templates:
       standalone: true
       number-sections: true
       section-divs: true
-      template: "/Users/MYNAME/.pandoc/templates/custom.html"
-      css: "/Users/MYNAME/.pandoc/templates/custom.css"
+      template: "templates/custom.html"
+      css: "templates/custom.css"
       self-contained: true
       dpi: 300
       toc: true
       toc-depth: 4
       base-header-level: 1
-#######################################
-  paper-no-refs-docx:
-    pandoc:
-      from: markdown
-      to: docx
-      standalone: true
-      reference-docx: "/Users/MYNAME/.pandoc/templates/custom.docx"
-      toc: false
-      base-header-level: 1
-#######################################
-  test:
-    pandoc:
-      from: markdown
-      to: html5
-      standalone: true
-      css: "/Users/MYNAME/.pandoc/templates/custom.css"
-      self-contained: true
-      mathjax: true
-      dpi: 300
-      toc: false
-#######################################
-  test-latex:
-    pandoc:
-      from: markdown
-      to: latex
-      standalone: true
-      toc: true
-    metadata: 
-      lang: 'en-GB'  
-      papersize: 'A4' 
-      documentclass: 'article'
-      fontsize: '12pt'
-      linestretch: '1.75'
