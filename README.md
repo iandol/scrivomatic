@@ -90,13 +90,13 @@ keywords:
   - pandoc
 pandocomatic_:
   use-template:
-    - paper-with-refs-html
     - paper-with-refs-docx
+    - paper-with-refs-html
 ---
 
 ```
 
-This **front–matter** should be compiled **as–is** in the Scrivener compile settings (indentation in the metadata block must be **spaces**and not **tabs**). The Pandocomatic configuration file could look something like this for the DOCX template specified above; generating a bibliography using the APA style (with linked citations) and a table of contents amongst other things:
+This **front–matter** should be compiled **as–is** in the Scrivener compile settings (indentation in the metadata block must be **spaces** and not **tabs**). The Pandocomatic configuration template could look something like the example below for the DOCX template specified above (generating a bibliography using the APA style (with linked citations) and a table of contents):
 
 ```yaml
   paper-with-refs-docx:
@@ -108,7 +108,6 @@ This **front–matter** should be compiled **as–is** in the Scrivener compile 
       bibliography: core.bib
       citation-style: csl/apa.csl
       reference-docx: templates/custom.docx
-      dpi: 300
       toc: true
     metadata: 
       notes-after-punctuation: false 
@@ -121,9 +120,9 @@ In Scrivener, you select Multimarkdown as the compile document output and select
 
 
 ![Figure 2 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/processing.png)  
-I've built a simple script, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), that runs from Scrivener's post-processing panel and ensures the search path and environment are automatically added. **You can also run pandocomatic directly**, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` handles this automatically...
+I've built a simple script, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), that runs from Scrivener's post-processing panel and ensures the search path and environment are automatically added. **You can also run pandocomatic directly**, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` tries to handle this automatically...
 
-It adds the paths for tools installed via `homebrew` and `MacTeX`; and if you've used [rbenv](https://github.com/rbenv/rbenv) or [conda](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer it adds these paths too. It can also generate a log file of the conversion (so you can check for missing references etc.). Save the [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic) script, move it to a directory on your path, and make sure it can be executed like so:
+It adds the paths for tools installed via `homebrew`, `MacTeX` and `Cabal`; and if you've used [`rbenv`](https://github.com/rbenv/rbenv), [`rvm`](https://rvm.io/) or [`conda`](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer it adds these paths too. It can also generate a detailed log file of the conversion (so you can check for missing references etc.). Save the [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic) script, move it to a directory on your path, and make sure it can be executed like so:
 
 ```bash
 mkdir -p $HOME/bin
@@ -136,11 +135,12 @@ You can also run scrivomatic from the command line:
 ```
 Usage: scrivomatic --input FILE [additional options]
     -i, --input FILE                 Input file?
-    -o, --output [file]              Output file? Can be ignored for pandocomatic.
-    -t, --to [format]                Pandoc Format? Can be ignored for pandocomatic.
-    -c, --command [command]          Command to use? Default is pandocomatic
+    -o, --output [file]              Output file? Optional for pandocomatic.
+    -t, --to [format]                Pandoc Format? Optional for pandocomatic.
+    -c, --command [command]          Tool to use? Default: pandocomatic
     -p, --path [dirpath]             Path to Search for Commands?
     -b, --build                      If LaTeX output, try to run latexmk
+    -d, --dry-run                    Dry run?
     -v, --[no-]verbose               Verbose output?
     -h, --help                       Prints this help!
 ```
@@ -150,9 +150,9 @@ And I include an [Alfred workflow](https://raw.githubusercontent.com/iandol/scri
 ![Figure 3 — Alfred Workflow.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/3.png)
 
 ## Working with Bookends
-[Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the nice tutorial here:
+[Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the simple tutorial here:
 
 [BSAG » Bookends and Pandoc](https://www.rousette.org.uk/archives/bookends-and-pandoc/)
 
-To export your references as a BIB file you can do tht manually from the Bookends GUI. However, I prefer to do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), you can specify an output folder and comma-separated list of groups via command-line input. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time!
+To export your references as a file Pandoc can read (usually a BibTeX file) you can do tht manually from the Bookends GUI. However, I prefer to do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), you can specify an output folder and comma-separated list of groups via command-line input. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time!
 

@@ -2,26 +2,15 @@
 require 'open3' # ruby standard library class to handle stderr and stdout
 require 'optparse' # ruby standard option parser
 require 'shellwords' # escapes strings to run in the shell
-if ARGV[-1] == 'DEBUG' # Enable remote debugger
-  require 'byebug/core'
-  require 'byebug'
-  PORT = 8989
-  STDOUT.puts "\n!!!---DEBUG Server started on localhost:#{PORT} @ " + Time.now.to_s + "\n\n"
-  Byebug.wait_connection = true
-  Byebug.start_server('127.0.0.1', PORT)
-  ARGV.pop
-  byebug
-end
-
 
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.10'.freeze
+  VER = '1.0.11'.freeze
   OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose, :dry_run)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
-  # ###############################constructor
+  ################################class constructor
   def initialize # set up class
     @options = OPT.new(nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false)
     @version = VER
@@ -30,7 +19,7 @@ class Scrivomatic
     @runLog = ''
   end
 
-  # ###############################run command
+  ################################build the command line
   def buildCommand
     @toolPath = `which #{@options[:command]}`.chomp
     unless @options[:output].nil?
@@ -47,7 +36,7 @@ class Scrivomatic
     end
   end
 
-  # ###############################run command
+  ################################run the command
   def runCommand
     @runLog += ":: Running: #{@cmd}\n"
     if File.exist?(@toolPath) && !options.dry_run
@@ -69,7 +58,7 @@ class Scrivomatic
     end
   end 
 
-  # ###############################parse inputs
+  ################################parse inputs
   def parseInputs(_arg)
     optparse = OptionParser.new do |opts|
       opts.banner = 'Scrivomatic V' + @version + "\n"
@@ -118,13 +107,13 @@ class Scrivomatic
     end
   end # end parseInputs
 
-  # ###############################make env path
+  ################################make env path
   def makePath
-    rvmpath = rvm_check
     pathtest = ['/Library/TeX/texbin',
       ENV['HOME'] + '/anaconda/bin',
       ENV['HOME'] + '/anaconda3/bin',
-      rvmpath,
+      ENV['HOME'] + '/.cabal/bin',
+      rvm_check,
       ENV['HOME'] + '/.rbenv/shims']
     pathtest.each do |p|
       if File.directory?(p)
@@ -138,17 +127,17 @@ class Scrivomatic
     ENV['PATH'] = @options[:envpath] + ':' + ENV['PATH']
   end # end makePath()
 
-  # ###############################check for RVM
+  ################################check for RVM
   def rvm_check
     rvm_home = ENV['HOME'] + '/.rvm'
     return '' unless File.directory?(rvm_home)
     rvm_home + '/wrappers/default'
   end
 
-  # ###############################set version
+  ################################set version
   attr_writer :version
 
-  # ###############################print initial report
+  ################################print initial report
   def printInfo
     if @options[:verbose] == true
       puts "\n=== ##################################################### ==="
