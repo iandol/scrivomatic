@@ -47,12 +47,12 @@ class Scrivomatic
         exit_status = thread.value
         @runLog += ':: exit status: ' + exit_status.to_s
         unless exit_status.success?
-          @runLog += "!!!---scrivomatic::runCommand() popen2e FAILED TO RUN #{cmd}!!!"
+          @runLog += "\n!!!---scrivomatic::runCommand() RETURN non-zero value: #{cmd}!!!"
         end
       end
     elsif !options.dry_run
       @runLog += "Tool doesn't exist!!!"
-      @runLog += "!!!---scrivomatic::runCommand() Couldn't find #{@toolPath} to run, please supply a proper path!"
+      @runLog += "\n!!!---scrivomatic::runCommand() Couldn't find #{@toolPath} to run, please supply a proper path!"
     else
       @runLog += 'Dry run, nothing actually executed...'
     end
@@ -173,7 +173,7 @@ class Scrivomatic
       texPath = options.input.gsub(/\.md$/, '.tex')
       if File.exist?(texPath)
         xLog = '' # simple log
-        xcmd = "latexmk -interaction=nonstopmode -pv -time -xelatex -f #{texPath}"
+        xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -gg -pv -time -xelatex -f #{texPath}"
         puts "\n====== RUN LATEXMK on #{texPath}: ======"
         Open3.popen2e(xcmd) do |_stdin, oe, wait_thr|
           while line = oe.gets
