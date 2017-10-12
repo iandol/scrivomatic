@@ -156,6 +156,7 @@ class Scrivomatic
         location = `which #{c}`.chomp
         puts "---#{c}: #{location}" unless location.empty?
       end
+      puts "\n … running #{@options[:command]}, please wait …\n"
     end
   end
 
