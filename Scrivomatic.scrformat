@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CompileFormat Name="Scrivomatic" ID="4A11C6C8-A836-4179-96AF-62CEF0A8D8F4">
-    <SupportedTypes>
-        <Type>mmd</Type>
-        <Type>mmd-latex</Type>
-        <Type>mmd-rtf</Type>
-        <Type>mmd-html</Type>
-        <Type>mmd-odf</Type>
-        <Type>mmd-pdf</Type>
-        <Type>pandoc-docx</Type>
-        <Type>pandoc-docbook</Type>
-        <Type>pandoc-epub</Type>
-    </SupportedTypes>
+<CompileFormat Name="Scrivomatic" ID="7CC128BA-7399-499C-90B3-7CECDBC3E08A">
     <SectionLayouts>
         <Layout Name="Chapter Number" ID="CHAPTER-NUMBER">
             <RTFBookmark>Yes</RTFBookmark>
@@ -603,13 +592,13 @@
     </FormattingOptions>
     <SeparatorSettings>
         <FolderSeparators>
-            <Before Type="PageBreak"></Before>
-            <Between Type="PageBreak"></Between>
+            <Before Type="Double"></Before>
+            <Between Type="Double"></Between>
             <AfterOverride Use="No" Type="Single"></AfterOverride>
         </FolderSeparators>
         <TextSeparators>
-            <Before Type="PageBreak"></Before>
-            <Between Type="PageBreak"></Between>
+            <Before Type="Double"></Before>
+            <Between Type="Double"></Between>
             <AfterOverride Use="No" Type="Single"></AfterOverride>
         </TextSeparators>
         <Font Size="14.0" Override="No">GretaTextPro-Regular</Font>
@@ -617,28 +606,30 @@
     <Styles>
         <Style Name="Heading 1" ID="96B40C09-62CD-4862-BE46-8BC45C881F60" Type="Para+Char" FontChange="Size">
             <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 GretaTextPro-Regular;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 GraublauSlab-Regular;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl288\slmult1\sb280\pardirnatural\partightenfactor0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sb280\pardirnatural\qc\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_H::1>
-\f1\b\fs36 Attributes
-\f0\b0\fs24 <!$Scr_H::1>}]]></Format>
-            <Prefix><![CDATA[# ]]></Prefix>
+\f1\i\b\fs48 Attributes
+\f0\i0\b0\fs24 <!$Scr_H::1>}]]></Format>
+            <Prefix><![CDATA[
+# ]]></Prefix>
             <Suffix><![CDATA[ #]]></Suffix>
         </Style>
         <Style Name="Heading 2" ID="C50AC901-F3BD-49ED-99D1-FD64BD2E1944" Type="Para+Char" FontChange="Size">
             <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 GretaTextPro-Regular;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 GraublauSlab-Regular;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl288\slmult1\sb280\pardirnatural\partightenfactor0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sb280\pardirnatural\qc\partightenfactor0
 
 \f0\fs24 \cf0 <$Scr_H::2>
-\f1\b\fs28 Attributes
-\f0\b0\fs24 <!$Scr_H::2>}]]></Format>
-            <Prefix><![CDATA[## ]]></Prefix>
+\f1\i\b\fs36 Attributes
+\f0\i0\b0\fs24 <!$Scr_H::2>}]]></Format>
+            <Prefix><![CDATA[
+## ]]></Prefix>
             <Suffix><![CDATA[ ##]]></Suffix>
         </Style>
         <Style Name="Attribution" ID="B6A231FB-EED9-436A-9F1E-1370BE123FBC" Type="Para" FontChange="Size">
@@ -668,7 +659,6 @@
 \pard\tx720\tx1080\tx1440\li720\sl288\slmult1\pardirnatural\partightenfactor0
 
 \f0\i\fs24 \cf0 Attributes}]]></Format>
-            <ParaPrefix><![CDATA[> ]]></ParaPrefix>
         </Style>
         <Style Name="MetaData" ID="1738804D-4BD6-4FB5-B2E2-CFBAFD5E18B6" Type="Para+Char" FontChange="Face+Size">
             <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
@@ -737,16 +727,17 @@
         </Style>
         <Style Name="Heading 3" ID="BE017F56-65B1-4A17-9819-64D1BCFD7F6D" Type="Para+Char" FontChange="Face+Size">
             <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
-{\fonttbl\f0\fnil\fcharset0 FiraCode-Bold;}
-{\colortbl;\red255\green255\blue255;\red47\green84\blue150;}
-{\*\expandedcolortbl;;\csgenericrgb\c18431\c32941\c58824;}
-\pard\tx283\tx567\tx850\tx1134\tx1417\tx1701\tx1984\tx2268\tx2835\tx3402\tx3969\tx4536\pardirnatural\qr\partightenfactor0
+{\fonttbl\f0\fnil\fcharset0 GraublauSlab-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx283\tx567\tx850\tx1134\tx1417\tx1701\tx1984\tx2268\tx2835\tx3402\tx3969\tx4536\pardirnatural\qc\partightenfactor0
 
-\f0\b\fs32 \cf2 Attributes}]]></Format>
-            <Prefix><![CDATA[### ]]></Prefix>
+\f0\b\fs32 \cf0 Attributes}]]></Format>
+            <Prefix><![CDATA[
+### ]]></Prefix>
             <Suffix><![CDATA[ ###]]></Suffix>
         </Style>
-        <Style Name="Strong Emphasis" ID="A93DD888-6A0B-49AC-AC6A-F10E68465C5B" Type="Char">
+        <Style Name="Strong emphasis" ID="F0205495-6760-4560-895F-4D5BD35A0330" Type="Char">
             <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
 {\fonttbl\f0\fnil\fcharset0 GretaTextPro-Regular;}
 {\colortbl;\red255\green255\blue255;}
@@ -756,6 +747,25 @@
 \f0\i\b\fs28 \cf0 Attributes}]]></Format>
             <Prefix><![CDATA[**_]]></Prefix>
             <Suffix><![CDATA[_**]]></Suffix>
+        </Style>
+        <Style Name="Code Block" ID="F1AA3CE2-BDF1-46A0-87B4-190ED6BBD75A" Type="Para+Char" FontChange="Face+Size">
+            <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 FiraCode-Retina;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\deftab283
+\pard\tx283\tx566\tx850\tx1133\tx1417\tx1700\tx1984\tx2267\tx2551\tx2834\tx3118\tx3401\tx3685\tx3968\tx4251\tx4535\tx4818\tx5102\pardeftab283\li283\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf0 Attributes}]]></Format>
+        </Style>
+        <Style Name="Caption" ID="21DBD5C0-0060-42F7-AA99-C32C7F4FAD0C" Type="Para" FontChange="Size">
+            <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset0 GretaSansStd-Reg;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl264\slmult1\sa160\pardirnatural\partightenfactor0
+
+\f0\fs26 \cf0 Attributes}]]></Format>
         </Style>
     </Styles>
     <TitleLinks>
@@ -769,24 +779,32 @@
     <Transformations>
         <PlainTextConversion State="Off">Spacing+Indents</PlainTextConversion>
         <UnderlineHyperlinks>Yes</UnderlineHyperlinks>
-        <OutlineIndent State="Off">18</OutlineIndent>
+        <OutlineIndent State="Off">18.0</OutlineIndent>
     </Transformations>
     <Replacements>
         <Replacement>
-            <Replace><![CDATA[!f<$@>]]></Replace>
-            <With><![CDATA[Figure <$n:figure:$@>]]></With>
+            <Replace><![CDATA[!f($@)]]></Replace>
+            <With><![CDATA[Figure <$n:figure:$@>]]></With>
         </Replacement>
         <Replacement>
-            <Replace><![CDATA[!f-<$@>]]></Replace>
-            <With><![CDATA[Fig. <$n#figure:$@>]]></With>
+            <Replace><![CDATA[#f($@)]]></Replace>
+            <With><![CDATA[Fig. <$n#figure:$@>]]></With>
         </Replacement>
         <Replacement>
-            <Replace><![CDATA[!r<$@>]]></Replace>
-            <With><![CDATA[<$r:eq:$@>]]></With>
+            <Replace><![CDATA[!t($@)]]></Replace>
+            <With><![CDATA[Table <$n:table:$@>]]></With>
         </Replacement>
         <Replacement>
-            <Replace><![CDATA[!r-<$@>]]></Replace>
-            <With><![CDATA[<$r#eq:$@>]]></With>
+            <Replace><![CDATA[#t($@)]]></Replace>
+            <With><![CDATA[Table <$n#table:$@>]]></With>
+        </Replacement>
+        <Replacement>
+            <Replace><![CDATA[!e($@)]]></Replace>
+            <With><![CDATA[Equation <$n:eq:$@>]]></With>
+        </Replacement>
+        <Replacement>
+            <Replace><![CDATA[#e($@)]]></Replace>
+            <With><![CDATA[Eq. <$n:eq:$@>]]></With>
         </Replacement>
     </Replacements>
     <Statistics>
@@ -823,10 +841,11 @@
             <AnnotationsRTFType>Comments</AnnotationsRTFType>
             <AnnotationPrefix><![CDATA[[]]></AnnotationPrefix>
             <AnnotationSuffix><![CDATA[]]]></AnnotationSuffix>
+            <CommentFormatString Use="Yes">&lt;span class="comment" title="&lt;$cmt&gt;"&gt;&lt;$lnk&gt;&lt;/span&gt;</CommentFormatString>
         </Comments>
     </FootnotesAndComments>
     <PageSettings UseProjectSettings="Yes" UseDefaultPaperSize="Yes">
-        <PrintSettings PaperSize="595.275573,841.889771" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="iso-a4" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"></PrintSettings>
+        <PrintSettings PaperSize="595.0,842.0" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="iso-a4" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"></PrintSettings>
         <Margins Units="Inches">
             <Top>1.0</Top>
             <Bottom>1.0</Bottom>
@@ -883,6 +902,8 @@
         <MetaData>
             <Value IsProjectMetaDataPlaceholder="Yes"></Value>
         </MetaData>
+        <BlockQuoteStyleID>2633AE3B-091F-45BB-A2F1-9D6E3CC038FE</BlockQuoteStyleID>
+        <CaptionStyleID>21DBD5C0-0060-42F7-AA99-C32C7F4FAD0C</CaptionStyleID>
         <AddClosingHashesToTitles>Yes</AddClosingHashesToTitles>
         <LaTeXDocumentClass>Memoir</LaTeXDocumentClass>
         <UsePandocSyntax>Yes</UsePandocSyntax>
