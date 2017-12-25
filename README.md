@@ -1,4 +1,17 @@
 # Scrivomatic: Scrivener & *Pandoc\{omatic\}* #
+<!--<div style="float:right;width:40%;font-size:0.75rem;padding:5px;border:1px solid #DDD;background-color: #FFF;border-radius: 5px;margin-left:1rem;box-shadow: 5px 5px 10px #AAA">-->
+### Table of Contents ###
+* [General Introduction](#introduction)
+    - [Simple Summary](#tldr-simple-summary)
+    - [Installing the required tools…](#requirements)
+    - [Configuring the workflow](#configuration)
+* [The Writing Workflow in Scrivener](#writing-in-scrivener)
+* [Compiling in Scrivener via Pandoc](#compiling-your-project)
+* [`scrivomatic` Compile Helper](#scrivomatic-post-processing-script)
+* [More Writing Tips](#writing-tips-for-this-workflow)
+    - [Use Custom Styles in Word and HTML](#use-custom-styles-in-word-and-html)
+    - [Working with Bookends Reference Manager](#working-with-bookends-reference-manager)
+<!--</div>-->
 
 ## Introduction ##
 
@@ -24,7 +37,7 @@ Because of [Pandoc's](http://pandoc.org/index.html) great flexibility, there are
 3. In Scrivener, use a **front-matter** document containing the required settings and compile to Multimarkdown. I [supply a compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
 4. Scrivener's compile process triggers `pandocomatic`  automagically creating the final output(s).
 
-## Requirements ##
+### Requirements ###
 
 Apart from **Scrivener** (V3.x is much more capable for this workflow), you need to install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [manually](http://pandoc.org/installing.html), but it is generally better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can keep everything up to date. So first,follow the [instructions to install Homebrew](https://brew.sh/), and then install `pandoc` using the `brew` command:
 
@@ -47,21 +60,17 @@ To keep both Pandoc and Pandocomatic *up-to-date*, you can run the update comman
 ```
 
 
-## Configuration ##
+### Configuration ###
 
 The most important folder for this workflow is the Pandoc data directory: `$HOME/.pandoc` ($HOME is your user directory, for example `/Users/johndoe/`). Though not required, it is easiest to organise your templates, filters and other files there. It is a hidden folder by default, so you can use the terminal to manage it, or learn [how to unhide it first](https://www.google.com/search?q=unhide+folder+mac) if you prefer to use Finder.
 
-You can [explore my working Pandoc folder here](https://github.com/iandol/dotfiles/tree/master/pandoc). It is comprised of a series of subfolders organised into the files Pandoc can use. You can *install* my Pandoc folder to your `$HOME/.pandoc` folder using the following terminal command:
+You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders organised into the files Pandoc can use. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping it into your `$HOME/.pandoc`
 
-```bash
-svn export https://github.com/iandol/dotfiles/trunk/pandoc $HOME/.pandoc
-```
+`pandocomatic` uses a single configuration file normally stored at the root of the Pandoc data directory: `$HOME/.pandoc/pandocomatic.yaml`. A simplified [ sample `pandocomatic.yaml` is shared here](https://github.com/iandol/scrivomatic/blob/master/pandocomatic.yaml); this won't work without customisation, but it gives you an idea of how the pandocomatic styles work. The basic idea is you create a series of styles, and each style collects together a bunch of settings and configurations to produce a particular output. So I have `docx` style which is a basic Word conversion, but also a `docx-refs` which runs the bibliographic tools to generates a bibliography automatically.
 
-`Pandocomatic` uses a single configuration file normally stored at `$HOME/.pandoc/pandocomatic.yaml`; you can look through a simplified [`pandocomatic.yaml` here](https://github.com/iandol/scrivomatic/blob/master/pandocomatic.yaml); this won't work without modification, but it gives you an idea of how these pandocomatic styles work. 
+For the reset of the files in the Pandoc data directory: all custom Pandoc templates reside in `$HOME/.pandoc/templates`, and filters in `$HOME/.pandoc/filters`. For bibliographies, I symbolically link my Bibliography.bib into in `$HOME/.pandoc` and store my Journal style files in `$HOME/.pandoc/csl`. `pandocomatic` enables the use of pre– and post–processor scripts and these are stored in their own subfolders.
 
-By default, all the custom Pandoc templates reside in `$HOME/.pandoc/templates`, and filters in `$HOME/.pandoc/filters`. For bibliographies, I prefer to symlink my Bibliography.bib into in `$HOME/.pandoc` and my Journal style files in `$HOME/.pandoc/csl`. `pandocomatic` enables the use of pre– and post–processor scripts and these are stored in their own subfolders.
-
-### Writing in Scrivener (please also read §21—user manual) ##
+## Writing in Scrivener ##
 
 With Scrivener 3's new [styles system (§15.5 user manual)](http://www.literatureandlatte.com/blog/?p=1094), there is a huge change to how you can write with markdown. You can use named paragraph styles (like "blockquote"), and named inline styles (like "emphasis" or "superscript") as you would writing in rich text (**i.e. there is no need to add markdown syntax in the editor!**) With the new [compile system (§23—user manual)](http://www.literatureandlatte.com/blog/?p=1097), Scrivener can add a prefix/suffix to create the required plain-text markdown. So for example, create an inline style called `strong`, and in compile set the prefix to \*\* and suffix to \*\* and Scrivener automates conversion from the style to markdown! In Scrivener 2, you can still use formatting presets, but these will always be stripped out during the compile, so you need to write the markdown directly in the editor. I used to use formatting presets to visualise markdown structure in Scrivener 2 (block quotes, code blocks, lists, tables, figure captions). But in Scrivener 3, I now use styles both to *visualise* structure **and** to *generate* the Pandoc markup itself:  
 
@@ -125,6 +134,7 @@ In Scrivener, you select Multimarkdown as the compile document output and select
 ## Scrivomatic post-processing script ##
 
 ![Figure 3 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/processing.png)  
+
 I've built a simple wrapper script, [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), that runs from Scrivener's post-processing panel and ensures the search path and environment are automatically added. **You can also run `pandocomatic` directly**, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` tries to handle this automatically for you…
 
 It adds the paths for tools installed via `homebrew`, `MacTeX` and `Cabal`; and if you've used [`rbenv`](https://github.com/rbenv/rbenv), [`rvm`](https://rvm.io/) or [`conda`](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer it adds these paths too. It can also generate a detailed log file of the conversion (so you can check for missing references etc.). Save the [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic) script, move it to a directory on your path, and make sure it can be executed like so:
@@ -154,7 +164,20 @@ I also include an [Alfred workflow](https://raw.githubusercontent.com/iandol/scr
 
 ![Figure 4 — Alfred Workflow.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/3.png)
 
-## Working with Bookends
+## Writing tips for this Workflow ##
+
+### Use Custom Styles in Word and HTML ###
+There are two recent features to Pandoc, [Fenced Divs](http://pandoc.org/MANUAL.html#extension-fenced_divs) and [Custom Styles](http://pandoc.org/MANUAL.html#custom-styles-in-docx-output) (see also [bracketed spans](http://pandoc.org/MANUAL.html#extension-bracketed_spans), that when combined, enable any arbitrary custom Scrivener paragraph or character styles to be converted into Word styles or CSS classes. So for example, we can create an "Allegory" paragraph style in Scrivener, and in the Compiler style we use the fenced div syntax prefix=`::: custom-style=Allegory :::\n` & suffix=`\n::::::` (`\n` meand enter a return, done using `option+return` in the edit box) which would generate a fenced div like so in the Pandoc file:
+
+~~~markdown
+::: custom-style=Allegory :::
+All animals are equal but a few are more equal than others
+::::::
+~~~
+
+Pandoc will then attach a word style named "Allegory" to the final DOCX. You can edit your reference.docx to include a pre-styled "Allegory" style so it also styled as you want.
+
+### Working with Bookends Reference Manager ###
 [Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the simple tutorial here:
 
 [BSAG » Bookends and Pandoc](https://www.rousette.org.uk/archives/bookends-and-pandoc/)
