@@ -1,5 +1,6 @@
 # Scrivomatic: Scrivener & *Pandoc\{omatic\}* #
-<!--<div style="float:right;width:40%;font-size:0.75rem;padding:5px;border:1px solid #DDD;background-color: #FFF;border-radius: 5px;margin-left:1rem;box-shadow: 5px 5px 10px #AAA">-->
+<div style="float:right;width:40%;font-size:0.75rem;padding:5px;border:1px solid #DDD;background-color: #FFF;border-radius: 5px;margin-left:1rem;box-shadow: 5px 5px 10px #AAA">
+
 ### Table of Contents ###
 * [General Introduction](#introduction)
     - [Simple Summary](#tldr-simple-summary)
@@ -11,7 +12,8 @@
 * [More Writing Tips](#writing-tips-for-this-workflow)
     - [Use Custom Styles in Word and HTML](#use-custom-styles-in-word-and-html)
     - [Working with Bookends Reference Manager](#working-with-bookends-reference-manager)
-<!--</div>-->
+
+</div>
 
 ## Introduction ##
 
@@ -80,7 +82,7 @@ You can download my customised Scrivener 3 [compile preset here](https://raw.git
 
 ![Figure 2 — The Scrivener 3 Compile Format Scrivomatic in the editor, showing how the inline style "Strong Emphasis" is converted into the correct markdown using prefix & suffix text.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/style-transform.png)  
 
-**Enable _Show invisible characters_** — because markdown is sensitive to whitespace! You should aim to use whitespace consistently: For a new paragraph and between any blocks of content I always use `\[space\]\[space\]\[return\]\[return\]`. It is automatic for me and showing invisible characters makes potential formatting issues when compiling simple to fix.
+**Enable _Show invisible characters_** — because markdown is sensitive to whitespace! You should aim to use whitespace consistently: For a new paragraph and between any blocks of content I always use [`[space][space][return][return]`](http://pandoc.org/MANUAL.html#paragraphs). It is automatic for me and showing invisible characters makes potential formatting issues when compiling simple to fix.
 
 **Use the Binder for all document structure**: try not to not use markdown \# headings within the text itself but from the document hierarchy in the Binder. Scrivener is great at compiling the levels of the Binder structure into the correct heading levels for you.  
 
