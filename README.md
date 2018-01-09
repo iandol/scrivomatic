@@ -7,6 +7,11 @@
     - [Installing the required tools…](#requirements)
     - [Configuring the workflow](#configuration)
 * [The Writing Workflow in Scrivener](#writing-in-scrivener)
+    - [Enable Show invisible characters](#enable-show-invisible-characters)
+    - [Use the Binder for all document structure](#use-the-binder-for-all-document-structure)
+    - [Using Images](#images)
+    - [Compiling Scrivener Comments](#scrivener-comments)
+    - [Cross-referencing content](#cross-referencing)
 * [Compiling in Scrivener via Pandoc](#compiling-your-project)
 * [`scrivomatic` Compile Helper](#scrivomatic-post-processing-script)
 * [More Writing Tips](#writing-tips-for-this-workflow)
@@ -23,7 +28,7 @@
 * Figures and figure captions get proper styling.
 * Semantically styled block quotes, code blocks (with full syntax highlighting), and many inline styles.
 * Mathematical equations are properly parsed to multipe output formats.
-* You can generate multiple outputs (EPub,HTML,PDF,LaTeX,DOCX,ODT) from a single compile; and trigger other tools to automate many workflows.
+* You can generate multiple outputs (EPub3, HTML, PDF, LaTeX, DOCX, ODT) simultaneously from a single compile; and trigger other further tools to automate many workflows.
 * You can use a Microsoft Word/LibreOffice template file to provide all page setup and customised styles without any fussing in a word processor afterwards.
 * For academics, by utilising [Pandoc](http://pandoc.org/index.html) as the markdown processor, you can *automagically generate a full [Bibliography](http://pandoc.org/MANUAL.html#citations)*. 
 * For technical writers, you can add semantic custom block and span structures (warning or info boxes for example).
@@ -38,6 +43,8 @@ Because of [Pandoc's](http://pandoc.org/index.html) great flexibility, there are
 2. Configure one or more templates; you can base them on mine [shared below](#configuration).
 3. In Scrivener, use a **front-matter** document containing the required settings and compile to Multimarkdown. I [supply a compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
 4. Scrivener's compile process triggers `pandocomatic`  automagically creating the final output(s).
+
+As a teaser for the full workflow, you can download a [sample Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles all the required files into the Binder (instructions included there to set up).
 
 ### Requirements ###
 
@@ -82,15 +89,20 @@ You can download my customised Scrivener 3 [compile preset here](https://raw.git
 
 ![Figure 2 — The Scrivener 3 Compile Format Scrivomatic in the editor, showing how the inline style "Strong Emphasis" is converted into the correct markdown using prefix & suffix text.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/style-transform.png)  
 
-**Enable _Show invisible characters_** — because markdown is sensitive to whitespace! You should aim to use whitespace consistently: For a new paragraph and between any blocks of content I always use [`[space][space][return][return]`](http://pandoc.org/MANUAL.html#paragraphs). It is automatic for me and showing invisible characters makes potential formatting issues when compiling simple to fix.
+### Enable Show invisible characters ###
+Because markdown is sensitive to whitespace! You should aim to use whitespace consistently: For a new paragraph and between any blocks of content I always use [`[space][space][return][return]`](http://pandoc.org/MANUAL.html#paragraphs). It is automatic for me and showing invisible characters makes potential formatting issues when compiling simple to fix.
 
-**Use the Binder for all document structure**: try not to not use markdown \# headings within the text itself but from the document hierarchy in the Binder. Scrivener is great at compiling the levels of the Binder structure into the correct heading levels for you.  
+### Use the Binder for all document structure ###
+Try not to not use markdown \# headings within text documents themselves but create documents at the correct level hierarchy in the Binder. Scrivener is great at compiling the levels of the Binder structure into the correct heading levels for you, and you benefit from being able to use the outlining and organisation tools within Scrivener.  
 
-**Images** — Scrivener can transform images that are embedded with a line of text (§21.4.1 user manual) into markup that generates proper semantic `<figure>` and `<figcaption>` elements. I prefer to link images (Fig. 21.2—user manual)from the binder rather than embed using the standard Pandoc markup: `![Figure caption](linked_image){.my_style}`; in both cases (embedded or linked-from-binder) Scrivener will correctly export the image file into the compile folder. Scrivener 3 has a nice new feature where you can binder-link figures (`Insert ▸ Image Linked to Document`), they are not embedded but still visible in the document, to add a caption to these you can use a caption style or \[\] brackets around the caption (described at the end of §21.4.1—user manual).
+### Images ###
+Scrivener can transform images that are embedded with a line of text (§21.4.1 user manual) into markup that generates proper semantic `<figure>` and `<figcaption>` elements. I now prefer to link images (Fig. 21.2—user manual) from the binder rather than by using the standard Pandoc markup: `![Figure caption](linked_image){.my_style}`; in both cases (embedded or linked-from-binder) Scrivener will correctly export the image file into the compile folder. Scrivener 3 has a nice new feature where you can binder-link figures (`Insert ▸ Image Linked to Document`), they are not embedded but still visible in the document, to add a caption to these you can use a caption style or \[\] brackets around the caption (described at the end of §21.4.1—user manual).
 
-**Scrivener Comments** — Use comments and annotations freely. Scrivener 3 now allows you to transform comments to complex markup (§24.19.7—user manual) where the comment text `<$cmt>` AND the comment selection `<$lnk>` are both correctly exported). This can be set in `compile > annotations…` — I use: `<span class="comment" title="<$cmt>"><$lnk></span>`. For export to DOCX, you can use `<span class="comment-start" id="<$n>" author="<$author>" date="<$date>"><$cmt></span><$lnk><span class="comment-end" id="<$n>"></span>`, which should transform into proper Word comments with using Pandoc 2+.  
+### Scrivener Comments ###
+Use comments and annotations freely. Scrivener 3 now allows you to transform comments to complex markup (§24.19.7—user manual) where the comment text `<$cmt>` AND the comment selection `<$lnk>` are both correctly exported). This can be set in `compile > annotations…` — I use: `<span class="comment" title="<$cmt>"><$lnk></span>`. For export to DOCX, you can use `<span class="comment-start" id="<$n>" author="<$author>" date="<$date>"><$cmt></span><$lnk><span class="comment-end" id="<$n>"></span>`, which should transform into proper Word comments with using Pandoc 2+.  
 
-**Cross-referencing** — I prefer Scrivener links to cross-reference documents / export figures, and Scrivener's placeholder tags to cross-reference figures and equations. But for new users Pandoc does have several cross-referencing filters ([pandoc-crossref](https://github.com/lierdakil/pandoc-crossref) and [pandoc-fignos](https://github.com/tomduck/pandoc-fignos) for example) and you can also use these.  
+### Cross-referencing ###
+I prefer Scrivener links to cross-reference documents / export figures, and Scrivener's placeholder tags to cross-reference figures and equations. But for new users Pandoc does have several cross-referencing filters ([pandoc-crossref](https://github.com/lierdakil/pandoc-crossref) and [pandoc-fignos](https://github.com/tomduck/pandoc-fignos) for example) and you can also use these.  
 
 ## Compiling your Project: ##
 
