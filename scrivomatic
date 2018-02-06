@@ -6,13 +6,13 @@ require 'shellwords' # escapes strings to run in the shell
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.11'.freeze
-  OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose, :dry_run)
+  VER = '1.0.12'.freeze
+  OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose, :dry_run, :open_log)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
   ################################class constructor
   def initialize # set up class
-    @options = OPT.new(nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false)
+    @options = OPT.new(nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false, false)
     @version = VER
     @cmd = ''
     @toolPath = ''
@@ -38,23 +38,27 @@ class Scrivomatic
 
   ################################run the command
   def runCommand
-    @runLog += ":: Running: #{@cmd}\n"
+    if @options[:open_log]
+      `open scrivomatic.log` if File.exist?('scrivomatic.log')
+    end
+    puts '====== COMMAND OUTPUT: ======' if @options[:verbose]==true
+    puts ":: Running: #{@cmd}\n" if @options[:verbose]==true
     if File.exist?(@toolPath) && !options.dry_run
       Open3.popen2e(@cmd) do |_stdin, oe, thread|
         while (line = oe.gets)
-          @runLog += '::: ' + line.chomp + "\n"
+          puts '::: ' + line.chomp if @options[:verbose]==true
         end
         exit_status = thread.value
-        @runLog += ':: exit status: ' + exit_status.to_s
+        puts ':: exit status: ' + exit_status.to_s if @options[:verbose]==true
         unless exit_status.success?
-          @runLog += "\n!!!---scrivomatic::runCommand() RETURN non-zero value: #{cmd}!!!"
+          puts "\n!!!---scrivomatic::runCommand() RETURN non-zero value: #{cmd}!!!"
         end
       end
     elsif !options.dry_run
-      @runLog += "Tool doesn't exist!!!"
-      @runLog += "\n!!!---scrivomatic::runCommand() Couldn't find #{@toolPath} to run, please supply a proper path!"
+      puts "Tool doesn't exist!!!" if @options[:verbose]==true
+      puts "\n!!!---scrivomatic::runCommand() Couldn't find #{@toolPath} to run, please supply a proper path!"
     else
-      @runLog += 'Dry run, nothing actually executed...'
+      puts 'Dry run, nothing actually executed...' if @options[:verbose]==true
     end
   end 
 
@@ -88,6 +92,9 @@ class Scrivomatic
       end
       opts.on('-v', '--[no-]verbose', 'Verbose output?') do |v|
         @options[:verbose] = v
+      end
+      opts.on('-l', '--[no-]log', 'Open log?') do |v|
+        @options[:open_log] = v
       end
       opts.on('-h', '--help', 'Prints this help!') do
         puts optparse
@@ -139,33 +146,24 @@ class Scrivomatic
 
   ################################print initial report
   def printInfo
-    if @options[:verbose] == true
-      puts "\n=== ##################################################### ==="
-      puts '=== Scrivomatic V' + @version + ' Report @ ' + Time.now.to_s + ' ==='
-      puts " Running under Ruby #{RUBY_VERSION}"
-      puts ' Working directory: ' + `pwd`
-      puts '====== Input Options: ======'
-      puts @options
-      puts '====== Final ENV PATH: ======'
-      puts ENV['PATH']
-      puts '====== TOOL PATHS: ======'
-      puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
-      puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
-      puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
-      %w[rbenv rvm panzer python xelatex].each do |c|
-        location = `which #{c}`.chomp
-        puts "---#{c}: #{location}" unless location.empty?
-      end
-      puts "\n … running #{@options[:command]}, please wait …\n"
+    return if @options[:verbose] == false
+    puts "\n=== ##################################################### ==="
+    puts '=== Scrivomatic V' + @version + ' Report @ ' + Time.now.to_s + ' ==='
+    puts " Running under Ruby #{RUBY_VERSION}"
+    puts ' Working directory: ' + `pwd`
+    puts '====== Input Options: ======'
+    puts @options
+    puts '====== Final ENV PATH: ======'
+    puts ENV['PATH']
+    puts '====== TOOL PATHS: ======'
+    puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
+    puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
+    puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
+    %w[rbenv rvm panzer python xelatex].each do |c|
+      location = `which #{c}`.chomp
+      puts "---#{c}: #{location}" unless location.empty?
     end
-  end
-
-  # ###############################print summary report
-  def printReport
-    if @options[:verbose] && @runLog != ''
-      puts '====== COMMAND OUTPUT: ======'
-      puts @runLog
-    end
+    puts "\n … running #{@options[:command]}, please wait …\n"
   end
 
   # ###############################check if we want to run latexmk
@@ -203,7 +201,6 @@ class Scrivomatic
     printInfo
     buildCommand
     runCommand
-    printReport
     postBuild
   end
 end #--------------- end Scrivomatic class
