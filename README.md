@@ -7,9 +7,9 @@
     - [Installing the required tools…](#requirements)
     - [Configuring the workflow](#configuration)
 * [The Writing Workflow in Scrivener](#writing-in-scrivener)
-    - [Enable Show invisible characters](#enable-show-invisible-characters)
     - [Use the Binder for all document structure](#use-the-binder-for-all-document-structure)
-    - [Using Images](#images)
+    - [Enable Show invisible characters](#enable-show-invisible-characters)
+    - [Working with Images](#images)
     - [Compiling Scrivener Comments](#scrivener-comments)
     - [Cross-referencing content](#cross-referencing)
 * [Compiling in Scrivener via Pandoc](#compiling-your-project)
@@ -24,21 +24,23 @@
 
 [Scrivener](http://literatureandlatte.com) is a program for all kinds of writers, handling the structural organisation *and* constructive process of writing like nothing else. You write and mange your text, ideas, figures and reference materials all in one place without having to worry about the final "look". The final "look" is handled by a process called compiling, where you choose the output format and select the contents with great flexibility. Although Scrivener uses rich text internally, it has excellent integration with plain text [markdown](https://en.wikipedia.org/wiki/Markdown). Compiling your Scrivener projects via markdown offers numerous advantages over rich text: it creates more structured, beautiful and flexible documents without lots of fussing in a Word processor or layout software. For example: 
 
-* Binder headings are properly converted into semantic heading levels.
+* Binder headings are automatically converted into semantic heading levels.
 * Figures and figure captions get proper styling.
-* Semantically styled block quotes, code blocks (with full syntax highlighting), and many inline styles.
-* Mathematical equations are properly parsed to multipe output formats.
+* Semantically styled block quotes, code blocks (with *full syntax highlighting*), and many inline styles.
+* Mathematical equations are properly parsed to many output formats.
 * You can generate multiple outputs (EPub3, HTML, PDF, LaTeX, DOCX, ODT) simultaneously from a single compile; and trigger other further tools to automate many workflows.
-* You can use a Microsoft Word/LibreOffice template file to provide all page setup and customised styles without any fussing in a word processor afterwards.
+* You can use a Microsoft Word/LibreOffice source file to provide all page setup and customised styles without any fussing in a word processor afterwards.
 * For academics, by utilising [Pandoc](http://pandoc.org/index.html) as the markdown processor, you can *automagically generate a full [Bibliography](http://pandoc.org/MANUAL.html#citations)*. 
 * For technical writers, you can add semantic custom block and span structures (warning or info boxes for example).
-* For LaTeX users, there is a lot of flexibility using templates and meta-data.
+* For LaTeX users, there is a lot of flexibility using rich templates and meta-data.
 
 This save you lots of time, especially if you compile regularly during collaborative editing.  
 
 Because of [Pandoc's](http://pandoc.org/index.html) great flexibility, there are many possible settings to configure. To simplify this, you can run Pandoc using "template" tools like [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/). For each document output, the template can specify all the options, variables and metadata in a configuration file. Templates allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after Scrivener compile). To use the `pandocomatic` templates with Scrivener, you specify their name in the front–matter or metadata, and all the settings are automated when Pandoc is run.
 
 ### TL;DR (simple summary) ###
+Although Scrivener comes with Multimarkdown (the older V3.x), I really do think that Pandoc provides multiple benefits for many people, and installation is simple. Although optional, I also use Pandocomatic as a way to flexibly manage my Pandoc settings.
+
 1. Install the latest `pandoc` and `pandocomatic`.
 2. Configure one or more templates; you can base them on mine [shared below](#configuration).
 3. In Scrivener, use a **front-matter** document containing the required settings and compile to Multimarkdown. I [supply a compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
@@ -166,11 +168,12 @@ Usage: scrivomatic --input FILE [additional options]
     -i, --input FILE                 Input file?
     -o, --output [file]              Output file? Optional for pandocomatic.
     -t, --to [format]                Pandoc Format? Optional for pandocomatic.
-    -c, --command [command]          Tool to use? Default: pandocomatic
+    -c, --command [command]          Tool to use? Default=pandocomatic | panzer
     -p, --path [dirpath]             Path to Search for Commands?
     -b, --build                      If LaTeX output, try to run latexmk
     -d, --dry-run                    Dry run?
     -v, --[no-]verbose               Verbose output?
+    -l, --[no-]log                   Open log?
     -h, --help                       Prints this help!
 ```
 

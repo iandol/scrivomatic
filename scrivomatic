@@ -1,4 +1,8 @@
 #!/usr/bin/env ruby
+#encoding: utf-8
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 require 'open3' # ruby standard library class to handle stderr and stdout
 require 'optparse' # ruby standard option parser
 require 'shellwords' # escapes strings to run in the shell
@@ -6,7 +10,7 @@ require 'shellwords' # escapes strings to run in the shell
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.12'.freeze
+  VER = '1.0.13'.freeze
   OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose, :dry_run, :open_log)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
@@ -38,9 +42,7 @@ class Scrivomatic
 
   ################################run the command
   def runCommand
-    if @options[:open_log]
-      `open scrivomatic.log` if File.exist?('scrivomatic.log')
-    end
+    `open scrivomatic.log` if @options[:open_log] && File.exist?('scrivomatic.log')
     puts '====== COMMAND OUTPUT: ======' if @options[:verbose]==true
     puts ":: Running: #{@cmd}\n" if @options[:verbose]==true
     if File.exist?(@toolPath) && !options.dry_run
@@ -70,6 +72,7 @@ class Scrivomatic
       opts.banner += "Scrivomatic is a wrapper script around pandocomatic or panzer, that sets up the environment path, enforces UTF8 encoding and other settings so they can be run from any other process.\n\n"
       opts.banner += 'Usage: scrivomatic --input FILE [additional options]'
       opts.on('-i', '--input FILE', 'Input file?') do |v|
+        v.gsub!(/(\A'|'\Z)/,'')
         @options[:input] = v.shellescape
       end
       opts.on('-o', '--output [file]', 'Output file? Optional for pandocomatic.') do |v|
@@ -78,10 +81,10 @@ class Scrivomatic
       opts.on('-t', '--to [format]', 'Pandoc Format? Optional for pandocomatic.') do |v|
         @options[:to] = v
       end
-      opts.on('-c', '--command [command]', 'Tool to use? Default: pandocomatic') do |v|
+      opts.on('-c', '--command [command]', 'Tool to use, Default=pandocomatic | panzer') do |v|
         @options[:command] = v
       end
-      opts.on('-p', '--path [dirpath]', 'Path to Search for Commands?') do |v|
+      opts.on('-p', '--path [dirpath]', 'Additional Path to Search for Commands?') do |v|
         @options[:envpath] = v.shellescape + ':' + @options[:envpath]
       end
       opts.on('-b', '--build', 'If LaTeX output, try to run latexmk') do |v|
@@ -110,7 +113,8 @@ class Scrivomatic
       puts optparse
       abort "\n\n!!!---scrivomatic::parseInputs requires valid file: --input"
     else
-      @options[:input] = ARGV[0] # we assume it was passed without -i flag
+      v = ARGV[0].gsub(/(\A'|'\Z)/,'') #scrivener sometimes passes the file wrapped in ''
+      @options[:input] = v.shellescape # we assume it was passed without -i flag
     end
   end # end parseInputs
 
@@ -159,7 +163,7 @@ class Scrivomatic
     puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
     puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
     puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
-    %w[rbenv rvm panzer python xelatex].each do |c|
+    %w[rbenv rvm panzer python xelatex latexmk].each do |c|
       location = `which #{c}`.chomp
       puts "---#{c}: #{location}" unless location.empty?
     end
@@ -169,28 +173,32 @@ class Scrivomatic
   # ###############################check if we want to run latexmk
   def postBuild
     if options.build && !(options.dry_run)
-      texPath = options.input.gsub(/\.md$/, '.tex')
+      texPath = options.input.gsub(/\.md/, '.tex')
+      puts "\n====== RUN LATEXMK on #{texPath}: ======" if @options[:verbose]==true
       if File.exist?(texPath)
-        xLog = '' # simple log
         xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -gg -pv -time -xelatex -f #{texPath}"
-        puts "\n====== RUN LATEXMK on #{texPath}: ======"
-        Open3.popen2e(xcmd) do |_stdin, oe, wait_thr|
-          while line = oe.gets
-            if line.match?(/^(Latexmk:|Run|LaTeX|This is|===|Accumulated)/)
-              xLog += '::: ' + line.chomp + "\n"
+        puts ":: directory: #{Dir.pwd}" if @options[:verbose]==true
+        puts ":: command: #{xcmd}" if @options[:verbose]==true
+        begin
+          Open3.popen2e(xcmd) do |_stdin, oe, wait_thr|
+            while line = oe.gets
+              if line.chomp.to_s.match(/^(Latexmk:|Run|LaTeX|This is|===|Accumulated)/)
+                puts '::: ' + line.chomp if @options[:verbose]==true
               end
             end
-          exit_status = wait_thr.value
-          xLog += ':: exit status: ' + exit_status.to_s
-          if @options[:verbose]
-            puts xLog
+            exit_status = wait_thr.value
+            puts ':: exit status: ' + exit_status.to_s if @options[:verbose]==true
+            if exit_status.success?
+              `latexmk -c -quiet`
+            else
+              puts "!!!---Scrivomatic: errors on build #{xcmd}, check logs!!!"
+            end
           end
-          if exit_status.success?
-            `latexmk -c -quiet`
-          else
-            puts "!!!---Scrivomatic: errors on build #{xcmd}, check logs!!!"
-          end
+        rescue StandardError => e
+          puts e
         end
+      else
+        puts "!!!---Scrivomatic: could not find #{texPath}"
       end
     end
   end
