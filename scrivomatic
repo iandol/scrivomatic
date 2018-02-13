@@ -10,20 +10,30 @@ require 'shellwords' # escapes strings to run in the shell
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.13'.freeze
+  VER = '1.0.14'.freeze
   OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose, :dry_run, :open_log)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
-  ################################class constructor
+  #-------------------------------class constructor
   def initialize # set up class
     @options = OPT.new(nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false, false)
     @version = VER
     @cmd = ''
     @toolPath = ''
     @runLog = ''
+    @latexEngine = 'xelatex'
   end
 
-  ################################build the command line
+  #-------------------------------run all options
+  def run
+    makePath
+    printInfo
+    buildCommand
+    runCommand
+    postBuild
+  end
+
+  #-------------------------------build the command line
   def buildCommand
     @toolPath = `which #{@options[:command]}`.chomp
     unless @options[:output].nil?
@@ -40,7 +50,7 @@ class Scrivomatic
     end
   end
 
-  ################################run the command
+  #-------------------------------run the command
   def runCommand
     `open scrivomatic.log` if @options[:open_log] && File.exist?('scrivomatic.log')
     puts '====== COMMAND OUTPUT: ======' if @options[:verbose]==true
@@ -49,6 +59,8 @@ class Scrivomatic
       Open3.popen2e(@cmd) do |_stdin, oe, thread|
         while (line = oe.gets)
           puts '::: ' + line.chomp if @options[:verbose]==true
+          check_engine=line.match(/pdf-engine=(\w+)/)
+          @latexEngine=check_engine[1] unless check_engine.nil?
         end
         exit_status = thread.value
         puts ':: exit status: ' + exit_status.to_s if @options[:verbose]==true
@@ -64,7 +76,7 @@ class Scrivomatic
     end
   end 
 
-  ################################parse inputs
+  #-------------------------------parse inputs
   def parseInputs(_arg)
     optparse = OptionParser.new do |opts|
       opts.banner = 'Scrivomatic V' + @version + "\n"
@@ -113,12 +125,12 @@ class Scrivomatic
       puts optparse
       abort "\n\n!!!---scrivomatic::parseInputs requires valid file: --input"
     else
-      v = ARGV[0].gsub(/(\A'|'\Z)/,'') #scrivener sometimes passes the file wrapped in ''
+      v = ARGV[0].gsub(/(\A'|'\Z)/,'') #scrivener sometimes passes the file wrapped in '
       @options[:input] = v.shellescape # we assume it was passed without -i flag
     end
   end # end parseInputs
 
-  ################################make env path
+  #-------------------------------make env path
   def makePath
     pathtest = ['/Library/TeX/texbin',
       ENV['HOME'] + '/anaconda/bin',
@@ -138,20 +150,17 @@ class Scrivomatic
     ENV['PATH'] = @options[:envpath] + ':' + ENV['PATH']
   end # end makePath()
 
-  ################################check for RVM
+  #-------------------------------check for RVM
   def rvm_check
     rvm_home = ENV['HOME'] + '/.rvm'
     return '' unless File.directory?(rvm_home)
     rvm_home + '/wrappers/default'
   end
 
-  ################################set version
-  attr_writer :version
-
-  ################################print initial report
+  #-------------------------------print initial report
   def printInfo
     return if @options[:verbose] == false
-    puts "\n=== ##################################################### ==="
+    puts "\n=== #-------------------------------##################### ==="
     puts '=== Scrivomatic V' + @version + ' Report @ ' + Time.now.to_s + ' ==='
     puts " Running under Ruby #{RUBY_VERSION}"
     puts ' Working directory: ' + `pwd`
@@ -176,7 +185,8 @@ class Scrivomatic
       texPath = options.input.gsub(/\.md/, '.tex')
       puts "\n====== RUN LATEXMK on #{texPath}: ======" if @options[:verbose]==true
       if File.exist?(texPath)
-        xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -gg -pv -time -xelatex -f #{texPath}"
+        @latexEngine='pdf' if @latexEngine.match(/pdflatex/)
+        xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -gg -pv -time -#{@latexEngine} -f #{texPath}"
         puts ":: directory: #{Dir.pwd}" if @options[:verbose]==true
         puts ":: command: #{xcmd}" if @options[:verbose]==true
         begin
@@ -203,14 +213,6 @@ class Scrivomatic
     end
   end
 
-  # ###############################run all options
-  def run
-    makePath
-    printInfo
-    buildCommand
-    runCommand
-    postBuild
-  end
 end #--------------- end Scrivomatic class
 
 scriv = Scrivomatic.new
