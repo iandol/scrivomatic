@@ -53,7 +53,7 @@ class Scrivomatic
   #-------------------------------run the command
   def runCommand
     `open scrivomatic.log` if @options[:open_log] && File.exist?('scrivomatic.log')
-    puts '====== COMMAND OUTPUT: ======' if @options[:verbose]==true
+    puts '===------ COMMAND OUTPUT: ------===' if @options[:verbose]==true
     puts ":: Running: #{@cmd}\n" if @options[:verbose]==true
     if File.exist?(@toolPath) && !options.dry_run
       Open3.popen2e(@cmd) do |_stdin, oe, thread|
@@ -160,15 +160,16 @@ class Scrivomatic
   #-------------------------------print initial report
   def printInfo
     return if @options[:verbose] == false
-    puts "\n=== #-------------------------------##################### ==="
+    puts "\n=== ------------------------------------------------------ ==="
     puts '=== Scrivomatic V' + @version + ' Report @ ' + Time.now.to_s + ' ==='
+    puts "=== ------------------------------------------------------ ==="
     puts " Running under Ruby #{RUBY_VERSION}"
     puts ' Working directory: ' + `pwd`
-    puts '====== Input Options: ======'
+    puts '===------ Input Options: ------==='
     puts @options
-    puts '====== Final ENV PATH: ======'
+    puts '===------ Final ENV PATH: ------==='
     puts ENV['PATH']
-    puts '====== TOOL PATHS: ======'
+    puts '===------ TOOL PATHS: ------==='
     puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
     puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
     puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
@@ -183,7 +184,7 @@ class Scrivomatic
   def postBuild
     if options.build && !(options.dry_run)
       texPath = options.input.gsub(/\.md/, '.tex')
-      puts "\n====== RUN LATEXMK on #{texPath}: ======" if @options[:verbose]==true
+      puts "\n===------ RUN LATEXMK on #{texPath}: ------===" if @options[:verbose]==true
       if File.exist?(texPath)
         @latexEngine='pdf' if @latexEngine.match(/pdflatex/)
         xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -gg -pv -time -#{@latexEngine} -f #{texPath}"
