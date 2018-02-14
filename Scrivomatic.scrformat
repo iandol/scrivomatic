@@ -923,6 +923,30 @@ Attributes}]]></Format>
 \f0\fs24 \cf0 Attributes}]]></Format>
             <ParaPrefix><![CDATA[| ]]></ParaPrefix>
         </Style>
+        <Style Name="Maths Block" ID="A553F160-9135-4458-884E-DC3E2B422338" Type="Para+Char" FontChange="Face+Size">
+            <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red108\green108\blue108;}
+{\*\expandedcolortbl;;\csgray\c50000;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\f0\fs32 \cf2 Attributes}]]></Format>
+            <RawMarkup>Yes</RawMarkup>
+            <Prefix><![CDATA[$$]]></Prefix>
+            <Suffix><![CDATA[$$]]></Suffix>
+        </Style>
+        <Style Name="Maths Inline" ID="ADD581ED-CD11-4A1B-B5EF-0045D4020BAE" Type="Char" FontChange="Face">
+            <Format><![CDATA[{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red108\green108\blue108;}
+{\*\expandedcolortbl;;\csgray\c50000;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\f0\fs32 \cf2 Attributes}]]></Format>
+            <RawMarkup>Yes</RawMarkup>
+            <Prefix><![CDATA[$]]></Prefix>
+            <Suffix><![CDATA[$]]></Suffix>
+        </Style>
     </Styles>
     <TitleLinks>
         <UpdateLinksWithPrefixAndSuffix>Yes</UpdateLinksWithPrefixAndSuffix>
@@ -966,6 +990,10 @@ Attributes}]]></Format>
             <Replace><![CDATA[\s\[\@]]></Replace>
             <With><![CDATA[[@]]></With>
         </Replacement>
+        <Replacement Ignore="Yes" RegEx="Yes">
+            <Replace><![CDATA[\w\[\@]]></Replace>
+            <With><![CDATA[ [@]]></With>
+        </Replacement>
     </Replacements>
     <Statistics>
         <ExcludeFrontMatter>Yes</ExcludeFrontMatter>
@@ -1006,7 +1034,7 @@ Attributes}]]></Format>
         </Comments>
     </FootnotesAndComments>
     <PageSettings UseProjectSettings="Yes" UseDefaultPaperSize="Yes">
-        <PrintSettings PaperSize="595.275573,841.889771" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="iso-a4" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"></PrintSettings>
+        <PrintSettings PaperSize="595.289992,841.890015" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="iso-a4" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"></PrintSettings>
         <Margins Units="Inches">
             <Top>1.0</Top>
             <Bottom>1.0</Bottom>
