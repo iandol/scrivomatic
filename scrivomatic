@@ -5,12 +5,13 @@ Encoding.default_internal = Encoding::UTF_8
 
 require 'open3' # ruby standard library class to handle stderr and stdout
 require 'optparse' # ruby standard option parser
+require 'fileutils' # ruby standard library to deal with files
 require 'shellwords' # escapes strings to run in the shell
 
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.14'.freeze
+  VER = '1.0.15'.freeze
   OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose, :dry_run, :open_log)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
@@ -35,27 +36,20 @@ class Scrivomatic
 
   #-------------------------------build the command line
   def buildCommand
-    @toolPath = `which #{@options[:command]}`.chomp
-    unless @options[:output].nil?
-      @cmd += ' --output ' + @options[:output] + ' '
-    end
+    @cmd += ' --output ' + @options[:output] + ' ' unless @options[:output].nil?
     @cmd += ' --to "' + @options[:to] + '"' unless @options[:to].nil?
-    if @options[:verbose] == true && @options[:command] == 'pandocomatic'
-      @cmd += ' --debug'
-    elsif @options[:verbose] == true && @options[:command] == 'panzer'
-      @cmd += ' ---debug "panzerlogs"'
-    end
-    unless @options[:input].nil?
-      @cmd = @toolPath + @cmd + ' ' + @options[:input] + ' '
-    end
+    @cmd += ' --debug' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
+    @cmd += ' ---debug "panzerlogs"' if @options[:verbose] == true && @options[:command] == 'panzer'
+    @toolPath = `which #{@options[:command]}`.chomp
+    @cmd = @toolPath + @cmd + ' ' + @options[:input] + ' ' unless @options[:input].nil?
   end
 
   #-------------------------------run the command
   def runCommand
     `open scrivomatic.log` if @options[:open_log] && File.exist?('scrivomatic.log')
     puts '===------ COMMAND OUTPUT: ------===' if @options[:verbose]==true
-    puts ":: Running: #{@cmd}\n" if @options[:verbose]==true
     if File.exist?(@toolPath) && !options.dry_run
+      puts ":: Running: #{@cmd}\n" if @options[:verbose]==true
       Open3.popen2e(@cmd) do |_stdin, oe, thread|
         while (line = oe.gets)
           puts '::: ' + line.chomp if @options[:verbose]==true
@@ -133,10 +127,9 @@ class Scrivomatic
   #-------------------------------make env path
   def makePath
     pathtest = ['/Library/TeX/texbin',
-      ENV['HOME'] + '/anaconda/bin',
-      ENV['HOME'] + '/anaconda3/bin',
-      ENV['HOME'] + '/.cabal/bin',
-      rvm_check,
+      ENV['HOME'] + '/anaconda/bin', ENV['HOME'] + '/anaconda3/bin',
+      ENV['HOME'] + '/miniconda/bin', ENV['HOME'] + '/miniconda3/bin',
+      ENV['HOME'] + '/.cabal/bin', rvm_check,
       ENV['HOME'] + '/.rbenv/shims']
     pathtest.each do |p|
       if File.directory?(p)
@@ -193,14 +186,17 @@ class Scrivomatic
         begin
           Open3.popen2e(xcmd) do |_stdin, oe, wait_thr|
             while line = oe.gets
-              if line.chomp.to_s.match(/^(Latexmk:|Run|LaTeX|This is|===|Accumulated)/)
+              if line.chomp.to_s.match(/^(Latexmk:|Run|LaTeX|This is|===|Accumulated|Missing|! )/)
                 puts '::: ' + line.chomp if @options[:verbose]==true
               end
             end
             exit_status = wait_thr.value
             puts ':: exit status: ' + exit_status.to_s if @options[:verbose]==true
             if exit_status.success?
+              logPath = File.basename(options.input, ".*") + ".log"
+              FileUtils.cp(logPath, "latexlog_"+logPath) if File.file?(logPath)
               `latexmk -c -quiet`
+              puts ":: clean-up: used latexmk -c, but kept the latex build log as #{'latexlog_'+logPath}" if @options[:verbose]==true
             else
               puts "!!!---Scrivomatic: errors on build #{xcmd}, check logs!!!"
             end
