@@ -11,13 +11,13 @@ require 'shellwords' # escapes strings to run in the shell
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.15'.freeze
-  OPT = Struct.new(:input, :output, :to, :command, :envpath, :build, :verbose, :dry_run, :open_log)
+  VER = '1.0.16'.freeze
+  OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :verbose, :dry_run, :open_log)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
   #-------------------------------class constructor
   def initialize # set up class
-    @options = OPT.new(nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false, false)
+    @options = OPT.new(nil, nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false, false)
     @version = VER
     @cmd = ''
     @toolPath = ''
@@ -38,6 +38,7 @@ class Scrivomatic
   def buildCommand
     @cmd += ' --output ' + @options[:output] + ' ' unless @options[:output].nil?
     @cmd += ' --to "' + @options[:to] + '"' unless @options[:to].nil?
+    @cmd += ' -c ' + @options[:yaml] unless @options[:yaml].nil? && ! @options[:command] == 'pandocomatic'
     @cmd += ' --debug' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
     @cmd += ' ---debug "panzerlogs"' if @options[:verbose] == true && @options[:command] == 'panzer'
     @toolPath = `which #{@options[:command]}`.chomp
@@ -86,6 +87,9 @@ class Scrivomatic
       end
       opts.on('-t', '--to [format]', 'Pandoc Format? Optional for pandocomatic.') do |v|
         @options[:to] = v
+      end
+      opts.on('-y', '--yaml [file]', 'Specify which YAML file for pandocomatic.') do |v|
+        @options[:yaml] = v.shellescape
       end
       opts.on('-c', '--command [command]', 'Tool to use, Default=pandocomatic | panzer') do |v|
         @options[:command] = v

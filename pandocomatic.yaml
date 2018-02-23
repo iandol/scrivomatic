@@ -11,7 +11,7 @@ templates:
       standalone: true #create complete document
       filter: 'pandoc-citeproc' #process citations
       bibliography: "core.bib" #bibtex file, default search path will be your pandoc data-dir
-      csl: "/Users/MYNAME/.pandoc/apa.csl" #CSL style file
+      csl: "csl/apa.csl" #CSL style file
     metadata:
       notes-after-punctuation: false
       link-citations: true 
@@ -45,7 +45,7 @@ templates:
     pandoc:
       from: markdown
       to: docx
-      reference-docx: "templates/custom.docx"
+      reference-doc: "templates/custom.docx"
       dpi: 300
       toc: false
 #######################################
@@ -54,7 +54,7 @@ templates:
     pandoc:
       from: markdown
       to: odt
-      reference-odt: "templates/custom.odt"
+      reference-doc: "templates/custom.odt"
       dpi: 300
       toc: false
 #######################################
