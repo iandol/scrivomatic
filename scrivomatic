@@ -38,9 +38,9 @@ class Scrivomatic
   def buildCommand
     @cmd += ' --output ' + @options[:output] + ' ' unless @options[:output].nil?
     @cmd += ' --to "' + @options[:to] + '"' unless @options[:to].nil?
-    @cmd += ' -c ' + @options[:yaml] unless @options[:yaml].nil? && ! @options[:command] == 'pandocomatic'
-    @cmd += ' --debug' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
-    @cmd += ' ---debug "panzerlogs"' if @options[:verbose] == true && @options[:command] == 'panzer'
+    @cmd += ' -c ' + @options[:yaml] if (!@options[:yaml].nil? && @options[:command] == 'pandocomatic')
+    @cmd += ' --debug' if (@options[:verbose] == true && @options[:command] == 'pandocomatic')
+    @cmd += ' ---debug "panzerlogs"' if (@options[:verbose] == true && @options[:command] == 'panzer')
     @toolPath = `which #{@options[:command]}`.chomp
     @cmd = @toolPath + @cmd + ' ' + @options[:input] + ' ' unless @options[:input].nil?
   end
