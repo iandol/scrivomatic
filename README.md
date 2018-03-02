@@ -73,7 +73,17 @@ To keep both Pandoc and Pandocomatic *up-to-date*, you can run the update comman
 
 ### Configuration ###
 
-The most important folder for this workflow is the Pandoc data directory: `$HOME/.pandoc` ($HOME is your user directory, for example `/Users/johndoe/`). Though not required, it is easiest to organise your templates, filters and other files there. It is a hidden folder by default, so you can use the terminal to manage it, or learn [how to unhide it first](https://www.google.com/search?q=unhide+folder+mac) if you prefer to use Finder.
+The most important folder for this workflow is the Pandoc data directory: `$HOME/.pandoc` ($HOME is your user directory, for example `/Users/johndoe/`). Though not required, it is easiest to organise your templates, filters and other files there.  To create your `$HOME/.pandoc` folder:
+
+```bash
+> mkdir ~/.pandoc
+```
+
+All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>CMD</kbd>+<kbd>SHIFT</kbd>+<kbd>>G</kbd> and typing the path, in this case `~/.pandoc`; or 2) using the Terminal and typing:
+
+```bash
+> open ~/.pandoc
+```
 
 You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders organised into the files Pandoc can use. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping it into your `$HOME/.pandoc`
 
