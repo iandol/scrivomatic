@@ -79,7 +79,7 @@ The most important folder for this workflow is the Pandoc data directory: `$HOME
 > mkdir ~/.pandoc
 ```
 
-All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>CMD</kbd>+<kbd>SHIFT</kbd>+<kbd>>G</kbd> and typing the path, in this case `~/.pandoc`; or 2) using the Terminal and typing:
+All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>CMD</kbd>+<kbd>SHIFT</kbd>+<kbd>G</kbd> and typing the path, in this case `~/.pandoc`; or 2) using the Terminal and typing:
 
 ```bash
 > open ~/.pandoc
