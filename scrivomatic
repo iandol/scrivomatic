@@ -11,7 +11,7 @@ require 'shellwords' # escapes strings to run in the shell
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.16'.freeze
+  VER = '1.0.17'.freeze
   OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :verbose, :dry_run, :open_log)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
@@ -19,6 +19,7 @@ class Scrivomatic
   def initialize # set up class
     @options = OPT.new(nil, nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false, false)
     @version = VER
+    @fileext = ''
     @cmd = ''
     @toolPath = ''
     @runLog = ''
@@ -81,6 +82,7 @@ class Scrivomatic
       opts.on('-i', '--input FILE', 'Input file?') do |v|
         v.gsub!(/(\A'|'\Z)/,'')
         @options[:input] = v.shellescape
+        @fileext = Regexp.escape(File.extname(@options[:input]))
       end
       opts.on('-o', '--output [file]', 'Output file? Optional for pandocomatic.') do |v|
         @options[:output] = v.shellescape
@@ -119,12 +121,15 @@ class Scrivomatic
 
     #make sure we have an input file
     return unless @options[:input].nil?
+
+    #otherwise check if we got passed the file
     if ARGV.nil?
       puts optparse
-      abort "\n\n!!!---scrivomatic::parseInputs requires valid file: --input"
+      abort "\n\n!!!---scrivomatic::parseInputs requires valid input file: --input"
     else
       v = ARGV[0].gsub(/(\A'|'\Z)/,'') #scrivener sometimes passes the file wrapped in '
       @options[:input] = v.shellescape # we assume it was passed without -i flag
+      @fileext = Regexp.escape(File.extname(@options[:input]))
     end
   end # end parseInputs
 
@@ -180,9 +185,10 @@ class Scrivomatic
   # ###############################check if we want to run latexmk
   def postBuild
     if options.build && !(options.dry_run)
-      texPath = options.input.gsub(/\.md/, '.tex')
+      texPath = options.input.gsub(/#{@fileext}$/, '.tex')
+      texFile = texPath.gsub(/\\+/,'')
       puts "\n===------ RUN LATEXMK on #{texPath}: ------===" if @options[:verbose]==true
-      if File.exist?(texPath)
+      if File.exist?(texFile)
         @latexEngine='pdf' if @latexEngine.match(/pdflatex/)
         xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -gg -pv -time -#{@latexEngine} -f #{texPath}"
         puts ":: directory: #{Dir.pwd}" if @options[:verbose]==true
@@ -209,7 +215,7 @@ class Scrivomatic
           puts e
         end
       else
-        puts "!!!---Scrivomatic: could not find #{texPath}"
+        puts "!!!---Scrivomatic postBuild: could not find #{texPath}"
       end
     end
   end
