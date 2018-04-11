@@ -11,7 +11,7 @@ require 'shellwords' # escapes strings to run in the shell
 class Scrivomatic
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.17'.freeze
+  VER = '1.0.18'.freeze
   OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :verbose, :dry_run, :open_log)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
 
@@ -135,14 +135,13 @@ class Scrivomatic
 
   #-------------------------------make env path
   def makePath
-    pathtest = ['/Library/TeX/texbin',
+    pathtest = ['/Library/TeX/texbin', ENV['HOME'] + '/.rbenv/shims',
       ENV['HOME'] + '/anaconda/bin', ENV['HOME'] + '/anaconda3/bin',
       ENV['HOME'] + '/miniconda/bin', ENV['HOME'] + '/miniconda3/bin',
-      ENV['HOME'] + '/.cabal/bin', rvm_check,
-      ENV['HOME'] + '/.rbenv/shims']
+      ENV['HOME'] + '/.cabal/bin', rvm_check]
     pathtest.each do |p|
       if File.directory?(p)
-        @options[:envpath] = p + ':' + @options[:envpath]
+        @options[:envpath] = @options[:envpath] + ':' + p
       end
     end
     ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
