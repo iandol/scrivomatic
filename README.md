@@ -85,7 +85,7 @@ All folders starting with a `.` are a hidden by default, but you can open them i
 > open ~/.pandoc
 ```
 
-You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders organised into the files Pandoc can use. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping it into your `$HOME/.pandoc`
+You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders organised into the files Pandoc can use. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping it into your `$HOME/.pandoc`, or if you know how to use `git` you can just clone it from Github.
 
 `pandocomatic` uses a single configuration file normally stored at the root of the Pandoc data directory: `$HOME/.pandoc/pandocomatic.yaml`. A simplified [ sample `pandocomatic.yaml` is shared here](https://github.com/iandol/scrivomatic/blob/master/pandocomatic.yaml); this won't work without customisation, but it gives you an idea of how the pandocomatic styles work. The basic idea is you create a series of styles, and each style collects together a bunch of settings and configurations to produce a particular output. So I have `docx` style which is a basic Word conversion, but also a `docx-refs` which runs the bibliographic tools to generates a bibliography automatically.
 
