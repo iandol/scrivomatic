@@ -2,29 +2,29 @@
 # Important: YAML configuration files uses spaces for indentation to define structure
 # Path values are normally relative to the Pandoc data dir: /Users/MYNAME/.pandoc
 # so csl/apa.csl will be searched as /Users/MYNAME/.pandoc/csl/apa.csl
+# see https://heerdebeer.org/Software/markdown/pandocomatic/#specifying-paths 
 templates:
-#######################################
+#-----------------------------------------------------------------------------
   refs:
-    setup: [] #runs a general script to rename or copy files before etc.
+    setup: [] #runs a general script to rename or copy files before anything is run
     preprocessors: [] #runs a script on the markdown file itself
     pandoc:
       standalone: true #create complete document
-      filter: 'pandoc-citeproc' #process citations
+      filter: 'pandoc-citeproc' #run filter to process citations
       bibliography: "core.bib" #bibtex file, default search path will be your pandoc data-dir
-      csl: "csl/apa.csl" #CSL style file
+      csl: "csl/apa.csl" #CSL style file, in the csl/ folder of pandoc data-dir
     metadata:
       notes-after-punctuation: false
       link-citations: true 
     postprocessors: [] #runs on the output file (unless it is binary like docx)
     cleanup: [] #general cleanup script
-#######################################
+#-----------------------------------------------------------------------------
   paper-with-refs-latex:
     extends: ['refs'] #we can inherit from other templates
     pandoc:
       from: markdown
       to: latex
-      template: "templates/custom.latex"
-      dpi: 300
+      template: "templates/custom.latex" #customised pandoc template
       toc: true
       toc-depth: 4
       base-header-level: 2
@@ -39,25 +39,23 @@ templates:
       fontsize: '12pt'
       linestretch: '1.75'
       geometry: 'margin=2cm'
-#######################################
+#-----------------------------------------------------------------------------
   paper-with-refs-docx:
     extends: ['refs'] #we can inherit from other templates
     pandoc:
       from: markdown
       to: docx
       reference-doc: "templates/custom.docx"
-      dpi: 300
       toc: false
-#######################################
+#-----------------------------------------------------------------------------
   paper-with-refs-odt:
     extends: ['refs'] #we can inherit from other templates
     pandoc:
       from: markdown
       to: odt
       reference-doc: "templates/custom.odt"
-      dpi: 300
       toc: false
-#######################################
+#-----------------------------------------------------------------------------
   paper-no-refs-html:
     pandoc:
       from: markdown
@@ -68,7 +66,6 @@ templates:
       template: "templates/custom.html"
       css: "templates/custom.css"
       self-contained: true
-      dpi: 300
       toc: true
       toc-depth: 4
       base-header-level: 1
