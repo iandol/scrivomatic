@@ -17,6 +17,7 @@
 * [More Writing Tips](#writing-tips-for-this-workflow)
     - [Use Custom Styles in Word and HTML](#how-to-use-custom-styles-in-word-and-html)
     - [Working with Bookends Reference Manager](#working-with-bookends-reference-manager)
+    - [Minimal LaTeX Install Instructions](#minimal-latex-install)
 
 </div>
 
@@ -212,4 +213,14 @@ Pandoc will then attach a word style named "Allegory" to that paragraph in the o
 [BSAG » Bookends and Pandoc](https://www.rousette.org.uk/archives/bookends-and-pandoc/)
 
 To export your references as a file Pandoc can read (usually a BibTeX file) you can do tht manually from the Bookends GUI. However, I prefer to do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), you can specify an output folder and comma-separated list of groups via command-line input. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time!
+
+### Minimal LaTeX Install ###
+I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) — and for Pandoc's templates to work I've determined the following additional packages are needed (install easily with `tlmgr`):
+
+~~~bash
+sudo tlmgr install abstract latexmk csquotes pagecolor relsize ucharcat mdframed needspace sectsty titling titlesec preprint layouts glossaries tabulary soul xargs todonotes mfirstuc xfor datatool substr
+~~~
+
+
+
 
