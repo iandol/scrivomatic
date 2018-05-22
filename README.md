@@ -10,6 +10,7 @@
     - [Use the Binder for all document structure](#use-the-binder-for-all-document-structure)
     - [Enable Show invisible characters](#enable-show-invisible-characters)
     - [Working with Images](#images)
+    - [Footnotes: a caveat](#footnotes)
     - [Compiling Scrivener Comments](#scrivener-comments)
     - [Cross-referencing content](#cross-referencing)
 * [Compiling in Scrivener via Pandoc](#compiling-your-project)
@@ -29,29 +30,29 @@
 * Figures and figure captions get proper styling.
 * Semantically styled block quotes, code blocks (with *full syntax highlighting*), and many inline styles.
 * Mathematical equations are properly parsed to many output formats.
-* You can generate multiple outputs (EPub3, HTML, PDF, LaTeX, DOCX, ODT) simultaneously from a single compile; and trigger other further tools to automate many workflows.
+* You can generate multiple outputs (EPub3, HTML, PDF, LaTeX, DOCX, ODT) simultaneously from a single compile; and trigger further tools to automate many workflows.
 * You can use a Microsoft Word/LibreOffice source file to provide all page setup and customised styles without any fussing in a word processor afterwards.
-* For academics, by utilising [Pandoc](http://pandoc.org/index.html) as the markdown processor, you can *automagically generate a full [Bibliography](http://pandoc.org/MANUAL.html#citations)*. 
+* For academics, using [Pandoc](http://pandoc.org/index.html) as the markdown processor enables *generation of a full [Bibliography](http://pandoc.org/MANUAL.html#citations)*. 
 * For technical writers, you can add semantic custom block and span structures (warning or info boxes for example).
 * For LaTeX users, there is a lot of flexibility using rich templates and meta-data.
 
 This save you lots of time, especially if you compile regularly during collaborative editing.  
 
-Because of [Pandoc's](http://pandoc.org/index.html) great flexibility, there are many possible settings to configure. To simplify this, you can run Pandoc using "template" tools like [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/). For each document output, the template can specify all the options, variables and metadata in your Scrivener document and/or a configuration file. Pandocomatic templates allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after Scrivener compile). To use the Pandocomatic templates with Scrivener, you specify their name in the front–matter or metadata, and all the settings are automated when Pandoc is run.
+Because of [Pandoc's](http://pandoc.org/index.html) great flexibility, there are many possible settings to configure. To simplify this, you can run Pandoc using "template" tools like [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/). For each document output, the template specifies all the options in Scrivener front-matter and/or a seperate configuration file. Pandocomatic templates allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after Scrivener compile). To use the Pandocomatic templates with Scrivener, you specify their name in the front–matter or metadata, and all the settings are automated when Pandoc is run.
 
 ### TL;DR (simple summary) ###
-Although Scrivener comes with Multimarkdown (the older V3.x), I really do think that Pandoc provides multiple benefits, and installation is simple. Although optional, I also use Pandocomatic as a way to flexibly manage Pandoc settings.
+Scrivener already comes with Multimarkdown, but I really do think that Pandoc provides additional benefits and installation is simple. I also use Pandocomatic as a way to flexibly manage Pandoc settings (although this is optional if you are happy to specify the options yourself).
 
 1. Install the latest `pandoc` and `pandocomatic`.
 2. Configure one or more templates; you can base them on mine [shared below](#configuration).
-3. In Scrivener, use a **front-matter** document containing the required settings and compile to Multimarkdown. I [supply a compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
+3. In Scrivener, use a **front-matter** document containing the required settings and compile to MultiMarkdown (this option outputs Pandoc flavour format too). I [supply a compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
 4. Scrivener's compile process triggers `pandocomatic`  automagically creating the final output(s) for you.
 
 As a teaser for the full workflow, you can download a [sample Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles all the required files into the Binder (instructions included there to set up).
 
 ### Requirements ###
 
-Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [manually](http://pandoc.org/installing.html), but it is generally better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can keep everything up to date. So first,follow the [instructions to install Homebrew](https://brew.sh/), and then install `pandoc` using the `brew` command:
+Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` is updated regularly). So first, follow the [instructions to install Homebrew](https://brew.sh/), and then install `pandoc` using the `brew` command:
 
 ```bash
 > brew install pandoc pandoc-citeproc pandoc-crossref
@@ -59,7 +60,7 @@ Apart from **Scrivener** (V3.x is highly recommended for this workflow), you sho
 
 If you already installed `pandoc` manually, but want to use `brew`, then you can use `brew link --overwrite ...` instead of `brew install ...`. You can run the command `brew update` every so often to ensure these tools are *kept* up-to-date. 
 
-You use Ruby's `gem` command (built-in to macOS) to install `pandocomatic` (putting the binary in `/usr/local/bin`, as recent macOS versions do not allow `/usr/bin`):
+You use Ruby's `gem` command (built-in to macOS) to install `pandocomatic` (putting the binary in `/usr/local/bin`, as recent macOS versions do not allow modification of `/usr/bin`):
 
 ```bash
 > sudo gem install paru pandocomatic -n /usr/local/bin
@@ -94,7 +95,7 @@ For the rest of the files in the Pandoc data directory: all custom Pandoc templa
 
 ## Writing in Scrivener ##
 
-With Scrivener 3's new [styles system (§15.5 user manual)](http://www.literatureandlatte.com/blog/?p=1094), there is a huge change to how you can write with markdown. You can use named paragraph styles (like "blockquote"), and named inline styles (like "emphasis" or "superscript") as you would writing in rich text (**i.e. there is no need to add markdown syntax in the editor!**) With the new [compile system (§23—user manual)](http://www.literatureandlatte.com/blog/?p=1097), Scrivener can add a prefix/suffix to create the required plain-text markdown. So for example, create an inline style called `strong`, and in compile set the prefix to \*\* and suffix to \*\* and Scrivener automates conversion from the style to markdown! In Scrivener 2, you can still use formatting presets, but these will always be stripped out during the compile, so you need to write the markdown directly in the editor. I used to use formatting presets to visualise markdown structure in Scrivener 2 (block quotes, code blocks, lists, tables, figure captions). But in Scrivener 3, I now use Scrivener styles to *visualise* structure **and** *generate* the Pandoc markup itself:  
+With Scrivener 3's new [styles system (§15.5 user manual)](http://www.literatureandlatte.com/blog/?p=1094), there is a huge change to how you can write with markdown. You can use named paragraph styles (like "blockquote"), and named inline styles (like "emphasis" or "superscript") as you would writing in rich text (**i.e. there is no need to add markdown syntax in the editor!**) With the new [compile system (§23—user manual)](http://www.literatureandlatte.com/blog/?p=1097), Scrivener can add a prefix/suffix to create the required plain-text markdown. So for example, create an inline style called `strong`, and in compile set the prefix to \*\* and suffix to \*\* and Scrivener automates conversion from the style to markdown! You can then [rebind](https://scrivener.tenderapp.com/help/kb/macos/assigning-or-changing-keyboard-shortcuts-in-scrivener-for-mac) ⌘I and ⌘B to trigger the *emphasis* and **strong** styles directly. In Scrivener 2, you can still use formatting presets, but these will always be stripped out during the compile, so you need to write the markdown directly in the editor. I used to use formatting presets to visualise markdown structure in Scrivener 2 (block quotes, code blocks, lists, tables, figure captions). But in Scrivener 3, I now use Scrivener styles to *visualise* structure **and** *generate* the Pandoc markup itself:  
 
 ![Figure 1 — The cursor shows **strong** and blockquote are both applied. Note whitespace is visualised and styles are used to give visual structure to the Scrivener writing environment. These will be transformed into the correct markdown on compile…](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/2.png)  
 
@@ -108,7 +109,10 @@ Because markdown is sensitive to whitespace, you should aim to use whitespace co
 Try not to not use markdown \# headings within text documents themselves but create documents at the correct level hierarchy in the Binder. Scrivener is great at compiling the levels of the Binder structure into the correct heading levels for you, and you benefit from being able to use the outlining and organisation tools within Scrivener.  
 
 ### Images ###
-Scrivener can transform images that are embedded with a line of text (§21.4.1 user manual) into markup that generates proper semantic `<figure>` and `<figcaption>` elements. I now prefer to link images (Fig. 21.2—user manual) from the binder rather than by using the standard Pandoc markup: `![Figure caption](linked_image){.my_style}`; in both cases (embedded or linked-from-binder) Scrivener will correctly export the image file into the compile folder. Scrivener 3 has a nice new feature where you can binder-link figures (`Insert ▸ Image Linked to Document`), they are not embedded but still visible in the document, to add a caption to these you can use a caption style or \[\] brackets around the caption (described at the end of §21.4.1—user manual).
+Scrivener can transform images that are embedded with a line of text (§21.4.1 user manual) into markup that generates proper semantic `<figure>` and `<figcaption>` elements. I now prefer to link images (Fig. 21.2—user manual) from the binder rather than by using the standard Pandoc markup: `![Figure caption](linked_image){.my_style}`; in both cases (embedded or linked-from-binder) Scrivener will correctly export the image file into the compile folder. Scrivener 3 has a nice new feature where you can binder-link figures (`Insert ▸ Image Linked to Document`), they are not embedded but still visible in the document, to add a caption to these you can use a caption style or \[\] brackets around the caption (described at the end of §21.4.1—user manual).  
+
+### Footnotes ###
+Scrivener will automatically convert footnotes into Markdown format for you. But there is one caveat in that you are not allowed to style footnotes, and so if you want to use *emphasis* / **strong** or other character styles, you will have to use the Pandoc formatting directly.  
 
 ### Scrivener Comments ###
 Use comments and annotations freely. Scrivener 3 now allows you to transform comments to complex markup (§24.19.7—user manual) where the comment text `<$cmt>` AND the comment selection `<$lnk>` are both correctly exported). This can be set in `compile > annotations…` — I use: `<span class="comment" title="<$cmt>"><$lnk></span>`. For export to DOCX, you can use `<span class="comment-start" id="<$n>" author="<$author>" date="<$date>"><$cmt></span><$lnk><span class="comment-end" id="<$n>"></span>`, which should transform into proper Word comments with using Pandoc 2+.  
