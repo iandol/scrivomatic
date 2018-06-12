@@ -45,14 +45,14 @@ Scrivener already comes with Multimarkdown, but I really do think that Pandoc pr
 
 1. Install the latest `pandoc` and `pandocomatic`.
 2. Configure one or more templates; you can base them on mine [shared below](#configuration).
-3. In Scrivener, use a **front-matter** document containing the required settings and compile to MultiMarkdown (this option outputs Pandoc flavour format too). I [supply a compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
-4. Scrivener's compile process triggers `pandocomatic`  automagically creating the final output(s) for you.
+3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc output too). I offer a [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
+4. Scrivener's compile post-processing triggers `pandocomatic`, automagically creating the final output(s) for you.
 
 As a teaser for the full workflow, you can download a [sample Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles all the required files into the Binder (instructions included there to set up).
 
 ### Requirements ###
 
-Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` is updated regularly). So first, follow the [instructions to install Homebrew](https://brew.sh/), and then install `pandoc` using the `brew` command:
+Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` receives regular updates). So first, follow the [instructions to install Homebrew](https://brew.sh/), and then install `pandoc` using the `brew` command in the terminal:
 
 ```bash
 > brew install pandoc pandoc-citeproc pandoc-crossref
@@ -78,7 +78,7 @@ To keep both Pandoc and Pandocomatic *up-to-date*, you can run the update comman
 The most important folder for this workflow is the Pandoc data directory: `$HOME/.pandoc` ($HOME is your user directory, for example `/Users/johndoe/`). Though not required, it is easiest to organise your templates, filters and other files there.  To create your `$HOME/.pandoc` folder:
 
 ```bash
-> mkdir ~/.pandoc
+> mkdir -p ~/.pandoc
 ```
 
 All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>CMD</kbd>+<kbd>SHIFT</kbd>+<kbd>G</kbd> and typing the path, in this case `~/.pandoc`; or 2) using the Terminal and typing:
@@ -87,11 +87,11 @@ All folders starting with a `.` are a hidden by default, but you can open them i
 > open ~/.pandoc
 ```
 
-You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders organised into the files Pandoc can use. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping it into your `$HOME/.pandoc`, or if you know how to use `git` you can just clone it from Github.
+You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders of files Pandoc can use. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping its contents into your `$HOME/.pandoc`, or if you know how to use `git` you can just clone (or fork) it from Github.
 
-`pandocomatic` uses a configuration file normally stored at the root of the Pandoc data directory: `$HOME/.pandoc/pandocomatic.yaml`. A simplified sample `pandocomatic.yaml` [is viewable here](https://github.com/iandol/scrivomatic/blob/master/pandocomatic.yaml); this won't work without customisation, but it gives you an idea of how the pandocomatic-templates work ([full documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#pandocomatic-templates)). The basic idea is you create several pandocomatic-templates, and each pandocomatic-templates collects together a bunch of settings and configurations to produce a particular output. So I have `docx` pandocomatic-templates which is a basic Word conversion, but also a `docx-refs` which runs the bibliographic tools to generates a bibliography automatically.
+`pandocomatic` uses a configuration file usually stored at the root of the Pandoc data directory: `$HOME/.pandoc/pandocomatic.yaml`. A simplified sample `pandocomatic.yaml` [is viewable here](https://github.com/iandol/scrivomatic/blob/master/pandocomatic.yaml); this won't work without customisation, but it gives you an idea of how the pandocomatic-templates work ([full documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#pandocomatic-templates)). The basic idea is you create several pandocomatic-templates, and each pandocomatic-templates collects together a bunch of settings and configurations to produce a particular output. So I have `docx` pandocomatic-templates which is a basic Word conversion, but also a `docx-refs` which runs the bibliographic tools to generates a bibliography automatically.
 
-For the rest of the files in the Pandoc data directory: all custom Pandoc templates reside in `$HOME/.pandoc/templates`, and filters in `$HOME/.pandoc/filters`. For bibliographies, I symbolically link my Bibliography.bib into in `$HOME/.pandoc` and store my Journal style files in `$HOME/.pandoc/csl`. `pandocomatic` enables the use of pre– and post–processor scripts and these are stored in their own subfolders.
+For the rest of the files in the Pandoc data directory: all custom Pandoc templates reside in `$HOME/.pandoc/templates`, and [Pandoc filters](http://pandoc.org/filters.html) in `$HOME/.pandoc/filters`. For bibliographies, I symbolically link my Bibliography.bib into in `$HOME/.pandoc` and store my Journal style files in `$HOME/.pandoc/csl`. `pandocomatic` enables the use of pre– and post–processor scripts and these are stored in their own subfolders.
 
 ## Writing in Scrivener ##
 
@@ -163,11 +163,11 @@ In Scrivener, you select Multimarkdown as the compile document output and select
 
 ## Scrivomatic post-processing script ##
 
-**You can run `pandocomatic` directly from Scrivener's post-processing panel**, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` is a small wrapper script that handles this automatically for you…  
+**You can run `pandocomatic` directly from Scrivener's post-processing panel**, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` is a small wrapper script ([yes, welcome to the rabbit hole 🙃](https://www.rousette.org.uk/archives/pandocomatic-and-scrivomatic/)!) that handles this for you…  
 
 ![Figure 3 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/processing.png)  
 
-It adds the paths for tools installed via `homebrew`, `MacTeX` and `Cabal`; and if you've used [`rbenv`](https://github.com/rbenv/rbenv), [`rvm`](https://rvm.io/) or [`conda`](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer it adds these paths too. It can also generate a detailed log file of the conversion (so you can check for missing references etc.). Save the [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic) script, move it to a directory on your path, and make sure it can be executed like so:
+It adds the paths for tools installed via `homebrew`, `MacTeX` and `Cabal`; and if you've used [`rbenv`](https://github.com/rbenv/rbenv), [`rvm`](https://rvm.io/) or [`conda`](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer, it adds these paths too. It can also generate a detailed log file of the conversion (so you can check for missing references etc.). Save the [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic) script, move it to a directory on your path, and make sure it can be executed like so:
 
 ```bash
 mkdir -p $HOME/bin
@@ -178,16 +178,18 @@ chmod 755 $HOME/bin/scrivomatic
 You can run `scrivomatic` from the command line:
 
 ```
-Usage: scrivomatic --input FILE [additional options]
-    -i, --input FILE                 Input file?
-    -o, --output [file]              Output file? Optional for pandocomatic.
-    -t, --to [format]                Pandoc Format? Optional for pandocomatic.
-    -c, --command [command]          Tool to use? Default=pandocomatic | panzer
-    -p, --path [dirpath]             Path to Search for Commands?
-    -b, --build                      If LaTeX output, try to run latexmk
-    -d, --dry-run                    Dry run?
-    -v, --[no-]verbose               Verbose output?
-    -l, --[no-]log                   Open log?
+Usage: scrivomatic [additional options] FILE
+    -i, --input FILE                 Input file
+    -o, --output [file]              Output file. Optional for pandocomatic.
+    -t, --to [format]                Pandoc Format. Optional for pandocomatic.
+    -y, --yaml [file]                Specify which YAML file for pandocomatic.
+    -c, --command [command]          Tool to use: [pandocomatic] | panzer
+    -p, --path [dirpath]             Additional Path to Search for Commands.
+    -b, --build                      For LaTeX output, run latexmk
+    -B, --buildclean                 For LaTeX output, run latexmk and cleanup
+    -d, --dry-run                    Dry run.
+    -v, --[no-]verbose               Verbose output.
+    -l, --[no-]log                   View log in Console.app.
     -h, --help                       Prints this help!
 ```
 
@@ -211,17 +213,20 @@ All animals are equal but a few are more equal than others
 Pandoc will then attach a word style named "Allegory" to that paragraph in the output DOCX. You can either edit the style in Word, or [edit your reference.docx to include this custom style](http://pandoc.org/MANUAL.html#custom-styles-in-docx-output), so it already styled when you open the DOCX.
 
 ### Working with Bookends Reference Manager ###
-[Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the simple tutorial here:
+[Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the excellent tutorial here:
 
 [BSAG » Bookends and Pandoc](https://www.rousette.org.uk/archives/bookends-and-pandoc/)
 
-To export your references as a file Pandoc can read (usually a BibTeX file) you can do tht manually from the Bookends GUI. However, I prefer to do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), you can specify an output folder and comma-separated list of groups via command-line input. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time!
+To export your references as a file Pandoc can read (usually a BibTeX file) you can do tht manually from the Bookends GUI. However, you can do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), you can specify an output folder and comma-separated list of groups via command-line input. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time!
 
 ### Minimal LaTeX Install ###
 I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) — and for Pandoc's templates to work I've determined the following additional packages are needed (install easily with `tlmgr`):
 
 ~~~bash
-sudo tlmgr install abstract latexmk csquotes pagecolor relsize ucharcat mdframed needspace sectsty titling titlesec preprint layouts glossaries tabulary soul xargs todonotes mfirstuc xfor datatool substr
+sudo tlmgr install lm-math lualatex-math luatexja abstract \
+latexmk csquotes pagecolor relsize ucharcat mdframed needspace sectsty \
+titling titlesec preprint layouts glossaries tabulary soul xargs todonotes \
+mfirstuc xfor wallpaper datatool substr ctablestack
 ~~~
 
 
