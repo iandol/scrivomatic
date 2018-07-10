@@ -81,7 +81,7 @@ The most important folder for this workflow is the Pandoc data directory: `$HOME
 > mkdir -p ~/.pandoc
 ```
 
-All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>CMD</kbd>+<kbd>SHIFT</kbd>+<kbd>G</kbd> and typing the path, in this case `~/.pandoc`; or 2) using the Terminal and typing:
+All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>⌘</kbd>+<kbd>SHIFT</kbd>+<kbd>G</kbd> and typing the path, in this case `~/.pandoc`; or 2) using the Terminal and typing:
 
 ```bash
 > open ~/.pandoc
@@ -99,11 +99,11 @@ With Scrivener 3's new [styles system (§15.5 user manual)](http://www.literatur
 
 ![Figure 1 — The cursor shows **strong** and blockquote are both applied. Note whitespace is visualised and styles are used to give visual structure to the Scrivener writing environment. These will be transformed into the correct markdown on compile…](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/2.png)  
 
-You can download my customised Scrivener 3 [compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat). Install it to get a flavour of how one can convert styles to markdown.  
+You can download my customised Scrivener 3 [compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat). Install it to get a flavour of how one can convert styles to markdown, and it now has the `scrivomatic` script built-in (needs Scrivener V3.03).  
 
 ![Figure 2 — The Scrivener 3 Compile Format Scrivomatic in the editor, showing how the inline style "Strong Emphasis" is converted into the correct markdown using prefix & suffix text.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/style-transform.png)  
 ### Enable Show invisible characters ###
-Because markdown is sensitive to whitespace, you should aim to use whitespace consistently: For a new paragraph and between any blocks of content I always use [`[space][space][return][return]`](http://pandoc.org/MANUAL.html#paragraphs). It is automatic for me, but showing invisible characters in the Scrivener editor makes potential formatting issues when compiling simple to fix. Enable it using **`View ▶︎ Text Editing ▶︎ Show Invisibles`**, and change their colour in **`Preferences ▶︎ Appearance ▶︎ Textual Marks ▶︎ Invisible Characters`**.
+Because markdown is sensitive to whitespace, you should aim to use whitespace consistently: For a new paragraph and between any blocks of content I always use [`[space][space][return][return]`](http://pandoc.org/MANUAL.html#paragraphs). It is automatic for me, but showing invisible characters in the Scrivener editor makes potential formatting issues when compiling simple to fix. Enable it using **`View ▶︎ Text Editing ▶︎ Show Invisibles`**, and change their colour in **`Preferences ▶︎ Appearance ▶︎ Textual Marks ▶︎ Invisible Characters`**.  
 
 ### Use the Binder for all document structure ###
 Try not to not use markdown \# headings within text documents themselves but create documents at the correct level hierarchy in the Binder. Scrivener is great at compiling the levels of the Binder structure into the correct heading levels for you, and you benefit from being able to use the outlining and organisation tools within Scrivener.  
@@ -115,7 +115,7 @@ Scrivener can transform images that are embedded with a line of text (§21.4.1 u
 Scrivener will automatically convert footnotes into Markdown format for you. But there is one caveat in that you are not allowed to style footnotes, and so if you want to use *emphasis* / **strong** or other character styles, you will have to use the Pandoc formatting directly.  
 
 ### Scrivener Comments ###
-Use comments and annotations freely. Scrivener 3 now allows you to transform comments to complex markup (§24.19.7—user manual) where the comment text `<$cmt>` AND the comment selection `<$lnk>` are both correctly exported). This can be set in `compile > annotations…` — I use: `<span class="comment" title="<$cmt>"><$lnk></span>`. For export to DOCX, you can use `<span class="comment-start" id="<$n>" author="<$author>" date="<$date>"><$cmt></span><$lnk><span class="comment-end" id="<$n>"></span>`, which should transform into proper Word comments with using Pandoc 2+.  
+Use comments and annotations freely. Scrivener 3 now allows you to transform comments to complex markup (§24.19.7—user manual) where the comment text `<$cmt>` AND the comment selection `<$lnk>` are both correctly exported). This can be set in `compile ▶︎ annotations…` — I use: `<span class="comment" title="<$cmt>"><$lnk></span>`. For export to DOCX, you can use `<span class="comment-start" id="<$n>" author="<$author>" date="<$date>"><$cmt></span><$lnk><span class="comment-end" id="<$n>"></span>`, which should transform into proper Word comments with using Pandoc 2+.  
 
 ### Cross-referencing ###
 I prefer Scrivener links to cross-reference documents / export figures, and Scrivener's placeholder tags to cross-reference figures and equations. But for new users Pandoc does have several cross-referencing filters ([pandoc-crossref](https://github.com/lierdakil/pandoc-crossref) and [pandoc-fignos](https://github.com/tomduck/pandoc-fignos) for example) and you can also use these.  
@@ -128,8 +128,8 @@ In Scrivener, I remove all compile–metadata specified in compile user interfac
 ---
 title: "<$projecttitle>"
 author:
-  - John Doe
   - Joanna Doe
+  - John Doe
 keywords: 
   - test
   - pandoc
@@ -165,9 +165,11 @@ In Scrivener, you select Multimarkdown as the compile document output and select
 
 **You can run `pandocomatic` directly from Scrivener's post-processing panel**, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` is a small wrapper script ([yes, welcome to the rabbit hole 🙃](https://www.rousette.org.uk/archives/pandocomatic-and-scrivomatic/)!) that handles this for you…  
 
-![Figure 3 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/processing.png)  
+It adds the paths for tools installed via `homebrew`, `MacTeX` and `Cabal`; and if you've used [`rbenv`](https://github.com/rbenv/rbenv), [`rvm`](https://rvm.io/) or [`conda`](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer, it adds these paths too. It can also generate a detailed log file of the conversion (so you can check for missing references etc.). The easiest way to install it is to copy the raw code from here: [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), then you want to install it by pasting it into the Post-processing `Edit Script` edit field (leave Shell blank). You then configure the `Arguments` field (adding different flags to control `scrivomatic`, e.g. `-l` opens scrivomatic.log in Console automatically)
 
-It adds the paths for tools installed via `homebrew`, `MacTeX` and `Cabal`; and if you've used [`rbenv`](https://github.com/rbenv/rbenv), [`rvm`](https://rvm.io/) or [`conda`](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer, it adds these paths too. It can also generate a detailed log file of the conversion (so you can check for missing references etc.). Save the [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic) script, move it to a directory on your path, and make sure it can be executed like so:
+![Figure 3 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/processing.png)   
+
+You can also download the script to your Downloads folder, move it to a directory on your path, and make sure it can be executed like so:
 
 ```bash
 mkdir -p $HOME/bin
@@ -175,7 +177,7 @@ mv $HOME/Downloads/scrivomatic $HOME/bin
 chmod 755 $HOME/bin/scrivomatic
 ```
 
-You can run `scrivomatic` from the command line:
+You can then run `scrivomatic` from the command line:
 
 ```
 Usage: scrivomatic [additional options] FILE
