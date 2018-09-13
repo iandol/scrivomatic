@@ -48,7 +48,7 @@ Scrivener already comes with Multimarkdown, but I really do think that Pandoc pr
 3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc output too). I offer a [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
 4. Scrivener's compile post-processing triggers `pandocomatic`, automagically creating the final output(s) for you.
 
-As a teaser for the full workflow, you can download a [sample Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles all the required files into the Binder (instructions included there to set up).
+As a teaser for the full workflow, you can download a [sample Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles all the required files into the Binder (instructions included there to set up, you will still need to install `pandoc` and `pandocomatic` first).
 
 ### Requirements ###
 
@@ -177,7 +177,7 @@ mv $HOME/Downloads/scrivomatic $HOME/bin
 chmod 755 $HOME/bin/scrivomatic
 ```
 
-You can then run `scrivomatic` from the command line:
+You can run `scrivomatic` with the following command line options:
 
 ```
 Usage: scrivomatic [additional options] FILE
@@ -222,7 +222,7 @@ Pandoc will then attach a word style named "Allegory" to that paragraph in the o
 To export your references as a file Pandoc can read (usually a BibTeX file) you can do tht manually from the Bookends GUI. However, you can do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), you can specify an output folder and comma-separated list of groups via command-line input. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time!
 
 ### Minimal LaTeX Install ###
-I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) — and for Pandoc's templates to work I've determined the following additional packages are needed (install easily with `tlmgr`):
+I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) — and for Pandoc's templates to work I've determined the following additional packages are needed (installed easily with `tlmgr`):
 
 ~~~bash
 sudo tlmgr install lm-math lualatex-math luatexja abstract \
