@@ -17,10 +17,10 @@ class Scrivomatic
   # pandocomatic/panzer from scrivener...
   attr_accessor :options
   attr_reader :version, :cmd, :runLog
-  VER = '1.0.20'.freeze
+  VER = '1.0.21'.freeze
   OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log)
   DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
-
+  DEFENVPATH += ':' + ENV['HOME'] + '/.local/bin' if Dir.exist?(ENV['HOME'] + '/.local/bin')
   #-------------------------------class constructor
   def initialize
     @options = OPT.new(nil, nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false, false, false)
