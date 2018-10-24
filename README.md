@@ -52,7 +52,7 @@ As a teaser for the full workflow, you can download a [sample Scrivener project]
 
 ### Requirements ###
 
-Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` receives regular updates). So first, follow the [instructions to install Homebrew](https://brew.sh/), and then install `pandoc` using the `brew` command in the terminal:
+Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` receives regular updates). So first, follow the [instructions to install Homebrew](https://brew.sh/) (for the paranoid, you could [change the install location](https://applehelpwriter.com/2018/03/21/how-homebrew-invites-users-to-get-pwned/)), and then install `pandoc` using the `brew` command in the terminal:
 
 ```bash
 > brew install pandoc pandoc-citeproc pandoc-crossref
