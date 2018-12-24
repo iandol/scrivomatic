@@ -52,7 +52,7 @@ As a teaser for the full workflow, you can download a [sample Scrivener project]
 
 ### Requirements ###
 
-Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` receives regular automatic updates via homebrew). So first, follow the [instructions to install Homebrew](https://brew.sh/) ([info for the security conscious](https://github.com/Homebrew/brew/issues/5172)), and then install `pandoc` using the `brew` command in the terminal:
+Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` receives regular automatic updates via homebrew). So first, follow the [instructions to install Homebrew](https://brew.sh/) ([info for the security conscious](https://discourse.brew.sh/t/security-issues-using-homebrew-malicious-insertion/3379)), and then install `pandoc` using the `brew` command in the terminal:
 
 ```bash
 > brew install pandoc pandoc-citeproc pandoc-crossref
@@ -228,9 +228,5 @@ I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](htt
 sudo tlmgr install lm-math lualatex-math luatexja abstract \
 latexmk csquotes pagecolor relsize ucharcat mdframed needspace sectsty \
 titling titlesec preprint layouts glossaries tabulary soul xargs todonotes \
-mfirstuc xfor wallpaper datatool substr ctablestack
+mfirstuc xfor wallpaper datatool substr ctablestack ifetex adjustbox collectbox
 ~~~
-
-
-
-
