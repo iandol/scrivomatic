@@ -17,9 +17,9 @@ class Scrivomatic
 	# pandocomatic/panzer from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.22'.freeze
+	VER = '1.0.23'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log)
-	DEFENVPATH = ENV['HOME'] + '/bin' + ':/usr/local/bin'
+	DEFENVPATH = ENV['HOME'] + '/bin'
 
 	#-------------------------------class constructor
 	def initialize
@@ -148,7 +148,8 @@ class Scrivomatic
 		pathtest = ['/Library/TeX/texbin', ENV['HOME'] + '/.rbenv/shims',
 			ENV['HOME'] + '/anaconda/bin', ENV['HOME'] + '/anaconda3/bin',
 			ENV['HOME'] + '/miniconda/bin', ENV['HOME'] + '/miniconda3/bin',
-			ENV['HOME'] + '/.cabal/bin', ENV['HOME'] + '/.local/bin', rvm_check]
+			ENV['HOME'] + '/.cabal/bin', ENV['HOME'] + '/.local/bin', 
+			rvm_check, '/usr/local/bin']
 		pathtest.each { |p| @options[:envpath] = @options[:envpath] + ':' + p if File.directory?(p) }
 		ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
 		@options[:envpath].gsub!(%r{(//)}, '/') # remove double slash
