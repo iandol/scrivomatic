@@ -9,7 +9,7 @@
 			"type": "Ruby",
 			"request": "launch",
 			"program": "${file}",
-			"args": ["test.md"]
+			"args": ["--data-dir=/Users/ian/.local/share/pandoc","-v","test.md"]
 		}
 	]
 }

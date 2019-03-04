@@ -17,13 +17,13 @@ class Scrivomatic
 	# pandocomatic/panzer from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.24'.freeze
-	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log)
+	VER = '1.0.25'.freeze
+	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
 	#-------------------------------class constructor
 	def initialize
-		@options = OPT.new(nil, nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false, false, false)
+		@options = OPT.new(nil, nil, nil, nil, 'pandocomatic', DEFENVPATH, false, false, false, false, false, nil)
 		@version = VER
 		@fileext = ''
 		@cmd = ''
@@ -43,6 +43,7 @@ class Scrivomatic
 
 	#-------------------------------build the command line
 	def buildCommand
+		@cmd += ' --data-dir="' + @options[:data_dir] + '"' unless @options[:data_dir].nil?
 		@cmd += ' --output ' + @options[:output] + ' ' unless @options[:output].nil?
 		@cmd += ' --to "' + @options[:to] + '"' unless @options[:to].nil?
 		@cmd += ' -c ' + @options[:yaml] if !@options[:yaml].nil? && @options[:command] == 'pandocomatic'
@@ -97,13 +98,13 @@ class Scrivomatic
 				@options[:to] = v
 			end
 			opts.on('-y', '--yaml [file]', 'Specify which YAML file for pandocomatic.') do |v|
-				@options[:yaml] = v.shellescape
+				@options[:yaml] = v.strip.shellescape
 			end
 			opts.on('-c', '--command [command]', 'Tool to use: [pandocomatic] | panzer') do |v|
 				@options[:command] = v
 			end
 			opts.on('-p', '--path [dirpath]', 'Additional Path to Search for Commands.') do |v|
-				@options[:envpath] = v.shellescape + ':' + @options[:envpath]
+				@options[:envpath] = v.strip.shellescape + ':' + @options[:envpath]
 			end
 			opts.on('-b', '--build', 'For LaTeX output, run latexmk') do |v|
 				@options[:build] = v
@@ -114,6 +115,9 @@ class Scrivomatic
 			end
 			opts.on('-d', '--dry-run', 'Dry run.') do |v|
 				@options[:dry_run] = v
+			end
+			opts.on('-z', '--data-dir [file]', 'Pandoc data dir.') do |v|
+				@options[:data_dir] = v.strip.shellescape
 			end
 			opts.on('-v', '--[no-]verbose', 'Verbose output.') do |v|
 				@options[:verbose] = v
