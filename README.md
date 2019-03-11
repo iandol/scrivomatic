@@ -75,23 +75,23 @@ To keep both Pandoc and Pandocomatic *up-to-date*, you can run the update comman
 
 ### Configuration ###
 
-The most important folder for this workflow is the Pandoc data directory: `$HOME/.pandoc` ($HOME is your user directory, for example `/Users/johndoe/`). Though not required, it is easiest to organise your templates, filters and other files there.  To create your `$HOME/.pandoc` folder:
+The most important folder for this workflow is the Pandoc data directory: **since Pandoc V2.7** it is `$HOME/.local/share/pandoc` (`$HOME` is your user directory, for example `/Users/johndoe/`; previous to V2.7 the folder was found at `$HOME/.pandoc`). Though not required, it is recommended to organise all your templates, filters and other files within this folder (pandocomatic uses the Pandoc data directory by default). To create your `$HOME/.local/share/pandoc` folder:  
 
 ```bash
-> mkdir -p ~/.pandoc
+> mkdir -p ~/.local/share/pandoc
 ```
 
-All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>⌘</kbd>+<kbd>SHIFT</kbd>+<kbd>G</kbd> and typing the path, in this case `~/.pandoc`; or 2) using the Terminal and typing:
+All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>⌘</kbd>+<kbd>SHIFT</kbd>+<kbd>G</kbd> and typing the path, in this case `~/.local/share/pandoc`; or 2) using the Terminal and typing:
 
 ```bash
-> open ~/.pandoc
+> open ~/.local/share/pandoc
 ```
 
-You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders of files Pandoc can use. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping its contents into your `$HOME/.pandoc`, or if you know how to use `git` you can just clone (or fork) it from Github.
+You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders of files Pandoc and pandocomatic use during converison. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping its contents into your `$HOME/.local/share/pandoc`, or if you know how to use `git` you can just clone (or fork) it from Github.
 
-`pandocomatic` uses a configuration file usually stored at the root of the Pandoc data directory: `$HOME/.pandoc/pandocomatic.yaml`. A simplified sample `pandocomatic.yaml` [is viewable here](https://github.com/iandol/scrivomatic/blob/master/pandocomatic.yaml); this won't work without customisation, but it gives you an idea of how the pandocomatic-templates work ([full documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#pandocomatic-templates)). The basic idea is you create several pandocomatic-templates, and each pandocomatic-templates collects together a bunch of settings and configurations to produce a particular output. So I have `docx` pandocomatic-templates which is a basic Word conversion, but also a `docx-refs` which runs the bibliographic tools to generates a bibliography automatically.
+`pandocomatic` uses a configuration file usually stored at the root of the Pandoc data directory: `$HOME/.local/share/pandoc/pandocomatic.yaml`. A simplified sample `pandocomatic.yaml` [is viewable here](https://github.com/iandol/scrivomatic/blob/master/pandocomatic.yaml); this won't work without customisation, but it gives you an idea of how pandocomatic-templates work ([full documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#pandocomatic-templates)). The basic idea is you create several pandocomatic-templates, and each pandocomatic-templates collects together a bunch of settings and configurations to produce a particular output. So I have `docx` pandocomatic-templates which is a basic Word conversion, but also a `docx-refs` which runs the bibliographic tools to generates a bibliography automatically for a docx file output.
 
-For the rest of the files in the Pandoc data directory: all custom Pandoc templates reside in `$HOME/.pandoc/templates`, and [Pandoc filters](http://pandoc.org/filters.html) in `$HOME/.pandoc/filters`. For bibliographies, I symbolically link my Bibliography.bib into in `$HOME/.pandoc` and store my Journal style files in `$HOME/.pandoc/csl`. `pandocomatic` enables the use of pre– and post–processor scripts and these are stored in their own subfolders.
+For the rest of the files in the Pandoc data directory: all custom Pandoc templates reside in `$HOME/.local/share/pandoc/templates`, and [Pandoc filters](http://pandoc.org/filters.html) in `$HOME/.local/share/pandoc/filters`. For bibliographies, I symbolically link my Bibliography.bib into in `$HOME/.local/share/pandoc` and store my Journal style files in `$HOME/.local/share/pandoc/csl`. `pandocomatic` enables the use of pre– and post–processor scripts and these are stored in their own subfolders.
 
 ## Writing in Scrivener ##
 
@@ -102,6 +102,7 @@ With Scrivener 3's new [styles system (§15.5 user manual)](http://www.literatur
 You can download my customised Scrivener 3 [compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat). Install it to get a flavour of how one can convert styles to markdown, and it now has the `scrivomatic` script built-in (needs Scrivener V3.03).  
 
 ![Figure 2 — The Scrivener 3 Compile Format Scrivomatic in the editor, showing how the inline style "Strong Emphasis" is converted into the correct markdown using prefix & suffix text.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/style-transform.png)  
+
 ### Enable Show invisible characters ###
 Because markdown is sensitive to whitespace, you should aim to use whitespace consistently: For a new paragraph and between any blocks of content I always use [`[space][space][return][return]`](http://pandoc.org/MANUAL.html#paragraphs). It is automatic for me, but showing invisible characters in the Scrivener editor makes potential formatting issues when compiling simple to fix. Enable it using **`View ▶︎ Text Editing ▶︎ Show Invisibles`**, and change their colour in **`Preferences ▶︎ Appearance ▶︎ Textual Marks ▶︎ Invisible Characters`**.  
 
@@ -120,9 +121,9 @@ Use comments and annotations freely. Scrivener 3 now allows you to transform com
 ### Cross-referencing ###
 I prefer Scrivener links to cross-reference documents / export figures, and Scrivener's placeholder tags to cross-reference figures and equations. But for new users Pandoc does have several cross-referencing filters ([pandoc-crossref](https://github.com/lierdakil/pandoc-crossref) and [pandoc-fignos](https://github.com/tomduck/pandoc-fignos) for example) and you can also use these.  
 
-## Compiling your Project: ##
 
-In Scrivener, I remove all compile–metadata specified in compile user interface so it does not interfere with my custom metadata document. I create a document called **front–matter** with a configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document (`Help ▸ List of All Placeholders…`). *One small warning: Scrivener's autocorrect will "smarten" quotation marks and dashes, which will cause problems for Pandoc so please straigten quotes and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block **must be spaces** and not **tabs***. In the example below, two templates are specified, and `pandocomatic` will run Pandoc twice to generate both a HTML & DOCX file from the same single Scrivener compile:
+## Compiling your Project: ##
+In Scrivener, I remove **all** compile–metadata specified in compile user interface so it does not interfere with my custom metadata document. I create a document called **front–matter** with a configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document (`Help ▸ List of All Placeholders…`). *One small warning: Scrivener's autocorrect will "smarten" quotation marks and dashes, which will cause problems for Pandoc so please straigten quotes and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block **must be spaces** and not **tabs***. In the example below, two templates are specified, and `pandocomatic` will run Pandoc twice to generate both a HTML & DOCX file from the same single Scrivener compile:
 
 ```yaml
 ---
@@ -141,7 +142,11 @@ pandocomatic_:
 
 ```
 
-This **front–matter** should be the first document in the compile list and compiled **as–is**. The Pandocomatic configuration template could look something like the example below for the DOCX template specified above (generating a bibliography using the APA style (with linked citations) and a table of contents):
+This **front–matter** should be the first document in the compile list and compiled **as–is**. 
+
+![Figure 3 — I created a `Project ▸ Project Settings… ▸ Section Type` called "Metadata", assigned this *Section Type* to 'front-matter', set 'front-matter' as Front Matter in the Compiler option, and then assigned it the AS-IS *Section Layout* for the compilation.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/as-is.png)  
+
+The Pandocomatic configuration template could look something like the example below for the DOCX template specified above (generating a bibliography using the APA style (with linked citations) and a table of contents):
 
 ```yaml
   paper-with-refs-docx:
@@ -163,11 +168,11 @@ In Scrivener, you select Multimarkdown as the compile document output and select
 
 ## Scrivomatic post-processing script ##
 
-**You can run `pandocomatic` directly from Scrivener's post-processing panel**, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `scrivomatic` is a small wrapper script ([yes, welcome to the rabbit hole 🙃](https://www.rousette.org.uk/archives/pandocomatic-and-scrivomatic/)!) that handles this for you…  
+*You can run `pandocomatic` directly from Scrivener's post-processing panel*, but you may need to ensure the `Environment` path is set up so Scrivener can find all the files and the other tools properly. `Scrivomatic` is a small wrapper script ([yes, welcome to the rabbit hole 🙃](https://www.rousette.org.uk/archives/pandocomatic-and-scrivomatic/)!) that handles this for you…  
 
-It adds the paths for tools installed via `homebrew`, `MacTeX` and `Cabal`; and if you've used [`rbenv`](https://github.com/rbenv/rbenv), [`rvm`](https://rvm.io/) or [`conda`](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer, it adds these paths too. It can also generate a detailed log file of the conversion (so you can check for missing references etc.). The easiest way to install it is to copy the raw code from here: [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), then you want to install it by pasting it into the Post-processing `Edit Script` edit field (leave Shell blank). You then configure the `Arguments` field (adding different flags to control `scrivomatic`, e.g. `-l` opens scrivomatic.log in Console automatically)
+It adds the paths for tools installed via `homebrew`, `MacTeX` and `Cabal`; and if you've used [`rbenv`](https://github.com/rbenv/rbenv), [`rvm`](https://rvm.io/) or [`conda`](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer, it adds these paths too. It can also generate a detailed log file of the conversion (so you can check for missing references or other problems etc.). The easiest way to install it is to copy the raw code from here: [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), then you want to install it by pasting it into the Post-processing `Edit Script` edit field (leave Shell blank). You then configure the `Arguments` field (adding different flags to control `scrivomatic`, e.g. `-l` opens scrivomatic.log in Console automatically):
 
-![Figure 3 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/processing.png)   
+![Figure 4 — Scrivener's processing panel in the compile preset.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/processing.png)   
 
 You can also download the script to your Downloads folder, move it to a directory on your path, and make sure it can be executed like so:
 
@@ -177,7 +182,7 @@ mv $HOME/Downloads/scrivomatic $HOME/bin
 chmod 755 $HOME/bin/scrivomatic
 ```
 
-You can run `scrivomatic` with the following command line options:
+You can then run `scrivomatic` from terminal with the following command line options:
 
 ```
 Usage: scrivomatic [additional options] FILE
@@ -190,6 +195,7 @@ Usage: scrivomatic [additional options] FILE
     -b, --build                      For LaTeX output, run latexmk
     -B, --buildclean                 For LaTeX output, run latexmk and cleanup
     -d, --dry-run                    Dry run.
+    -z, --data-dir [file]            Pandoc data dir.
     -v, --[no-]verbose               Verbose output.
     -l, --[no-]log                   View log in Console.app.
     -h, --help                       Prints this help!
