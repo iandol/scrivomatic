@@ -210,12 +210,12 @@ I also include an [Alfred workflow](https://raw.githubusercontent.com/iandol/scr
 ## Writing tips for this Workflow ##
 
 ### How-to use Custom Styles in Word and HTML ###
-There are two recent features added to Pandoc, [Fenced Divs](http://pandoc.org/MANUAL.html#extension-fenced_divs) and [Custom Styles](http://pandoc.org/MANUAL.html#custom-styles-in-docx-output) (see also [bracketed spans](http://pandoc.org/MANUAL.html#extension-bracketed_spans)), that when combined, enable any arbitrary custom Scrivener paragraph or character styles to be converted into Word styles or CSS classes. So for example, we can create an "Allegory" paragraph style in Scrivener, and in the Compiler style we use the fenced div syntax prefix=`::: custom-style=Allegory :::\n` & suffix=`\n::::::` (`\n` means enter a return, done using `option+return` in the edit box) which would generate a fenced div like so in the compiled Pandoc file:
+There are two recent features added to Pandoc, [Fenced Divs](http://pandoc.org/MANUAL.html#extension-fenced_divs) and [Custom Styles](http://pandoc.org/MANUAL.html#custom-styles-in-docx-output) (see also [bracketed spans](http://pandoc.org/MANUAL.html#extension-bracketed_spans)), that when combined, enable any arbitrary custom Scrivener paragraph or character styles to be converted into Word styles or CSS classes. So for example, we can create an "Allegory" paragraph style in Scrivener, and in the Compiler style we use the fenced div syntax prefix=`\n::: {custom-style="Allegory"} :::\n` & suffix=`\n:::\n` (`\n` means enter a return, done using `option+return` in the edit box) which would generate a fenced div like so in the compiled Pandoc file:
 
 ~~~markdown
-::: custom-style=Allegory :::
+::: {custom-style="Allegory"} :::
 All animals are equal but a few are more equal than others
-::::::
+:::
 ~~~
 
 Pandoc will then attach a word style named "Allegory" to that paragraph in the output DOCX. You can either edit the style in Word, or [edit your reference.docx to include this custom style](http://pandoc.org/MANUAL.html#custom-styles-in-docx-output), so it already styled when you open the DOCX.
