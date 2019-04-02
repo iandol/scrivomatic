@@ -60,6 +60,8 @@ Apart from **Scrivener** (V3.x is highly recommended for this workflow), you sho
 
 If you already installed `pandoc` manually, but want to use `brew`, then you can use `brew link --overwrite ...` instead of `brew install ...`. You can run the command `brew update` every so often to ensure these tools are *kept* up-to-date. 
 
+**NEWSFLASH:** Recently pandocomatic broke compatibility with the system Ruby, and so you need to install a newer version of Ruby, see [Installing Ruby](https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md) for more details!
+
 You use Ruby's `gem` command (built-in to macOS) to install `pandocomatic` (putting the binary in `/usr/local/bin`, as recent macOS versions do not allow modification of `/usr/bin`):
 
 ```bash
