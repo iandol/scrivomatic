@@ -1,35 +1,52 @@
-# Installing Ruby #
+# Installing Ruby  
 
-Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes with macOS. There are several easy ways to install modern versions of Ruby. 
+Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS. One solution is to install an older version of pandocomatic (`gem install pandocomatic -v 0.2.4.0`), but I think installing a modern versions of Ruby is the better option. 
 
-## Use Homebrew ##
+## Using Homebrew…  
 
-The first is to use [Homebrew](https://brew.sh/), which I already recommend for installing Pandoc and which quickly installs the latest Ruby version:
-
-```shell
-> brew install ruby
-```
-
-By default, brew does not add this Ruby to the path, as it assumes the System Ruby should take priority, **BUT** pandocomatic is not compatible with the system Ruby. You can ensure brew's Ruby gets used by putting it in your path with this command:  
+The easiest way to install a modern Ruby version is to use [Homebrew](https://brew.sh/), which I already recommend for installing Pandoc and which quickly installs the latest Ruby version:
 
 ```shell
-echo 'export PATH="/usr/local/opt/ruby/bin:$PATH"' >> ~/.bashrc
+brew install ruby
 ```
 
-Or if you use zsh then use `echo 'export PATH="/usr/local/opt/ruby/bin:$PATH"' >> ~/.zshrc`. You must then restart your terminal so the path takes effect, then you can install `paru` and `pandocomatic` (you don't need `-u` as you needed for the system Ruby):
-
-```
-> gem install paru pandocomatic
-```
-
-## Use rbenv ##
-
-rbenv allows multiple ruby versions to run side-by-side, and easily switched between, but is a bit more involved and requires more manual maintainence:
+By default, `brew` does not add this Ruby to the path as it assumes the System Ruby should take priority, but as we know pandocomatic is not compatible with the system Ruby. So you can ensure `brew`'s Ruby is used by putting its folders first in the path with this command:  
 
 ```shell
-> brew install rbenv
-> rbenv install 2.6.2
-> rbenv global 2.6.2
-> gem install paru pandocomatic
+echo '\nexport PATH="/usr/local/lib/ruby/gems/2.6.0/bin:/usr/local/opt/ruby/bin:$PATH"' >> ~/.bashrc
 ```
 
+Or if you use zsh:  
+
+```shell
+echo '\nexport PATH="/usr/local/lib/ruby/gems/2.6.0/bin:/usr/local/opt/ruby/bin:$PATH"' >> ~/.zshrc
+```
+
+You must then restart your terminal so the path takes effect. Then you can install `pandocomatic`:  
+
+```shell
+gem install pandocomatic
+```
+
+## Using rbenv…  
+
+[rbenv](https://github.com/rbenv/rbenv) allows multiple ruby versions to run side-by-side, but is a bit more involved to install:
+
+```shell
+brew install rbenv
+rbenv init
+```
+
+The [instructions](https://github.com/rbenv/rbenv#homebrew-on-macos) tell you to add `eval "rbenv init -"` in your `.bashrc` or `.zshrc`, so you can do this using the following command (replace `.bashrc` with `.zshrc` if you use `zsh`):
+
+```shell
+echo '\neval "$(rbenv init -)"' >> ~/.bashrc
+```
+
+Restart your terminal, then install a modern ruby version, and finally pandocomatic:
+
+```shell
+rbenv install 2.6.2
+rbenv global 2.6.2
+gem install pandocomatic
+```

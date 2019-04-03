@@ -55,23 +55,23 @@ As a teaser for the full workflow, you can download a [sample Scrivener project]
 Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` receives regular automatic updates via homebrew). So first, follow the [instructions to install Homebrew](https://brew.sh/) ([info for the security conscious](https://discourse.brew.sh/t/security-issues-using-homebrew-malicious-insertion/3379)), and then install `pandoc` using the `brew` command in the terminal:
 
 ```bash
-> brew install pandoc pandoc-citeproc pandoc-crossref
+brew install pandoc pandoc-citeproc pandoc-crossref
 ```
 
-If you already installed `pandoc` manually, but want to use `brew`, then you can use `brew link --overwrite ...` instead of `brew install ...`. You can run the command `brew update` every so often to ensure these tools are *kept* up-to-date. 
+If you already installed `pandoc` manually, but want to use `brew`, then you can use `brew link --overwrite ...` instead of `brew install ...`. You can run the command `brew upgrade` every so often to ensure these tools are *kept* up-to-date. 
 
-**NEWSFLASH:** Recently pandocomatic broke compatibility with the system Ruby, and so you need to install a newer version of Ruby, see [Installing Ruby](https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md) for more details!
+**NEWSFLASH:** Recently pandocomatic broke compatibility with the ancient version of Ruby in macOS, and so you need to install a newer version of Ruby first, see [Installing Ruby](https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md) for more details!
 
-You use Ruby's `gem` command (built-in to macOS) to install `pandocomatic` (putting the binary in `/usr/local/bin`, as recent macOS versions do not allow modification of `/usr/bin`):
+You use Ruby's `gem` command to install `pandocomatic`:
 
 ```bash
-> sudo gem install paru pandocomatic -n /usr/local/bin
+gem install pandocomatic 
 ```
 
 To keep both Pandoc and Pandocomatic *up-to-date*, you can run the update commands like so every week or so:
 
 ```bash
-> brew update; sudo gem update paru pandocomatic -n /usr/local/bin
+brew upgrade; gem update paru pandocomatic
 ```
 
 
