@@ -17,7 +17,7 @@ class Scrivomatic
 	# pandocomatic/panzer from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.25'.freeze
+	VER = '1.0.26'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -175,15 +175,15 @@ class Scrivomatic
 		puts "\n=== ------------------------------------------------------ ==="
 		puts '=== Scrivomatic V' + @version + ' Report @ ' + Time.now.to_s + ' ==='
 		puts '=== ------------------------------------------------------ ==='
-		puts " Running under Ruby #{RUBY_VERSION}"
 		puts ' Working directory: ' + `pwd`
+		puts " Initiating with Ruby #{RUBY_VERSION}"
 		puts '===------ Input Options: ------==='
 		puts @options
 		puts '===------ Final ENV PATH: ------==='
 		puts ENV['PATH']
 		puts '===------ TOOL PATHS: ------==='
 		puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
-		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1 s/(©.+)/''/ p')"`
+		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1s/^Pandocomatic version /''/p')"`
 		puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
 		%w[rbenv rvm panzer python xelatex latexmk].each do |c|
 			location = `which #{c}`.chomp
