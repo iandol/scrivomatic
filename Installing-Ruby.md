@@ -13,7 +13,7 @@ brew install ruby
 By default, `brew` does not add this Ruby to the path as it assumes the System Ruby should take priority, but as we know pandocomatic is not compatible with the system Ruby. So you can ensure `brew`'s Ruby is used by putting its folders first in the path with this command:  
 
 ```shell
-echo '\nexport PATH="/usr/local/lib/ruby/gems/2.6.0/bin:/usr/local/opt/ruby/bin:$PATH"' >> ~/.bashrc
+echo '\nexport PATH="/usr/local/lib/ruby/gems/2.6.0/bin:/usr/local/opt/ruby/bin:$PATH"' >> ~/.bash_profile
 ```
 
 Or if you use zsh:  
@@ -37,10 +37,10 @@ brew install rbenv
 rbenv init
 ```
 
-The [instructions](https://github.com/rbenv/rbenv#homebrew-on-macos) tell you to add `eval "rbenv init -"` in your `.bashrc` or `.zshrc`, so you can do this using the following command (replace `.bashrc` with `.zshrc` if you use `zsh`):
+The [instructions](https://github.com/rbenv/rbenv#homebrew-on-macos) tell you to add `eval "rbenv init -"` in your `.bash_profile` or `.zshrc`, so you can do this using the following command (replace `.bash_profile` with `.zshrc` if you use `zsh`):
 
 ```shell
-echo '\neval "$(rbenv init -)"' >> ~/.bashrc
+echo '\neval "$(rbenv init -)"' >> ~/.bash_profile
 ```
 
 Restart your terminal, then install a modern ruby version, and finally pandocomatic:
