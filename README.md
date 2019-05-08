@@ -48,7 +48,7 @@ Scrivener already comes with Multimarkdown, but I really do think that Pandoc pr
 3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc output too). I offer a [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
 4. Scrivener's compile post-processing triggers `pandocomatic`, automagically creating the final output(s) for you.
 
-As a teaser for the full workflow, you can download a [sample Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles all the required files into the Binder (instructions included there to set up, you will still need to install `pandoc` and `pandocomatic` first).
+As a teaser for the full workflow, you can download a [sample Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) ([compiled outputs can be viewed here](https://github.com/iandol/scrivomatic/tree/master/sample-output)) which bundles all the required files into the Binder (instructions included there to set up, you will still need to install `pandoc` and `pandocomatic` first).
 
 ### Requirements ###
 
