@@ -1,6 +1,12 @@
 # Installing Ruby  
 
-Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS. One solution is to install an older version of pandocomatic (`gem install pandocomatic -v 0.2.4.0`), but I think installing a modern versions of Ruby is the better option. 
+Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS (Apple should really update…). One solution is to deliberately install an older version of pandocomatic:
+
+```shell
+ sudo gem install paru:0.3.1.0 pandocomatic:0.2.4.0 -n '/usr/local/bin'
+ ```
+
+…but I think installing a modern version of Ruby is the better option, and two different methods are details below.
 
 ## Using Homebrew…  
 
@@ -43,10 +49,10 @@ The [instructions](https://github.com/rbenv/rbenv#homebrew-on-macos) tell you to
 echo '\neval "$(rbenv init -)"' >> ~/.bash_profile
 ```
 
-Restart your terminal, then install a modern ruby version, and finally pandocomatic:
+Restart your terminal, then install a modern ruby version (currently V2.6.3, but later versions when released should be fine too), and finally pandocomatic:
 
 ```shell
-rbenv install 2.6.2
-rbenv global 2.6.2
+rbenv install 2.6.3
+rbenv global 2.6.3
 gem install pandocomatic
 ```
