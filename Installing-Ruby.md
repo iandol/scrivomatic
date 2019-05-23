@@ -1,6 +1,6 @@
 # Installing Ruby  
 
-Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS (Apple should really update…). So the first and simplest solution is to deliberately install an older version of pandocomatic:
+Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS (Apple should really update…). So the first simplest solution is to deliberately install an older version of pandocomatic:
 
 ```shell
  sudo gem install paru:0.3.1.0 pandocomatic:0.2.4.0 -n '/usr/local/bin'
@@ -10,7 +10,7 @@ Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *a
 
 ## Using Homebrew…  
 
-The easiest way to install a modern Ruby version is to use [Homebrew](https://brew.sh/), which I already recommend for installing Pandoc and which quickly installs the latest Ruby version:
+The easiest way to install a modern Ruby version is to use [Homebrew](https://brew.sh/), which I've already recommended for installing Pandoc, and which quickly installs the latest Ruby version:
 
 ```shell
 brew install ruby
@@ -34,9 +34,11 @@ You must then restart your terminal so the path takes effect. Then you can insta
 gem install pandocomatic
 ```
 
+I'm not a big fan of this method however as you will need to manually update the path, when for example Ruby V2.7 gets released. To automate the path management, I therefore prefer to install `rbenv`.
+
 ## Using rbenv…  
 
-[rbenv](https://github.com/rbenv/rbenv) allows multiple ruby versions to run side-by-side, but is a bit more involved to install:
+[rbenv](https://github.com/rbenv/rbenv) allows multiple ruby versions to run side-by-side and handles the path changes for you, but is a bit more involved to install:
 
 ```shell
 brew install rbenv
@@ -56,3 +58,25 @@ rbenv install 2.6.3
 rbenv global 2.6.3
 gem install pandocomatic
 ```
+
+## Troubleshooting…
+
+A couple of users have recently tried to install pandocomatic via rbenv, and have had a conflict with other versions of the gems; if this is a problem for you try the following:
+
+1. Switch to system ruby:
+```shell
+rbenv global system; rbenv shell system
+```
+
+2. Uninstall system versions:
+```shell
+ sudo gem uninstall -f paru pandocomatic -n '/usr/local/bin' 
+```
+
+3. Switch back to the modern Ruby and force install latest paru and pandocomatic
+```shell
+ rbenv global 2.6.3; rbenv shell 2.6.3 
+ gem install -f paru pandocomatic
+```
+
+
