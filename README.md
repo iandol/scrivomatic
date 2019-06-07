@@ -17,6 +17,7 @@
 * [`scrivomatic` Compile Helper](#scrivomatic-post-processing-script)
 * [More Writing Tips](#writing-tips-for-this-workflow)
     - [Use Custom Styles in Word and HTML](#how-to-use-custom-styles-in-word-and-html)
+    - [Binding ⌘B etc. to Scrivener Styles](#binding-b-etc-to-scrivener-styles)
     - [Working with Bookends Reference Manager](#working-with-bookends-reference-manager)
     - [Minimal LaTeX Install Instructions](#minimal-latex-install)
 
@@ -99,7 +100,7 @@ For the rest of the files in the Pandoc data directory: all custom Pandoc templa
 
 With Scrivener 3's new [styles system (§15.5 user manual)](http://www.literatureandlatte.com/blog/?p=1094), there is a huge change to how you can write with markdown. You can use named paragraph styles (like "blockquote"), and named inline styles (like "emphasis" or "superscript") as you would writing in rich text (**i.e. there is no need to add markdown syntax in the editor!**) With the new [compile system (§23—user manual)](http://www.literatureandlatte.com/blog/?p=1097), Scrivener can add a prefix/suffix to create the required plain-text markdown. So for example, create an inline style called `strong`, and in compile set the prefix to \*\* and suffix to \*\* and Scrivener automates conversion from the style to markdown! You can then [rebind](https://scrivener.tenderapp.com/help/kb/macos/assigning-or-changing-keyboard-shortcuts-in-scrivener-for-mac) ⌘I and ⌘B to trigger the *emphasis* and **strong** styles directly. In Scrivener 2, you can still use formatting presets, but these will always be stripped out during the compile, so you need to write the markdown directly in the editor. I used to use formatting presets to visualise markdown structure in Scrivener 2 (block quotes, code blocks, lists, tables, figure captions). But in Scrivener 3, I now use Scrivener styles to *visualise* structure **and** *generate* the Pandoc markup itself:  
 
-![Figure 1 — The cursor shows **strong** and blockquote are both applied. Note whitespace is visualised and styles are used to give visual structure to the Scrivener writing environment. These will be transformed into the correct markdown on compile…](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/2.png)  
+![Figure 1 — The cursor shows that both inline **Strong** and paragraph Caption styles are both active. Note whitespace is visualised and styles are used to give visual structure to the Scrivener writing environment. These will all be transformed into the correct markdown on compile…](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/Styles.png)  
 
 You can download my customised Scrivener 3 [compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat). Install it to get a flavour of how one can convert styles to markdown, and it now has the `scrivomatic` script built-in (needs Scrivener V3.03).  
 
@@ -221,6 +222,15 @@ All animals are equal but a few are more equal than others
 ~~~
 
 Pandoc will then attach a word style named "Allegory" to that paragraph in the output DOCX. You can either edit the style in Word, or [edit your reference.docx to include this custom style](http://pandoc.org/MANUAL.html#custom-styles-in-docx-output), so it already styled when you open the DOCX.
+
+### Binding ⌘B etc. to Scrivener Styles ###
+Most people have ⌘B & ⌘I key bindings well memorised for bold and italic. A cool thing about Scrivener Styles and macOS is you can rebind these keys so they toggle the **Strong** and *Emphasis* styles rather than bold and italic itself. To do this you go to `System Preferences ▸ Keyboard ▸ Shortcuts`, click the [+] button, select Scrivener.app and enter the name and key to make the following:
+
+![Figure 5 - Rebinding macOS keys to use Scrivener Styles.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/macOS-Keys.png)
+
+In the case of `Strong` and `Emphasis`, there is no need to enter the full menu path to the Style as the names are unique, but you can also use the complete `Format->Style->Emphasis` to make this entry explicit. A 3rd-party tool that provides key rebinding and an incredible amount of additional control is [BetterTouchTool](https://folivora.ai). You would remap the keys in the following way in BTT:
+
+![Figure 6 - Rebinding macOS keys to Scrivener Styles in BTT.](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/BTT.png)
 
 ### Working with Bookends Reference Manager ###
 [Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the excellent tutorial here:
