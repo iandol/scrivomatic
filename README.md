@@ -100,7 +100,7 @@ For the rest of the files in the Pandoc data directory: all custom Pandoc templa
 
 With Scrivener 3's new [styles system (§15.5 user manual)](http://www.literatureandlatte.com/blog/?p=1094), there is a huge change to how you can write with markdown. You can use named paragraph styles (like "blockquote"), and named inline styles (like "emphasis" or "superscript") as you would writing in rich text (**i.e. there is _no need_ to add markdown syntax in the editor!**) With the [compile system (§23—user manual)](http://www.literatureandlatte.com/blog/?p=1097), Scrivener will add a prefix/suffix to create the required plain-text markdown. So for example, create an inline style called `Strong`, and in compile set the prefix to \*\* and suffix to \*\* and Scrivener automates conversion from the RTF style to markdown! You can even [rebind ⌘I and ⌘B](https://github.com/iandol/scrivomatic#binding-b-etc-to-scrivener-styles) to trigger the *Emphasis* and **Strong** styles directly. I use Scrivener styles to *visualise* structure **and** *generate* the Pandoc markup itself:  
 
-![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/Styles.png")
+![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/Styles.png)
 ***
 _Figure 1 — The cursor shows that both inline **Strong** and paragraph Caption styles are both active. Note whitespace is visualised and styles are used to give visual structure to the Scrivener writing environment. These will all be transformed into the correct markdown on compile…_
 ***
