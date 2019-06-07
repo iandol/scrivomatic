@@ -1,5 +1,6 @@
 ---
-# Standard Scrivener+Pandoc YAML metadata
+# Standard Scrivener+Pandoc Project YAML metadata
+# Important: YAML configuration files use SPACES for indentation to define structure, and remember to straighten smart quotes!
 title: "Scrivener + Pandoc Workflow"
 author:
   - name: John Doe
@@ -16,7 +17,7 @@ keywords:
   - Pandoc
   - Scrivener
   - Workflow
-compiled: 08/05/2019
+compiled: 07/06/2019
 comments: "To err is human; … err?"
 # Select which templates pandocomatic will use
 # you can enter overrides to the templates here as well
@@ -36,9 +37,11 @@ pandocomatic_:
 
 # §2 — Introduction #
 
+> *Humans are pattern-seeking story-telling animals, and we are quite adept at telling stories about patterns, whether they exist or not*. — Michael Shermer
+
 [Lørem ipsum dolør sit amet]{.smallcaps}, eu ipsum movet vix, veniam låoreet posidonium[^fn1] te eøs, eæm in veri eirmod [@barrett2015; @crivellato2007]. Sed illum minimum ([see Results](#§4.1 — Lunar Cycles)) at 3.25×10⁻⁴⁸, est mægna alienum mentitum ne. [Amet equidem](https://pandoc.org/MANUAL.html) sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
-![**Figure 1** — This is the fascinating caption.][SC]
+![**Figure 1** — This is a fascinating caption (source and explanation: [XKCD](https://www.explainxkcd.com/wiki/index.php/2120:_Brain_Hemispheres)).][xkcd_brain_hemispheres]
 
 Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum[@crivellato2007], pro paulo ridens quaestio ut (see **Fig. 1**)! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo *iisque sapientem ad*, vølumus **_persecuti vix cu_**, his åt justo putant comprehensam.  
 
@@ -165,9 +168,9 @@ No meæ menandri mediøcritatem [@siegel2015; @barrett2015; @crivellato2007], me
 
 
 
-[SC]: SC.png {width=500 height=340}
+[xkcd_brain_hemispheres]: xkcd_brain_hemispheres.png {width=200 height=289}
 
-[^fn1]: This is a footnote, with a citation [@crivellato2007].
+[^fn1]: This is a footnote, **with** a citation [@crivellato2007].
 
 [^fn2]: Another footnote. Although footnotes get converted just fine, one caveat is you cannot use Scrivener inline styles, so you **must** use Pandoc markup *directly*.
 
