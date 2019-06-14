@@ -132,7 +132,7 @@ Out of habit I prefer Scrivener links when cross-reference documents / export fi
 
 
 ## Compiling your Project: ##
-In Scrivener, I remove **all** compile–metadata specified in compile user interface ([see screenshot here](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/remove-metadata.png)) so it does not interfere with my custom metadata document. I create a document called **front–matter** with a configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document (`Help ▸ List of All Placeholders…`). *One small warning: Scrivener's autocorrect will "smarten" quotation marks and dashes, which will cause problems for Pandoc so please straigten quotes and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block **must be spaces** and not **tabs***. In the example below, two templates are specified, and `pandocomatic` will run Pandoc twice to generate both a HTML & DOCX file from the same single Scrivener compile:
+In Scrivener, I remove **all** compile–metadata specified in compile user interface ([see screenshot here](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/remove-metadata.png)) so it does not interfere with my custom metadata document. I create a document called **Pandoc metadata** containing the YAML configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document (`Help ▸ List of All Placeholders…`). *One important point: Scrivener's autocorrect will "smarten" quotation marks and dashes, which will cause problems for Pandoc so please straigten quotes and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block **must be spaces** and not **tabs***. In the example YAML below, three templates are specified, so `pandocomatic` will run Pandoc three times to generate a DOCX, HTML and plain TXT file from the same single Scrivener compile:
 
 ```yaml
 ---
@@ -147,18 +147,19 @@ pandocomatic_:
   use-template:
     - paper-with-refs-docx
     - paper-with-refs-html
+    - paper-with-refs-text
 ---
 
 ```
 
-This **front–matter** should be the first document in the compile list and compiled **as–is**. 
+The front matter should be the first document in the compile list and compiled **as–is**. 
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/as-is.png)
 ***
-_Figure 3 — I created a `Project ▸ Project Settings… ▸ Section Type` called "Metadata", assigned this **Section Type** to 'front-matter', set 'front-matter' as Front Matter in the Compiler option, and then assigned it the AS-IS **Section Layout** for the compilation._
+_Figure 3 — I created a `Project ▸ Project Settings… ▸ Section Type` called "Frontmatter", assigned this **Section Type** to 'Pandoc metadata', set 'Pandoc metadata' as Front Matter in the Compiler options, and then assigned it the AS-IS **Section Layout**._
 ***
 
-The Pandocomatic configuration template could look something like the example below for the DOCX template specified above (generating a bibliography using the APA style (with linked citations) and a table of contents):
+The Pandocomatic configuration template (`pandocomatic.yaml`) could contain something like the example below for the DOCX template specified above (generating a bibliography using the APA style (with linked citations) and a table of contents):
 
 ```yaml
   paper-with-refs-docx:
