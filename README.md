@@ -32,7 +32,7 @@
 * Semantically styled block quotes, code blocks (with *full syntax highlighting*), and many inline styles.
 * Mathematical equations are properly parsed to many output formats.
 * You can generate multiple outputs (EPub3, HTML, PDF, LaTeX, DOCX, ODT) simultaneously from a single compile; and trigger further tools to automate many workflows.
-* You can use a Microsoft Word/LibreOffice source file to provide all page setup and customised styles without any fussing in a word processor afterwards.
+* You can use a Microsoft Word/LibreOffice source file to provide all page setup (paper size / modified headers & footers etc.) and fully customised styles without any fussing in a word processor afterwards.
 * For academics, using [Pandoc](http://pandoc.org/index.html) as the markdown processor enables *generation of a full [Bibliography](http://pandoc.org/MANUAL.html#citations)*. 
 * For technical writers, you can add semantic custom block and span structures (warning or info boxes for example).
 * For LaTeX users, there is a lot of flexibility using rich templates and meta-data.
@@ -49,7 +49,7 @@ Scrivener already comes with Multimarkdown, but I really do think that Pandoc pr
 3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc output too). I offer a [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to use.
 4. Scrivener's compile post-processing triggers `pandocomatic`, automagically creating the final output(s) for you.
 
-As a teaser for the full workflow, you can download a [sample Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) ([compiled outputs can be viewed here](https://github.com/iandol/scrivomatic/tree/master/sample-output)) which bundles all the required files into the Binder (instructions included there to set up, you will still need to install `pandoc` and `pandocomatic` first).
+As a sample of the fuller workflow, you can download a [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles all the required files into the Binder (you  still need to install `pandoc` and `pandocomatic` first, [the PDF/HTML/DOCX/TXT compiled results can be viewed here](https://github.com/iandol/scrivomatic/tree/master/sample-output)). To better understand the instructions here, you should read at least §21 and §24 of the Scrivener user manual to better understand which parts of Scrivener's toolset used here.
 
 ### Requirements ###
 
@@ -113,7 +113,7 @@ _Figure 2 — The Scrivener 3 Compile Format `Scrivomatic.scrformat` in the edit
 ***
 
 ### Enable Show invisible characters ###
-Because markdown is sensitive to whitespace, you should aim to use whitespace consistently: For a new paragraph and between any blocks of content I always use [<kbd>space</kbd><kbd>space</kbd><kbd>return</kbd><kbd>return</kbd>](http://pandoc.org/MANUAL.html#paragraphs). It is automatic for me, but showing invisible characters in the Scrivener editor makes potential formatting issues when compiling simple to fix. Enable it using **`View ▶︎ Text Editing ▶︎ Show Invisibles`**, and change their colour in **`Preferences ▶︎ Appearance ▶︎ Textual Marks ▶︎ Invisible Characters`**.  
+Because markdown is sensitive to whitespace (double <kbd>return</kbd> to delineate paragraphs, 4 spaces/1 tab to delineate code blocks etc.), you should aim to use whitespace consistently: for new paragraphs and between any blocks of content [<kbd>space</kbd><kbd>space</kbd><kbd>return</kbd><kbd>return</kbd>](http://pandoc.org/MANUAL.html#paragraphs) is optimal. Showing invisible characters in the Scrivener editor makes potential formatting issues when compiling simple to fix. Enable it using **`View ▶︎ Text Editing ▶︎ Show Invisibles`**, and change their colour in **`Preferences ▶︎ Appearance ▶︎ Textual Marks ▶︎ Invisible Characters`**. If you do not wish to use <kbd>return</kbd><kbd>return</kbd> to delineate paragraphs in the Scrivener editor, you can use Scrivener's compile replacements, or **`Compile format Editor ▶︎ Transformations ▶︎ Convert to plain text ▶︎ Paragraph spacing`** (§24.13 user manual).
 
 ### Use the Binder for all document structure ###
 Try not to not use markdown \# headings within text documents themselves but create documents at the correct level hierarchy in the Binder. Scrivener is great at compiling the levels of the Binder structure into the correct heading levels for you, and you benefit from being able to use the outlining and organisation tools within Scrivener.  
