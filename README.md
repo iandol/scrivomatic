@@ -1,5 +1,4 @@
 # Scrivomatic: Scrivener & *Pandoc\{omatic\}* #
-<div style="float:right;width:40%;font-size:0.75rem;padding:5px;border:1px solid #DDD;background-color: #FFF;border-radius: 5px;margin-left:1rem;box-shadow: 5px 5px 10px #AAA">
 
 ### Table of Contents ###
 * [General Introduction](#introduction)
@@ -20,8 +19,6 @@
     - [Binding ⌘B etc. to Scrivener Styles](#binding-b-etc-to-scrivener-styles)
     - [Working with Bookends Reference Manager](#working-with-bookends-reference-manager)
     - [Minimal LaTeX Install Instructions](#minimal-latex-install)
-
-</div>
 
 ## Introduction ##
 
@@ -101,16 +98,16 @@ For the rest of the files in the Pandoc data directory: all custom Pandoc templa
 With Scrivener 3's new [styles system (§15.5 user manual)](http://www.literatureandlatte.com/blog/?p=1094), there is a huge change to how you can write with markdown. You can use named paragraph styles (like "blockquote"), and named inline styles (like "emphasis" or "superscript") as you would writing in rich text (**i.e. there is _no need_ to add markdown syntax in the editor!**) With the [compile system (§23—user manual)](http://www.literatureandlatte.com/blog/?p=1097), Scrivener will add a prefix/suffix to create the required plain-text markdown. So for example, create an inline style called `Strong`, and in compile set the prefix to \*\* and suffix to \*\* and Scrivener automates conversion from the RTF style to markdown! You can even [rebind ⌘I and ⌘B](https://github.com/iandol/scrivomatic#binding-b-etc-to-scrivener-styles) to trigger the *Emphasis* and **Strong** styles directly. I use Scrivener styles to *visualise* structure **and** *generate* the Pandoc markup itself:  
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/Styles.png)
-***
+_ _ _ _ _ _
 _Figure 1 — The cursor shows that both inline **Strong** and paragraph Caption styles are both active. Note whitespace is visualised and styles are used to give visual structure to the Scrivener writing environment. These will all be transformed into the correct markdown on compile…_
-***
+_ _ _ _ _ _
 
 You can download my customised Scrivener 3 [compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat). Install it to get a flavour of how one can convert styles to markdown, and it now has the `scrivomatic` script built-in (needs Scrivener V3.03+).  
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/style-transform.png)
-***
+_ _ _ _ _ _
 _Figure 2 — The Scrivener 3 Compile Format `Scrivomatic.scrformat` in the editor, showing how the inline style "Strong Emphasis" is converted into the correct markdown using prefix & suffix text. **HINT:** for block/paragraph styles you will need to enter newlines directly into the prefix/suffix edit fields, you do this using <kbd>option</kbd><kbd>return</kbd>._
-***
+_ _ _ _ _ _
 
 ### Enable Show invisible characters ###
 Because markdown is sensitive to whitespace (double <kbd>return</kbd> to delineate paragraphs, 4 spaces/1 tab to delineate code blocks etc.), you should aim to use whitespace consistently: for new paragraphs and between any blocks of content [<kbd>space</kbd><kbd>space</kbd><kbd>return</kbd><kbd>return</kbd>](http://pandoc.org/MANUAL.html#paragraphs) is optimal. Showing invisible characters in the Scrivener editor makes potential formatting issues when compiling simple to fix. Enable it using **`View ▶︎ Text Editing ▶︎ Show Invisibles`**, and change their colour in **`Preferences ▶︎ Appearance ▶︎ Textual Marks ▶︎ Invisible Characters`**. If you do not wish to use <kbd>return</kbd><kbd>return</kbd> to delineate paragraphs in the Scrivener editor, you can use Scrivener's compile replacements, or **`Compile format Editor ▶︎ Transformations ▶︎ Convert to plain text ▶︎ Paragraph spacing`** (§24.13 user manual).
@@ -155,9 +152,9 @@ pandocomatic_:
 The front matter should be the first document in the compile list and compiled **as–is**. 
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/as-is.png)
-***
+_ _ _ _ _ _
 _Figure 3 — I created a `Project ▸ Project Settings… ▸ Section Type` called "Frontmatter", assigned this **Section Type** to 'Pandoc metadata', set 'Pandoc metadata' as Front Matter in the Compiler options, and then assigned it the AS-IS **Section Layout**._
-***
+_ _ _ _ _ _
 
 The Pandocomatic configuration template (`pandocomatic.yaml`) could contain something like the example below for the DOCX template specified above (generating a bibliography using the APA style (with linked citations) and a table of contents):
 
@@ -186,9 +183,9 @@ In Scrivener, you select Multimarkdown as the compile document output and select
 It adds the paths for tools installed via `homebrew`, `MacTeX` and `Cabal`; and if you've used [`rbenv`](https://github.com/rbenv/rbenv), [`rvm`](https://rvm.io/) or [`conda`](https://www.continuum.io/anaconda-overview) to install pandocomatic/panzer, it adds these paths too. It can also generate a detailed log file of the conversion (so you can check for missing references or other problems etc.). The easiest way to install it is to copy the raw code from here: [`scrivomatic`](https://github.com/iandol/scrivomatic/raw/master/scrivomatic), then you want to install it by pasting it into the Post-processing `Edit Script` edit field (leave Shell blank). You then configure the `Arguments` field (adding different flags to control `scrivomatic`, e.g. `-l` opens scrivomatic.log in Console automatically):
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/processing.png)
-***
+_ _ _ _ _ _
 _Figure 4 — Scrivener's processing panel in the compile preset._
-***
+_ _ _ _ _ _
 
 You can also download the script to your Downloads folder, move it to a directory on your path, and make sure it can be executed like so:
 
@@ -222,9 +219,9 @@ Usage: scrivomatic [additional options] FILE
 I also include an [Alfred workflow](https://raw.githubusercontent.com/iandol/scrivomatic/master/scrivomatic.alfredworkflow) so you can run `scrivomatic` directly from markdown files selected by Alfred:
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/3.png)
-***
+_ _ _ _ _ _
 _Figure 5 — Alfred Workflow._
-***
+_ _ _ _ _ _
 
 ## Writing tips for this Workflow ##
 
@@ -243,16 +240,16 @@ Pandoc will then attach a word style named "Allegory" to that paragraph in the o
 Most people have ⌘B & ⌘I key bindings well memorised for bold and italic. A cool thing about Scrivener Styles and macOS is you can rebind these keys so they toggle the **Strong** and *Emphasis* styles rather than bold and italic itself. To do this you go to `System Preferences ▸ Keyboard ▸ Shortcuts`, click the [+] button, select Scrivener.app and enter the name and key to make the following:
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/macOS-Keys.png)
-***
+_ _ _ _ _ _
 _Figure 6 — Rebinding macOS keys to use Scrivener Styles._
-***
+_ _ _ _ _ _
 
 In the case of `Strong` and `Emphasis`, there is no need to enter the full menu path to the Style as the names are unique, but you can also use the complete `Format->Style->Emphasis` to make this entry explicit. More general instructions from Literature & Latte are [available here](https://scrivener.tenderapp.com/help/kb/macos/assigning-or-changing-keyboard-shortcuts-in-scrivener-for-mac). A 3rd-party tool that provides key rebinding and an incredible amount of additional control is [BetterTouchTool](https://folivora.ai). You would remap the keys in the following way in BTT:
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/BTT.png)
-***
+_ _ _ _ _ _
 _Figure 7 — Rebinding macOS keys to Scrivener Styles in BTT._
-***
+_ _ _ _ _ _
 
 ### Working with Bookends Reference Manager ###
 [Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the excellent tutorial here:
