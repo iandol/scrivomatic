@@ -19,6 +19,7 @@
     - [Binding ⌘B etc. to Scrivener Styles](#binding-b-etc-to-scrivener-styles)
     - [Working with Bookends Reference Manager](#working-with-bookends-reference-manager)
     - [Minimal LaTeX Install Instructions](#minimal-latex-install)
+* [Troubleshooting](#troubleshooting)
 
 ## Introduction ##
 
@@ -259,7 +260,7 @@ _ _ _ _ _ _
 To export your references as a file Pandoc can read (usually a BibTeX file) you can do tht manually from the Bookends GUI. However, you can do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), you can specify an output folder and comma-separated list of groups via command-line input. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time!
 
 ### Minimal LaTeX Install ###
-I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) — and for Pandoc's templates to work I've determined the following additional packages are needed (installed easily with `tlmgr`):
+I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) — and for Pandoc's templates to work I've determined the following additional packages are needed (installed easily with the command line tool `tlmgr` that comes with TeX, or with [TeX Live Utility](http://amaxwell.github.io/tlutility/)):
 
 ~~~bash
 sudo tlmgr install lm-math lualatex-math luatexja abstract \
@@ -267,3 +268,7 @@ latexmk csquotes pagecolor relsize ucharcat mdframed needspace sectsty \
 titling titlesec preprint layouts glossaries tabulary soul xargs todonotes \
 mfirstuc xfor wallpaper datatool substr ctablestack ifetex adjustbox collectbox
 ~~~
+
+## Troubleshooting ##
+* If you only get a HTML file out, it normally means that pandocomatic could not read the metadata or find the `pandocomatic.yaml` file. Make sure you have the Pandoc Data Directory properly set up, that your metadata at the top of the compiled markdown looks correct, and check for errors in the `scrivomatic.log` file that you should get every time you compile in Scrivener.
+* YAML metadata can be a bit fussy, metadata keys are all lowercase in Pandoc (*title* not *Title*), you must use spaces for indentation, and you must use "straight" not “curly” quotes for strings. Strings don't strictly need to be quoted, but it is normally safer (for example if there is a colon in the string you must quote). You can [validate your YAML online here](http://www.yamllint.com/), and read a [quick tutorial of YAML here](https://learnxinyminutes.com/docs/yaml/).
