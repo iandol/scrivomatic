@@ -130,10 +130,13 @@ Out of habit I prefer Scrivener links when cross-reference documents / export fi
 
 
 ## Compiling your Project: ##
-In Scrivener, I remove **all** compile–metadata specified in compile user interface ([see screenshot here](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/remove-metadata.png)) so it does not interfere with my custom metadata document. I create a document called **Pandoc metadata** containing the YAML configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document (`Help ▸ List of All Placeholders…`). *One important point: Scrivener's autocorrect will "smarten" quotation marks and dashes, which will cause problems for Pandoc so please straigten quotes and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block **must be spaces** and not **tabs***. In the example YAML below, three templates are specified, so `pandocomatic` will run Pandoc three times to generate a DOCX, HTML and plain TXT file from the same single Scrivener compile:
+In Scrivener, I remove **all** compile–metadata specified in compile user interface ([see screenshot here](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/remove-metadata.png)) so it does not interfere with my custom metadata document. I create a document called something like **Pandoc metadata** containing the [YAML]() configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document (`Help ▸ List of All Placeholders…`). 
+
+**IMPORTANT: Scrivener's autocorrect will "smarten" quotation marks and dashes and can capitalise keys like `title` or `pandocomatic`, which will cause problems for Pandocomatic and Pandoc so please check keys like `title`, `author` & `pandocomatic` are lowercase, straigten quotes and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block **must be spaces** and not **tabs**. In the example YAML below, three templates are specified, so `pandocomatic` will run Pandoc three times to generate a DOCX, HTML and plain TXT file from the same single Scrivener compile:
 
 ```yaml
 ---
+# Comment: make sure you use spaces not tabs, lower-case keys and straight quotes…
 title: "<$projecttitle>"
 author:
   - Joanna Doe
@@ -141,7 +144,7 @@ author:
 keywords: 
   - test
   - pandoc
-pandocomatic_:
+pandocomatic:
   use-template:
     - paper-with-refs-docx
     - paper-with-refs-html
@@ -271,4 +274,10 @@ mfirstuc xfor wallpaper datatool substr ctablestack ifetex adjustbox collectbox
 
 ## Troubleshooting ##
 * If you only get a HTML file out, it normally means that pandocomatic could not read the metadata or find the `pandocomatic.yaml` file. Make sure you have the Pandoc Data Directory properly set up, that your metadata at the top of the compiled markdown looks correct, and check for errors in the `scrivomatic.log` file that you should get every time you compile in Scrivener.
-* YAML metadata can be a bit fussy, metadata keys are all lowercase in Pandoc (*title* not *Title*), you must use spaces for indentation, and you must use "straight" not “curly” quotes for strings. Strings don't strictly need to be quoted, but it is normally safer (for example if there is a colon in the string you must quote). You can [validate your YAML online here](http://www.yamllint.com/), and read a [quick tutorial of YAML here](https://learnxinyminutes.com/docs/yaml/).
+* YAML metadata can be a bit fussy: 
+  - Metadata keys are **lowercase**: *title* **not** *Title*, *pandocomatic* **not** *Pandocomatic* etc.
+  - You **must** use spaces for indentation, not tabs.
+  - You should use "straight" not “curly” quotes for strings (use Scrivener's straighten quotes function).
+  - Strings don't strictly need to be quoted, but it is normally safer (for example if there is a colon in the string you must quote). 
+  - You can [validate your YAML online here](http://www.yamllint.com/), and read a [quick tutorial of YAML here](https://learnxinyminutes.com/docs/yaml/).
+  * I use a Meta-data paragraph style to wrap `---` around the Pandoc metadata front-matter, but you can just put it directly in the front matter yourself. Which ever way you do it, without `---` around the metadata it will not be recognised, and you will again get a simple HTML output file.
