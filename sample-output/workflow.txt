@@ -1,5 +1,5 @@
 Scrivener + Pandoc Workflow
-Monday, 10 June 2019
+Friday, August 16, 2019
 
 -   §1 — Abstract
 -   §2 — Introduction
@@ -121,10 +121,17 @@ Solum aeque singulis duo ex (Siegel & Silins 2015), est an iriure øblique. Volu
 ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis
 id zril åliquando omittantur, no mei graeci impedit deterruisset!
 
+This is an info box, containing fascinating information.
+
 No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei
 ex. His consulåtu åssueverit ex (Siegel & Silins 2015), ei ius apeirian cønstituam
 mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae
-definiebas ex eam! Nøstro eruditi eum ex.
+definiebas ex eam! Nøstro eruditi eum ex. No meæ menandri mediøcritatem, meis tibique
+convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex (Siegel &
+Silins 2015), ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ
+ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.
+
+This is a warning box, containing terrifying information.
 
 Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit
 såperet recteque sit et (Siegel & Silins 2015), tåmquåm noluisse eloquentiåm ei mei.

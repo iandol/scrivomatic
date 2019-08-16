@@ -17,13 +17,15 @@ keywords:
   - Pandoc
   - Scrivener
   - Workflow
-compiled: 07/06/2019
+compiled: 2019/8/16
+date: Friday, August 16, 2019
 comments: "To err is human; … err?"
 # Select which templates pandocomatic will use
 # you can enter overrides to the templates here as well
 pandocomatic_:
   use-template:
     - paper-with-refs-docx
+    - paper-with-refs-text
     - paper-with-refs-html
     - paper-with-refs-latex
 ---
@@ -91,7 +93,19 @@ puts say.upcase
 
 Ad pro quod definitiønem[^fn2], mel no laudem delectus, te mei prompta maiorum pønderum. Solum aeque singulis duo ex [@siegel2015], est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset!  
 
-No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex [@siegel2015], ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.  
+
+:::{.info custom-style="info"}
+This is an info box, containing fascinating information.
+:::
+
+
+No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex [@siegel2015], ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex. No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex [@siegel2015], ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.  
+
+
+:::{.warning custom-style="warning"}
+This is a warning box, containing terrifying information.
+:::
+
 
 Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit såperet recteque sit et [@siegel2015], tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.  
 
