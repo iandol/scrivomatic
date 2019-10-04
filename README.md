@@ -51,13 +51,19 @@ As a sample of the fuller workflow, you can download a [Scrivener project](https
 
 ### Requirements ###
 
-Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` receives regular automatic updates via homebrew). So first, follow the [instructions to install Homebrew](https://brew.sh/) ([info for the security conscious](https://discourse.brew.sh/t/security-issues-using-homebrew-malicious-insertion/3379)), and then install `pandoc` using the `brew` command in the terminal:
+Apart from **Scrivener** (V3.x is highly recommended for this workflow), you should install **Pandoc** and **Pandocomatic**. This requires a minimal amount of typing into the macOS terminal. You can install `pandoc` [directly](http://pandoc.org/installing.html), but IMO it is better to use [Homebrew](https://brew.sh/) to install `pandoc`, as it can help keep everything up to date (`pandoc` receives regular automatic updates via homebrew). So first, follow the [instructions to install Homebrew](https://brew.sh/) ([info for the security conscious](https://discourse.brew.sh/t/security-issues-using-homebrew-malicious-insertion/3379)):
+
+```bash
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+And then install `pandoc` using the `brew` command in the terminal:
 
 ```bash
 brew install pandoc pandoc-citeproc pandoc-crossref
 ```
 
-If you already installed `pandoc` manually, but want to use `brew`, then you can use `brew link --overwrite ...` instead of `brew install ...`. You can run the command `brew upgrade` every so often to ensure these tools are *kept* up-to-date. 
+If you already installed `pandoc` manually, but want to use `brew` from now on, then you can use `brew link --overwrite ...` instead of `brew install ...`.
 
 **NEWSFLASH:** the latest versions of Pandocomatic are not compatible with the ancient version of Ruby in macOS Mojave and earlier, and so you need to install a newer version of Ruby first. Read **_[Installing Ruby](https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md)_** first for more details!
 
