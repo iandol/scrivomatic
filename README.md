@@ -59,9 +59,9 @@ brew install pandoc pandoc-citeproc pandoc-crossref
 
 If you already installed `pandoc` manually, but want to use `brew`, then you can use `brew link --overwrite ...` instead of `brew install ...`. You can run the command `brew upgrade` every so often to ensure these tools are *kept* up-to-date. 
 
-**NEWSFLASH:** Recently pandocomatic broke compatibility with the ancient version of Ruby in macOS, and so you need to install a newer version of Ruby first, see [Installing Ruby](https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md) for more details!
+**NEWSFLASH:** the latest versions of Pandocomatic are not compatible with the ancient version of Ruby in macOS Mojave and earlier, and so you need to install a newer version of Ruby first. Read **_[Installing Ruby](https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md)_** first for more details!
 
-You use Ruby's `gem` command to install `pandocomatic`:
+You use Ruby's `gem` command to install `pandocomatic` (if you are using macOS Catalina's built-in Ruby, you must put `sudo` at the start of the commands, if you used `brew` or `rbenv` to install Ruby, no `sudo` is required):
 
 ```bash
 gem install pandocomatic 
@@ -70,7 +70,7 @@ gem install pandocomatic
 To keep both Pandoc and Pandocomatic *up-to-date*, you can run the update commands like so every week or so:
 
 ```bash
-brew upgrade; gem update paru pandocomatic
+gem update paru pandocomatic; brew upgrade
 ```
 
 
@@ -132,7 +132,12 @@ Out of habit I prefer Scrivener links when cross-reference documents / export fi
 ## Compiling your Project: ##
 In Scrivener, I remove **all** compile–metadata specified in compile user interface ([see screenshot here](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/remove-metadata.png)) so it does not interfere with my custom metadata document. I create a document called something like **Pandoc metadata** containing the [YAML]() configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document (`Help ▸ List of All Placeholders…`). 
 
-**IMPORTANT: Scrivener's autocorrect will "smarten" quotation marks and dashes and can capitalise keys like `title` or `pandocomatic`, which will cause problems for Pandocomatic and Pandoc so please check keys like `title`, `author` & `pandocomatic` are lowercase, straigten quotes and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block must be *spaces* and not *tabs*.** In the example YAML below, three templates are specified, so `pandocomatic` will run Pandoc three times to generate a DOCX, HTML and plain TXT file from the same single Scrivener compile:
+*  *  *  *
+**_IMPORTANT_: Scrivener's autocorrect will "smarten" quotation marks and dashes and can capitalise keys like `title` or `pandocomatic`, which will cause problems for Pandocomatic and Pandoc so please check keys like `title`, `author` & `pandocomatic` are lowercase, straigten quotes and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block must be *spaces* and not *tabs*.**
+
+*  *  *  *
+
+In the example YAML below, three templates are specified, so `pandocomatic` will run Pandoc three times to generate a DOCX, HTML and plain TXT file from the same single Scrivener compile:
 
 ```yaml
 ---

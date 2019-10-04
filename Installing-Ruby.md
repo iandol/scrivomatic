@@ -1,6 +1,20 @@
 # Installing Ruby  
 
-Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS (Apple should really update…). So the first simplest solution is to deliberately install an older version of pandocomatic:
+Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS versions **before** macOS Catalina (10.15). 
+
+
+## Users using macOS Catalina
+If you are using macOS Catalina, then you actually have V2.6.3 of Ruby and installing pandocomatic is as simple as typing this into Terminal (you don't even need to use `-n /usr/local/bin/` like before, it is the default):
+
+```shell
+sudo gem install paru pandocomatic
+```
+
+Sadly, this new version of Ruby will be removed in macOS 10.16 next year, but for the moment Catalina users have a simple solution.
+
+## Users using older macOS versions
+
+So the first simplest solution is to deliberately install an older version of pandocomatic:
 
 ```shell
  sudo gem install paru:0.3.1.0 pandocomatic:0.2.4.0 -n '/usr/local/bin'
@@ -8,7 +22,7 @@ Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *a
 
 …but IMO installing a modern version of Ruby is a better option, and two different methods are detailed below.
 
-## Using Homebrew…  
+### Using Homebrew…  
 
 The easiest way to install a modern Ruby version is to use [Homebrew](https://brew.sh/), which I've already recommended for installing Pandoc, and which quickly installs the latest Ruby version:
 
@@ -16,7 +30,7 @@ The easiest way to install a modern Ruby version is to use [Homebrew](https://br
 brew install ruby
 ```
 
-By default, `brew` does not add this Ruby to the path as it assumes the System Ruby should take priority, but as we know pandocomatic is not compatible with the system Ruby. So you can ensure `brew`'s Ruby is used by putting its folders first in the path with this command:  
+By default, `brew` does not add this Ruby to the path as it assumes the System Ruby should take priority, but as we know pandocomatic is not compatible with the system Ruby in macOS < 10.15. So you can ensure `brew`'s Ruby is used by putting its folders first in the path with this command:  
 
 ```shell
 echo '\nexport PATH="/usr/local/lib/ruby/gems/2.6.0/bin:/usr/local/opt/ruby/bin:$PATH"' >> ~/.bash_profile
@@ -34,9 +48,9 @@ You must then restart your terminal so the path takes effect. Then you can insta
 gem install pandocomatic
 ```
 
-I'm not a big fan of this method however as you will need to manually update the path, when for example Ruby V2.7 gets released. To automate the path management, I therefore prefer to install `rbenv`.
+Personally I'm not a big fan of this method as you will need to manually update the path, when for example Ruby V2.7 gets released. To automate the path management, I therefore prefer to install `rbenv`, a Ruby installer manager.
 
-## Using rbenv…  
+### Using rbenv…  
 
 [rbenv](https://github.com/rbenv/rbenv) allows multiple ruby versions to run side-by-side and handles the path changes for you, but is a bit more involved to install:
 
@@ -54,8 +68,8 @@ echo '\neval "$(rbenv init -)"' >> ~/.bash_profile
 Restart your terminal, then install a modern ruby version (currently V2.6.3, but later versions when released should be fine too), and finally pandocomatic:
 
 ```shell
-rbenv install 2.6.3
-rbenv global 2.6.3
+rbenv install 2.6.5
+rbenv global 2.6.5
 gem install pandocomatic
 ```
 
