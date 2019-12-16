@@ -39,6 +39,8 @@ This save you lots of time, especially if you compile regularly during collabora
 
 Because of [Pandoc's](http://pandoc.org/index.html) great flexibility, there are many possible settings to configure. To simplify this, you can run Pandoc using "template" tools like [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/). For each document output, the template specifies all the options in Scrivener front-matter and/or a seperate configuration file. Pandocomatic templates allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after Scrivener compile). To use the Pandocomatic templates with Scrivener, you specify their name in the front–matter or metadata, and all the settings are automated when Pandoc is run.
 
+**_UPDATE:_**: In Pandoc V2.8+, you can create "sets" of Pandoc options, a simplified version of `pandocomatic` templates. [See some examples here](https://github.com/iandol/dotpandoc/tree/master/defaults), and while I prefer `pandocomatic` as I can use metadata and gain more control, I think this defaults system will be great for others who want a simpler setup.
+
 ### TL;DR (simple summary) ###
 Scrivener already comes with Multimarkdown, but I really do think that Pandoc provides additional benefits and installation is simple. I also use Pandocomatic as a way to flexibly manage Pandoc settings (although this is optional if you are happy to specify the options yourself).
 
