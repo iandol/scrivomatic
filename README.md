@@ -92,7 +92,7 @@ The most important folder for this workflow is the Pandoc data directory: **sinc
 > mkdir -p ~/.local/share/pandoc
 ```
 
-All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>⌘</kbd>+<kbd>SHIFT</kbd>+<kbd>G</kbd> and typing the path, in this case `~/.local/share/pandoc`; or 2) using the Terminal and typing:
+All folders starting with a `.` are a hidden by default, but you can open them in Finder in two ways: 1) using the shortcut <kbd>⌘</kbd> + <kbd>SHIFT</kbd> + <kbd>G</kbd> and typing the path, in this case `~/.local/share/pandoc`; or 2) using the Terminal and typing:
 
 ```bash
 > open ~/.local/share/pandoc
@@ -114,10 +114,10 @@ _Figure 1 — The cursor shows that both inline **Strong** and paragraph Caption
 You can download my customised Scrivener 3 [compile preset here](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat). Install it to get a flavour of how one can convert styles to markdown, and it now has the `scrivomatic` script built-in (needs Scrivener V3.03+).  
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/style-transform.png)
-_Figure 2 — The Scrivener 3 Compile Format `Scrivomatic.scrformat` in the editor, showing how the inline style "Strong Emphasis" is converted into the correct markdown using prefix & suffix text. **HINT:** for block/paragraph styles you will need to enter newlines directly into the prefix/suffix edit fields, you do this using <kbd>option</kbd><kbd>return</kbd>._
+_Figure 2 — The Scrivener 3 Compile Format `Scrivomatic.scrformat` in the editor, showing how the inline style "Strong Emphasis" is converted into the correct markdown using prefix & suffix text. **HINT:** for block/paragraph styles you will need to enter newlines directly into the prefix/suffix edit fields, you do this using <kbd>option</kbd> <kbd>return</kbd>._
 
 ### Enable Show invisible characters ###
-Because markdown is sensitive to whitespace (double <kbd>return</kbd> to delineate paragraphs, 4 spaces/1 tab to delineate code blocks etc.), you should aim to use whitespace consistently: for new paragraphs and between any blocks of content [<kbd>space</kbd><kbd>space</kbd><kbd>return</kbd><kbd>return</kbd>](http://pandoc.org/MANUAL.html#paragraphs) is optimal. Showing invisible characters in the Scrivener editor makes potential formatting issues when compiling simple to fix. Enable it using **`View ▶︎ Text Editing ▶︎ Show Invisibles`**, and change their colour in **`Preferences ▶︎ Appearance ▶︎ Textual Marks ▶︎ Invisible Characters`**. If you do not wish to use <kbd>return</kbd><kbd>return</kbd> to delineate paragraphs in the Scrivener editor, you can use Scrivener's compile replacements, or **`Compile format Editor ▶︎ Transformations ▶︎ Convert to plain text ▶︎ Paragraph spacing`** (§24.13 user manual).
+Because markdown is sensitive to whitespace (double <kbd>return</kbd> to delineate paragraphs, 4 spaces/1 tab to delineate code blocks etc.), you should aim to use whitespace consistently: for new paragraphs and between any blocks of content [<kbd>space</kbd> <kbd>space</kbd> <kbd>return</kbd> <kbd>return</kbd>](http://pandoc.org/MANUAL.html#paragraphs) is optimal. Showing invisible characters in the Scrivener editor makes potential formatting issues when compiling simple to fix. Enable it using **`View ▶︎ Text Editing ▶︎ Show Invisibles`**, and change their colour in **`Preferences ▶︎ Appearance ▶︎ Textual Marks ▶︎ Invisible Characters`**. If you do not wish to use <kbd>return</kbd> <kbd>return</kbd> to delineate paragraphs in the Scrivener editor, you can use Scrivener's compile replacements, or **`Compile format Editor ▶︎ Transformations ▶︎ Convert to plain text ▶︎ Paragraph spacing`** (§24.13 user manual).
 
 ### Use the Binder for all document structure ###
 Try not to not use markdown \# headings within text documents themselves but create documents at the correct level hierarchy in the Binder. Scrivener is great at compiling the levels of the Binder structure into the correct heading levels for you, and you benefit from being able to use the outlining and organisation tools within Scrivener.  
