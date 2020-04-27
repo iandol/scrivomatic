@@ -17,7 +17,7 @@ class Scrivomatic
 	# pandocomatic/panzer from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.27'.freeze
+	VER = '1.0.28'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -186,6 +186,7 @@ class Scrivomatic
 		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1s/^Pandocomatic version /''/p')"`
 		puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
 		puts '!--old ruby incompatible with newer pandocomatic, see https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md' if `ruby -v` =~ /ruby 2.3.7/
+		puts `echo "rbenv versions:"; [[ -x $(which rbenv) ]] && rbenv versions`
 		%w[rbenv rvm panzer python xelatex latexmk].each do |c|
 			location = `which #{c}`.chomp
 			puts "---#{c}: #{location}" unless location.empty?
