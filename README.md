@@ -264,7 +264,7 @@ _Figure 7 — Rebinding macOS keys to Scrivener Styles in BTT._
 To export your references as a file Pandoc can read (usually a BibTeX file) you can do tht manually from the Bookends GUI. However, you can do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), you can specify an output folder and comma-separated list of groups via command-line input. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time!
 
 ### Minimal LaTeX Install ###
-I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) — and for Pandoc's templates to work I've determined the following additional packages are needed (installed easily with the command line tool `tlmgr` that comes with TeX, or with [TeX Live Utility](http://amaxwell.github.io/tlutility/)):
+I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) (can install with brew: `brew cask install basictex`) — and for Pandoc's templates to work I've determined the following additional packages are needed (installed easily with the command line tool `tlmgr` that comes with TeX, or with [TeX Live Utility](http://amaxwell.github.io/tlutility/)):
 
 ~~~bash
 sudo tlmgr install lm-math lualatex-math luatexja abstract \
@@ -282,4 +282,5 @@ footnotebackref fvextra
   - You should use "straight" not “curly” quotes for strings (use Scrivener's straighten quotes function).
   - Strings don't strictly need to be quoted, but it is normally safer (for example if there is a colon in the string you must quote). 
   - You can [validate your YAML online here](http://www.yamllint.com/), and read a [quick tutorial of YAML here](https://learnxinyminutes.com/docs/yaml/).
-  * I use a Meta-data paragraph style to wrap `---` around the Pandoc metadata front-matter, but you can just put it directly in the front matter yourself. Which ever way you do it, without `---` around the metadata it will not be recognised, and you will again get a simple HTML output file.
+* I use a Meta-data paragraph style to wrap `---` around the Pandoc metadata front-matter, but you can just put it directly in the front matter yourself. Which ever way you do it, without `---` around the metadata it will **not** be recognised, and you will again get a simple HTML output file.
+* Make sure there are no `.ruby-version` config files used by rbenv in the compile folder, or if there are that they are configured to use the correct Ruby version with pandocomatic installed...
