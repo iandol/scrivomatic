@@ -1236,7 +1236,7 @@ class Scrivomatic
 	# pandocomatic/panzer from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.28'.freeze
+	VER = '1.0.29'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -1368,10 +1368,12 @@ class Scrivomatic
 
 	#-------------------------------make env path
 	def makePath
-		pathtest = [ENV['HOME'] + '/.rbenv/shims', '/Library/TeX/texbin', '/usr/local/bin',
-			ENV['HOME'] + '/anaconda/bin', ENV['HOME'] + '/anaconda3/bin',
-			ENV['HOME'] + '/miniconda/bin', ENV['HOME'] + '/miniconda3/bin',
-			ENV['HOME'] + '/.cabal/bin', ENV['HOME'] + '/.local/bin', 
+		pathtest = [ENV['HOME']+'/.rbenv/shims', 
+			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
+			'/Library/TeX/texbin', '/usr/local/bin', 
+			ENV['HOME']+'/anaconda/bin', ENV['HOME']+'/anaconda3/bin',
+			ENV['HOME']+'/miniconda/bin', ENV['HOME']+'/miniconda3/bin',
+			ENV['HOME']+'/.cabal/bin', ENV['HOME']+'/.local/bin', 
 			rvm_check]
 		pathtest.each { |p| @options[:envpath] = @options[:envpath] + ':' + p if File.directory?(p) }
 		ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
@@ -1404,9 +1406,9 @@ class Scrivomatic
 		puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
 		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1s/^Pandocomatic version /''/p')"`
 		puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
-		puts '!--old ruby incompatible with newer pandocomatic, see https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md' if `ruby -v` =~ /ruby 2.3.7/
+		puts '!--ruby version incompatible with new pandocomatic, see https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md' if `ruby -v` =~ /ruby 2\.3\.\d/
 		puts `echo "---rbenv versions:"; [[ -x $(which rbenv) ]] && rbenv versions`
-		%w[rbenv rvm panzer python xelatex latexmk].each do |c|
+		%w[rbenv rvm gem panzer python xelatex latexmk].each do |c|
 			location = `which #{c}`.chomp
 			puts "---#{c}: #{location}" unless location.empty?
 		end
