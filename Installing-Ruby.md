@@ -24,7 +24,7 @@ So the first simplest solution is to deliberately install an older version of pa
 
 ### Using rbenv…  
 
-[rbenv](https://github.com/rbenv/rbenv) allows multiple ruby versions to run side-by-side and handles the path changes for you, but is a bit more involved to install:
+[rbenv](https://github.com/rbenv/rbenv) allows multiple ruby versions to run side-by-side and handles the path changes for you, but is a bit more involved to use. First install with [Homebrew](https://brew.sh/):
 
 ```shell
 brew install rbenv
@@ -37,7 +37,7 @@ The [instructions](https://github.com/rbenv/rbenv#homebrew-on-macos) tell you to
 echo '\neval "$(rbenv init -)"' >> ~/.bash_profile
 ```
 
-Restart your terminal, then install a modern ruby, and finally pandocomatic:
+Restart your terminal to trigger this adjustment, then install a modern ruby and finally pandocomatic:
 
 ```shell
 rbenv install 2.7.1
@@ -45,11 +45,11 @@ rbenv global 2.7.1
 gem install pandocomatic
 ```
 
-`rbenv` adds a single directory that scrivomatic adds to the path that is searched when Scrivener triggers the post-processing.
+`rbenv` adds a single directory (`~/.rbenv/shims/`) that scrivomatic adds to the path searched when Scrivener triggers the post-processing.
 
-### Using Homebrew…  
+### Using brew…  
 
-You can also install Ruby directly with [Homebrew](https://brew.sh/), which I've already recommended for installing Pandoc, and which quickly installs the latest Ruby version:
+You can also install Ruby directly with [Homebrew](https://brew.sh/):
 
 ```shell
 brew install ruby
@@ -73,7 +73,7 @@ You must then restart your terminal so the path takes effect. Then you can insta
 gem install pandocomatic
 ```
 
-Personally I'm not a big fan of this method as you will need to manually update the path, when for example Ruby V2.8 gets released. 
+Personally I'm not a big fan of this method as you will need to manually update the path, when for example Ruby V2.8 gets released, and you can quickly switch ruby version as you can with `rbenv`.
 
 ## Troubleshooting…
 
