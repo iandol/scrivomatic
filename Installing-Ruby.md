@@ -73,7 +73,7 @@ You must then restart your terminal so the path takes effect. Then you can insta
 gem install pandocomatic
 ```
 
-Personally I'm not a big fan of this method as you will need to manually update the path, when for example Ruby V2.8 gets released, and you can quickly switch ruby version as you can with `rbenv`.
+Personally I'm not a big fan of this method as you will need to manually update the path, when for example Ruby V2.8 gets released, and you can't switch ruby version quickly like you can with `rbenv`.
 
 ## Troubleshooting…
 
@@ -91,7 +91,7 @@ rbenv global system; rbenv shell system
 
 3. Switch back to the modern Ruby and force install latest paru and pandocomatic
 ```shell
- rbenv global 2.6.3; rbenv shell 2.6.3 
+ rbenv global 2.7.1; rbenv shell 2.7.1
  gem install -f paru pandocomatic
 ```
 
