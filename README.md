@@ -39,17 +39,17 @@ This all save you lots of time, especially if you compile regularly during colla
 
 Because of [Pandoc's](http://pandoc.org/index.html) great flexibility, there are many possible settings to configure. To simplify this, you can run Pandoc using "template" tools like [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/). For each document output, the template specifies all the options in Scrivener front-matter and/or a seperate configuration file. Pandocomatic templates allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after Scrivener compile). To use the Pandocomatic templates with Scrivener, you specify their name in the front–matter or metadata, and all the settings are automated when Pandoc is run.
 
-**_UPDATE:_**: In Pandoc V2.8+, you can create "sets" of Pandoc options: [see some examples here](https://github.com/iandol/dotpandoc/tree/master/defaults). While I still prefer `pandocomatic` (described below) as I can use metadata, processor scripts and gain more control, I think this defaults system will be great for others who want a simpler setup. The workflow I use is just one of many ways of using Pandoc and Scrivener together.
+**_UPDATE:_**: In Pandoc V2.8+, you can create "sets" of Pandoc options: [see some examples here](https://github.com/iandol/dotpandoc/tree/master/defaults). I still prefer `pandocomatic` (described below) as I can use metadata, processor scripts and gain more control, but I think this defaults system will be great for others who want a simpler setup. The workflow I use is just one of *many ways* of using Pandoc and Scrivener together…
 
 ### TL;DR (simple summary) ###
-Scrivener already comes with the Multimarkdown tool, but in my opinion Pandoc provides many additional benefits and installation is quite simple. I use an additional tool Pandocomatic as a way to flexibly manage Pandoc settings directly within Scrivener.
+Scrivener already comes with the Multimarkdown tool, but in my opinion Pandoc provides numerous additional benefits and installation is quite simple. In addition, Pandocomatic can flexibly manage Pandoc settings directly within Scrivener.
 
 1. Install the latest `pandoc` and `pandocomatic`.
 2. Configure one or more pandocomatic "recipes"; you can base them on mine [shared below](#configuration).
-3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc output too). I offer a [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to try.
+3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc-specific output too). Here is a [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to look at.
 4. Scrivener's compile post-processing triggers `pandocomatic`, **_automagically_** creating the final output(s) for you.
 
-As a sample of the fuller workflow, you can download a [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles all the required files into the Binder (you  still need to install `pandoc` and `pandocomatic` first. See [the PDF/HTML/DOCX/TXT simultaneously-compiled final outputs here](https://github.com/iandol/scrivomatic/tree/master/sample-output)). 
+As a sample of the fuller workflow, I've made a [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles the required files into the Binder (you  still need to install `pandoc` and `pandocomatic` first. See [the PDF/HTML/DOCX/TXT simultaneously-compiled final outputs here](https://github.com/iandol/scrivomatic/tree/master/sample-output)). 
 
 To better understand the workflow outlined on this page, you should read at least sections **§21** and **§24** of the **Scrivener user manual**.
 
@@ -69,7 +69,7 @@ brew install pandoc pandoc-citeproc pandoc-crossref
 
 If you already installed `pandoc` manually, but want to use `brew` from now on, then you can use `brew link --overwrite ...` instead of `brew install ...`.
 
-**macOS Mojave and earlier users:** the latest versions of Pandocomatic are not compatible with the ancient version of Ruby in macOS Mojave and earlier (macOS Catalina install a new version), and so you need to install a newer version of Ruby first. Read **_[Installing Ruby](https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md)_** first for more details!
+**macOS Mojave and earlier users:** the latest versions of Pandocomatic are not compatible with the ancient version of Ruby in macOS Mojave and earlier (macOS Catalina is OK), and so you need to install a newer version of Ruby first. Read **_[Installing Ruby](https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md)_** for more details!
 
 You use Ruby's `gem` command to install `pandocomatic` (if you are using macOS Catalina's built-in Ruby, you must put `sudo` at the start of the commands, if you used `brew` or `rbenv` to install Ruby, no `sudo` is required):
 

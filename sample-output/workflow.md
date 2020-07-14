@@ -17,17 +17,17 @@ keywords:
   - Pandoc
   - Scrivener
   - Workflow
-compiled: 2019/8/16
-date: Friday, August 16, 2019
+compiled: 2020/7/14
+date: Tuesday, July 14, 2020
 comments: "To err is human; … err?"
 # Select which templates pandocomatic will use
 # you can enter overrides to the templates here as well
 pandocomatic_:
   use-template:
+    - paper-with-refs-latex
     - paper-with-refs-docx
     - paper-with-refs-text
     - paper-with-refs-html
-    - paper-with-refs-latex
 ---
 
 
@@ -41,11 +41,11 @@ pandocomatic_:
 
 > *Humans are pattern-seeking story-telling animals, and we are quite adept at telling stories about patterns, whether they exist or not*. — Michael Shermer
 
-[Lørem ipsum dolør sit amet]{.smallcaps}, eu ipsum movet vix, veniam låoreet posidonium[^fn1] te eøs, eæm in veri eirmod [@barrett2015; @crivellato2007]. Sed illum minimum ([see Results](#§4.1 — Lunar Cycles)) at 3.25×10⁻⁴⁸, est mægna alienum mentitum ne. [Amet equidem](https://pandoc.org/MANUAL.html) sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
+[Lørem ipsum dolør sit amet]{.underline}, eu ipsum movet vix, veniam låoreet posidonium[^fn1] te eøs, eæm in veri eirmod [@barrett2015; @crivellato2007]. Sed illum minimum ([see Results](#§4.1 — Lunar Cycles)) at 3.25×10⁻⁴⁸, est mægna alienum mentitum ne. [Amet equidem](https://pandoc.org/MANUAL.html) sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
 ![**Figure 1** — This is a fascinating caption (source and explanation: [XKCD](https://www.explainxkcd.com/wiki/index.php/2120:_Brain_Hemispheres)).][xkcd_brain_hemispheres]
 
-Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum[@crivellato2007], pro paulo ridens quaestio ut (see **Fig. 1**)! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo *iisque sapientem ad*, vølumus **_persecuti vix cu_**, his åt justo putant comprehensam.  
+Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum[@crivellato2007], pro paulo ridens quaestio ut (see **Fig. 1**)! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, **_his åt justo putant comprehensam_**.  
 
 Ad pro quod ^definitiønem^, mel no laudem ~delectus~ [@siegel2015; @copenhaver2014], te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo [@barrett2015; @crivellato2007]! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit <span class="comment" title="Joanna Doe 16/04/2019, 14:50 - this is a comment.">deterruisset</span>!  
 
@@ -71,7 +71,7 @@ No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intelle
 
 ## §3.1 — Data Recording ##
 
-Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at $e^{ix}=r(\cos \theta +i\sin \theta )$, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
+Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, inline maths: $e^{ix}=r(\cos \theta +i\sin \theta )$, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
 $$x^{\alpha} e^{\beta x^{\gamma} e^{\delta x^{\epsilon}}}$$
 

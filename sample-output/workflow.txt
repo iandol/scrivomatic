@@ -1,5 +1,5 @@
 Scrivener + Pandoc Workflow
-Friday, August 16, 2019
+Tuesday, July 14, 2020
 
 -   §1 — Abstract
 -   §2 — Introduction
@@ -13,48 +13,42 @@ Friday, August 16, 2019
 -   §5 — Discussion
 -   §6 — References
 
-AUTHORS: John Doe¹ † & Joanna Doe¹ ² <jo@caos.org>†
+Authors: John Doe¹ † & Joanna Doe¹ ² <jo@caos.org>†
 
 † equal contribution
 
-AFFILIATIONS: ¹ International Cephalopod Research Institute (ICRI), Pacific Ocean.; ²
+Affiliations: ¹ International Cephalopod Research Institute (ICRI), Pacific Ocean.; ²
 Center for Advanced Octopod Studies (CAOS), Atlantic Ocean.
 
-KEYWORDS: Pandoc; Scrivener; Workflow
+Keywords: Pandoc; Scrivener; Workflow
 
-COMMENTS: To err is human; … err?
+Comments: To err is human; … err?
 
-
-
-§1 — ABSTRACT
-
+§1 — Abstract
 
 LØREM IPSUM DOLØR SIT AMET (Crivellato & Ribatti 2007; Siegel & Silins 2015), eu
 ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum
 minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis
 suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?
 
+§2 — Introduction
 
+  Humans are pattern-seeking story-telling animals, and we are quite adept at telling
+  stories about patterns, whether they exist or not. — Michael Shermer
 
-§2 — INTRODUCTION
-
-
-  _Humans are pattern-seeking story-telling animals, and we are quite adept at
-  telling stories about patterns, whether they exist or not_. — Michael Shermer
-
-LØREM IPSUM DOLØR SIT AMET, eu ipsum movet vix, veniam låoreet posidonium[1] te eøs,
+Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium[1] te eøs,
 eæm in veri eirmod (Crivellato & Ribatti 2007; Barrett & Simmons 2015). Sed illum
 minimum (see Results) at 3.25×10⁻⁴⁸, est mægna alienum mentitum ne. Amet equidem sit
 ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud
 necessitatibus te?
 
-[FIGURE 1 — This is a fascinating caption (source and explanation: XKCD).]
+[Figure 1 — This is a fascinating caption (source and explanation: XKCD).]
 
 Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum(Crivellato
-& Ribatti 2007), pro paulo ridens quaestio ut (see FIG. 1)! Iudico nullam sit ad, ad
+& Ribatti 2007), pro paulo ridens quaestio ut (see Fig. 1)! Iudico nullam sit ad, ad
 has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent
-mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo _iisque
-sapientem ad_, vølumus _PERSECUTI VIX CU_, his åt justo putant comprehensam.
+mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque
+sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.
 
 Ad pro quod ^(definitiønem), mel no laudem _(delectus) (Copenhaver 2014; Siegel &
 Silins 2015), te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an
@@ -74,7 +68,7 @@ ex. His consulåtu åssueverit ex, ei ius apeirian cønstituam mediocritatem, me
 detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro
 eruditi eum ex.
 
-   TABLE HEAD 1   TABLE HEAD 2   TABLE HEAD 3
+   Table Head 1   Table Head 2   Table Head 3
   -------------- -------------- --------------
       Item 1         Item 2         Item 3
       Item 4         Item 5         Item 6
@@ -83,19 +77,16 @@ eruditi eum ex.
 såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat
 timeam, tale possit vis æt.
 
-
-
-§3 — METHODS
-
+§3 — Methods
 
 §3.1 — Data Recording
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm
-in veri eirmod. Sed illum minimum at e^(ix) = r(cos θ + isin θ), est mægna alienum
-mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam
-vivendum no, mei nostrud necessitatibus te?
+in veri eirmod. Sed illum minimum at, inline maths: e^(ix) = r(cos θ + isin θ), est
+mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius
+utinam vivendum no, mei nostrud necessitatibus te?
 
-_x_^(_α_)_e_^(_β__x_^(_γ_)_e_^(_δ__x_^(_ϵ_)))
+x^(α)e^(βx^(γ)e^(δx^(ϵ)))
 
 Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum(Siegel &
 Silins 2015), pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam
@@ -137,7 +128,6 @@ This is a warning box, containing terrifying information.
 såperet recteque sit et (Siegel & Silins 2015), tåmquåm noluisse eloquentiåm ei mei.
 In pri solet soleat timeam, tale possit vis æt.
 
-
 §3.2 — Experimental Perturbations
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm
@@ -165,7 +155,6 @@ definiebas ex eam! Nøstro eruditi eum ex.
 Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit
 såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat
 timeam, tale possit vis æt.
-
 
 §3.3 — Statistical Analysis
 
@@ -195,10 +184,7 @@ eruditi eum ex.
 såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat
 timeam, tale possit vis æt.
 
-
-
-§4 — RESULTS
-
+§4 — Results
 
 §4.1 — Lunar Cycles
 
@@ -229,7 +215,6 @@ eruditi eum ex.
 såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat
 timeam, tale possit vis æt.
 
-
 §4.2 — Solar Cycles
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm
@@ -258,10 +243,7 @@ eruditi eum ex.
 såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat
 timeam, tale possit vis æt.
 
-
-
-§5 — DISCUSSION
-
+§5 — Discussion
 
 Lørem ipsum dolør sit amet (Siegel & Silins 2015), eu ipsum movet vix, veniam låoreet
 posidonium te eøs, eæm in veri eirmod (Siegel & Silins 2015). Sed illum minimum[3]
@@ -290,27 +272,24 @@ ex.
 såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat
 timeam, tale possit vis æt.
 
+§6 — References
 
-
-§6 — REFERENCES
-
-
-Barrett L, & Simmons W. (2015). Interoceptive predictions in the brain. _Nature
-Reviews Neuroscience_, 16(7), 419–429. https://doi.org/10.1038/nrn3950
+Barrett L, & Simmons W. (2015). Interoceptive predictions in the brain. Nature
+Reviews Neuroscience, 16(7), 419–429. https://doi.org/10.1038/nrn3950
 
 Copenhaver R. (2014). Berkeley on the language of nature and the objects of vision.
-_Res Philosophica_, 91(1), 29–46.
+Res Philosophica, 91(1), 29–46.
 
 Crivellato E, & Ribatti D. (2007). Soul, mind, brain: Greek philosophy and the birth
-of neuroscience. _Brain Research Bulletin_, 71(4), 327–336.
+of neuroscience. Brain Research Bulletin, 71(4), 327–336.
 https://doi.org/10.1016/j.brainresbull.2006.09.020
 
 Siegel S, & Silins N. (2015). The epistemology of perception. In M. Matthen (Ed.),
-_Oxford handbook of philosophy of perception_ (pp. 1–48). Oxford University Press.
+Oxford handbook of philosophy of perception (pp. 1–48). Oxford University Press.
 
-[1] This is a footnote, WITH a citation (Crivellato & Ribatti 2007).
+[1] This is a footnote, with a citation (Crivellato & Ribatti 2007).
 
 [2] Another footnote. Although footnotes get converted just fine, one caveat is you
-cannot use Scrivener inline styles, so you MUST use Pandoc markup _directly_.
+cannot use Scrivener inline styles, so you must use Pandoc markup directly.
 
 [3] A final footnote.

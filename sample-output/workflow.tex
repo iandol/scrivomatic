@@ -159,23 +159,28 @@
 \postdate{\par\end{center}}
 \title{Scrivener + Pandoc Workflow}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \author{John Doe\textsuperscript{1†} \and Joanna Doe\textsuperscript{1,2*†}}
+  \author{John Doe\textsuperscript{1†} \and Joanna
+Doe\textsuperscript{1,2*†}}
 \else
-  \author{John Doe\textsuperscript{1†} \and Joanna Doe\textsuperscript{1,2\fixfontB{✉︎}†}}
+  \author{John Doe\textsuperscript{1†} \and Joanna
+Doe\textsuperscript{1,2\fixfontB{✉︎}†}}
 \fi
-\date{Friday, August 16, 2019}
+\date{Tuesday, July 14, 2020}
 
 \begin{document}
 \maketitle
 
 \begin{center}
 
-\textsf{\textsuperscript{1} International Cephalopod Research Institute (ICRI), Pacific Ocean.\quad\&\quad\textsuperscript{2} Center for Advanced Octopod Studies (CAOS), Atlantic Ocean.}
+\textsf{\textsuperscript{1} International Cephalopod Research Institute
+(ICRI), Pacific Ocean.\quad\&\quad\textsuperscript{2} Center for
+Advanced Octopod Studies (CAOS), Atlantic Ocean.}
 
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
 \textsf{* \emph{Joanna Doe \textless jo@caos.org\textgreater{}}}
 \else
-\textsf{\fixfontB{✉︎} \emph{Joanna Doe \textless jo@caos.org\textgreater{}}}
+\textsf{\fixfontB{✉︎} \emph{Joanna Doe
+\textless jo@caos.org\textgreater{}}}
 \fi
 
 \textsf{\textsuperscript{†} \small{\emph{These authors contributed equally to this work.}}}
@@ -208,8 +213,8 @@ adept at telling stories about patterns, whether they exist or not}. ---
 Michael Shermer
 \end{quote}
 
-\textsc{Lørem ipsum dolør sit amet}, eu ipsum movet vix, veniam låoreet
-posidonium\footnote{This is a footnote, \textbf{with} a citation
+\underline{Lørem ipsum dolør sit amet}, eu ipsum movet vix, veniam
+låoreet posidonium\footnote{This is a footnote, \textbf{with} a citation
   (Crivellato \& Ribatti \protect\hyperlink{ref-crivellato2007}{2007}).}
 te eøs, eæm in veri eirmod (Crivellato \& Ribatti
 \protect\hyperlink{ref-crivellato2007}{2007}; Barrett \& Simmons
@@ -233,8 +238,8 @@ eum(Crivellato \& Ribatti \protect\hyperlink{ref-crivellato2007}{2007}),
 pro paulo ridens quaestio ut (see \textbf{Fig. 1})! Iudico nullam sit
 ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur
 ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae
-offendit laboramus. Duo \emph{iisque sapientem ad}, vølumus
-\textbf{\emph{persecuti vix cu}}, his åt justo putant comprehensam.
+offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu,
+\textbf{\emph{his åt justo putant comprehensam}}.
 
 Ad pro quod \textsuperscript{definitiønem}, mel no laudem
 \textsubscript{delectus} (Copenhaver
@@ -293,10 +298,10 @@ eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.
 \subsection{§3.1 --- Data Recording}\label{data-recording}}
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet
-posidonium te eøs, eæm in veri eirmod. Sed illum minimum at
-\(e^{ix}=r(\cos \theta +i\sin \theta )\), est mægna alienum mentitum ne.
-Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam
-vivendum no, mei nostrud necessitatibus te?
+posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, inline
+maths: \(e^{ix}=r(\cos \theta +i\sin \theta )\), est mægna alienum
+mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius
+utinam vivendum no, mei nostrud necessitatibus te?
 
 \[x^{\alpha} e^{\beta x^{\gamma} e^{\delta x^{\epsilon}}}\]
 
@@ -310,16 +315,16 @@ comprehensam.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Output "I love Ruby"}
+\CommentTok{\# Output "I love Ruby"}
 \NormalTok{say = }\StringTok{"I love Ruby"}
 \NormalTok{puts say}
 
-\CommentTok{# Output "I *LOVE* RUBY"}
-\NormalTok{say[}\StringTok{'love'}\NormalTok{] = }\StringTok{"*love*"}
+\CommentTok{\# Output "I *LOVE* RUBY"}
+\NormalTok{say[}\StringTok{\textquotesingle{}love\textquotesingle{}}\NormalTok{] = }\StringTok{"*love*"}
 \NormalTok{puts say.upcase}
 
-\CommentTok{# Output "I *love* Ruby"}
-\CommentTok{# five times}
+\CommentTok{\# Output "I *love* Ruby"}
+\CommentTok{\# five times}
 \DecValTok{5}\NormalTok{.times \{ puts say \}}
 \end{Highlighting}
 \end{Shaded}
@@ -530,6 +535,7 @@ eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.
 \addcontentsline{toc}{section}{§6 --- References}
 
 \hypertarget{refs}{}
+\begin{cslreferences}
 \leavevmode\hypertarget{ref-barrett2015}{}%
 Barrett L, \& Simmons W. (2015). Interoceptive predictions in the brain.
 \emph{Nature Reviews Neuroscience}, 16(7), 419--429.
@@ -548,5 +554,6 @@ and the birth of neuroscience. \emph{Brain Research Bulletin}, 71(4),
 Siegel S, \& Silins N. (2015). The epistemology of perception. In M.
 Matthen (Ed.), \emph{Oxford handbook of philosophy of perception} (pp.
 1--48). Oxford University Press.
+\end{cslreferences}
 
 \end{document}
