@@ -2,17 +2,19 @@
 
 Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS versions **before** macOS Catalina (10.15). 
 
+Below are a series of options to get ruby up and running. Remember these are mutually exclusive, choose either catalina+system ruby, rbenv **OR** homebrew ruby, do not mix them together. 
 
-## Users using macOS Catalina
-If you are using macOS Catalina, then you actually have V2.6.3 of Ruby and installing pandocomatic is as simple as typing this into Terminal (you don't even need to use `-n /usr/local/bin/` like before, it is the default):
+
+## Users on macOS Catalina
+If you are using macOS Catalina, then you have V2.6.3 of Ruby and installing pandocomatic is as simple as typing this into Terminal (you don't even need to use `-n /usr/local/bin/` like before, it is the default):
 
 ```shell
 sudo gem install paru pandocomatic
 ```
 
-Sadly, this new version of Ruby will be removed in macOS 10.16 next year, but for the moment Catalina users have a simple solution.
+Sadly, this new version of Ruby will be removed in macOS 10.16 next year, but for the moment Catalina users have a simple solution. Personally I still prefer `rbenv` as it makes updating and managing ruby easier (see below)...
 
-## Users using older macOS versions
+## Users on older macOS versions
 
 So the first simplest solution is to deliberately install an older version of pandocomatic:
 
@@ -22,7 +24,7 @@ So the first simplest solution is to deliberately install an older version of pa
 
 …but this will not include any bug fixes going forwards and IMO installing a modern version of Ruby is a much better option.
 
-### Using rbenv…  
+## Using rbenv (best long-term solution IMO) 
 
 [rbenv](https://github.com/rbenv/rbenv) allows multiple ruby versions to run side-by-side and handles the path changes for you, but is a bit more involved to use. First install with [Homebrew](https://brew.sh/):
 
@@ -45,9 +47,9 @@ rbenv global 2.7.1
 gem install pandocomatic
 ```
 
-`rbenv` adds a single directory (`~/.rbenv/shims/`) that scrivomatic adds to the path searched when Scrivener triggers the post-processing.
+`rbenv` adds a single directory (`~/.rbenv/shims/`) that scrivomatic adds to the path searched when Scrivener triggers the post-processing. This is what I use and so is the best supported option.
 
-### Using brew…  
+### Using brew to install ruby
 
 You can also install Ruby directly with [Homebrew](https://brew.sh/):
 
