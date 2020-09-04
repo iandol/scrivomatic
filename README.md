@@ -126,20 +126,20 @@ Try not to not use markdown \# headings within text documents themselves but cre
 Scrivener can transform images that are embedded with a line of text (§21.4.1 user manual) into markup that generates proper semantic `<figure>` and `<figcaption>` elements. I now prefer to link images (Fig. 21.2—user manual) from the binder rather than by using the standard Pandoc markup: `![Figure caption](linked_image){.my_style}`; in both cases (embedded or linked-from-binder) Scrivener will correctly export the image file into the compile folder. Scrivener 3 has a nice new feature where you can binder-link figures (`Insert ▸ Image Linked to Document`), they are not embedded but still visible in the document, to add a caption to these you can use a caption style or \[\] brackets around the caption (described at the end of §21.4.1—user manual).  
 
 ### Footnotes ###
-Scrivener will automatically convert footnotes into Markdown format for you. But there is one caveat in that you are not allowed to style footnotes, and so if you want to use *emphasis* / **strong** or other character styles, you will have to use the Pandoc formatting directly.  
+Scrivener will automatically convert footnotes into Markdown format for you. But there is one caveat in that you are not allowed to use Scrivener's styles inside footnotes, and so if you want to use *emphasis*, **strong** or other character styles, you will have to use the Pandoc markup directly.  
 
 ### Scrivener Comments ###
-Use comments and annotations freely. Scrivener 3 now allows you to transform comments to complex markup (§24.19.7—user manual) where the comment text `<$cmt>` AND the comment selection `<$lnk>` are both correctly exported). This can be set in `compile ▶︎ annotations…` — I use: `<span class="comment" title="<$cmt>"><$lnk></span>`. For export to DOCX, you can use `<span class="comment-start" id="<$n>" author="<$author>" date="<$date>"><$cmt></span><$lnk><span class="comment-end" id="<$n>"></span>`, which should transform into proper Word comments with using Pandoc 2+.  
+Use comments and annotations freely. Scrivener 3 now allows you to transform comments to complex markup (§24.19.7—user manual) where the comment text `<$cmt>` AND the comment selection `<$lnk>` are both correctly exported). This can be set in `compile ▶︎ annotations…` — I use: `<span class="comment" title="<$cmt>"><$lnk></span>`. For export to DOCX, you can use `<span class="comment-start" id="<$n>" author="<$author>" date="<$date>"><$cmt></span><$lnk><span class="comment-end" id="<$n>"></span>`, which will transform into proper Word margin comments.  
 
 ### Cross-referencing ###
-Out of habit I prefer Scrivener links when cross-reference documents / export figures, and Scrivener's placeholder tags to cross-reference figures and equations. But for new users Pandoc does have several cross-referencing filters ([pandoc-crossref](https://github.com/lierdakil/pandoc-crossref) and [pandoc-fignos](https://github.com/tomduck/pandoc-fignos) for example) and you can also use these. I have a quick [crossref.scriv](https://github.com/iandol/scrivomatic/blob/master/Crossref.scriv.zip) project available to show an example of using pandoc-crossref.
+Out of habit, I prefer to use Scrivener links when cross-referencing documents / exporting figures, and Scrivener's placeholder tags to cross-reference figures and equations within the text. But for new users, Pandoc does have several cross-referencing filters ([pandoc-crossref](https://github.com/lierdakil/pandoc-crossref) and [pandoc-fignos](https://github.com/tomduck/pandoc-fignos) for example) and you can also use these. The advantage of these systems is that they are more portable if you move your project out of Scrivener, the disadvantage being you will need to use markup directly. I have a quick [crossref.scriv](https://github.com/iandol/scrivomatic/blob/master/Crossref.scriv.zip) project available to show an example of using the `pandoc-crossref` filter.  
 
 
 ## Compiling your Project: ##
-In Scrivener, I remove **all** compile–metadata specified in compile user interface ([see screenshot here](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/remove-metadata.png)) so it does not interfere with my custom metadata document. I create a document called something like **Pandoc metadata** containing the [YAML]() configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document (`Help ▸ List of All Placeholders…`). 
+In Scrivener, I ensure to remove **_all_** compile–metadata specified in the compile user interface ([see screenshot here](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/remove-metadata.png)) so it doesn't interfere with the custom metadata front-matter. I create a document called something like **Pandoc metadata** containing the [YAML]() configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document, to insert the title or other data from Scrivener's extensive list (`Help ▸ List of All Placeholders…`). 
 
 *  *  *  *
-**_IMPORTANT_: Scrivener's autocorrect will "smarten" quotation marks and dashes and can capitalise keys like `title` or `pandocomatic`, which will cause problems for Pandocomatic and Pandoc so please check keys like `title`, `author` & `pandocomatic` are lowercase, straigten quotes and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block must be *spaces* and not *tabs*.**
+**_IMPORTANT_: Scrivener's autocorrect will "smarten" quotation marks and dashes and can capitalise keys like `title` or `pandocomatic`, which will make Pandocomatic and Pandoc error, so please check keys like `title`, `author` & `pandocomatic` are _lowercase_, _straighten quotes_ and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block must be *spaces* and not *tabs*.**  
 
 *  *  *  *
 
@@ -147,7 +147,7 @@ In the example YAML below, three templates are specified, so `pandocomatic` will
 
 ```yaml
 ---
-# Comment: make sure you use spaces not tabs, lower-case keys and straight quotes…
+# Comment: make sure you use spaces not tabs, lower-case all keys and straighten quotes…
 title: "<$projecttitle>"
 author:
   - Joanna Doe
@@ -164,7 +164,7 @@ pandocomatic:
 
 ```
 
-The front matter should be the first document in the compile list and compiled **as–is**. 
+The front matter should be the **first** document in the compile list and compiled **as–is**. 
 
 ![](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/as-is.png)
 _Figure 3 — I created a `Project ▸ Project Settings… ▸ Section Type` called "Frontmatter", assigned this **Section Type** to 'Pandoc metadata', set 'Pandoc metadata' as Front Matter in the Compiler options, and then assigned it the AS-IS **Section Layout**._
