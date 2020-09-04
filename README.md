@@ -22,16 +22,16 @@
 * [Troubleshooting](#troubleshooting)
 
 ## TL;DR (simple summary) ##
-This guide is a series of steps, which you can combine *a-la-carte* to integrate [Scrivener](http://literatureandlatte.com) (an app that excels at organised writing), and [Pandoc](http://pandoc.org/index.html) (a tool that excels at transforming text to documents). Scrivener already comes with the MultiMarkDown tool, but in my opinion Pandoc provides numerous additional benefits and installation is quite simple. In addition, [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) flexibly manages Pandoc settings directly within Scrivener.
+This guide is a series of steps, which you can combine *a-la-carte* to integrate [Scrivener](http://literatureandlatte.com) (an app that excels at organised writing), and [Pandoc](http://pandoc.org/index.html) (a tool that excels at transforming text to documents). Scrivener already comes with MultiMarkDown, but in my opinion Pandoc provides numerous additional benefits and installation is quite simple. In addition, [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) flexibly manages Pandoc settings directly within Scrivener.
 
 1. Install the latest `pandoc` and `pandocomatic`.
-2. Configure one or more pandocomatic "recipes"; you can base them on mine [shared below](#configuration).
-3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc-specific output too). Here is a [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) for you to look at.
+2. Configure one or more `pandocomatic` "recipes"; you can base them on mine [shared below](#configuration).
+3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc-specific output too). Here is a complete [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) to demonstrate the necessary settings.
 4. Scrivener's compile post-processing triggers `pandocomatic`, **_automagically_** creating the final output(s) for you.
 
-As a sample of the fuller workflow, I've made a [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) which bundles the required files into the Binder (you  still need to install `pandoc` and `pandocomatic` first. See [the PDF/HTML/DOCX/TXT simultaneously-compiled final outputs here](https://github.com/iandol/scrivomatic/tree/master/sample-output)). 
+As a sample of the fuller workflow, I've made a self-contained [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) (you still need to install `pandoc` and `pandocomatic` first). See [the PDF/HTML/DOCX/TXT simultaneously-compiled final outputs here](https://github.com/iandol/scrivomatic/tree/master/sample-output)) to get an idea of the sort of outputs possible.
 
-To better understand the workflow outlined on this page, you should read at least sections **§21** and **§24** of the **Scrivener user manual**.
+Scrivener has many options, and to better understand the workflow outlined on this page you should read at least sections **§21** and **§24** of the **Scrivener user manual**!
 
 ## Introduction ##
 

@@ -2,19 +2,19 @@
 
 Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS versions **before** macOS Catalina (10.15). 
 
-Below are a series of options to get ruby up and running. Remember these are mutually exclusive, choose either catalina+system ruby, rbenv **OR** homebrew ruby, do not mix them together. 
+Below are a series of options to get ruby up and running. **_Remember_**: these should be considered mutually exclusive, choose either Catalina's system ruby, `rbenv` **OR** homebrew's Ruby, do not mix them together…
 
 
-## Users on macOS Catalina
-If you are using macOS Catalina, then you have V2.6.3 of Ruby and installing pandocomatic is as simple as typing this into Terminal (you don't even need to use `-n /usr/local/bin/` like before, it is the default):
+## Users on macOS Catalina (simple)
+If you are using macOS Catalina, then you have V2.6.3 of Ruby already and installing pandocomatic is as simple as typing this into Terminal (you don't need to use `-n /usr/local/bin/` like before, it is the default):
 
 ```shell
 sudo gem install paru pandocomatic
 ```
 
-Sadly, this new version of Ruby will be removed in macOS 10.16 next year, but for the moment Catalina users have a simple solution. Personally I still prefer `rbenv` as it makes updating and managing ruby easier (see below)...
+Sadly, this new version of Ruby will be removed in macOS 11 this year, but for the moment Catalina users have a simple solution. I still prefer `rbenv` as it makes updating and managing ruby easier (see below)...
 
-## Users on older macOS versions
+## Users on older macOS versions (downgrade)
 
 So the first simplest solution is to deliberately install an older version of pandocomatic:
 
@@ -26,7 +26,7 @@ So the first simplest solution is to deliberately install an older version of pa
 
 ## Using rbenv (best long-term solution IMO) 
 
-[rbenv](https://github.com/rbenv/rbenv) allows multiple ruby versions to run side-by-side and handles the path changes for you, but is a bit more involved to use. First install with [Homebrew](https://brew.sh/):
+[rbenv](https://github.com/rbenv/rbenv) allows *multiple* ruby versions to run easily side-by-side and handles all the path changes for you, but is a bit more involved to use. First install with [Homebrew](https://brew.sh/):
 
 ```shell
 brew install rbenv
@@ -49,7 +49,9 @@ gem install pandocomatic
 
 `rbenv` adds a single directory (`~/.rbenv/shims/`) that scrivomatic adds to the path searched when Scrivener triggers the post-processing. This is what I use and so is the best supported option.
 
-### Using brew to install ruby
+There is a [default-gems plugin](https://github.com/rbenv/rbenv-default-gems), so you can add pandocmatic to your default gems and whenever a new version of Ruby is installed by rbenv, pandocomatic will already be set up.
+
+### Using brew to install ruby (less flexible)
 
 You can also install Ruby directly with [Homebrew](https://brew.sh/):
 
@@ -79,18 +81,17 @@ Personally I'm not a big fan of this method as you will need to manually update 
 
 ## Troubleshooting…
 
-A couple of users have recently tried to install pandocomatic via rbenv, and have had a conflict with other versions of the gems; if this is a problem for you try the following:
+### Gem Conflicts
+A couple of users have  tried to install pandocomatic via rbenv, and have had a conflict with other versions of the gems on the same system (this shouldn't happen, and it is probably a bug that may be already fixed); if this is a problem for you try the following:
 
 1. Switch to system ruby:
 ```shell
 rbenv global system; rbenv shell system
 ```
-
 2. Uninstall system versions:
 ```shell
  sudo gem uninstall -f paru pandocomatic -n '/usr/local/bin' 
 ```
-
 3. Switch back to the modern Ruby and force install latest paru and pandocomatic
 ```shell
  rbenv global 2.7.1; rbenv shell 2.7.1
