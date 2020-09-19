@@ -1365,6 +1365,6 @@ scriv.parseInputs(ARGV)
 scriv.run
 ]]></Script>
         <Path>/Users/ian/Desktop/workflow_mmd/scrivomatic.rb</Path>
-        <Args>"&lt;$inputfile&gt;" -l -v -y "pandocomatic.yaml" 2&gt;&amp;1 &gt;&gt;scrivomatic.log</Args>
+        <Args>"&lt;$inputfile&gt;" -l -v 2&gt;&amp;1 &gt;&gt;scrivomatic.log</Args>
     </PostProcessing>
 </CompileFormat>
