@@ -42,14 +42,14 @@ echo '\neval "$(rbenv init -)"' >> ~/.bash_profile
 Restart your terminal to trigger this adjustment, then install a modern ruby and finally pandocomatic:
 
 ```shell
-rbenv install 2.7.1
-rbenv global 2.7.1
-gem install pandocomatic
+rbenv install 2.7.2
+rbenv global 2.7.2
+gem install paru pandocomatic
 ```
 
-`rbenv` adds a single directory (`~/.rbenv/shims/`) that scrivomatic adds to the path searched when Scrivener triggers the post-processing. This is what I use and so is the best supported option.
+`rbenv` adds a single directory (`~/.rbenv/shims/`) that scrivomatic adds to the path searched when Scrivener triggers the post-processing. This is what I personally use and so is the best supported option for the `scrivomatic` script.
 
-There is a [default-gems plugin](https://github.com/rbenv/rbenv-default-gems), so you can add pandocmatic to your default gems and whenever a new version of Ruby is installed by rbenv, pandocomatic will already be set up.
+There is a [default-gems plugin](https://github.com/rbenv/rbenv-default-gems), so you can add pandocmatic to your default gems and whenever a new version of Ruby is installed by rbenv, pandocomatic will also be set up 😎.
 
 ### Using brew to install ruby ««less flexible»»
 
