@@ -1,20 +1,20 @@
 # Installing Ruby  
 
-Recent versions of pandocomatic (0.2.4.1+) have broken compatibility with the *ancient* version of Ruby (V2.3.7) that comes by default with macOS versions **before** macOS Catalina (10.15). 
+Versions of pandocomatic since V0.2.4.1 do not support the *ancient* version of Ruby (V2.3.7) that comes by default with macOS versions **before** macOS Catalina (10.15). 
 
 Below are a series of options to get ruby up and running. **_Remember_**: these should be considered mutually exclusive, choose either Catalina's system ruby, `rbenv` **OR** homebrew's Ruby, do not mix them together…
 
 
-## Users on macOS Catalina (simple)
-If you are using macOS Catalina, then you have V2.6.3 of Ruby already and installing pandocomatic is as simple as typing this into Terminal (you don't need to use `-n /usr/local/bin/` like before, it is the default):
+## Users on macOS Catalina and Big Sur ««simple»»
+If you are using macOS Catalina or Big sur, then you have V2.6.3 of Ruby already and installing pandocomatic is as simple as typing this into Terminal (you don't need to use `-n /usr/local/bin/` like before, it is the default):
 
 ```shell
 sudo gem install paru pandocomatic
 ```
 
-Sadly, this new version of Ruby will be removed in macOS 11 this year, but for the moment Catalina users have a simple solution. I still prefer `rbenv` as it makes updating and managing ruby easier (see below)...
+I still prefer `rbenv` as it makes updating and managing ruby easier (see below)...
 
-## Users on older macOS versions (downgrade)
+## Users on older macOS versions ««downgrade»»
 
 So the first simplest solution is to deliberately install an older version of pandocomatic:
 
@@ -24,7 +24,7 @@ So the first simplest solution is to deliberately install an older version of pa
 
 …but this will not include any bug fixes going forwards and IMO installing a modern version of Ruby is a much better option.
 
-## Using rbenv (best long-term solution IMO) 
+## Using rbenv ««best long-term solution IMO»»
 
 [rbenv](https://github.com/rbenv/rbenv) allows *multiple* ruby versions to run easily side-by-side and handles all the path changes for you, but is a bit more involved to use. First install with [Homebrew](https://brew.sh/):
 
@@ -51,7 +51,7 @@ gem install pandocomatic
 
 There is a [default-gems plugin](https://github.com/rbenv/rbenv-default-gems), so you can add pandocmatic to your default gems and whenever a new version of Ruby is installed by rbenv, pandocomatic will already be set up.
 
-### Using brew to install ruby (less flexible)
+### Using brew to install ruby ««less flexible»»
 
 You can also install Ruby directly with [Homebrew](https://brew.sh/):
 
