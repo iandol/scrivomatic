@@ -3,19 +3,22 @@
 # Path values are normally relative to the Pandoc data dir: /Users/MYNAME/.pandoc
 # so csl/apa.csl will be searched as /Users/MYNAME/.pandoc/csl/apa.csl
 # see https://heerdebeer.org/Software/markdown/pandocomatic/#specifying-paths 
+#
+# This has been updated for Pandoc V2.11 citeproc engine, not the older filter
 templates:
 #-----------------------------------------------------------------------------
   refs:
     setup: [] #runs a general script to rename or copy files before anything is run
     preprocessors: [] #runs a script on the markdown file itself
     pandoc:
-      standalone: true #create complete document
-      filter: 'pandoc-citeproc' #run filter to process citations
+      citeproc: true #this enables the built-in citeproc engine
       bibliography: "core.bib" #bibtex file, default search path will be your pandoc data-dir
       csl: "csl/apa.csl" #CSL style file, in the csl/ folder of pandoc data-dir
     metadata:
-      notes-after-punctuation: false
-      link-citations: true 
+      reference-section-title: "Bibliography"
+      notes-after-punctuation: false #don't put refs after .
+      link-citations: true #hyperlink intext references to the bibliography
+      csl-hanging-indent: true #try to add hanging indents to formatted bibliogrpahy
     postprocessors: [] #runs on the output file (unless it is binary like docx)
     cleanup: [] #general cleanup script
 #-----------------------------------------------------------------------------
