@@ -29,7 +29,7 @@ This guide is a series of steps, which you can combine *a-la-carte* to integrate
 3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc-specific output too). Here is a complete [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) to demonstrate the necessary settings.
 4. Scrivener's compile post-processing triggers `pandocomatic`, **_automagically_** creating the final output(s) for you.
 
-As a sample of the fuller workflow, I've made a self-contained [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) (you still need to install `pandoc` and `pandocomatic` first). See [the PDF/HTML/DOCX/TXT simultaneously-compiled final outputs here](https://github.com/iandol/scrivomatic/tree/master/sample-output)) to get an idea of the sort of outputs possible.
+As a sample of the fuller workflow, I've made a self-contained [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) (you still need to install `pandoc` and `pandocomatic` first). This should give you a better idea of the various parts of the workflow, and you can look at the simultaneously produced [PDF/HTML/DOCX/TXT](https://github.com/iandol/scrivomatic/tree/master/sample-output) outputs from the sample project to get an idea of the sort of end documents that are possible.
 
 Scrivener has many options, and to better understand the workflow outlined on this page you should read at least sections **§21** and **§24** of the **Scrivener user manual**!
 
