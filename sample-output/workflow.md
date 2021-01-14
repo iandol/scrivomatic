@@ -1,6 +1,6 @@
 ---
 # Standard Scrivener+Pandoc Project YAML metadata
-# Important: YAML configuration files use SPACES for indentation to define structure, and remember to straighten smart quotes!
+# IMPORTANT: YAML configuration files use SPACES for indentation to define structure, remember to straighten any smart quotes, and don't capitalise metadata keys like "author" or "title", they must be lowercase!
 title: "Scrivener + Pandoc Workflow"
 author:
   - name: John Doe
@@ -17,8 +17,8 @@ keywords:
   - Pandoc
   - Scrivener
   - Workflow
-compiled: 2020/7/14
-date: Tuesday, July 14, 2020
+compiled: 14/01/2021
+date: Thursday, 14 January 2021
 comments: "To err is human; … err?"
 # Select which templates pandocomatic will use
 # you can enter overrides to the templates here as well
@@ -41,7 +41,7 @@ pandocomatic_:
 
 > *Humans are pattern-seeking story-telling animals, and we are quite adept at telling stories about patterns, whether they exist or not*. — Michael Shermer
 
-[Lørem ipsum dolør sit amet]{.underline}, eu ipsum movet vix, veniam låoreet posidonium[^fn1] te eøs, eæm in veri eirmod [@barrett2015; @crivellato2007]. Sed illum minimum ([see Results](#§4.1 — Lunar Cycles)) at 3.25×10⁻⁴⁸, est mægna alienum mentitum ne. [Amet equidem](https://pandoc.org/MANUAL.html) sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
+[Lørem ipsum dolør sit amet]{.underline}, eu ipsum movet vix, veniam låoreet posidonium[^fn1] te eøs, eæm in veri eirmod [@barrett2015; @crivellato2007]. Sed illum minimum ([see Results][§4.1 — Lunar Cycles]) at 3.25×10⁻⁴⁸, est mægna alienum mentitum ne. [Amet equidem](https://pandoc.org/MANUAL.html) sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
 ![**Figure 1** — This is a fascinating caption (source and explanation: [XKCD](https://www.explainxkcd.com/wiki/index.php/2120:_Brain_Hemispheres)).][xkcd_brain_hemispheres]
 
@@ -59,7 +59,7 @@ No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intelle
 
 
 | **Table Head 1** | **Table Head 2** | **Table Head 3** |
-| :-----: | :-----: | :-----: |
+| ----- | ----- | ----- |
 | Item 1 | Item 2 | Item 3 |
 | Item 4 | Item 5 | Item 6 |
 

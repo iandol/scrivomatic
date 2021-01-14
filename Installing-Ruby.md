@@ -33,6 +33,7 @@ brew install rbenv
 rbenv init
 ```
 
+
 The [instructions](https://github.com/rbenv/rbenv#homebrew-on-macos) tell you to add `eval "rbenv init -"` in your `.bash_profile` or `.zshrc`, so you can do this using the following command (replace `.bash_profile` with `.zshrc` if you use `zsh`):
 
 ```shell
@@ -42,8 +43,8 @@ echo '\neval "$(rbenv init -)"' >> ~/.bash_profile
 Restart your terminal to trigger this adjustment, then install a modern ruby and finally pandocomatic:
 
 ```shell
-rbenv install 2.7.2
-rbenv global 2.7.2
+rbenv install 3.0.0
+rbenv global 3.0.0
 gem install paru pandocomatic
 ```
 
@@ -94,7 +95,7 @@ rbenv global system; rbenv shell system
 ```
 3. Switch back to the modern Ruby and force install latest paru and pandocomatic
 ```shell
- rbenv global 2.7.1; rbenv shell 2.7.1
+ rbenv global 3.0.0; rbenv shell 3.0.0
  gem install -f paru pandocomatic
 ```
 

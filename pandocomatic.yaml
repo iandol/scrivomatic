@@ -1,10 +1,12 @@
 ### Pandocomatic Configuration ###
-# Important: YAML configuration files uses spaces for indentation to define structure
+# IMPORTANT: 
+# YAML configuration files uses spaces for indentation to define structure
+#
 # Path values are normally relative to the Pandoc data dir: /Users/MYNAME/.pandoc
 # so csl/apa.csl will be searched as /Users/MYNAME/.pandoc/csl/apa.csl
 # see https://heerdebeer.org/Software/markdown/pandocomatic/#specifying-paths 
 #
-# This has been updated for Pandoc V2.11 citeproc engine, not the older filter
+# This has been updated for the Pandoc V2.11 citeproc engine, not the older filter
 templates:
 #-----------------------------------------------------------------------------
   refs:

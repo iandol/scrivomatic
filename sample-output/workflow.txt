@@ -1,5 +1,5 @@
 Scrivener + Pandoc Workflow
-Tuesday, July 14, 2020
+Thursday, 14 January 2021
 
 -   §1 — Abstract
 -   §2 — Introduction
@@ -68,10 +68,10 @@ ex. His consulåtu åssueverit ex, ei ius apeirian cønstituam mediocritatem, me
 detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro
 eruditi eum ex.
 
-   Table Head 1   Table Head 2   Table Head 3
+  Table Head 1   Table Head 2   Table Head 3
   -------------- -------------- --------------
-      Item 1         Item 2         Item 3
-      Item 4         Item 5         Item 6
+  Item 1         Item 2         Item 3
+  Item 4         Item 5         Item 6
 
 Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit
 såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat
