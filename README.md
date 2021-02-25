@@ -64,7 +64,7 @@ Apart from **Scrivener** (V3.x minimum required for this workflow), you should i
 And then install `pandoc` using the `brew` command in the terminal:
 
 ```bash
-brew install pandoc pandoc-citeproc pandoc-crossref
+brew install pandoc pandoc-crossref
 ```
 
 If you already installed `pandoc` manually, but want to use `brew` from now on, then you can use `brew link --overwrite ...` instead of `brew install ...`.
