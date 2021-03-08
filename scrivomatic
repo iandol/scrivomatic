@@ -17,7 +17,7 @@ class Scrivomatic
 	# pandocomatic/panzer from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.29'.freeze
+	VER = '1.0.30'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -177,6 +177,7 @@ class Scrivomatic
 		puts "\n=== ------------------------------------------------------ ==="
 		puts '=== Scrivomatic V' + @version + ' Report @ ' + Time.now.to_s + ' ==='
 		puts '=== ------------------------------------------------------ ==='
+		puts ' Running shell: ' + `printf $SHELL`
 		puts ' Working directory: ' + `pwd`
 		puts " Initiating with Ruby #{RUBY_VERSION}"
 		puts '===------ Input Options: ------==='
