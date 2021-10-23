@@ -17,8 +17,9 @@ keywords:
   - Pandoc
   - Scrivener
   - Workflow
-compiled: 14/01/2021
-date: Thursday, 14 January 2021
+lang: en
+compiled: 23/10/2021
+date: Saturday, 23 October 2021
 comments: "To err is human; … err?"
 # Select which templates pandocomatic will use
 # you can enter overrides to the templates here as well

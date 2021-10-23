@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
+  <meta name="generator" content="pandoc,pandocomatic" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="title" content="Scrivener + Pandoc Workflow" />
   <meta name="citation_title" content="Scrivener + Pandoc Workflow" /> 
@@ -10,169 +10,103 @@
   <meta name="citation_author" content="John Doe" />
   <meta name="author" content="Joanna Doe" />
   <meta name="citation_author" content="Joanna Doe" />
-  <meta name="citation_date" content="Thursday, 14 January 2021" />
   <meta name="keywords" content="Pandoc, Scrivener, Workflow" />
   <title>Scrivener + Pandoc Workflow</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-      div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-      ul.task-list{list-style: none;}
-      pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-      pre > code.sourceCode > span:empty { height: 1.2em; }
-      .sourceCode { overflow: visible; }
-      code.sourceCode > span { color: inherit; text-decoration: inherit; }
-      div.sourceCode { margin: 1em 0; }
-      pre.sourceCode { margin: 0; }
-      @media screen {
-      div.sourceCode { overflow: auto; }
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
       }
-      @media print {
-      pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-      }
-      pre.numberSource code
-        { counter-reset: source-line 0; }
-      pre.numberSource code > span
-        { position: relative; left: -4em; counter-increment: source-line; }
-      pre.numberSource code > span > a:first-child::before
-        { content: counter(source-line);
-          position: relative; left: -1em; text-align: right; vertical-align: baseline;
-          border: none; display: inline-block;
-          -webkit-touch-callout: none; -webkit-user-select: none;
-          -khtml-user-select: none; -moz-user-select: none;
-          -ms-user-select: none; user-select: none;
-          padding: 0 4px; width: 4em;
-          color: #aaaaaa;
-        }
-      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-      div.sourceCode
-        {   }
-      @media screen {
-      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-      }
-      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-      code span.at { color: #7d9029; } /* Attribute */
-      code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { } /* BuiltIn */
-      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-      code span.ch { color: #4070a0; } /* Char */
-      code span.cn { color: #880000; } /* Constant */
-      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-      code span.dt { color: #902000; } /* DataType */
-      code span.dv { color: #40a070; } /* DecVal */
-      code span.er { color: #ff0000; font-weight: bold; } /* Error */
-      code span.ex { } /* Extension */
-      code span.fl { color: #40a070; } /* Float */
-      code span.fu { color: #06287e; } /* Function */
-      code span.im { } /* Import */
-      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-      code span.op { color: #666666; } /* Operator */
-      code span.ot { color: #007020; } /* Other */
-      code span.pp { color: #bc7a00; } /* Preprocessor */
-      code span.sc { color: #4070a0; } /* SpecialChar */
-      code span.ss { color: #bb6688; } /* SpecialString */
-      code span.st { color: #4070a0; } /* String */
-      code span.va { color: #19177c; } /* Variable */
-      code span.vs { color: #4070a0; } /* VerbatimString */
-      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-      div.csl-bib-body { }
-      div.csl-entry {
-        clear: both;
-      }
-      .hanging div.csl-entry {
-        margin-left:2em;
-        text-indent:-2em;
-      }
-      div.csl-left-margin {
-        min-width:2em;
-        float:left;
-      }
-      div.csl-right-inline {
-        margin-left:2em;
-        padding-left:1em;
-      }
-      div.csl-indent {
-        margin-left: 2em;
-      }
-      code{white-space: pre-wrap;}
-      .smallcaps{font-variant: small-caps;}
-      .line-block{white-space: pre-line;}
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-left: 1em;
+      margin-right: 1em;
+      margin-bottom: 0.5em;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
-  <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
-  <link rel="stylesheet" href="data:text/css,body%20%7B%20font%2Dfamily%3A%20%2Dapple%2Dsystem%2CBlinkMacSystemFont%2C%22Segoe%20UI%22%2CRoboto%2COxygen%2DSans%2CUbuntu%2CCantarell%2C%22Helvetica%20Neue%22%2Csans%2Dserif%3B%0Afont%2Dsize%3A%2016px%3B%0Amargin%3A%20auto%3B%0Amax%2Dwidth%3A%2029cm%3B%0A%7D%0A%0Aq%20%7B%20quotes%3A%20%22%E2%80%9C%22%20%22%E2%80%9D%22%20%22%E2%80%98%22%20%22%E2%80%99%22%3B%20%7D%0Aheader%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Amargin%3A%200%3B%0Amargin%2Dbottom%3A%202em%3B%0Aborder%2Dleft%3A%207px%20solid%20rgb%2890%25%2C90%25%2C90%25%29%3B%0Apadding%3A%201em%2010%25%201em%2010%25%3B%0A%7D%0Ah1%2Ch2%2Ch3%2Ch4%2Ch5%2Ch6%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Amargin%3A%202rem%200rem%200%2E4rem%200%2E5rem%3B%0A%7D%0Ah2%2Ch3%2Ch4%2Ch5%2Ch6%20%7B%0Amargin%2Dtop%3A%201rem%3B%0A%7D%0A%0Ah1%2Etitle%20%7B%0A%0Afont%2Dsize%3A%202%2E5em%3B%0Aline%2Dheight%3A%201%2E1em%3B%0A%7D%0A%0A%40page%20%7B%20size%3A%20A4%3B%0Amargin%3A%2020mm%3B%0Acounter%2Dincrement%3A%20page%3B%0A%0A%7D%0A%40page%3Aleft%20%7B%0Amargin%2Dright%3A%2035mm%3B%0A%40bottom%2Dleft%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2011px%3B%0Acontent%3A%20%22Page%20%22%20counter%28page%29%20%22%20of%20%22%20counter%28pages%29%3B%0A%7D%0A%7D%0A%40page%3Aright%20%7B%0Amargin%2Dleft%3A%2035mm%3B%0A%40bottom%2Dright%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2011px%3B%0Acontent%3A%20%22Page%20%22%20counter%28page%29%20%22%20of%20%22%20counter%28pages%29%3B%0A%7D%0A%7D%0Ap%2Eauthor%20%7B%0Afont%2Dweight%3A%20bold%3B%0Amargin%3A%200em%201em%200em%200em%3B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0Ap%20%7B%0Atext%2Dalign%3A%20justify%3B%0Aline%2Dheight%3A%201%2E75em%3B%0Amargin%3A%20auto%3B%0Amargin%2Dbottom%3A1em%3B%0Apadding%2Dleft%3A%201em%3B%0Apadding%2Dright%3A%201em%3B%0Az%2Dindex%3A%2010%3B%0A%7D%0Ablockquote%20%7B%0Afont%2Dfamily%3A%20%22Gill%20Sans%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0A%2Eauthor%5Faffiliations%20%7Bpadding%2Dleft%3A%201em%3B%20margin%2Dtop%3A1em%3B%7D%0A%2Eauthor%5Faffiliations%3A%3Abefore%20%7B%0Acontent%3A%20%22Affiliations%3A%20%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20grey%3B%0A%7D%0A%2Eaffiliation%2Ditem%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Amargin%2Dright%3A%2020px%3B%0A%7D%0A%2Ecorrespondence%20%7Bdisplay%3A%20none%3B%20padding%2Dleft%3A%201em%3B%20margin%2Dtop%3A1em%3B%7D%0A%2Ecorrespondence%3A%3Abefore%20%7B%0Acontent%3A%20%22Correspondence%3A%20%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20grey%3B%0A%7D%0A%2Ecorrespondence%2Ditem%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Amargin%2Dright%3A%2020px%3B%0A%7D%0A%2Edate%3A%3Abefore%20%7B%0Acontent%3A%20%22Date%3A%20%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20grey%3B%0A%7D%0Adel%20%7B%0Abackground%3A%20%23fae6e6%3B%0A%7D%0Ains%20%7B%0Abackground%3A%20%23ecfce6%0A%7D%0A%2Eannotation%20%7B%0Abackground%3A%20%23FFB%3B%0Acolor%3A%20%23333%3B%0A%7D%0Aaside%3A%3Abefore%2C%20%2Ecomment%3A%3Abefore%20%7B%0Acontent%3A%20%22%5B%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20%23222%3B%0A%7D%0Aaside%3A%3Aafter%2C%20%2Ecomment%3A%3Aafter%20%7B%0Acontent%3A%20%22%5D%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20%23222%3B%0A%7D%0Aaside%2C%20%2Ecomment%20%7B%0Abackground%3A%20%23FFB%3B%0Acolor%3A%20%23222%3B%0Aopacity%3A%200%2E5%3B%0Az%2Dindex%3A%20%2D1%3B%0A%7D%0Aaside%3Ahover%2C%20%2Ecomment%3Ahover%20%7B%20%7D%0Adiv%2Einfobox%2C%20div%2Einfo%2C%20div%2Etodo%2C%20div%2Ewarning%20%7B%0Afont%2Dsize%3A%200%2E9rem%3B%0Aline%2Dheight%3A%201em%3B%0Afloat%3A%20right%3B%0Awidth%3A%2030%25%3B%0Amargin%3A%205px%3B%0Apadding%3A%201px%3B%0Abackground%3A%20%23EEE%3B%0Aborder%2Dradius%3A%205px%3B%0Aborder%3A%201px%20solid%20%23DDD%3B%0Abox%2Dshadow%3A%202px%202px%205px%200px%20%23888%3B%0A%7D%0Adiv%2Einfo%3A%3Abefore%20%7B%20content%3A%20%22INFO%3A%20%22%3B%20font%2Dweight%3A%20bold%3B%20%7D%0Adiv%2Etodo%3A%3Abefore%20%7B%20content%3A%20%22TODO%3A%20%22%3B%20font%2Dweight%3A%20bold%3B%20%7D%0Adiv%2Ewarning%3A%3Abefore%20%7B%20content%3A%20%22WARNING%3A%20%22%3B%20font%2Dweight%3A%20bold%3B%20%7D%0Adiv%2Ewarning%20%7Bbackground%3A%20%23CCF%3B%7D%0Adiv%2Ewarning%20%7Bbackground%3A%20%23FCC%3B%7D%0Adiv%2Einfo%20p%2C%20div%2Etodo%20p%2C%20div%2Ewarning%20p%20%7B%20padding%3A%200%2E25em%3B%20%7D%0Afigure%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Dalign%3A%20center%3B%0Avertical%2Dalign%3A%20top%3B%0A%0Awidth%3A%2098%25%3B%0Afont%2Dsize%3A%200%2E8rem%3B%0Abackground%3A%20white%3B%0Aoverflow%3A%20visible%3B%0Aborder%2Dradius%3A%205px%3B%0Aborder%3A%201px%20solid%20%23EEE%3B%0Abox%2Dshadow%3A%201px%201px%208px%200px%20%23888%3B%0Apadding%3A%205px%3B%0Amargin%3A%200%200%200%2E5em%200%3B%0A%7D%0Afigure%2Enofloat%20%7B%0Afloat%3A%20none%3B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Dalign%3A%20center%3B%0Avertical%2Dalign%3A%20top%3B%0Aposition%3A%20relative%3B%0A%7D%0Afigure%20img%20%7B%0Amargin%2Dleft%3A%20auto%3B%0Amargin%2Dright%3A%20auto%3B%0Amax%2Dwidth%3A%20100%25%3B%0Amax%2Dheight%3A%2022cm%3B%0A%7D%0Afigcaption%20%7B%0Afont%2Dfamily%3A%20%22Avenir%20Next%22%2C%20%22helvetica%20Neue%22%2C%20sans%2Dserif%3B%0Aline%2Dheight%3A%201em%3B%0Atext%2Dalign%3A%20justify%3B%0A%7D%0Aa%20%7B%20color%3A%20%23500%3B%20%7D%0Adiv%23refs%20p%20%7B%0Afont%2Dsize%3A%200%2E8em%3B%0Aline%2Dheight%3A%201em%3B%0Aborder%2Dleft%3A%205px%20solid%20rgb%2890%25%2C90%25%2C90%25%29%3B%0Apadding%2Dleft%3A%2010px%3B%0A%7D%0A%0Asection%20%7B%0Apadding%2Dtop%3A%20initial%3B%0Apadding%2Dbottom%3A%20initial%3B%0A%7D%0Aarticle%20%3E%20section%20%7B%0Apadding%2Dtop%3A%201rem%3B%0Apadding%2Dbottom%3A%201rem%3B%0A%7D%0A%0Ap%2Ebyline%20%7B%20font%2Dsize%3A%201%2E2rem%3B%20%7D%0A%0Atable%20%7B%0Aborder%2Dtop%3A%202px%20solid%20black%3B%0Aborder%2Dbottom%3A%202px%20solid%20black%3B%0A%7D%0Ath%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20black%3B%0A%7D%0Atd%2C%20th%20%7B%0Afont%2Dsize%3A%200%2E9rem%3B%0Apadding%3A%2010px%3B%0Atext%2Dalign%3A%20left%3B%0A%7D%0A%0Afigure%2Efullwidth%20table%20%7B%0Awidth%3A%2090%25%3B%0A%7D%0A%40media%20%28max%2Dwidth%3A%20760px%29%20%7B%0Afigure%2Efullwidth%20table%20%7B%0Awidth%3A%20100%25%3B%0A%7D%0A%7D%0A%0Adiv%2EsourceCode%2C%0Apre%3Anot%28%2EsourceCode%29%20%7B%0Apadding%3A%201%2E4rem%3B%0Amargin%3A%20%2D0%2E7rem%20%2D1%2E4rem%3B%0Awidth%3A%2055%25%3B%0Afont%2Dsize%3A%200%2E9rem%3B%0Aoverflow%2Dx%3A%20auto%3B%0A%7D%0Adiv%2EsourceCode%20code%2C%0Apre%3Anot%28%2EsourceCode%29%20code%20%7B%0Afont%2Dsize%3A%200%2E9rem%3B%0A%7D%0A%2Efullwidth%20div%2EsourceCode%2C%0A%2Efullwidth%20pre%3Anot%28%2EsourceCode%29%20%7B%0Awidth%3A%20100%25%3B%0A%7D%0A%0Adiv%2EsourceCode%20pre%20%7B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0A%7D%0A%40media%20%28max%2Dwidth%3A%20760px%29%20%7B%0Adiv%2EsourceCode%2C%0Apre%3Anot%28%2EsourceCode%29%20%7B%0Awidth%3A%20100%25%3B%0A%7D%0A%7D%0A%0A%2ElineNumbers%20pre%20%7B%0Aline%2Dheight%3A%201%2E42%3B%0Afont%2Dsize%3A%200%2E9rem%3B%0A%7D%0A">
+  <link rel="stylesheet" href="data:text/css,body%20%7B%20font%2Dfamily%3A%20%2Dapple%2Dsystem%2CBlinkMacSystemFont%2C%22Segoe%20UI%22%2CRoboto%2COxygen%2DSans%2CUbuntu%2CCantarell%2C%22Helvetica%20Neue%22%2Csans%2Dserif%3B%0Afont%2Dsize%3A%2016px%3B%0Amargin%3A%20auto%3B%0Amax%2Dwidth%3A%2029cm%3B%0A%7D%0A%0Aq%20%7B%20quotes%3A%20%22%E2%80%9C%22%20%22%E2%80%9D%22%20%22%E2%80%98%22%20%22%E2%80%99%22%3B%20%7D%0Aheader%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Amargin%3A%200%3B%0Amargin%2Dbottom%3A%202em%3B%0Aborder%2Dleft%3A%207px%20solid%20rgb%2890%25%2C90%25%2C90%25%29%3B%0Apadding%3A%201em%2010%25%201em%2010%25%3B%0A%7D%0Ah1%2Ch2%2Ch3%2Ch4%2Ch5%2Ch6%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Amargin%3A%202rem%200rem%200%2E4rem%200%2E5rem%3B%0A%7D%0Ah2%2Ch3%2Ch4%2Ch5%2Ch6%20%7B%0Amargin%2Dtop%3A%201rem%3B%0A%7D%0A%0Ah1%2Etitle%20%7B%0A%0Afont%2Dsize%3A%202%2E5em%3B%0Aline%2Dheight%3A%201%2E1em%3B%0A%7D%0A%0A%40page%20%7B%20size%3A%20A4%3B%0Amargin%3A%2020mm%3B%0Acounter%2Dincrement%3A%20page%3B%0A%0A%7D%0A%40page%3Aleft%20%7B%0Amargin%2Dright%3A%2035mm%3B%0A%40bottom%2Dleft%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2011px%3B%0Acontent%3A%20%22Page%20%22%20counter%28page%29%20%22%20of%20%22%20counter%28pages%29%3B%0A%7D%0A%7D%0A%40page%3Aright%20%7B%0Amargin%2Dleft%3A%2035mm%3B%0A%40bottom%2Dright%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2011px%3B%0Acontent%3A%20%22Page%20%22%20counter%28page%29%20%22%20of%20%22%20counter%28pages%29%3B%0A%7D%0A%7D%0Ap%2Eauthor%20%7B%0Afont%2Dweight%3A%20bold%3B%0Amargin%3A%200em%201em%200em%200em%3B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0Ap%20%7B%0Atext%2Dalign%3A%20justify%3B%0Aline%2Dheight%3A%201%2E75em%3B%0Amargin%3A%20auto%3B%0Amargin%2Dbottom%3A1em%3B%0Apadding%2Dleft%3A%201em%3B%0Apadding%2Dright%3A%201em%3B%0Az%2Dindex%3A%2010%3B%0A%7D%0Ablockquote%20%7B%0Afont%2Dfamily%3A%20%22Gill%20Sans%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0A%2Eauthor%5Faffiliations%20%7Bpadding%2Dleft%3A%201em%3B%20margin%2Dtop%3A1em%3B%7D%0A%2Eauthor%5Faffiliations%3A%3Abefore%20%7B%0Acontent%3A%20%22Affiliations%3A%20%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20grey%3B%0A%7D%0A%2Eaffiliation%2Ditem%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Amargin%2Dright%3A%2020px%3B%0A%7D%0A%2Ecorrespondence%20%7Bdisplay%3A%20none%3B%20padding%2Dleft%3A%201em%3B%20margin%2Dtop%3A1em%3B%7D%0A%2Ecorrespondence%3A%3Abefore%20%7B%0Acontent%3A%20%22Correspondence%3A%20%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20grey%3B%0A%7D%0A%2Ecorrespondence%2Ditem%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Amargin%2Dright%3A%2020px%3B%0A%7D%0A%2Edate%3A%3Abefore%20%7B%0Acontent%3A%20%22Date%3A%20%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20grey%3B%0A%7D%0Adel%20%7B%0Abackground%3A%20%23fae6e6%3B%0A%7D%0Ains%20%7B%0Abackground%3A%20%23ecfce6%0A%7D%0A%2Eannotation%20%7B%0Abackground%3A%20%23FFB%3B%0Acolor%3A%20%23333%3B%0A%7D%0Aaside%3A%3Abefore%2C%20%2Ecomment%3A%3Abefore%20%7B%0Acontent%3A%20%22%5B%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20%23222%3B%0A%7D%0Aaside%3A%3Aafter%2C%20%2Ecomment%3A%3Aafter%20%7B%0Acontent%3A%20%22%5D%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20%23222%3B%0A%7D%0Aaside%2C%20%2Ecomment%20%7B%0Abackground%3A%20%23FFB%3B%0Acolor%3A%20%23222%3B%0Aopacity%3A%200%2E5%3B%0Az%2Dindex%3A%20%2D1%3B%0A%7D%0Aaside%3Ahover%2C%20%2Ecomment%3Ahover%20%7B%20%7D%0Adiv%2Einfobox%2C%20div%2Einfo%2C%20div%2Etodo%2C%20div%2Ewarning%20%7B%0Afont%2Dsize%3A%200%2E9rem%3B%0Aline%2Dheight%3A%201em%3B%0Afloat%3A%20right%3B%0Awidth%3A%2030%25%3B%0Amargin%3A%205px%3B%0Apadding%3A%201px%3B%0Abackground%3A%20%23EEE%3B%0Aborder%2Dradius%3A%205px%3B%0Aborder%3A%201px%20solid%20%23DDD%3B%0Abox%2Dshadow%3A%202px%202px%205px%200px%20%23888%3B%0A%7D%0Adiv%2Einfo%3A%3Abefore%20%7B%20content%3A%20%22INFO%3A%20%22%3B%20font%2Dweight%3A%20bold%3B%20%7D%0Adiv%2Etodo%3A%3Abefore%20%7B%20content%3A%20%22TODO%3A%20%22%3B%20font%2Dweight%3A%20bold%3B%20%7D%0Adiv%2Ewarning%3A%3Abefore%20%7B%20content%3A%20%22WARNING%3A%20%22%3B%20font%2Dweight%3A%20bold%3B%20%7D%0Adiv%2Ewarning%20%7Bbackground%3A%20%23CCF%3B%7D%0Adiv%2Ewarning%20%7Bbackground%3A%20%23FCC%3B%7D%0Adiv%2Einfo%20p%2C%20div%2Etodo%20p%2C%20div%2Ewarning%20p%20%7B%20padding%3A%200%2E25em%3B%20%7D%0Afigure%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Dalign%3A%20center%3B%0Avertical%2Dalign%3A%20top%3B%0A%0Awidth%3A%2098%25%3B%0Afont%2Dsize%3A%200%2E8rem%3B%0Abackground%3A%20white%3B%0Aoverflow%3A%20visible%3B%0Aborder%2Dradius%3A%205px%3B%0Aborder%3A%201px%20solid%20%23EEE%3B%0Abox%2Dshadow%3A%201px%201px%208px%200px%20%23888%3B%0Apadding%3A%205px%3B%0Amargin%3A%200%200%200%2E5em%200%3B%0A%7D%0Afigure%2Enofloat%20%7B%0Afloat%3A%20none%3B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Dalign%3A%20center%3B%0Avertical%2Dalign%3A%20top%3B%0Aposition%3A%20relative%3B%0A%7D%0Afigure%20img%20%7B%0Amargin%2Dleft%3A%20auto%3B%0Amargin%2Dright%3A%20auto%3B%0Amax%2Dwidth%3A%20100%25%3B%0Amax%2Dheight%3A%2022cm%3B%0A%7D%0Afigcaption%20%7B%0Afont%2Dfamily%3A%20%22Avenir%20Next%22%2C%20%22helvetica%20Neue%22%2C%20sans%2Dserif%3B%0Aline%2Dheight%3A%201em%3B%0Atext%2Dalign%3A%20justify%3B%0A%7D%0Aa%20%7B%20color%3A%20%23500%3B%20%7D%0Adiv%23refs%20p%20%7B%0Afont%2Dsize%3A%200%2E8em%3B%0Aline%2Dheight%3A%201em%3B%0Aborder%2Dleft%3A%205px%20solid%20rgb%2890%25%2C90%25%2C90%25%29%3B%0Apadding%2Dleft%3A%2010px%3B%0A%7D%0A%0Asection%20%7B%0Apadding%2Dtop%3A%20initial%3B%0Apadding%2Dbottom%3A%20initial%3B%0A%7D%0Aarticle%20%3E%20section%20%7B%0Apadding%2Dtop%3A%201rem%3B%0Apadding%2Dbottom%3A%201rem%3B%0A%7D%0A%0Ap%2Ebyline%20%7B%20font%2Dsize%3A%201%2E2rem%3B%20%7D%0A%0Atable%20%7B%0Aborder%2Dtop%3A%202px%20solid%20black%3B%0Aborder%2Dbottom%3A%202px%20solid%20black%3B%0A%7D%0Ath%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20black%3B%0A%7D%0Atd%2C%20th%20%7B%0Afont%2Dsize%3A%200%2E9rem%3B%0Apadding%3A%2010px%3B%0Atext%2Dalign%3A%20left%3B%0A%7D%0A%0Afigure%2Efullwidth%20table%20%7B%0Awidth%3A%2090%25%3B%0A%7D%0A%40media%20%28max%2Dwidth%3A%20760px%29%20%7B%0Afigure%2Efullwidth%20table%20%7B%0Awidth%3A%20100%25%3B%0A%7D%0A%7D%0A%0Adiv%2EsourceCode%2C%0Apre%3Anot%28%2EsourceCode%29%20%7B%0Apadding%3A%201%2E4rem%3B%0Amargin%3A%20%2D0%2E7rem%20%2D1%2E4rem%3B%0Awidth%3A%2055%25%3B%0Afont%2Dsize%3A%200%2E9rem%3B%0Aoverflow%2Dx%3A%20auto%3B%0A%7D%0Adiv%2EsourceCode%20code%2C%0Apre%3Anot%28%2EsourceCode%29%20code%20%7B%0Afont%2Dsize%3A%200%2E9rem%3B%0A%7D%0A%2Efullwidth%20div%2EsourceCode%2C%0A%2Efullwidth%20pre%3Anot%28%2EsourceCode%29%20%7B%0Awidth%3A%20100%25%3B%0A%7D%0A%0Adiv%2EsourceCode%20pre%20%7B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0A%7D%0A%40media%20%28max%2Dwidth%3A%20760px%29%20%7B%0Adiv%2EsourceCode%2C%0Apre%3Anot%28%2EsourceCode%29%20%7B%0Awidth%3A%20100%25%3B%0A%7D%0A%7D%0A%0A%2ElineNumbers%20pre%20%7B%0Aline%2Dheight%3A%201%2E42%3B%0Afont%2Dsize%3A%200%2E9rem%3B%0A%7D%0A" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -182,14 +116,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title">Scrivener + Pandoc Workflow</h1>
 
 <p class="author-list">
-  <span property="author" typeof="Person">
-    John Doe</span><sup>1
-    
-    †</sup>,
-  <span property="author" typeof="Person">
-    Joanna Doe</span><sup>1,2
-    <a href="mailto:jo@caos.org">✉</a>
-    †</sup></p>
+  <span property="author" typeof="Person">John Doe</span><sup>1†</sup>, 
+  <span property="author" typeof="Person">Joanna Doe</span><sup>1,2<a href="mailto:jo@caos.org">✉</a>†</sup></p>
+
 <p class="author_contributions"><sup>†</sup> Authors contributed equally to this work.</p>
 
 <div class="author_affiliations">
@@ -203,8 +132,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p class="date">Thursday, 14 January 2021</p>
+<p class="date">Saturday, 23 October 2021</p>
 </header>
+
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#abstract">§1 — Abstract</a></li>
@@ -224,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#references">§6 — References</a></li>
 </ul>
 </nav>
-<div id="content">
+
 <section id="abstract" class="level1">
 <h1>§1 — Abstract</h1>
 <p><span class="smallcaps">Lørem ipsum dolør sit amet</span> <span class="citation" data-cites="siegel2015 crivellato2007">(<a href="#ref-crivellato2007" role="doc-biblioref"><span class="nodecoration">Crivellato</span> &amp; <span class="nodecoration">Ribatti</span> 2007</a>; <a href="#ref-siegel2015" role="doc-biblioref"><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span> 2015</a>)</span>, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p>
@@ -277,7 +207,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>§3 — Methods</h1>
 <section id="data-recording" class="level2">
 <h2>§3.1 — Data Recording</h2>
-<p>Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, inline maths: <span class="math inline"><em>e</em><sup><em>i</em><em>x</em></sup> = <em>r</em>(cos <em>θ</em> + <em>i</em>sin <em>θ</em>)</span>, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p>
+<p>Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, inline maths: <span class="math inline"><em>e</em><sup><em>i</em><em>x</em></sup> = <em>r</em>(cos<em>θ</em>+<em>i</em>sin<em>θ</em>)</span>, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p>
 <p><span class="math display"><em>x</em><sup><em>α</em></sup><em>e</em><sup><em>β</em><em>x</em><sup><em>γ</em></sup><em>e</em><sup><em>δ</em><em>x</em><sup><em>ϵ</em></sup></sup></sup></span></p>
 <p>Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum<span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span> 2015</a>)</span>, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Output &quot;I love Ruby&quot;</span></span>
@@ -352,7 +282,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Barrett L, &amp; Simmons W.<span class="nodecoration"> (2015)</span>. Interoceptive predictions in the brain. <em>Nature Reviews Neuroscience</em>, 16(7), 419–429. <a href="https://doi.org/10.1038/nrn3950">https://doi.org/10.1038/nrn3950</a>
 </div>
 <div id="ref-copenhaver2014" class="csl-entry" role="doc-biblioentry">
-Copenhaver R.<span class="nodecoration"> (2014)</span>. Berkeley on the language of nature and the objects of vision. <em>Res Philosophica</em>, 91(1), 29–46.
+Copenhaver R.<span class="nodecoration"> (2014)</span>. <a href>Berkeley on the language of nature and the objects of vision</a>. <em>Res Philosophica</em>, 91(1), 29–46.
 </div>
 <div id="ref-crivellato2007" class="csl-entry" role="doc-biblioentry">
 Crivellato E, &amp; Ribatti D.<span class="nodecoration"> (2007)</span>. Soul, mind, brain: Greek philosophy and the birth of neuroscience. <em>Brain Research Bulletin</em>, 71(4), 327–336. <a href="https://doi.org/10.1016/j.brainresbull.2006.09.020">https://doi.org/10.1016/j.brainresbull.2006.09.020</a>
@@ -370,6 +300,5 @@ Siegel S, &amp; Silins N.<span class="nodecoration"> (2015)</span>. The epistemo
 <li id="fn3" role="doc-endnote"><p>A final footnote.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
-</div>
 </body>
 </html>

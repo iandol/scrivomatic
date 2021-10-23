@@ -1,20 +1,19 @@
-% !TEX program = xelatex
-% !TEX encoding = UTF-8 Unicode
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{space}{xeCJK}
 %
 \documentclass[
   12pt,
   british,
   a4paper,
 ]{article}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{setspace}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -22,14 +21,14 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-    \setmainfont[]{Palatino}
-    \setsansfont[]{Gill Sans}
+  \setmainfont[]{Palatino}
+  \setsansfont[]{Gill Sans}
   \setmonofont[]{Menlo}
-  \ifxetex
+  \ifXeTeX
     \usepackage{xeCJK}
     \setCJKmainfont[]{Heiti SC}
   \fi
-  \ifluatex
+  \ifLuaTeX
     \usepackage[]{luatexja-fontspec}
     \setmainjfont[]{Heiti SC}
   \fi
@@ -69,15 +68,16 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            pdftitle={Scrivener + Pandoc Workflow},
-            pdfauthor={John Doe, Joanna Doe},
-            pdfkeywords={Pandoc, Scrivener, Workflow},
-            colorlinks=true,
-            linkcolor=Mahogany,
-            filecolor=Mahogany,
-            citecolor=Sepia,
-            urlcolor=BrickRed,
-            pdfcreator={Scrivomatic, Pandoc and LaTeX}}
+  pdftitle={Scrivener + Pandoc Workflow},
+  pdfauthor={John Doe, Joanna Doe},
+  pdflang={en-GB},
+  pdfkeywords={Pandoc, Scrivener, Workflow},
+  colorlinks=true,
+  linkcolor={Mahogany},
+  filecolor={Mahogany},
+  citecolor={Sepia},
+  urlcolor={BrickRed},
+  pdfcreator={Scrivomatic, Pandoc and LaTeX}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=2cm]{geometry}
 \usepackage{color}
@@ -118,7 +118,8 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -127,7 +128,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -140,32 +141,64 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\usepackage[normalem]{ulem}
+% Avoid problems with \sout in headers with hyperref
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\ifxetex
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifXeTeX
   % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
   \usepackage{polyglossia}
   \setmainlanguage[variant=british]{english}
 \else
-  \usepackage[shorthands=off,main=british]{babel}
+  \usepackage[main=british]{babel}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
 \usepackage{titling}
-\pretitle{\begin{center}\setstretch{1}\LARGE\sffamily\bfseries\itshape} 
+\pretitle{\begin{center}\setstretch{1}\LARGE\sffamily\bfseries\itshape}
 \posttitle{\par\end{center}} 
 \predate{\begin{center}\sffamily} 
 \postdate{\par\end{center}}
 \title{Scrivener + Pandoc Workflow}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \author{John Doe\textsuperscript{1†} \and Joanna
-Doe\textsuperscript{1,2*†}}
+\ifPDFTeX % if pdftex
+  \author{John Doe\textsuperscript{1 †},\quad Joanna
+Doe\textsuperscript{1,2 † *}}
 \else
-  \author{John Doe\textsuperscript{1†} \and Joanna
-Doe\textsuperscript{1,2\fixfontB{✉︎}†}}
+  \author{John Doe\textsuperscript{1 †},\quad Joanna
+Doe\textsuperscript{1,2 † \fixfontB{✉︎}}}
 \fi
-\date{Thursday, 14 January 2021}
+\date{Saturday, 23 October 2021}
 
 \begin{document}
 \maketitle
@@ -176,7 +209,7 @@ Doe\textsuperscript{1,2\fixfontB{✉︎}†}}
 (ICRI), Pacific Ocean.\quad\&\quad\textsuperscript{2} Center for
 Advanced Octopod Studies (CAOS), Atlantic Ocean.}
 
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\ifPDFTeX % if pdftex
 \textsf{* \emph{Joanna Doe \textless jo@caos.org\textgreater{}}}
 \else
 \textsf{\fixfontB{✉︎} \emph{Joanna Doe
@@ -185,7 +218,6 @@ Advanced Octopod Studies (CAOS), Atlantic Ocean.}
 
 \textsf{\textsuperscript{†} \small{\emph{These authors contributed equally to this work.}}}
 \end{center}
-
 
 
 {
@@ -214,8 +246,8 @@ adept at telling stories about patterns, whether they exist or not}. ---
 Michael Shermer
 \end{quote}
 
-\underline{Lørem ipsum dolør sit amet}, eu ipsum movet vix, veniam
-låoreet posidonium\footnote{This is a footnote, \textbf{with} a citation
+\uline{Lørem ipsum dolør sit amet}, eu ipsum movet vix, veniam låoreet
+posidonium\footnote{This is a footnote, \textbf{with} a citation
   (\protect\hyperlink{ref-crivellato2007}{{Crivellato} \& {Ribatti}
   2007}).} te eøs, eæm in veri eirmod
 (\protect\hyperlink{ref-crivellato2007}{{Crivellato} \& {Ribatti} 2007};
@@ -280,12 +312,11 @@ ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
-\textbf{Table Head 1} & \textbf{Table Head 2} & \textbf{Table Head
-3} \\ \addlinespace
+\textbf{Table Head 1} & \textbf{Table Head 2} & \textbf{Table Head 3} \\
 \midrule
 \endhead
-Item 1 & Item 2 & Item 3 \\ \addlinespace
-Item 4 & Item 5 & Item 6 \\ \addlinespace
+Item 1 & Item 2 & Item 3 \\
+Item 4 & Item 5 & Item 6 \\
 \bottomrule
 \end{longtable}
 
@@ -539,22 +570,22 @@ eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
-\leavevmode\hypertarget{ref-barrett2015}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-barrett2015}{}}%
 Barrett L, \& Simmons W.{ (2015)}. Interoceptive predictions in the
 brain. \emph{Nature Reviews Neuroscience}, 16(7), 419--429.
 \url{https://doi.org/10.1038/nrn3950}
 
-\leavevmode\hypertarget{ref-copenhaver2014}{}%
-Copenhaver R.{ (2014)}. Berkeley on the language of nature and the
-objects of vision. \emph{Res Philosophica}, 91(1), 29--46.
+\leavevmode\vadjust pre{\hypertarget{ref-copenhaver2014}{}}%
+Copenhaver R.{ (2014)}. \href{}{Berkeley on the language of nature and
+the objects of vision}. \emph{Res Philosophica}, 91(1), 29--46.
 
-\leavevmode\hypertarget{ref-crivellato2007}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-crivellato2007}{}}%
 Crivellato E, \& Ribatti D.{ (2007)}. Soul, mind, brain: Greek
 philosophy and the birth of neuroscience. \emph{Brain Research
 Bulletin}, 71(4), 327--336.
 \url{https://doi.org/10.1016/j.brainresbull.2006.09.020}
 
-\leavevmode\hypertarget{ref-siegel2015}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-siegel2015}{}}%
 Siegel S, \& Silins N.{ (2015)}. The epistemology of perception. In M.
 Matthen (Ed.), \emph{Oxford handbook of philosophy of perception} (pp.
 1--48). Oxford University Press.

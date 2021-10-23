@@ -1,5 +1,5 @@
 Scrivener + Pandoc Workflow
-Thursday, 14 January 2021
+Saturday, 23 October 2021
 
 -   §1 — Abstract
 -   §2 — Introduction
@@ -17,10 +17,10 @@ Authors: John Doe¹ † & Joanna Doe¹ ² <jo@caos.org>†
 
 † equal contribution
 
+Keywords: Pandoc; Scrivener; Workflow
+
 Affiliations: ¹ International Cephalopod Research Institute (ICRI), Pacific Ocean.; ²
 Center for Advanced Octopod Studies (CAOS), Atlantic Ocean.
-
-Keywords: Pandoc; Scrivener; Workflow
 
 Comments: To err is human; … err?
 
@@ -82,9 +82,9 @@ timeam, tale possit vis æt.
 §3.1 — Data Recording
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm
-in veri eirmod. Sed illum minimum at, inline maths: e^(ix) = r(cos θ + isin θ), est
-mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius
-utinam vivendum no, mei nostrud necessitatibus te?
+in veri eirmod. Sed illum minimum at, inline maths: e^(ix) = r(cosθ+isinθ), est mægna
+alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam
+vivendum no, mei nostrud necessitatibus te?
 
 x^(α)e^(βx^(γ)e^(δx^(ϵ)))
 
