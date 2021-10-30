@@ -205,7 +205,7 @@ class Scrivomatic
 		puts "\n===------ RUN LATEXMK on #{texPath}: ------===" if @options[:verbose] == true
 		if File.exist?(texFile)
 			@latexEngine = 'pdf' if @latexEngine =~ /pdflatex/
-			xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -pv -time -#{@latexEngine} -f #{texPath}"
+			xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -f -pv -time -#{@latexEngine} -f #{texPath}"
 			puts ":: directory: #{Dir.pwd}" if @options[:verbose] == true
 			puts ":: command: #{xcmd}" if @options[:verbose] == true
 			begin

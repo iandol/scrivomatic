@@ -64,7 +64,7 @@ Apart from **Scrivener** (V3.x minimum required for this workflow), you should i
 And then install `pandoc` using the `brew` command in the terminal:
 
 ```bash
-brew install pandoc pandoc-crossref
+brew install pandoc
 ```
 
 If you already installed `pandoc` manually, but want to use `brew` from now on, then you can use `brew link --overwrite ...` instead of `brew install ...`.
@@ -98,7 +98,7 @@ All folders starting with a `.` are a hidden by default, but you can open them i
 > open ~/.local/share/pandoc
 ```
 
-You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders of files Pandoc and pandocomatic use during converison. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping its contents into your `$HOME/.local/share/pandoc`, or if you know how to use `git` you can just clone (or fork) it from Github.
+You can [explore my working Pandoc folder here](https://github.com/iandol/dotpandoc). It is comprised of a series of subfolders of files `pandoc` and `pandocomatic` use during converison. You can *install* my Pandoc folder by [downloading it](https://github.com/iandol/dotpandoc/archive/master.zip) and unzipping its contents into your `$HOME/.local/share/pandoc`, or if you know how to use `git` you can just clone (or fork) it from Github (cloning offers the advantage that updating is a simple `git pull`).
 
 `pandocomatic` uses a configuration file usually stored at the root of the Pandoc data directory: `$HOME/.local/share/pandoc/pandocomatic.yaml`. A simplified sample `pandocomatic.yaml` [is viewable here](https://github.com/iandol/scrivomatic/blob/master/pandocomatic.yaml); this won't work without customisation, but it gives you an idea of how pandocomatic-templates work ([full documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#pandocomatic-templates)). The basic idea is you create several pandocomatic-templates, and each pandocomatic-templates collects together a bunch of settings and configurations to produce a particular output. So I have `docx` pandocomatic-templates which is a basic Word conversion, but also a `docx-refs` which runs the bibliographic tools to generates a bibliography automatically for a docx file output.
 
@@ -136,7 +136,7 @@ Out of habit, I prefer to use Scrivener links when cross-referencing documents /
 
 
 ## Compiling your Project: ##
-In Scrivener, I ensure to remove **_all_** compile–metadata specified in the compile user interface ([see screenshot here](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/remove-metadata.png)) so it doesn't interfere with the custom metadata front-matter. I create a document called something like **Pandoc metadata** containing the [YAML]() configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document, to insert the title or other data from Scrivener's extensive list (`Help ▸ List of All Placeholders…`). 
+In Scrivener, I ensure to remove **_all_** compile–metadata specified in the compile user interface ([see screenshot here](https://raw.githubusercontent.com/iandol/scrivomatic/master/images/remove-metadata.png)) so it doesn't interfere with the custom metadata file. I create a document called something like **Metadata** containing the [YAML]() configuration block right at the top ([read more detailed documentation here](https://heerdebeer.org/Software/markdown/pandocomatic/#customizing-an-external-template-in-an-internal-template)). You can use Scrivener placeholder tags in this document, to insert the title or other data from Scrivener's extensive list (`Help ▸ List of All Placeholders…`). 
 
 *  *  *  *
 **_IMPORTANT_: Scrivener's autocorrect will "smarten" quotation marks and dashes and can capitalise keys like `title` or `pandocomatic`, which will make Pandocomatic and Pandoc error, so please check keys like `title`, `author` & `pandocomatic` are _lowercase_, _straighten quotes_ and ensure the 3 hyphens are not converted into an em dash — also indentation in the metadata block must be *spaces* and not *tabs*.**  
