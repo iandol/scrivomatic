@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc,pandocomatic" />
+  <meta name="generator" content="pandoc &amp; pandocomatic" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="title" content="Scrivener + Pandoc Workflow" />
   <meta name="citation_title" content="Scrivener + Pandoc Workflow" /> 
@@ -86,9 +86,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-left: 1em;
-      margin-right: 1em;
-      margin-bottom: 0.5em;
     }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -106,7 +103,279 @@
       margin-left: 2em;
     }
   </style>
-  <link rel="stylesheet" href="data:text/css,body%20%7B%20font%2Dfamily%3A%20%2Dapple%2Dsystem%2CBlinkMacSystemFont%2C%22Segoe%20UI%22%2CRoboto%2COxygen%2DSans%2CUbuntu%2CCantarell%2C%22Helvetica%20Neue%22%2Csans%2Dserif%3B%0Afont%2Dsize%3A%2016px%3B%0Amargin%3A%20auto%3B%0Amax%2Dwidth%3A%2029cm%3B%0A%7D%0A%0Aq%20%7B%20quotes%3A%20%22%E2%80%9C%22%20%22%E2%80%9D%22%20%22%E2%80%98%22%20%22%E2%80%99%22%3B%20%7D%0Aheader%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Amargin%3A%200%3B%0Amargin%2Dbottom%3A%202em%3B%0Aborder%2Dleft%3A%207px%20solid%20rgb%2890%25%2C90%25%2C90%25%29%3B%0Apadding%3A%201em%2010%25%201em%2010%25%3B%0A%7D%0Ah1%2Ch2%2Ch3%2Ch4%2Ch5%2Ch6%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Amargin%3A%202rem%200rem%200%2E4rem%200%2E5rem%3B%0A%7D%0Ah2%2Ch3%2Ch4%2Ch5%2Ch6%20%7B%0Amargin%2Dtop%3A%201rem%3B%0A%7D%0A%0Ah1%2Etitle%20%7B%0A%0Afont%2Dsize%3A%202%2E5em%3B%0Aline%2Dheight%3A%201%2E1em%3B%0A%7D%0A%0A%40page%20%7B%20size%3A%20A4%3B%0Amargin%3A%2020mm%3B%0Acounter%2Dincrement%3A%20page%3B%0A%0A%7D%0A%40page%3Aleft%20%7B%0Amargin%2Dright%3A%2035mm%3B%0A%40bottom%2Dleft%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2011px%3B%0Acontent%3A%20%22Page%20%22%20counter%28page%29%20%22%20of%20%22%20counter%28pages%29%3B%0A%7D%0A%7D%0A%40page%3Aright%20%7B%0Amargin%2Dleft%3A%2035mm%3B%0A%40bottom%2Dright%20%7B%0Afont%2Dfamily%3A%20%22Athelas%22%2C%20%22Palatino%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2011px%3B%0Acontent%3A%20%22Page%20%22%20counter%28page%29%20%22%20of%20%22%20counter%28pages%29%3B%0A%7D%0A%7D%0Ap%2Eauthor%20%7B%0Afont%2Dweight%3A%20bold%3B%0Amargin%3A%200em%201em%200em%200em%3B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0Ap%20%7B%0Atext%2Dalign%3A%20justify%3B%0Aline%2Dheight%3A%201%2E75em%3B%0Amargin%3A%20auto%3B%0Amargin%2Dbottom%3A1em%3B%0Apadding%2Dleft%3A%201em%3B%0Apadding%2Dright%3A%201em%3B%0Az%2Dindex%3A%2010%3B%0A%7D%0Ablockquote%20%7B%0Afont%2Dfamily%3A%20%22Gill%20Sans%22%2C%20%22Avenir%20Next%22%2C%20sans%2Dserif%3B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0A%2Eauthor%5Faffiliations%20%7Bpadding%2Dleft%3A%201em%3B%20margin%2Dtop%3A1em%3B%7D%0A%2Eauthor%5Faffiliations%3A%3Abefore%20%7B%0Acontent%3A%20%22Affiliations%3A%20%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20grey%3B%0A%7D%0A%2Eaffiliation%2Ditem%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Amargin%2Dright%3A%2020px%3B%0A%7D%0A%2Ecorrespondence%20%7Bdisplay%3A%20none%3B%20padding%2Dleft%3A%201em%3B%20margin%2Dtop%3A1em%3B%7D%0A%2Ecorrespondence%3A%3Abefore%20%7B%0Acontent%3A%20%22Correspondence%3A%20%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20grey%3B%0A%7D%0A%2Ecorrespondence%2Ditem%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Amargin%2Dright%3A%2020px%3B%0A%7D%0A%2Edate%3A%3Abefore%20%7B%0Acontent%3A%20%22Date%3A%20%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20grey%3B%0A%7D%0Adel%20%7B%0Abackground%3A%20%23fae6e6%3B%0A%7D%0Ains%20%7B%0Abackground%3A%20%23ecfce6%0A%7D%0A%2Eannotation%20%7B%0Abackground%3A%20%23FFB%3B%0Acolor%3A%20%23333%3B%0A%7D%0Aaside%3A%3Abefore%2C%20%2Ecomment%3A%3Abefore%20%7B%0Acontent%3A%20%22%5B%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20%23222%3B%0A%7D%0Aaside%3A%3Aafter%2C%20%2Ecomment%3A%3Aafter%20%7B%0Acontent%3A%20%22%5D%22%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20%23222%3B%0A%7D%0Aaside%2C%20%2Ecomment%20%7B%0Abackground%3A%20%23FFB%3B%0Acolor%3A%20%23222%3B%0Aopacity%3A%200%2E5%3B%0Az%2Dindex%3A%20%2D1%3B%0A%7D%0Aaside%3Ahover%2C%20%2Ecomment%3Ahover%20%7B%20%7D%0Adiv%2Einfobox%2C%20div%2Einfo%2C%20div%2Etodo%2C%20div%2Ewarning%20%7B%0Afont%2Dsize%3A%200%2E9rem%3B%0Aline%2Dheight%3A%201em%3B%0Afloat%3A%20right%3B%0Awidth%3A%2030%25%3B%0Amargin%3A%205px%3B%0Apadding%3A%201px%3B%0Abackground%3A%20%23EEE%3B%0Aborder%2Dradius%3A%205px%3B%0Aborder%3A%201px%20solid%20%23DDD%3B%0Abox%2Dshadow%3A%202px%202px%205px%200px%20%23888%3B%0A%7D%0Adiv%2Einfo%3A%3Abefore%20%7B%20content%3A%20%22INFO%3A%20%22%3B%20font%2Dweight%3A%20bold%3B%20%7D%0Adiv%2Etodo%3A%3Abefore%20%7B%20content%3A%20%22TODO%3A%20%22%3B%20font%2Dweight%3A%20bold%3B%20%7D%0Adiv%2Ewarning%3A%3Abefore%20%7B%20content%3A%20%22WARNING%3A%20%22%3B%20font%2Dweight%3A%20bold%3B%20%7D%0Adiv%2Ewarning%20%7Bbackground%3A%20%23CCF%3B%7D%0Adiv%2Ewarning%20%7Bbackground%3A%20%23FCC%3B%7D%0Adiv%2Einfo%20p%2C%20div%2Etodo%20p%2C%20div%2Ewarning%20p%20%7B%20padding%3A%200%2E25em%3B%20%7D%0Afigure%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Dalign%3A%20center%3B%0Avertical%2Dalign%3A%20top%3B%0A%0Awidth%3A%2098%25%3B%0Afont%2Dsize%3A%200%2E8rem%3B%0Abackground%3A%20white%3B%0Aoverflow%3A%20visible%3B%0Aborder%2Dradius%3A%205px%3B%0Aborder%3A%201px%20solid%20%23EEE%3B%0Abox%2Dshadow%3A%201px%201px%208px%200px%20%23888%3B%0Apadding%3A%205px%3B%0Amargin%3A%200%200%200%2E5em%200%3B%0A%7D%0Afigure%2Enofloat%20%7B%0Afloat%3A%20none%3B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Dalign%3A%20center%3B%0Avertical%2Dalign%3A%20top%3B%0Aposition%3A%20relative%3B%0A%7D%0Afigure%20img%20%7B%0Amargin%2Dleft%3A%20auto%3B%0Amargin%2Dright%3A%20auto%3B%0Amax%2Dwidth%3A%20100%25%3B%0Amax%2Dheight%3A%2022cm%3B%0A%7D%0Afigcaption%20%7B%0Afont%2Dfamily%3A%20%22Avenir%20Next%22%2C%20%22helvetica%20Neue%22%2C%20sans%2Dserif%3B%0Aline%2Dheight%3A%201em%3B%0Atext%2Dalign%3A%20justify%3B%0A%7D%0Aa%20%7B%20color%3A%20%23500%3B%20%7D%0Adiv%23refs%20p%20%7B%0Afont%2Dsize%3A%200%2E8em%3B%0Aline%2Dheight%3A%201em%3B%0Aborder%2Dleft%3A%205px%20solid%20rgb%2890%25%2C90%25%2C90%25%29%3B%0Apadding%2Dleft%3A%2010px%3B%0A%7D%0A%0Asection%20%7B%0Apadding%2Dtop%3A%20initial%3B%0Apadding%2Dbottom%3A%20initial%3B%0A%7D%0Aarticle%20%3E%20section%20%7B%0Apadding%2Dtop%3A%201rem%3B%0Apadding%2Dbottom%3A%201rem%3B%0A%7D%0A%0Ap%2Ebyline%20%7B%20font%2Dsize%3A%201%2E2rem%3B%20%7D%0A%0Atable%20%7B%0Aborder%2Dtop%3A%202px%20solid%20black%3B%0Aborder%2Dbottom%3A%202px%20solid%20black%3B%0A%7D%0Ath%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20black%3B%0A%7D%0Atd%2C%20th%20%7B%0Afont%2Dsize%3A%200%2E9rem%3B%0Apadding%3A%2010px%3B%0Atext%2Dalign%3A%20left%3B%0A%7D%0A%0Afigure%2Efullwidth%20table%20%7B%0Awidth%3A%2090%25%3B%0A%7D%0A%40media%20%28max%2Dwidth%3A%20760px%29%20%7B%0Afigure%2Efullwidth%20table%20%7B%0Awidth%3A%20100%25%3B%0A%7D%0A%7D%0A%0Adiv%2EsourceCode%2C%0Apre%3Anot%28%2EsourceCode%29%20%7B%0Apadding%3A%201%2E4rem%3B%0Amargin%3A%20%2D0%2E7rem%20%2D1%2E4rem%3B%0Awidth%3A%2055%25%3B%0Afont%2Dsize%3A%200%2E9rem%3B%0Aoverflow%2Dx%3A%20auto%3B%0A%7D%0Adiv%2EsourceCode%20code%2C%0Apre%3Anot%28%2EsourceCode%29%20code%20%7B%0Afont%2Dsize%3A%200%2E9rem%3B%0A%7D%0A%2Efullwidth%20div%2EsourceCode%2C%0A%2Efullwidth%20pre%3Anot%28%2EsourceCode%29%20%7B%0Awidth%3A%20100%25%3B%0A%7D%0A%0Adiv%2EsourceCode%20pre%20%7B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0A%7D%0A%40media%20%28max%2Dwidth%3A%20760px%29%20%7B%0Adiv%2EsourceCode%2C%0Apre%3Anot%28%2EsourceCode%29%20%7B%0Awidth%3A%20100%25%3B%0A%7D%0A%7D%0A%0A%2ElineNumbers%20pre%20%7B%0Aline%2Dheight%3A%201%2E42%3B%0Afont%2Dsize%3A%200%2E9rem%3B%0A%7D%0A" />
+  <style type="text/css">body { font-family: "Greta Sans Pro", -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+font-size: 18px;
+margin: auto;
+max-width: 29cm;
+}
+
+q { quotes: "“" "”" "‘" "’"; }
+header {
+font-family: "Greta Text Pro", "Athelas", "Palatino", "Avenir Next", sans-serif;
+margin: 0;
+margin-bottom: 2em;
+border-left: 7px solid rgb(90%,90%,90%);
+padding: 1em 10% 1em 10%;
+}
+h1,h2,h3,h4,h5,h6 {
+font-family: "Greta Text Pro", "Athelas", "Palatino", "Avenir Next", sans-serif;
+margin: 2rem 0rem 0.4rem 0.5rem;
+}
+h2,h3,h4,h5,h6 {
+margin-top: 1rem;
+}
+
+h1.title {
+
+font-size: 2.5em;
+line-height: 1.1em;
+}
+
+@page { size: A4;
+margin: 18mm;
+counter-increment: page;
+
+}
+@page:left {
+margin-right: 35mm;
+@bottom-left {
+font-family: "Greta Text Pro", "Athelas", "Palatino", "Avenir Next", sans-serif;
+font-size: 9px;
+content: "Page " counter(page) " of " counter(pages);
+}
+}
+@page:right {
+margin-left: 35mm;
+@bottom-right {
+font-family: "Greta Text Pro", "Athelas", "Palatino", "Avenir Next", sans-serif;
+font-size: 9px;
+content: "Page " counter(page) " of " counter(pages);
+}
+}
+p.subtitle {
+text-align: center;
+font-weight: bold;
+font-style: italic;
+font-size: 115%;
+}
+p.author {
+margin: 0em 1em 0em 0em;
+display: inline-block;
+}
+p.author-list {
+text-align: center;
+font-weight: bold;
+font-size: 125%;
+}
+p {
+text-align: justify;
+line-height: 1.75em;
+margin: auto;
+margin-bottom:1em;
+padding-left: 1em;
+padding-right: 1em;
+z-index: 10;
+}
+blockquote {
+font-family: "Graublau Slab", "Gill Sans", "Avenir Next", sans-serif;
+font-style: italic;
+}
+p.author_contributions {
+font-size: 90%;
+text-align: center;
+font-style: italic;
+}
+.author_affiliations {padding-left: 1em; margin-top:2em;}
+.author_affiliations::before {
+content: "Affiliations: ";
+font-weight: bold;
+color: grey;
+}
+.affiliation-item {
+display: inline-block;
+margin-right: 15px;
+}
+.correspondence {padding-left: 1em; margin-top:2em;}
+.correspondence::before {
+content: "Correspondence: ";
+font-weight: bold;
+color: grey;
+}
+.correspondence-item {
+display: inline-block;
+margin-right: 15px;
+}
+.email {padding-left: 1em; margin-top:2em;}
+.email::before {
+content: "E-mail: ";
+font-weight: bold;
+color: grey;
+}
+.email-item {
+display: inline-block;
+margin-right: 15px;
+}
+.abstract {padding-left: 1em; margin-top:2em;}
+.abstract::before {
+content: "Abstract: ";
+font-weight: bold;
+color: grey;
+}
+.abstract {padding-left: 1em; margin-top:2em;}
+.date::before {
+content: "Date: ";
+font-weight: bold;
+color: grey;
+}
+del {
+background: #fae6e6;
+}
+ins {
+background: #ecfce6
+}
+.annotation {
+background: #FFB;
+color: #333;
+}
+aside::before, .comment::before {
+content: "[";
+font-weight: bold;
+color: #222;
+}
+aside::after, .comment::after {
+content: "]";
+font-weight: bold;
+color: #222;
+}
+aside, .comment {
+background: #FFB;
+color: #222;
+opacity: 0.5;
+z-index: -1;
+}
+aside:hover, .comment:hover { }
+div.infobox, div.info, div.todo, div.warning {
+font-size: 0.9rem;
+line-height: 1em;
+float: right;
+width: 30%;
+margin: 5px;
+padding: 1px;
+background: #EEE;
+border-radius: 5px;
+border: 1px solid #DDD;
+box-shadow: 2px 2px 5px 0px #888;
+}
+div.info::before { content: "INFO: "; font-weight: bold; }
+div.todo::before { content: "TODO: "; font-weight: bold; }
+div.warning::before { content: "WARNING: "; font-weight: bold; }
+div.warning {background: #CCF;}
+div.warning {background: #FCC;}
+div.info p, div.todo p, div.warning p { padding: 0.25em; }
+figure {
+display: inline-block;
+text-align: center;
+vertical-align: top;
+
+width: 98%;
+font-size: 0.8rem;
+background: white;
+overflow: visible;
+border-radius: 5px;
+border: 1px solid #EEE;
+box-shadow: 1px 1px 8px 0px #888;
+padding: 5px;
+margin: 0 0 0.5em 0;
+}
+figure.nofloat {
+float: none;
+display: inline-block;
+text-align: center;
+vertical-align: top;
+position: relative;
+}
+figure img {
+margin-left: auto;
+margin-right: auto;
+max-width: 100%;
+max-height: 22cm;
+}
+figcaption {
+font-family: "Avenir Next", "helvetica Neue", sans-serif;
+line-height: 1em;
+text-align: justify;
+}
+a { color: #500; }
+div#refs p {
+font-size: 0.8em;
+line-height: 1em;
+border-left: 5px solid rgb(90%,90%,90%);
+padding-left: 10px;
+}
+
+section {
+padding-top: initial;
+padding-bottom: initial;
+}
+article > section {
+padding-top: 1rem;
+padding-bottom: 1rem;
+}
+
+p.byline { font-size: 1.2rem; }
+
+table {
+border-top: 2px solid black;
+border-bottom: 2px solid black;
+}
+th {
+border-bottom: 1px solid black;
+}
+td, th {
+font-size: 0.9rem;
+padding: 10px;
+text-align: left;
+}
+
+figure.fullwidth table {
+width: 90%;
+}
+@media (max-width: 760px) {
+figure.fullwidth table {
+width: 100%;
+}
+}
+
+div.sourceCode,
+pre:not(.sourceCode) {
+font-size: 0.9rem;
+overflow-x: auto;
+}
+div.sourceCode code,
+pre:not(.sourceCode) code {
+font-size: 0.9rem;
+}
+.fullwidth div.sourceCode,
+.fullwidth pre:not(.sourceCode) {
+width: 100%;
+}
+
+div.sourceCode pre {
+padding: 0;
+margin: 0;
+}
+@media (max-width: 760px) {
+div.sourceCode,
+pre:not(.sourceCode) {
+width: 100%;
+}
+}
+
+.lineNumbers pre {
+line-height: 1.42;
+font-size: 0.9rem;
+}
+</style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -116,8 +385,8 @@
 <h1 class="title">Scrivener + Pandoc Workflow</h1>
 
 <p class="author-list">
-  <span property="author" typeof="Person">John Doe</span><sup>1†</sup>, 
-  <span property="author" typeof="Person">Joanna Doe</span><sup>1,2<a href="mailto:jo@caos.org">✉</a>†</sup></p>
+  <span class="author" property="author" typeof="Person">John Doe</span><sup>1†</sup>, 
+  <span class="author" property="author" typeof="Person">Joanna Doe</span><sup>1,2<a href="mailto:jo@caos.org">✉</a>†</sup></p>
 
 <p class="author_contributions"><sup>†</sup> Authors contributed equally to this work.</p>
 
@@ -132,7 +401,7 @@
 
 
 
-<p class="date">Saturday, 23 October 2021</p>
+<p class="date">Friday, 12 November 2021</p>
 </header>
 
 <nav id="TOC" role="doc-toc">
@@ -292,7 +561,7 @@ Siegel S, &amp; Silins N.<span class="nodecoration"> (2015)</span>. The epistemo
 </div>
 </div>
 </section>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>This is a footnote, <strong>with</strong> a citation <span class="citation" data-cites="crivellato2007">(<a href="#ref-crivellato2007" role="doc-biblioref"><span class="nodecoration">Crivellato</span> &amp; <span class="nodecoration">Ribatti</span> 2007</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

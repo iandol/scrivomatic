@@ -6,7 +6,6 @@
 %
 \documentclass[
   12pt,
-  british,
   a4paper,
 ]{article}
 \usepackage{amsmath,amssymb}
@@ -34,8 +33,13 @@
   \fi
 \fi
 % use Cambria/Arial Unicode to fix some font substitution problems for e.g. ⬄
+\ifPDFTeX
+
+\else
 \newfontfamily\fixfont[]{Cambria}
 \newfontfamily\fixfontB[]{Arial Unicode MS}
+\fi
+
 % customise titles
 \usepackage{xcolor}
 \usepackage{titlesec}
@@ -171,16 +175,15 @@
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
-\ifXeTeX
-  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
-  \usepackage{polyglossia}
-  \setmainlanguage[variant=british]{english}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
 \else
-  \usepackage[main=british]{babel}
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{british}
 % get rid of language-specific shorthands (see #6817):
 \let\LanguageShortHands\languageshorthands
 \def\languageshorthands#1{}
-\fi
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -192,13 +195,13 @@
 \postdate{\par\end{center}}
 \title{Scrivener + Pandoc Workflow}
 \ifPDFTeX % if pdftex
-  \author{John Doe\textsuperscript{1 †},\quad Joanna
-Doe\textsuperscript{1,2 † *}}
+  \author{\textsf{John Doe\textsuperscript{1 †},\quad Joanna
+Doe\textsuperscript{1,2 † *}}}
 \else
-  \author{John Doe\textsuperscript{1 †},\quad Joanna
-Doe\textsuperscript{1,2 † \fixfontB{✉︎}}}
+  \author{\textsf{John Doe\textsuperscript{1 †},\quad Joanna
+Doe\textsuperscript{1,2 † \fixfontB{✉︎}}}}
 \fi
-\date{Saturday, 23 October 2021}
+\date{Friday, 12 November 2021}
 
 \begin{document}
 \maketitle
@@ -209,14 +212,16 @@ Doe\textsuperscript{1,2 † \fixfontB{✉︎}}}
 (ICRI), Pacific Ocean.\quad\&\quad\textsuperscript{2} Center for
 Advanced Octopod Studies (CAOS), Atlantic Ocean.}
 
-\ifPDFTeX % if pdftex
-\textsf{* \emph{Joanna Doe \textless jo@caos.org\textgreater{}}}
+\ifPDFTeX
+\textsf{*\emph{Joanna Doe \textless jo@caos.org\textgreater{}}}
 \else
 \textsf{\fixfontB{✉︎} \emph{Joanna Doe
 \textless jo@caos.org\textgreater{}}}
 \fi
 
 \textsf{\textsuperscript{†} \small{\emph{These authors contributed equally to this work.}}}
+
+
 \end{center}
 
 

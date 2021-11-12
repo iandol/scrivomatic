@@ -1,6 +1,9 @@
 ---
-# Standard Scrivener+Pandoc Project YAML metadata
-# IMPORTANT: YAML configuration files use SPACES for indentation to define structure, remember to straighten any smart quotes, and don't capitalise metadata keys like "author" or "title", they must be lowercase!
+# Standard Scrivener + Pandoc[omatic] Project YAML metadata
+# IMPORTANT: YAML configuration files use SPACES for indentation to 
+# define structure, remember to straighten any smart quotes, and don't
+# capitalise metadata keys like "author" or "title", they must be 
+# lowercase! Use "Show Invisibles" in Scrivener to see spaces.
 title: "Scrivener + Pandoc Workflow"
 author:
   - name: John Doe
@@ -11,17 +14,17 @@ author:
     correspondence: jo@caos.org
     equal_contributor: true
 institute:
-  - ^1^ International Cephalopod Research Institute (ICRI), Pacific Ocean.
-  - ^2^ Center for Advanced Octopod Studies (CAOS), Atlantic Ocean.
+  - 1: International Cephalopod Research Institute (ICRI), Pacific Ocean.
+  - 2: Center for Advanced Octopod Studies (CAOS), Atlantic Ocean.
 keywords:
   - Pandoc
   - Scrivener
   - Workflow
 lang: en
-compiled: 23/10/2021
-date: Saturday, 23 October 2021
+compiled: 12/11/2021
+date: Friday, 12 November 2021
 comments: "To err is human; … err?"
-# Select which templates pandocomatic will use
+# Select which templates pandocomatic will use,
 # you can enter overrides to the templates here as well
 pandocomatic_:
   use-template:
@@ -30,9 +33,6 @@ pandocomatic_:
     - paper-with-refs-text
     - paper-with-refs-html
 ---
-
-
-
 
 # §1 — Abstract #
 

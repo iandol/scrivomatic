@@ -257,14 +257,16 @@ In the case of `Strong` and `Emphasis`, there is no need to enter the full menu 
 _Figure 7 — Rebinding macOS keys to Scrivener Styles in BTT._
 
 ### Working with Bookends Reference Manager ###
-[Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary citations for Scrivener in a format fully compatible with Pandoc. To set this up I'd first follow the excellent tutorial here:
+[Bookends](http://www.sonnysoftware.com/) is an excellent reference manager for macOS which can be configured to output temporary-citations for Scrivener in a format fully compatible with Pandoc. To export your references, the best way is to use the new feature in [Bookends V14.0.1+](https://www.sonnysoftware.com/updates/updatehistory.html) where Bookends creates and keeps a BibTeX file synced to your main database. To set this up I'd first follow the excellent tutorial here (from step 1):
 
 [BSAG » Bookends and Pandoc](https://www.rousette.org.uk/archives/bookends-and-pandoc/)
 
-To export your references as a file Pandoc can read (usually a BibTeX file) you can do tht manually from the Bookends GUI. However, you can do this automatically every day or so using [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript), you can specify an output folder and comma-separated list of groups via command-line input. This script can also be run directly from [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools). I would recommend setting the option to save a JSON instead of BibTeX as Pandoc parses the JSON ~3X faster when processing documents, and with a big reference database that can save quite a lot of time!
+Previous versions of Bookends can export BibTeX manually, or you could use [this applescript](https://raw.githubusercontent.com/iandol/bookends-tools/master/source/toBibTeX.applescript) to trigger an export from other tools (for example it is contained in [Bookends Tools for Alfred](https://github.com/iandol/bookends-tools)).
+
+A JSON bibliography file can be parsed about 3X faster than a BibTeX file by Pandoc, so if you want to speed up compilation, then you can create a launchd script to run BibTeX->JSON conversion on each update, see this [forum post for more information](https://www.sonnysoftware.com/phpBB3/viewtopic.php?p=25644#p25644).
 
 ### Minimal LaTeX Install ###
-I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) (can install with brew: `brew cask install basictex`) — and for Pandoc's templates to work I've determined the following additional packages are needed (installed easily with the command line tool `tlmgr` that comes with TeX, or with [TeX Live Utility](http://amaxwell.github.io/tlutility/)):
+I prefer to use the minimal LaTeX installer found here: [BasicTeX Installer](http://www.tug.org/mactex/morepackages.html) (I install with brew of course: `brew install basictex`) — and for Pandoc's templates to work I've determined the following additional packages are needed (installed easily with the command line tool `tlmgr` that comes with TeX, or with the [TeX Live Utility](http://amaxwell.github.io/tlutility/)):
 
 ~~~bash
 sudo tlmgr install lm-math lualatex-math luatexja abstract \

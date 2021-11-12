@@ -1,5 +1,5 @@
 Scrivener + Pandoc Workflow
-Saturday, 23 October 2021
+Friday, 12 November 2021
 
 -   §1 — Abstract
 -   §2 — Introduction
