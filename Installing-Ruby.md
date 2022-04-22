@@ -34,17 +34,17 @@ rbenv init
 ```
 
 
-The [instructions](https://github.com/rbenv/rbenv#homebrew-on-macos) tell you to add `eval "rbenv init -"` in your `.bash_profile` or `.zshrc`, so you can do this using the following command (replace `.bash_profile` with `.zshrc` if you use `zsh`):
+The [instructions](https://github.com/rbenv/rbenv#homebrew-on-macos) tell you to add `eval "rbenv init -"` in your `.zshrc` or `.bash_profile`, so you can do this using the following command (replace `.zshrc` with `.bash_profile` if you still use `bash`):
 
 ```shell
-echo '\neval "$(rbenv init -)"' >> ~/.bash_profile
+echo '\neval "$(rbenv init -)"' >> ~/.zsh
 ```
 
-Restart your terminal to trigger this adjustment, then install a modern ruby and finally pandocomatic:
+Restart your terminal to trigger this adjustment, then install a modern ruby (you can see a list with `rbenv install -l`) and finally pandocomatic:
 
 ```shell
-rbenv install 3.0.2
-rbenv global 3.0.2
+rbenv install 3.1.2
+rbenv global 3.1.2
 gem install paru pandocomatic
 ```
 
