@@ -17,7 +17,7 @@ class Scrivomatic
 	# pandocomatic/panzer from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.30'.freeze
+	VER = '1.0.31'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -151,7 +151,7 @@ class Scrivomatic
 	def makePath
 		pathtest = [ENV['HOME']+'/.rbenv/shims', 
 			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
-			'/Library/TeX/texbin', '/usr/local/bin', 
+			'/Library/TeX/texbin', '/opt/homebrew/bin', '/usr/local/bin', 
 			ENV['HOME']+'/anaconda/bin', ENV['HOME']+'/anaconda3/bin',
 			ENV['HOME']+'/miniconda/bin', ENV['HOME']+'/miniconda3/bin',
 			ENV['HOME']+'/.cabal/bin', ENV['HOME']+'/.local/bin', 
