@@ -1,5 +1,5 @@
 Scrivener + Pandoc Workflow
-Friday, 12 November 2021
+Monday, 25 April 2022
 
 -   §1 — Abstract
 -   §2 — Introduction
@@ -13,7 +13,7 @@ Friday, 12 November 2021
 -   §5 — Discussion
 -   §6 — References
 
-Authors: John Doe¹ † & Joanna Doe¹ ² <jo@caos.org>†
+Authors: John Doe¹ † & Joanna Doe¹ ² jo@caos.org†
 
 † equal contribution
 
@@ -50,12 +50,13 @@ has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ e
 mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque
 sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.
 
-Ad pro quod ^(definitiønem), mel no laudem _(delectus) (Copenhaver 2014; Siegel &
-Silins 2015), te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an
-iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet
-feugiåt pårtiendo (Crivellato & Ribatti 2007; Barrett & Simmons 2015)! Eam in ubique
-høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril
-åliquando omittantur, no mei graeci impedit deterruisset!
+Ad pro quod ^(definitiønem), mel no laudem _(delectus) [Siegel & Silins (2015);
+Copenhaver (2014); Hoffman & Prakash (2014); barrett2015; Simmons (2013)], te mei
+prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus
+åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo
+(Crivellato & Ribatti 2007; Barrett & Simmons 2015)! Eam in ubique høneståtis
+ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando
+omittantur, no mei graeci impedit deterruisset!
 
 -   Item 1
 -   Item 2
@@ -284,8 +285,14 @@ Crivellato E, & Ribatti D. (2007). Soul, mind, brain: Greek philosophy and the b
 of neuroscience. Brain Research Bulletin, 71(4), 327–336.
 https://doi.org/10.1016/j.brainresbull.2006.09.020
 
+Hoffman DD, & Prakash C. (2014). Objects of consciousness. Frontiers in Psychology,
+5, 577. https://doi.org/10.3389/fpsyg.2014.00577
+
 Siegel S, & Silins N. (2015). The epistemology of perception. In M. Matthen (Ed.),
 Oxford handbook of philosophy of perception (pp. 1–48). Oxford University Press.
+
+Simmons A. (2013). Perception in early modern philosophy. In M. Matthen (Ed.), The
+oxford handbook of philosophy of perception. Oxford: Oxford University Press.
 
 [1] This is a footnote, with a citation (Crivellato & Ribatti 2007).
 

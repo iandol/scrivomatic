@@ -201,7 +201,7 @@ Doe\textsuperscript{1,2 † *}}}
   \author{\textsf{John Doe\textsuperscript{1 †},\quad Joanna
 Doe\textsuperscript{1,2 † \fixfontB{✉︎}}}}
 \fi
-\date{Friday, 12 November 2021}
+\date{Monday, 25 April 2022}
 
 \begin{document}
 \maketitle
@@ -213,10 +213,11 @@ Doe\textsuperscript{1,2 † \fixfontB{✉︎}}}}
 Advanced Octopod Studies (CAOS), Atlantic Ocean.}
 
 \ifPDFTeX
-\textsf{*\emph{Joanna Doe \textless jo@caos.org\textgreater{}}}
+\textsf{*\emph{Joanna Doe
+\href{mailto:jo@caos.org}{\nolinkurl{jo@caos.org}}}}
 \else
 \textsf{\fixfontB{✉︎} \emph{Joanna Doe
-\textless jo@caos.org\textgreater{}}}
+\href{mailto:jo@caos.org}{\nolinkurl{jo@caos.org}}}}
 \fi
 
 \textsf{\textsuperscript{†} \small{\emph{These authors contributed equally to this work.}}}
@@ -280,17 +281,18 @@ duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus
 persecuti vix cu, \textbf{\emph{his åt justo putant comprehensam}}.
 
 Ad pro quod \textsuperscript{definitiønem}, mel no laudem
-\textsubscript{delectus}
-(\protect\hyperlink{ref-copenhaver2014}{{Copenhaver} 2014};
-\protect\hyperlink{ref-siegel2015}{{Siegel} \& {Silins} 2015}), te mei
-prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure
-øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his
-movet feugiåt pårtiendo
-(\protect\hyperlink{ref-crivellato2007}{{Crivellato} \& {Ribatti} 2007};
-\protect\hyperlink{ref-barrett2015}{{Barrett} \& {Simmons} 2015})! Eam
-in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id
-amet alienum, vis id zril åliquando omittantur, no mei graeci impedit
-{deterruisset}!
+\textsubscript{delectus} {[}{Siegel} \& {Silins}
+(\protect\hyperlink{ref-siegel2015}{2015}); {Copenhaver}
+(\protect\hyperlink{ref-copenhaver2014}{2014}); {Hoffman} \& {Prakash}
+(\protect\hyperlink{ref-hoffman2014}{2014}); barrett2015; {Simmons}
+(\protect\hyperlink{ref-simmons2013}{2013}){]}, te mei prompta maiorum
+pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus
+åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt
+pårtiendo (\protect\hyperlink{ref-crivellato2007}{{Crivellato} \&
+{Ribatti} 2007}; \protect\hyperlink{ref-barrett2015}{{Barrett} \&
+{Simmons} 2015})! Eam in ubique høneståtis ullåmcorper, no eos vitae
+orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur,
+no mei graeci impedit {deterruisset}!
 
 \begin{itemize}
 \tightlist
@@ -316,13 +318,13 @@ cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico
 ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.
 
 \begin{longtable}[]{@{}lll@{}}
-\toprule
+\toprule()
 \textbf{Table Head 1} & \textbf{Table Head 2} & \textbf{Table Head 3} \\
-\midrule
+\midrule()
 \endhead
 Item 1 & Item 2 & Item 3 \\
 Item 4 & Item 5 & Item 6 \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 
 Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt
@@ -590,10 +592,20 @@ philosophy and the birth of neuroscience. \emph{Brain Research
 Bulletin}, 71(4), 327--336.
 \url{https://doi.org/10.1016/j.brainresbull.2006.09.020}
 
+\leavevmode\vadjust pre{\hypertarget{ref-hoffman2014}{}}%
+Hoffman DD, \& Prakash C.{ (2014)}. Objects of consciousness.
+\emph{Frontiers in Psychology}, 5, 577.
+\url{https://doi.org/10.3389/fpsyg.2014.00577}
+
 \leavevmode\vadjust pre{\hypertarget{ref-siegel2015}{}}%
 Siegel S, \& Silins N.{ (2015)}. The epistemology of perception. In M.
 Matthen (Ed.), \emph{Oxford handbook of philosophy of perception} (pp.
 1--48). Oxford University Press.
+
+\leavevmode\vadjust pre{\hypertarget{ref-simmons2013}{}}%
+Simmons A.{ (2013)}. Perception in early modern philosophy. In M.
+Matthen (Ed.), \emph{The oxford handbook of philosophy of perception}.
+Oxford: Oxford University Press.
 
 \end{CSLReferences}
 

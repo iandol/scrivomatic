@@ -21,8 +21,8 @@ keywords:
   - Scrivener
   - Workflow
 lang: en
-compiled: 12/11/2021
-date: Friday, 12 November 2021
+compiled: 25/04/2022
+date: Monday, 25 April 2022
 comments: "To err is human; … err?"
 # Select which templates pandocomatic will use,
 # you can enter overrides to the templates here as well
@@ -48,7 +48,7 @@ pandocomatic_:
 
 Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum[@crivellato2007], pro paulo ridens quaestio ut (see **Fig. 1**)! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, **_his åt justo putant comprehensam_**.  
 
-Ad pro quod ^definitiønem^, mel no laudem ~delectus~ [@siegel2015; @copenhaver2014], te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo [@barrett2015; @crivellato2007]! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit <span class="comment" title="Joanna Doe 16/04/2019, 14:50 - this is a comment.">deterruisset</span>!  
+Ad pro quod ^definitiønem^, mel no laudem ~delectus~ [@siegel2015; @copenhaver2014; @hoffman2014; barrett2015; @simmons2013], te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo [@barrett2015; @crivellato2007]! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit <span class="comment" title="Joanna Doe 16/04/2019, 14:50 - this is a comment.">deterruisset</span>!  
 
 * Item 1
 * Item 2
