@@ -1,5 +1,5 @@
 Scrivener + Pandoc Workflow
-Monday, 25 April 2022
+Tuesday, 12 July 2022
 
 -   §1 — Abstract
 -   §2 — Introduction
@@ -50,10 +50,10 @@ has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ e
 mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque
 sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.
 
-Ad pro quod ^(definitiønem), mel no laudem _(delectus) [Siegel & Silins (2015);
-Copenhaver (2014); Hoffman & Prakash (2014); barrett2015; Simmons (2013)], te mei
-prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus
-åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo
+Ad pro quod ^(definitiønem), mel no laudem _(delectus), te mei prompta maiorum
+pønderum (Simmons 2013; Copenhaver 2014; Hoffman & Prakash 2014; Barrett & Simmons
+2015; Siegel & Silins 2015). Solum aeque singulis duo ex, est an iriure øblique.
+Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo
 (Crivellato & Ribatti 2007; Barrett & Simmons 2015)! Eam in ubique høneståtis
 ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando
 omittantur, no mei graeci impedit deterruisset!
@@ -73,6 +73,8 @@ eruditi eum ex.
   -------------- -------------- --------------
   Item 1         Item 2         Item 3
   Item 4         Item 5         Item 6
+
+  : This is a table caption
 
 Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit
 såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat
