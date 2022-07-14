@@ -61,7 +61,7 @@ Apart from **Scrivener** (V3.x minimum required for this workflow), you should i
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-And then install `pandoc` using the `brew` command in the terminal:
+And then install `pandoc` using the `brew` command in the terminal (you can also add `pandoc-crossref` to the `brew` command if you want to use it):
 
 ```bash
 brew install pandoc
@@ -69,19 +69,23 @@ brew install pandoc
 
 If you already installed `pandoc` manually, but want to use `brew` from now on, then you can use `brew link --overwrite ...` instead of `brew install ...`.
 
+#### Getting Pandocomatic installed.
+
+You use Ruby's `gem` command to install `pandocomatic`. If you are using macOS 10.15 or later and the built-in Ruby, you **must** put `sudo` at the start of the commands (i.e. use `sudo gem install pandocomatic`, if you've used `brew` or `rbenv` to install Ruby, then no `sudo` is required):
+
+```bash
+gem install paru pandocomatic 
+```
+
 **macOS Mojave and earlier users:** the latest versions of Pandocomatic are not compatible with the ancient version of Ruby in macOS Mojave and earlier (macOS Catalina is OK), and so you need to install a newer version of Ruby first. Read **_[Installing Ruby](https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md)_** for more details!
 
-You use Ruby's `gem` command to install `pandocomatic` (if you are using macOS Catalina's built-in Ruby, you must put `sudo` at the start of the commands, if you used `brew` or `rbenv` to install Ruby, no `sudo` is required):
+To keep both Pandoc and Pandocomatic *up-to-date*, you can run the update commands like so every week or so (`paru` is used by pandocomatic and is by the same author, it gets auto-installed when pandocomatic is installed):
 
 ```bash
-gem install pandocomatic 
+gem update paru pandocomatic; brew update; brew upgrade
 ```
 
-To keep both Pandoc and Pandocomatic *up-to-date*, you can run the update commands like so every week or so:
-
-```bash
-gem update paru pandocomatic; brew upgrade
-```
+Remember if you use the built-in Ruby, you must add `sudo` to all `gem` commands...
 
 
 ### Configuration ###
