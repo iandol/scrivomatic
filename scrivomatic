@@ -17,7 +17,7 @@ class Scrivomatic
 	# pandocomatic/panzer from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.31'.freeze
+	VER = '1.0.32'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -186,9 +186,10 @@ class Scrivomatic
 		puts ENV['PATH']
 		puts '===------ TOOL PATHS: ------==='
 		puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
-		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1s/^Pandocomatic version /''/p')"`
 		puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
 		puts '!--ruby version incompatible with new pandocomatic, see https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md' if `ruby -v` =~ /ruby 2\.3\.\d/
+		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1s/^Pandocomatic version /''/p')"`
+		puts '---paru library: V: ' + `ruby -e 'require "paru"; puts Paru::VERSION.join(".")'`
 		puts `echo "---rbenv versions:"; [[ -x $(which rbenv) ]] && rbenv versions`
 		%w[rbenv rvm gem panzer python xelatex latexmk].each do |c|
 			location = `which #{c}`.chomp
