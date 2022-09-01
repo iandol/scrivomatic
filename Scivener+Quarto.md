@@ -6,16 +6,18 @@
 
 This workflow uses Scrivener styles and a [custom processing script](https://github.com/iandol/scrivomatic/blob/master/quarto-run.rb) to enable Scrivener to drive Quarto's rendering automatically. The major hurdle to combining Scrivener and Quarto concerns the placement of cross-referencing labels. The script moves these labels to the correct places. It also expands the path so Quarto can find LateX and other tools. The script will try to open the compilation log (see Scrivener post-processing pane parameters), and open the final rendered document, so if you compile `Quarto.qmd` to PDF then it tries to open `Quarto.pdf`.
 
+You can download a [sample Scrivener project here](https://github.com/iandol/scrivomatic/blob/master/Quarto.scriv.zip).
+
 ## Requirements
 
 1. Install Quarto (quarto bundles `pandoc` so no need to install that).
-2. You can use Quarto to install LaTeX: `quarto tools install tinytex`; OR you can use an existing TeX Live installation (I use BasicTeX). TinyTeX is small but will auto-install packages as needed…
-3. For Mermaid / Graphviz to PDF install chromium if you don't have Chrome installed: `quarto tools install chromium`.
+2. You can use Quarto to install LaTeX: `quarto tools install tinytex`; *OR* you can use an existing TeX Live installation (I use BasicTeX). TinyTeX is small yet can auto-install required packages as needed…
+3. For Mermaid / Graphviz install chromium if you don't have Chrome installed: `quarto tools install chromium`.
 4. The script uses ruby, which is already installed on macOS.
 
 ## Tips
 
-Quarto allows you to preview your compiled document. So after the first compilation you can point quarto to that file and it will continually render it in a browser for you: `quarto preview MyFile.qmd --to html`.
+Quarto allows you to preview your compiled document. So after the first compilation you can point quarto to that `.qmd` file and it will continually render it in a browser for you each tome you recompile: `quarto preview MyFile.qmd --to html`
 
 
 
