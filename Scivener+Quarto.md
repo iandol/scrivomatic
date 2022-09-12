@@ -4,9 +4,21 @@
 
 [Quarto (cross-platform)](https://quarto.org) is a scientific and technical writing system built on top of [Pandoc](https://pandoc.org). It enables one to use live code blocks, diagrams and very flexible layout to multiple output formats. It includes many useful extensions, and growing number of templates for academic journal submissions.
 
-This workflow uses Scrivener styles and a [custom processing script](https://github.com/iandol/scrivomatic/blob/master/quarto-run.rb) to enable Scrivener to drive Quarto's rendering automatically. The major hurdle to combining Scrivener and Quarto concerns the placement of cross-referencing labels. The script moves these labels to the correct places. It also expands the path so Quarto can find LateX and other tools (Scrivener runs post-processing tools in a restricted path environment). The script will try to open any compilation log (see Scrivener post-processing pane parameters), and also open the final rendered document; so if you compile `Quarto.qmd` as PDF then it tries to open `Quarto.pdf` in your default PDF viewer.
+Please see this Scrivener forum post for more details: https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769 for details.
 
-You can download a [sample Scrivener project here](https://github.com/iandol/scrivomatic/blob/master/Quarto.scriv.zip). See some of the outputs from Scrivener here: 
+**`DOWNLOADS:`**
+
+-------
+
+ **_A worked [Scrivener project you can use as a template](https://github.com/iandol/scrivomatic/blob/master/Quarto.scriv.zip)  for your own projects._**
+
+**_The bundled Ruby code for the [post-processing script can be read here](https://github.com/iandol/scrivomatic/blob/master/quarto-run.rb)._**
+
+**_Example [PDF from the project compiled directly from Scrivener here](https://github.com/iandol/scrivomatic/blob/master/sample-output/Quarto.pdf)._**
+
+-------
+
+The [sample workflow](https://github.com/iandol/scrivomatic/blob/master/Quarto.scriv.zip) uses Scrivener styles and Section Types and embeds a [custom post-processing script](https://github.com/iandol/scrivomatic/blob/master/quarto-run.rb). The major hurdle to combining Scrivener and Quarto concerns the placement of cross-referencing labels. The script moves these labels to the correct places. It also expands the path so Quarto can find LateX and other tools (Scrivener runs post-processing tools in a restricted path environment). The script will try to open any compilation log (see Scrivener post-processing pane parameters), and also open the final rendered document; so if you compile `Quarto.qmd` as PDF then it tries to open `Quarto.pdf` in your default PDF viewer.
 
 ## Requirements
 
