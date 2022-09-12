@@ -4,7 +4,11 @@
 
 [Quarto (cross-platform)](https://quarto.org) is a scientific and technical writing system built on top of [Pandoc](https://pandoc.org). It enables one to use live code blocks, diagrams and very flexible layout to multiple output formats. It includes many useful extensions, and growing number of templates for academic journal submissions.
 
-Please see this Scrivener forum post for more details: https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769 for details.
+Please see this Scrivener forum post for more details: 
+
+https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769 
+
+
 
 **`DOWNLOADS:`**
 
