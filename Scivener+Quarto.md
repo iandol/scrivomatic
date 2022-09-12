@@ -10,11 +10,11 @@ Please see this Scrivener forum post for more details: https://forum.literaturea
 
 -------
 
- **_A worked [Scrivener project you can use as a template](https://github.com/iandol/scrivomatic/blob/master/Quarto.scriv.zip)  for your own projects._**
+ **_A [full Scrivener project to use as a template](https://github.com/iandol/scrivomatic/blob/master/Quarto.scriv.zip)  for your own projects._**
 
-**_The bundled Ruby code for the [post-processing script can be read here](https://github.com/iandol/scrivomatic/blob/master/quarto-run.rb)._**
+**_The bundled Ruby code for the post-processing script [can be read here](https://github.com/iandol/scrivomatic/blob/master/quarto-run.rb)._**
 
-**_Example [PDF from the project compiled directly from Scrivener here](https://github.com/iandol/scrivomatic/blob/master/sample-output/Quarto.pdf)._**
+**_An example [PDF compiled directly from Scrivener](https://github.com/iandol/scrivomatic/blob/master/sample-output/Quarto.pdf)._**
 
 -------
 
