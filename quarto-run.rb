@@ -4,8 +4,8 @@
 # This script rewrites markdown from Scrivener to be compatible with
 # the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from
-# Scrivener. 
-# Version: 0.1.5
+# Scrivener (which by default doesn't use the user environment). 
+# Version: 0.1.6
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -14,7 +14,7 @@ require 'tempfile' # temp file tools
 require 'fileutils' # ruby standard library to deal with files
 #require 'debug/open_nonstop' # debugger
 
-def makePath() # this method builds our path
+def makePath() # this method augments our environment path
 	home = ENV['HOME'] + '/'
 	envpath = ''
 	pathtest = [home+'.rbenv/shims', home+'.pyenv/shims', '/usr/local/bin',
@@ -31,7 +31,7 @@ def makePath() # this method builds our path
 	puts "--> Modified path: #{ENV['PATH'].chomp}"
 end # end makePath()
 
-def isRecent(infile) # method checks if file is less than 3 minutes old
+def isRecent(infile) # checks if file is less than 3 minutes old
 	return false if !File.file?(infile)
 	filetime = File.mtime(infile) # modified time
 	difftime = Time.now - filetime # compare to now
@@ -49,19 +49,19 @@ fail "The specified file does not exist!" unless infilename and File.file?(infil
 
 fileType = ARGV[1]
 if fileType.nil? || fileType !~ /(plain|markdown|html|pdf|epub|docx|latex|odt|beamer|revealjs|pptx)/
-	fileType = 'html'
+	fileType = ''
 end
 
 makePath()
-outfilename = infilename.gsub(/\.[q]?md$/,"2.qmd")
-tfile = Tempfile.new('fix-x-refs')
+outfilename = infilename.gsub(/\.[q]?md$/,"2.qmd") # output to [name]2.qmd
+tfile = Tempfile.new('fix-x-refs') # create a temp file
 lineSeparator = "\n"
 
 begin
 	File.open(infilename, 'r') do |file|
 		text = file.read
 
-		# remove long runs of newlines
+		# cosmetic only: remove long runs of newlines
 		text.gsub!(/\n{4,}/,"\n\n")
 
 		# This regex puts {#id} onto end of $$ math block lines
@@ -84,7 +84,7 @@ begin
 				text.gsub!(re, '\1\2 {' + label + ' \4}')
 			end
 		}
-		# We now need to remove #{id} from figure captions
+		# We now need to remove all #{label} from figure captions
 		text.gsub!(figID, '![\k<cap>][\k<ref>]')
 
 		tfile.puts text
@@ -100,7 +100,11 @@ puts "--> Modified File with fixed cross-references: #{outfilename}"
 tend = Time.now - tstart
 puts "--> Parsing took: " + tend.to_s + "s"
 
-cmd = "quarto render #{outfilename} --to #{fileType} --log-level=INFO --verbose"
+if fileType.empty?
+	cmd = "quarto render #{outfilename} --log-level=INFO --verbose"
+else
+	cmd = "quarto render #{outfilename} --to #{fileType} --log-level=INFO --verbose"
+end
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 
