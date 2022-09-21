@@ -1,4 +1,4 @@
-theme: cayman
+theme: jekyll-theme-cayman
 title: "Scrivomatic Workflow"
 description: "A writing workflow using Scrivener's style system + Pandoc for output. Also supports Scrivener + Quarto…"
 show_downloads: true
