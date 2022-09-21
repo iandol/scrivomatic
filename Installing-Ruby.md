@@ -1,6 +1,10 @@
-# Installing Ruby  
+---
+layout: page
+title: "Installing Ruby"
+permalink: /installing-ruby/
+---
 
-**BREAKING**: `paru` is currently incompatible with the old ruby that comes with the latest macOS, V2.6.8. I will update these instructions when we resolve the best course of action. Hold tight! THe best solution is to install your own version of ruby, either via `homebrew` or `rbenv` (my preferred method).
+# Installing Ruby  
 
 Versions of pandocomatic since V0.2.4.1 do not support the *ancient* version of Ruby (V2.3.7) that comes by default with macOS versions **before** macOS Catalina (10.15). 
 

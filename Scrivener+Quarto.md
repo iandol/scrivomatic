@@ -1,3 +1,9 @@
+---
+layout: page
+title: "Scrivener + Quarto Template"
+permalink: /scrivener+quarto/
+---
+
 # Scrivener + Quarto Template
 
 See the [Scrivener forum post for the latest details…](https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769)
