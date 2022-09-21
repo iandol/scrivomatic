@@ -5,7 +5,7 @@
 # the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from
 # Scrivener (which by default doesn't use the user environment). 
-# Version: 0.1.6
+# Version: 0.1.7
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -31,7 +31,7 @@ def makePath() # this method augments our environment path
 	puts "--> Modified path: #{ENV['PATH'].chomp}"
 end # end makePath()
 
-def isRecent(infile) # checks if file is less than 3 minutes old
+def isRecent(infile) # checks if a file is less than 3 minutes old
 	return false if !File.file?(infile)
 	filetime = File.mtime(infile) # modified time
 	difftime = Time.now - filetime # compare to now
@@ -61,7 +61,7 @@ begin
 	File.open(infilename, 'r') do |file|
 		text = file.read
 
-		# cosmetic only: remove long runs of newlines
+		# cosmetic only: remove long runs (4 or more) of newlines
 		text.gsub!(/\n{4,}/,"\n\n")
 
 		# This regex puts {#id} onto end of $$ math block lines
@@ -100,6 +100,7 @@ puts "--> Modified File with fixed cross-references: #{outfilename}"
 tend = Time.now - tstart
 puts "--> Parsing took: " + tend.to_s + "s"
 
+# Build and run our quarto command
 if fileType.empty?
 	cmd = "quarto render #{outfilename} --log-level=INFO --verbose"
 else
@@ -108,7 +109,7 @@ end
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 
-# try to open the resultant file
+# now try to open the resultant file
 fileType = 'html' if fileType.match(/revealjs|s5|slidous|html5/)
 res = outfilename.gsub(/\.qmd$/, '.' + fileType)
 if File.file?(res) && isRecent(res)
@@ -117,5 +118,5 @@ else
 	puts "There was some problem opening #{res}, check compiler log…"
 end
 
-# open log file (generated from scrivener post-processing)
+# open any log file (generated from scrivener's post-processing)
 `open Quarto.log` if File.file?('Quarto.log') and isRecent('Quarto.log')
