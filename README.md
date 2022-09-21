@@ -1,5 +1,19 @@
 # Scrivomatic: Scrivener & *Pandoc\{omatic\}* #
 
+*For Scrivener + Quarto, [see the forum post here…](https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769)*
+
+## TL;DR (simple summary) ##
+This guide is a series of steps, which you can combine *a-la-carte* to integrate [Scrivener](http://literatureandlatte.com) (an app that excels at organised writing), and [Pandoc](http://pandoc.org/index.html) (a tool that excels at transforming text to documents). Scrivener already comes with MultiMarkDown, but in my opinion Pandoc provides numerous additional benefits and installation is quite simple. In addition, [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) flexibly manages Pandoc settings directly within Scrivener.
+
+1. Install the latest `pandoc` and `pandocomatic`.
+2. Configure one or more `pandocomatic` "recipes"; you can base them on mine [shared below](#configuration).
+3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc-specific output too). Here is a complete [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) to demonstrate the necessary settings.
+4. Scrivener's compile post-processing triggers `pandocomatic`, **_automagically_** creating the final output(s) for you.
+
+As a sample of the fuller workflow, I've made a self-contained [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) (you still need to install `pandoc` and `pandocomatic` first). This should give you a better idea of the various parts of the workflow, and you can look at the simultaneously produced [PDF/HTML/DOCX/TXT](https://github.com/iandol/scrivomatic/tree/master/sample-output) outputs from the sample project to get an idea of the sort of end documents that are possible.
+
+Scrivener has many options, and to better understand the workflow outlined on this page you should read at least sections **§21** and **§24** of the **Scrivener user manual**!
+
 ### Table of Contents ###
 * [Simple Summary](#tldr-simple-summary)
 * [General Introduction](#introduction)
@@ -20,18 +34,6 @@
     - [Working with Bookends Reference Manager](#working-with-bookends-reference-manager)
     - [Minimal LaTeX Install Instructions](#minimal-latex-install)
 * [Troubleshooting](#troubleshooting)
-
-## TL;DR (simple summary) ##
-This guide is a series of steps, which you can combine *a-la-carte* to integrate [Scrivener](http://literatureandlatte.com) (an app that excels at organised writing), and [Pandoc](http://pandoc.org/index.html) (a tool that excels at transforming text to documents). Scrivener already comes with MultiMarkDown, but in my opinion Pandoc provides numerous additional benefits and installation is quite simple. In addition, [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) flexibly manages Pandoc settings directly within Scrivener.
-
-1. Install the latest `pandoc` and `pandocomatic`.
-2. Configure one or more `pandocomatic` "recipes"; you can base them on mine [shared below](#configuration).
-3. In Scrivener, use a **front-matter** document containing the required settings and compile via the MultiMarkdown format (this option generates Pandoc-specific output too). Here is a complete [compile format](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrformat) to demonstrate the necessary settings.
-4. Scrivener's compile post-processing triggers `pandocomatic`, **_automagically_** creating the final output(s) for you.
-
-As a sample of the fuller workflow, I've made a self-contained [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) (you still need to install `pandoc` and `pandocomatic` first). This should give you a better idea of the various parts of the workflow, and you can look at the simultaneously produced [PDF/HTML/DOCX/TXT](https://github.com/iandol/scrivomatic/tree/master/sample-output) outputs from the sample project to get an idea of the sort of end documents that are possible.
-
-Scrivener has many options, and to better understand the workflow outlined on this page you should read at least sections **§21** and **§24** of the **Scrivener user manual**!
 
 ## Introduction ##
 

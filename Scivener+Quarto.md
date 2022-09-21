@@ -1,5 +1,7 @@
 # Scrivener & Quarto Workflow
 
+See the [Scrivener forum post for the latest details…](https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769)
+
 [Scrivener (macOS / Windows)](http://literatureandlatte.com) is a program for all types of writers, handling the structural organisation *and* constructive process of writing like nothing else. You write and manage text, ideas, figures and reference materials all in one place without having to worry about the final "look". The final "look" is handled by a process called compiling, where you choose the output format and select the contents with great flexibility. Though Scrivener uses rich text internally, it has excellent integration with plain text [markdown](https://en.wikipedia.org/wiki/Markdown), including Pandoc. Scrivener uses block and inline styles that can map to markdown; you write with editor styles but compile to markdown.
 
 [Quarto (cross-platform)](https://quarto.org) is a scientific and technical writing system built on top of [Pandoc](https://pandoc.org). It enables one to use live code blocks, diagrams and very flexible layout to multiple output formats. It includes many useful extensions, and growing number of templates for academic journal submissions.

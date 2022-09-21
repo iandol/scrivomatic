@@ -3,7 +3,7 @@
 # IMPORTANT: YAML config files use SPACES for indentation to 
 # define structure. Remember: STRAIGHTEN all smart quotes and don't
 # capitalise metadata keys, they MUST BE lowercase! 
-# Tip: use "Show Invisibles" in Scrivener to see all whitespaces.
+# Tip: use "Show Invisibles" in Scrivener to see whitespaces.
 # 
 # Metadata is used to define the options that Quarto/Pandoc
 # use when generating the final document. You will need to change
@@ -11,6 +11,7 @@
 # to those present on your system.
 #
 title: "Scrivener + Quarto Workflow"
+subtitle: "A Compiler Workflow…"
 author: 
   - name: Jane Doe
     email: jane@doe.org
@@ -25,69 +26,97 @@ author:
 keywords: [pandoc, quarto, scrivener]
 subject: workflow
 lang: en
-date: now
+date: 2022-09-21      # Scrivener placeholder
 verbose: true                 # pandoc verbosity
 toc: true                     # table of contents
 number-sections: true         # numbered headings
 crossref:                     # cross-referencing options
-  labels: arabic              # (default is arabic)
-  subref-labels: alpha A      # (default is alpha a)
-cap-location: bottom          # where to place figure/table captions
+  labels: arabic                # (default is arabic)
+  subref-labels: alpha A        # (default is alpha a)
+  chapters: true                # Numbers depend on the chapter, e.g. 2.1
+cap-location: bottom          # where put figure & table captions
 link-citations: true          # in-document links to refs
 bibliography: /Users/ian/.local/share/pandoc/Core.json
 csl: /Users/ian/.local/share/pandoc/csl/apa-ian.csl
-title-block-banner: "#BB3333"
+appendix-style: default       # see https://quarto.org/docs/authoring/appendices.html#appendix-style
 dpi: 300
 format:
   html:
     theme: journal
+    title-block-banner: "#BB3333"
     embed-resources: false
     html-math-method: mathjax
     section-divs: true
     linestretch: 1.5
     fig-format: svg
-    mainfont: "Greta Text Pro"
-    monofont: "Rec Mono Duotone"
+    mainfont: Alegreya         # !!! Change to a font on your system
+    monofont: Rec Mono Duotone # !!! Change to a font on your system
+    # Inject some style tweaks into the header
     header-includes: |
       <style>
+        p {text-align: justify;}
         tr.odd {background-color: #F1F1F1;}
-        caption, figcaption, .column-margin {font-family: Greta Sans Pro, sans-serif !important;}
+        caption, figcaption, .column-margin p {font-family: Alegreya Sans, sans-serif !important; text-align: left !important;}
       </style>
   pdf:
-    latex-clean: true
-    classoption: twoside
-    keep-tex: true
+    documentclass: scrbook    # scrbook, scrreport, scrartcl
+    classoption: 
+      - oneside                # oneside or twoside
     papersize: a4
-    colorlinks: true
+    geometry:
+      #- showframe             # check the layout
+      - top=2cm
+      - bottom=2cm
+      - head=1cm
+      - foot=1cm
+      - left=2cm
+      - marginparwidth=4cm
+      - textwidth=12cm
+      - marginparsep=1cm
+      - bindingoffset=0.5cm
+    fontsize: 12pt
     linestretch: 1.5
-    mainfont: "Greta Text Pro" # Change to a font on your system
+    latex-clean: true
+    keep-tex: true
+    mainfont: Alegreya         # !!! Change to a font on your system
     mainfontoptions: 
-      - "Numbers=Proportional"
-      - "Numbers=OldStyle"
-    sansfont: "Greta Sans Pro"  # Change to a font on your system
-    monofont: "Rec Mono Duotone"      # Change to a font on your system
+      - Numbers=Proportional
+      - Numbers=OldStyle
+    sansfont: Alegreya Sans    # !!! Change to a font on your system
+    monofont: Rec Mono Duotone # !!! Change to a font on your system
     monofontoptions: 
-      - "Scale=MatchLowercase"
-    mathfont: "Libertinus Math" # Change to a font on your system
+      - Scale=MatchLowercase
+    mathfont: Libertinus Math  # !!! Change to a font on your system
+    linkcolor: Mahogany
+    citecolor: Bittersweet
+    urlcolor: BrickRed
+    #header-includes: |
+      #\KOMAoptions{DIV=last}  # force koma layout rather than geometry
+  epub:
+    html-math-method: katex
+    identifier: 45DRE66-YTX
+    epub-cover-image: cover.png
+    fig-format: png
   docx:
-    prefer-html: true             # stops non-HTML format errors
+    prefer-html: true          # stops non-HTML format errors 
+    reference-doc: /Users/ian/.local/share/pandoc/templates/custom.docx # change to your own docx template
 ---
 
 
-# Abstract #
+# Abstract
 
-[This sample project shows a workflow using the Quarto scientific publishing system run using the [Scrivener](http://literatureandlatte.com) Compiler]{.smallcaps}. [Quarto](http://quarto.org) utilises [Pandoc](http://pandoc.org) and combines several extensions and nice templates to support many layout tweaks and advanced cross-referencing. Pandoc itself supports lots of academic features like bibliographies etc. This workflow uses Scrivener Paragraph «block» and Character «inline» styles where applicable for handling most formatting, demonstrates an alternative for blocks with optional attribures using Section Types, and also shows the fall back to plain raw markdown as a third alternative for handling Quarto’s layout features. A custom post-processing [Ruby](http://ruby-lang.org) script included in the Compile Format sets up the path automatically and modifies Scrivener’s markdown output so that it is compatible with the cross-referencing filter and.  
+[This sample project demonstrates a workflow using the Quarto scientific publishing system run using the [Scrivener](http://literatureandlatte.com) Compiler]{.smallcaps}. [Quarto](http://quarto.org) utilises [Pandoc](http://pandoc.org) and combines several extensions and nice templates to support many layout tweaks and advanced cross-referencing. Pandoc itself supports lots of academic features like bibliographies etc. This workflow uses Scrivener Paragraph «block» and Character «inline» styles where applicable for handling formatting, demonstrates an alternative using Section Types (with optional attributes), and also shows the fall back to plain raw markdown as a third alternative for handling Quarto’s layout features. A custom post-processing [Ruby](http://ruby-lang.org) script included in the Compile Format sets up the path automatically and modifies Scrivener’s markdown output so that it is compatible with Quarto's cross-referencing filter.  
 
 {{< pagebreak >}}
 
 
-# Introduction #
+# Introduction
 
 > *“We don’t see things as they are, we see them as we are.” — Anaïs Nin*
 
-[Lørem ipsum dolør sit amet (this should be underlined)]{.underline}, eu ipsum movet vix, veniam låoreet posidonium[^fn1] te eøs, eæm in veri eirmod [@barrett2015; @crivellato2007]. Sed illum minimum ([see Results][Lunar Cycles]) at 3.25×10⁻⁴⁸, est mægna alienum mentitum ne. [Amet equidem](https://pandoc.org/MANUAL.html) sit ex (see [Conclusion][Discussion]). Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
+Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium[^fn1] te eøs, eæm in veri eirmod [@barrett2015; @crivellato2007]. Sed illum minimum at 3.25×10⁴⁸ ([see Results][Lunar Cycles]) , est mægna alienum mentitum ne. [Amet equidem](https://quarto.org/) sit ex ([see Conclusion][Discussion]). Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
-![Note that we add the cross-referencing label to the **_start_** of the caption. This label will get moved to the correct place in the markdown by the post-processing script **_before_** Quarto is run. See <https://quarto.org/docs/authoring/cross-references.html> for more details of Quarto’s comprehensive cross-referencing system. This figure also demonstrates the Scrivener trick of using a Binder-linked figure followed by a [Caption] Paragraph Style which the Scrivener compiler converts to the correct markdown to generate a captioned image block!][Elephant1]
+![We add the *cross-referencing label* to the **_start_** of the caption. This label will get moved to the correct place in the markdown by the post-processing script **_before_** Quarto is run. This figure also demonstrates the Scrivener trick of using a Binder-linked figure followed by a Paragraph Style `Caption` which the Scrivener compiler converts to the correct markdown to generate a captioned image block!][Elephant1]
 
 
 Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum[@crivellato2007], pro paulo ridens quaestio ut (see @fig-elephant)! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, **_his åt justo putant comprehensam (this style is strong emphasis)_**.  
@@ -95,15 +124,14 @@ Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum[@cr
 Ad pro quod ^superscript^, mel no laudem ~subscript~, te mei prompta maiorum pønderum [@siegel2015; @copenhaver2014; @hoffman2014; @barrett2015; @simmons2013]. Solum aeque singulis duo ex, est an iriure øblique.  
 
 :::{.column-margin}
-Here is some marginalia using the [Marginalia] Paragraph Style, *including* a citation [@barrett2015]. This will end up as a margin note in HTML and PDF outputs, but a normal paragraph in DOCX etc.
+Here is some marginalia using the [`Marginalia`] Paragraph Style, *including* a citation [@barrett2015]. This will end up as a margin note in HTML and PDF outputs, but a normal paragraph in DOCX etc.
 :::
 
 
 Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo [@barrett2015; @crivellato2007]! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset!  
 
-:::{.callout-warning}
-Note that there are five types of callouts, including: 
-`note`, `tip`, `warning`, `caution`, and `important`.
+:::{.callout-tip}
+This callout is generated using the [`Callout Tip`] Scrivener Paragraph Style…
 :::
 
 
@@ -129,29 +157,35 @@ No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intelle
 
 Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.  
 
-# Methods #
+{{< pagebreak >}}
 
-## Data Recording ##
+
+# Methods
+
+## Data Recording
 
 :::{.column-margin}
 ![A figure of a poor, poor marginalised elephant…](Elephant3.jpg){#fig-marginalia}
 :::
 
 
-Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, and here is some inline maths: $e^{ix}=r(\cos \theta +i\sin \theta)$, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  See both @eq-one and @eq-two for more details…  
+Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, and here is some inline maths: $e^{ix}=r(\cos \theta +i\sin \theta)$, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
 Note that for equations we place the cross-referencing label on a newline *after* the [`Maths Block`] (as paragraph styles require to run to the line end, we cannot keep the label on the same line or it will be ‘swallowed’ by the suffix). The post-processing script will place this label back on the same line *after* the `$$` has been added by Scrivener’s compiler so that Quarto can properly cross-reference it…  
 
+See both @eq-one and @eq-two for more details:
+
 $$t' = \frac{t - \dfrac{v}{c^{2}}x}{\sqrt{1 - \dfrac{v^{2}}{c^{2}}}}$$ {#eq-one}
 
-Sint meis quo et, vis ad fæcete dolorem! See @fig-marginalia for a poor marginalised elephant. Ad quøt moderatius elaboraret eum [@siegel2015], pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm?  
+Sint meis quo et, vis ad fæcete dolorem!   
 
 $$\nabla \times \mathbf {H} ={\frac {1}{c}}\left(4\pi \mathbf {J} _{\text{f}}+{\frac {\partial \mathbf {D} }{\partial t}}\right)$$ {#eq-two}
 
-Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.  
+Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.See @fig-marginalia for a poor marginalised elephant. Ad quøt moderatius elaboraret eum [@siegel2015], pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm?
 
 ~~~ruby
-# This is a styled Ruby code block, using the paragraph style [Ruby Code]
+# This is a styled Ruby code block, 
+# using the paragraph style [Ruby Code]
 
 # Output "I love Ruby"
 say = "I love Ruby"
@@ -168,34 +202,34 @@ puts say.upcase
 
 Ad pro quod definitiønem[^fn2], mel no laudem delectus, te mei prompta maiorum pønderum. Solum aeque singulis duo ex [@siegel2015], est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset!  
 
-## Experimental Perturbations ##
+## Experimental Perturbations
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
 :::{.column-margin}
-Scrivener cannot **_nest_** block styles, so for Marginalia like this one we can use pandoc markup like `$$` directly for things like e.g. maths blocks. An alternative would be to split it into a binder doc and use a Section Type. We know from *the first fundamental theorem of calculus* that for $x$ in $[a, b]$:
+Scrivener cannot **_nest_** block styles, so for Marginalia like this one we can use pandoc markup like `$$` directly instead of an e.g. maths block paragraph style. An alternative would be to split it into a binder doc and use a Section Type. We know from *the first fundamental theorem of calculus* that for $x$ in $[a, b]$:
 $$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$
 :::
 
 
 Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.  
 
-This next part will demonstrate the use of raw markdown within the document to create a multipart figure. See @fig-elephants2 for an example using a Section Type to insert the markup at compile-time.
+This next part will demonstrate the use of raw markdown within the document to create a multipart figure. See @fig-elephants2 below for an example using a Section Type to insert the same markup at compile-time.
 
-::: {#fig-elephants layout-ncol=2 layout-valign=“top”}
+::: {#fig-elephants .column-body layout-ncol=2 layout-valign=“top”}
 
-![Elephant with a back-mounted castle.][Elephant2]
+![Elephant castle.][Elephant2]
 
 
 ![Angry elephant with big trunk.][Elephant3]
 
 
-Quarto allows the creation of figure panels with sub-figures. For this, if we want to use embedded images in the Scrivener editor we must use some raw markdown as we cannot *nest* Scrivener block styles. Figures show two examples of medieval elephants.
+Quarto allows the creation of figure panels with sub-figures. For this, if we want to use embedded images in the Scrivener editor we must use some raw markdown as we cannot *nest* Scrivener block styles. Note we can use the Scale Image... Tool in Scrivener and these sizes get exported to Quarto and the output. Here we scale both images to the same height.
 :::
 
 See @fig-elephants, particularly @fig-castle. Ad pro quod definitiønem, mel no laudem delectus, te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset!  
 
-:::{.callout-tip}
+:::{.callout-warning}
 Note that there are five types of callouts, including: 
 `note`, `tip`, `warning`, `caution`, and `important`.
 :::
@@ -216,11 +250,11 @@ Note that there are five types of callouts, including:
 `note`, `tip`, `warning`, `caution`, and `important`.
 :::
 
-## Stimulus Plotting ##
+## Stimulus Plotting
 
 Note if you have R and Python installed, you can run code like so...
 
-Here is an R plot (@fig-airquality), you need to have R installed for this to work, if not remove this document from the compile:
+Here is an R plot (@fig-airquality), you need to have R installed for this to work, if not remove this document from the compile:  
 
 ```{r}
 #| label: fig-airquality
@@ -238,15 +272,29 @@ ggplot(airquality, aes(Temp, Ozone)) +
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. [This is an aside, which is inline to the text paragraph but will also be end up added to the margin in formats that support the margin layout. ]{.aside}Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
-No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex, ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.  
+```{r}
+#| label: tbl-tableKable
+#| tbl-cap: This table uses Section Type `[Code R]` to insert the correct markup at compile, this is an alterative to using the `[R Block]` paragraph style. This shows a table generated by the R package *kableExtra*. Currently this works for HTML and LaTeX.
+#| echo: false
 
-## Statistical Analysis ##
+# install.packages("kableExtra") # you need to install this in R
+library(kableExtra)
+dt <- mtcars[1:5, 1:6]
+kbl(dt) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+
+No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex, *ei ius apeirian cønstituam mediocritatem,* mei rebum detracto scaevølæ ex. Sed modo dico ullum at, **sententiae definiebas ex eam**! Nøstro eruditi eum ex.  
+
+## Statistical Analysis
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
 ```{dot}
 //| label: fig-graphviz
-//| fig-cap: A graphviz graph with figure reference and caption, using the [Dot block] paragraph style. Currently in LaTeX this overflows the page depending on verso/recto, but renders fine in HTML…
+//| fig-cap: A graphviz graph with figure reference and caption, using the [Dot block] paragraph style. Currently in LaTeX this could overflow the page depending on verso/recto, but renders fine in HTML; see <https://quarto.org/docs/authoring/diagrams.html#sizing> for more details…
 
 graph G {
   layout=neato
@@ -271,7 +319,7 @@ Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pr
 
 ```{dot}
 //| label: fig-statemachine
-//| fig-cap: A Graphviz-generated state machine diagram, output using a [Diagram Dot] Section Type. Currently in LaTeX this overflows the page depending on verso/recto, but renders fine in HTML…
+//| fig-cap: A Graphviz-generated state machine diagram, output using a [Diagram Dot] Section Type. Currently in LaTeX this could overflow the page depending on verso/recto, but renders fine in HTML; see <https://quarto.org/docs/authoring/diagrams.html#sizing> for more details…
 
 digraph finite_state_machine {
 	Fontname="Avenir,Helvetica,sans-serif"
@@ -309,11 +357,11 @@ Ad pro quod definitiønem, mel no laudem delectus, te mei prompta maiorum pønde
   "themeCSS": ".extension { fill: white !important; };"
 }}%%
 
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
 
 ```
 
@@ -321,25 +369,43 @@ No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intelle
 
 Åd nam omnis ullamcørper vituperatoribus. Sed vereartincidunt rationibus an. Elit såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.  
 
-# Results #
+No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex [@siegel2015], ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.  
 
-## Lunar Cycles ##
+Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam. See @fig-withattributes for details.  
+
+
+![ This figure uses custom metadata values to identify the class, ID, width and height. The ««A​B»» tag at the start of the caption is replaced with the correct Scrivener placeholders by the compiler; see global replacements for the details…][Elephant3-1]
+
+{{< pagebreak >}}
+
+
+# Results
+
+## Lunar Cycles
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex (see @fig-elespan). Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
 :::{.column-page}
-![This should span the whole page.][Elephant1-1]
+![This should span the whole page. This uses raw markdown in the editor to insert the correct markup, a div with a `.column-page` class, for Quarto's layout for extend-to-page-width.][Elephant1-1]
 
 :::
 
 Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.  
 
 :::{.column-page}
-![This should also span the whole page, using a styled block but with the caveat that we cannot use an editor-embedded image as in @fig-elespan; only an image link using direct pandoc markup…](Elephant1.jpg){#fig-elespan2}  
+![This should also span the whole page, using a paragraph block style [`Column Page`]. This method has the caveat that we cannot use an editor-embedded image as in @fig-elespan; only an Scrivener Binder document link to the file and direct pandoc markup…](Elephant1.jpg){#fig-elespan2}
 :::
 
 
-Ad pro quod definitiønem [@crivellato2007], mel no laudem delectus [@siegel2015], te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset! We can reference sub-tables, for example see @tbl-second.
+Ad pro quod definitiønem [@crivellato2007], mel no laudem delectus [@siegel2015], te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo! 
+
+:::{.column-page-right}
+![ This should span the page to the right in HTML. This uses a Section Type [`Layout Page Right`] to generate the correct markup by the compile format.][Elephant1-2]
+
+:::
+
+
+Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset! We can reference sub-tables, for example see @tbl-second.
 
 ::: {#tbl-panel layout-ncol=2}
 | Col1 | Col2 | Col3 |
@@ -358,7 +424,7 @@ Ad pro quod definitiønem [@crivellato2007], mel no laudem delectus [@siegel2015
 
 : Second Table {#tbl-second}
 
-This is a markdown table panel with two sub-tables, just plain markdown in the editor (no Scrivener styles or section types).
+This is a markdown table panel with two sub-tables; just using plain markdown in the editor (no Scrivener Styles or Section Types).
 :::
 
 No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex, ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.  
@@ -366,65 +432,72 @@ No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intelle
 Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.  Please refer to @tbl-panel2, including @tbl-first2 and @tbl-second2 for more details.
 
 
-:::{#tbl-panel2 .column-page layout-ncol=2}
-| Col1 | Col2 | Col3 |
-|------|------|------|
-| A    | B    | C    |
-| E    | F    | G    |
-| A    | G    | G    |
+:::{#tbl-panel2   layout-ncol=1}
+
+| Column 1 | Column 2 | Column 3 |
+| :-----: | :-----: | :-----: |
+| A | B | C |
+| D | E | F |
+| G | H | I |
 
 : First Table {#tbl-first2}
 
-| Col1 | Col2 | Col3 |
-|------|------|------|
-| A    | B    | C    |
-| E    | F    | G    |
-| A    | G    | G    |
+
+| Column 1 | Column 2 | Column 3 |
+| :-----: | :-----: | :-----: |
+| J | K | L |
+| M | N | O |
+| P | Q | R |
 
 : Second Table {#tbl-second2}
 
-This is a markdown multi-table panel with two sub-tables generated using a Section Type [`Multiformat Table`] and it should span the page (using [`.column-page`]. Note that Custom Metadata [`Attributes`] holds the cross-referencing label and the attributes (`#tbl-panel2 .column-page layout-ncol=2`) for this multipart table, which will be added by the Section Layout by the compiler.
+
+This is a markdown multi-table panel with two sub-tables generated using a Section Type [`Multipart Table`]. Note that Custom Metadata holds the cross-referencing label, layout class and the attributes for this multipart table, which will be added by the Section Layout by the compiler, using the Scrivener placeholders: `<​$​​custom:ID>` `<​$​​custom:Class>` `<​$​​custom:Attributes>` 
 
 :::
 
 
-## Solar Cycles ##
+## Solar Cycles
 
 Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?  
 
 Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.  
 
-:::{#fig-elephants2 .column-page layout-ncol=2 layout-valign="bottom"}
+:::{#fig-elephants2 .column-body layout-ncol=2 layout-valign="bottom"}
 
-![Elephant with a back-mounted castle.][Elephant2-1]
-
-
-![Angry elephant with big trunk.][Elephant3-1]
+![Elephant.][Elephant2-1]
 
 
-This demonstrates generating a multi-panel figure using a Scrivener Section Type [Multiformat Figure] instead of using raw markdown as [shown here][Experimental Perturbations]. Attributes specific to the block [`#fig-elephants2 .column-page layout-ncol=2 layout-valign="bottom"`] are saved to `Custom Metadata->Attributes`, and this is then inserted into the markup for this chunk  by the Section Layout at compile time.  
+![Angry elephant with big trunk.][Elephant3-2]
+
+
+This demonstrates generating a multi-panel figure using a Scrivener Section Type [`Multipart Figure`] instead of using raw markdown as [shown here][Experimental Perturbations]. ID, Class and Attributes specific to the block [`#fig-elephants2 .column-body layout-ncol=2 layout-valign="bottom"`] are saved to `Custom Metadata->ID, Class & Attributes`, and this is then inserted into the markup for this chunk by the Section Layout at compile time.  
 
 
 :::
 
 :::{.callout-caution}
-This is a callout, but generated using a Section Type [Callout Caution] rather than a paragraph style. Scrivener allows both modes of working and you can choose either depending on your preference! Dont forget to use Scrivenings if you use lots of Section Types so you can edit all-in-one…
+This is a callout, but generated using a Section Type [`Callout Caution`] rather than a paragraph style. Scrivener allows both modes of working and you can choose either depending on your preference! Don’t forget to utilise Scrivenings mode if you use lots of Section Types so you can edit as a ‘single’ document…
 :::
 
-# Discussion #
+{{< pagebreak >}}
+
+
+# Discussion
 
 Lørem ipsum dolør sit amet [@siegel2015], eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod [@siegel2015]. Sed illum minimum[^fn3] at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no (see [Introduction][]), mei nostrud necessitatibus te?  
 
-![This should be right-aligned.][Elephant3-2]
+![This should be right-aligned if there is space…][Elephant3-3]
 
 
 Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad [@siegel2015], ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.  
 
 
 :::{.column-margin}
-This Marginalia is using a Section Type [`Layout Column Margin`]. We can therefore use paragraph styles here, like [`Maths Block`]. We know from the *first fundamental theorem of calculus* that for $x$ in $[a, b]$
+This Marginalia is using a Section Type [`Layout Margin`]. We can therefore use paragraph styles here, like [`Maths Block`]. We know from the *first fundamental theorem of calculus* that for $x$ in $[a, b]$
+$$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$ {#eq-marginalia}
 
-$$\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).$$
+
 :::
 
 
@@ -432,26 +505,39 @@ Ad pro quod definitiønem, mel no laudem delectus [@siegel2015], te mei prompta 
 
 No meæ menandri mediøcritatem [@siegel2015; @barrett2015; @crivellato2007], meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex, ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.  
 
-# Bibliography #
+# Acknowledgments {.appendix .unnumbered}
+
+I am grateful for the insightful comments offered by the anonymous peer reviewers at Cephalopoda & Daughters. The generosity and expertise of one and all have improved this study in innumerable ways and saved me from many errors; those that inevitably remain are entirely my own responsibility.
+
+
+# Conflicts of Interest {.appendix .unnumbered}
+
+The authors do **_love_** octopods, but this in no way biases their work.
+
+
+# Bibliography {.unnumbered}
 
 ::: {#refs}
 
 :::
 
+[Elephant1]: Elephant1.jpg {#fig-elephant .column-body}
 
-[Elephant1]: Elephant1.jpg {#fig-elephant}
+[Elephant2]: Elephant2.jpg  {#fig-castle width=361 height=370}
 
-[Elephant2]: Elephant2.jpg {#fig-castle}
+[Elephant3]: Elephant3.jpg  {#fig-trunk width=455 height=370}
 
-[Elephant3]: Elephant3.jpg {#fig-trunk}
+[Elephant3-1]: Elephant3.jpg {#fig-withattributes .myclass fig-align="right" width=3cm height=2cm}
 
 [Elephant1-1]: Elephant1.jpg {#fig-elespan}
 
-[Elephant2-1]: Elephant2.jpg {#fig-castle2}
+[Elephant1-2]: Elephant1.jpg {#fig-elespan3   width= height=}
 
-[Elephant3-1]: Elephant3.jpg {#fig-trunk2}
+[Elephant2-1]: Elephant2.jpg  {#fig-castle2 width=361 height=370}
 
-[Elephant3-2]: Elephant3.jpg {#fig-alignright fig-align="right"}
+[Elephant3-2]: Elephant3.jpg  {#fig-trunk2 width=454 height=370}
+
+[Elephant3-3]: Elephant3.jpg  {#fig-alignright fig-align="right" width=400 height=324}
 
 [^fn1]: This is a footnote, **with** a citation [@crivellato2007].
 
