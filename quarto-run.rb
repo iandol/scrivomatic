@@ -5,7 +5,7 @@
 # the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from
 # Scrivener (which by default doesn't use the user environment). 
-# Version: 0.1.7
+# Version: 0.1.8
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -19,7 +19,7 @@ def makePath() # this method augments our environment path
 	envpath = ''
 	pathtest = [home+'.rbenv/shims', home+'.pyenv/shims', '/usr/local/bin',
 		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
-		'/Library/TeX/texbin', '/opt/homebrew/bin',
+		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', '/opt/homebrew/bin',
 		home+'anaconda/bin', home+'anaconda3/bin', home+'miniconda/bin', home+'miniconda3/bin',
 		home+'.cabal/bin', home+'.local/bin']
 	pathtest.each { |p| envpath = envpath + ':' + p if File.directory?(p) }

@@ -17,7 +17,7 @@ class Scrivomatic
 	# pandocomatic/panzer from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.32'.freeze
+	VER = '1.0.33'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -149,12 +149,14 @@ class Scrivomatic
 
 	#-------------------------------make env path
 	def makePath
-		pathtest = [ENV['HOME']+'/.rbenv/shims', 
+		home = ENV['HOME'] + '/'
+		pathtest = [home+'/.rbenv/shims', 
 			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
-			'/Library/TeX/texbin', '/opt/homebrew/bin', '/usr/local/bin', 
-			ENV['HOME']+'/anaconda/bin', ENV['HOME']+'/anaconda3/bin',
-			ENV['HOME']+'/miniconda/bin', ENV['HOME']+'/miniconda3/bin',
-			ENV['HOME']+'/.cabal/bin', ENV['HOME']+'/.local/bin', 
+			home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', 
+			'/opt/homebrew/bin', '/usr/local/bin', 
+			home+'/anaconda/bin', home+'/anaconda3/bin',
+			home+'/miniconda/bin', home+'/miniconda3/bin',
+			home+'/.cabal/bin', home+'/.local/bin', 
 			rvm_check]
 		pathtest.each { |p| @options[:envpath] = @options[:envpath] + ':' + p if File.directory?(p) }
 		ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
