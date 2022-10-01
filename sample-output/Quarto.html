@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.167">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jane Doe">
+<meta name="author" content="John Doe">
+<meta name="dcterms.date" content="2022-10-01">
+<meta name="keywords" content="pandoc, quarto, scrivener">
+
+<title>Scrivener + Quarto</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="quarto_files/libs/clipboard/clipboard.min.js"></script>
+<script src="quarto_files/libs/quarto-html/quarto.js"></script>
+<script src="quarto_files/libs/quarto-html/popper.min.js"></script>
+<script src="quarto_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="quarto_files/libs/quarto-html/anchor.min.js"></script>
+<link href="quarto_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="quarto_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="quarto_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="quarto_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="quarto_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: #BB3333;
+    }
+    </style>
+
+<script src="quarto_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="quarto_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="quarto_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="quarto_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="quarto_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<style>
+  p {text-align: justify;}
+  tr.odd {background-color: #F1F1F1;}
+  caption, figcaption, .column-margin p {font-family: Alegreya Sans, sans-serif !important; text-align: left !important;}
+</style>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Scrivener + Quarto</h1>
+            <p class="subtitle lead">A Compiler Workflow…</p>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading"></div>
+    
+      <div class="quarto-title-meta-contents">
+      Jane Doe 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              International Cephalopod Research Institute (ICRI), Pacific Ocean.
+            </p>
+          <p class="affiliation">
+              Center for Advanced Octopod Studies (CAOS), Atlantic Ocean.
+            </p>
+        </div>
+        <div class="quarto-title-meta-contents">
+      John Doe 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Center for Advanced Octopod Studies (CAOS), Atlantic Ocean.
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 1, 2022</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract"><span class="toc-section-number">1</span>  Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="toc-section-number">2</span>  Introduction</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="toc-section-number">3</span>  Methods</a>
+  <ul class="collapse">
+  <li><a href="#data-recording" id="toc-data-recording" class="nav-link" data-scroll-target="#data-recording"><span class="toc-section-number">3.1</span>  Data Recording</a></li>
+  <li><a href="#experimental-perturbations" id="toc-experimental-perturbations" class="nav-link" data-scroll-target="#experimental-perturbations"><span class="toc-section-number">3.2</span>  Experimental Perturbations</a></li>
+  <li><a href="#stimulus-plotting" id="toc-stimulus-plotting" class="nav-link" data-scroll-target="#stimulus-plotting"><span class="toc-section-number">3.3</span>  Stimulus Plotting</a></li>
+  <li><a href="#statistical-analysis" id="toc-statistical-analysis" class="nav-link" data-scroll-target="#statistical-analysis"><span class="toc-section-number">3.4</span>  Statistical Analysis</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="toc-section-number">4</span>  Results</a>
+  <ul class="collapse">
+  <li><a href="#lunar-cycles" id="toc-lunar-cycles" class="nav-link" data-scroll-target="#lunar-cycles"><span class="toc-section-number">4.1</span>  Lunar Cycles</a></li>
+  <li><a href="#solar-cycles" id="toc-solar-cycles" class="nav-link" data-scroll-target="#solar-cycles"><span class="toc-section-number">4.2</span>  Solar Cycles</a></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="toc-section-number">5</span>  Discussion</a></li>
+  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
+  <li><a href="#conflicts-of-interest" id="toc-conflicts-of-interest" class="nav-link" data-scroll-target="#conflicts-of-interest">Conflicts of Interest</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+<section id="abstract" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Abstract</h1>
+<p><span class="smallcaps">This sample project demonstrates a workflow using the Quarto scientific publishing system run using the <a href="http://literatureandlatte.com">Scrivener</a> Compiler</span>. <a href="http://quarto.org">Quarto</a> utilises <a href="http://pandoc.org">Pandoc</a> and combines several extensions and nice templates to support many layout tweaks and advanced cross-referencing. Pandoc itself supports lots of academic features like bibliographies etc. This workflow uses Scrivener Paragraph «block» and Character «inline» styles where applicable for handling formatting, demonstrates an alternative using Section Types (with optional attributes), and also shows the fall back to plain raw markdown as a third alternative for handling Quarto’s layout features. A custom post-processing <a href="http://ruby-lang.org">Ruby</a> script included in the Compile Format sets up the path automatically and modifies Scrivener’s markdown output so that it is compatible with Quarto’s cross-referencing filter.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="introduction" class="level1 page-columns page-full" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
+<blockquote class="blockquote">
+<p><em>“We don’t see things as they are, we see them as we are.” — Anaïs Nin</em></p>
+</blockquote>
+<p>Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> te eøs, eæm in veri eirmod <span class="citation" data-cites="barrett2015 crivellato2007">(<a href="#ref-crivellato2007" role="doc-biblioref"><em><span class="nodecoration">Crivellato</span> &amp; <span class="nodecoration">Ribatti</span></em> 2007</a>; <a href="#ref-barrett2015" role="doc-biblioref"><em><span class="nodecoration">Barrett</span> &amp; <span class="nodecoration">Simmons</span></em> 2015</a>)</span>. Sed illum minimum at 3.25×10⁴⁸ (<a href="#lunar-cycles">see Results</a>) , est mægna alienum mentitum ne. <a href="https://quarto.org/">Amet equidem</a> sit ex (<a href="#discussion">see Conclusion</a>). Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p>
+<div id="fig-elephant" class="quarto-figure quarto-figure-center column-body anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="Elephant1.jpg" class="column-body img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.1: We add the <em>cross-referencing label</em> to the <strong><em>start</em></strong> of the caption. This label will get moved to the correct place in the markdown by the post-processing script <strong><em>before</em></strong> Quarto is run. This figure also demonstrates the Scrivener trick of using a Binder-linked figure followed by a Paragraph Style <code>Caption</code> which the Scrivener compiler converts to the correct markdown to generate a captioned image block!</figcaption><p></p>
+</figure>
+</div>
+<p>Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum<span class="citation" data-cites="crivellato2007">(<a href="#ref-crivellato2007" role="doc-biblioref"><em><span class="nodecoration">Crivellato</span> &amp; <span class="nodecoration">Ribatti</span></em> 2007</a>)</span>, pro paulo ridens quaestio ut (see <a href="#fig-elephant">Figure&nbsp;2.1</a>)! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, <strong><em>his åt justo putant comprehensam (this style is strong emphasis)</em></strong>.</p>
+<p>Ad pro quod <sup>superscript</sup>, mel no laudem <sub>subscript</sub>, te mei prompta maiorum pønderum <span class="citation" data-cites="siegel2015 copenhaver2014 hoffman2014 barrett2015 simmons2013">(<a href="#ref-copenhaver2014" role="doc-biblioref"><em><span class="nodecoration">Copenhaver</span></em> 2014</a>; <a href="#ref-hoffman2014" role="doc-biblioref"><em><span class="nodecoration">Hoffman</span> &amp; <span class="nodecoration">Prakash</span></em> 2014</a>; <a href="#ref-barrett2015" role="doc-biblioref"><em><span class="nodecoration">Barrett</span> &amp; <span class="nodecoration">Simmons</span></em> 2015</a>; <a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>; <a href="#ref-simmons2013" role="doc-biblioref"><em><span class="nodecoration">Simmons</span></em> 2015</a>)</span>. Solum aeque singulis duo ex, est an iriure øblique.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Here is some marginalia using the [<code>Marginalia</code>] Paragraph Style, <em>including</em> a citation <span class="citation" data-cites="barrett2015">(<a href="#ref-barrett2015" role="doc-biblioref"><em><span class="nodecoration">Barrett</span> &amp; <span class="nodecoration">Simmons</span></em> 2015</a>)</span>. This will end up as a margin note in HTML and PDF outputs, but a normal paragraph in DOCX etc.</p>
+</div></div><p>Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo <span class="citation" data-cites="barrett2015 crivellato2007">(<a href="#ref-crivellato2007" role="doc-biblioref"><em><span class="nodecoration">Crivellato</span> &amp; <span class="nodecoration">Ribatti</span></em> 2007</a>; <a href="#ref-barrett2015" role="doc-biblioref"><em><span class="nodecoration">Barrett</span> &amp; <span class="nodecoration">Simmons</span></em> 2015</a>)</span>! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset!</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This callout is generated using the [<code>Callout Tip</code>] Scrivener Paragraph Style…</p>
+</div>
+</div>
+<p>This is a standard native Scrivener list, which will get converted to markdown by the Scrivener compiler:</p>
+<ul>
+<li>Item 1</li>
+<li>Item 2
+<ul>
+<li>Item 2a</li>
+<li>Item 2b</li>
+</ul></li>
+<li>Item 3</li>
+</ul>
+<p>No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex, ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex. See <a href="#tbl-test">Table&nbsp;2.1</a> for more details.</p>
+<div id="tbl-test" class="anchored">
+<table class="table">
+<caption>Table&nbsp;2.1: This is native Scrivener table with a referenced table caption. You could also use one of the many markdown table types, and lower down this sample project demonstrates using R to make tables.</caption>
+<thead>
+<tr class="header">
+<th>Table Head 1</th>
+<th>Table Head 2</th>
+<th>Table Head 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Item 1</td>
+<td>Item 2</td>
+<td>Item 3</td>
+</tr>
+<tr class="even">
+<td>Item 4</td>
+<td>Item 5</td>
+<td>Item 6</td>
+</tr>
+<tr class="odd">
+<td>Item 7</td>
+<td>Item 8</td>
+<td>Item 9</td>
+</tr>
+<tr class="even">
+<td>Item 10</td>
+<td>Item 11</td>
+<td>Item 12</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="methods" class="level1 page-columns page-full" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Methods</h1>
+<section id="data-recording" class="level2 page-columns page-full" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="data-recording"><span class="header-section-number">3.1</span> Data Recording</h2>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div id="fig-marginalia" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Elephant3.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.1: A figure of a poor, poor marginalised elephant…</figcaption><p></p>
+</figure>
+</div>
+</div></div><p>Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, and here is some inline maths: <span class="math inline">\(e^{ix}=r(\cos \theta +i\sin \theta)\)</span>, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p>
+<p>Note that for equations we place the cross-referencing label on a newline <em>after</em> the [<code>Maths Block</code>] (as paragraph styles require to run to the line end, we cannot keep the label on the same line or it will be ‘swallowed’ by the suffix). The post-processing script will place this label back on the same line <em>after</em> the <code>$$</code> has been added by Scrivener’s compiler so that Quarto can properly cross-reference it…</p>
+<p>See both <a href="#eq-one">Equation&nbsp;3.1</a> and <a href="#eq-two">Equation&nbsp;3.2</a> for more details:</p>
+<p><span id="eq-one"><span class="math display">\[
+t' = \frac{t - \dfrac{v}{c^{2}}x}{\sqrt{1 - \dfrac{v^{2}}{c^{2}}}}
+\tag{3.1}\]</span></span></p>
+<p>Sint meis quo et, vis ad fæcete dolorem!</p>
+<p><span id="eq-two"><span class="math display">\[
+\nabla \times \mathbf {H} ={\frac {1}{c}}\left(4\pi \mathbf {J} _{\text{f}}+{\frac {\partial \mathbf {D} }{\partial t}}\right)
+\tag{3.2}\]</span></span></p>
+<p>Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.See <a href="#fig-marginalia">Figure&nbsp;3.1</a> for a poor marginalised elephant. Ad quøt moderatius elaboraret eum <span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm?</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ruby code-with-copy"><code class="sourceCode ruby"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a styled Ruby code block, </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># using the paragraph style [Ruby Code]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Output "I love Ruby"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>say <span class="kw">=</span> <span class="st">"I love Ruby"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">puts</span> say</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Output "I *LOVE* RUBY"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>say<span class="kw">[</span><span class="vs">'love'</span><span class="kw">]</span> <span class="kw">=</span> <span class="st">"*love*"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">puts</span> say<span class="at">.upcase</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Output "I *love* Ruby"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># five times</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="at">.times</span> <span class="kw">{</span> <span class="fu">puts</span> say <span class="kw">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ad pro quod definitiønem<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, mel no laudem delectus, te mei prompta maiorum pønderum. Solum aeque singulis duo ex <span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset!</p>
+</section>
+<section id="experimental-perturbations" class="level2 page-columns page-full" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="experimental-perturbations"><span class="header-section-number">3.2</span> Experimental Perturbations</h2>
+<p>Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Scrivener cannot <strong><em>nest</em></strong> block styles, so for Marginalia like this one we can use pandoc markup like <code>$$</code> directly instead of an e.g.&nbsp;maths block paragraph style. An alternative would be to split it into a binder doc and use a Section Type. We know from <em>the first fundamental theorem of calculus</em> that for <span class="math inline">\(x\)</span> in <span class="math inline">\([a, b]\)</span>: <span class="math display">\[\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).\]</span></p>
+</div></div><p>Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.</p>
+<p>This next part will demonstrate the use of raw markdown within the document to create a multipart figure. See <a href="#fig-elephants2">Figure&nbsp;4.4</a> below for an example using a Section Type to insert the same markup at compile-time.</p>
+<div id="fig-elephants" class="column-body quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 44.2%;justify-content: center;">
+<div id="fig-castle" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Elephant2.jpg" class="img-fluid figure-img" data-ref-parent="fig-elephants" width="361"></p>
+<p></p><figcaption class="figure-caption">(A) Elephant castle.</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 55.8%;justify-content: center;">
+<div id="fig-trunk" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Elephant3.jpg" class="img-fluid figure-img" data-ref-parent="fig-elephants" width="455"></p>
+<p></p><figcaption class="figure-caption">(B) Angry elephant with big trunk.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.2: Quarto allows the creation of figure panels with sub-figures. For this, if we want to use embedded images in the Scrivener editor we must use some raw markdown as we cannot <em>nest</em> Scrivener block styles. Note we can use the Scale Image… Tool in Scrivener and these sizes get exported to Quarto and the output. Here we scale both images to the same height.</figcaption><p></p>
+</figure>
+</div>
+<p>See <a href="#fig-elephants">Figure&nbsp;3.2</a>, particularly <a href="#fig-castle">Figure&nbsp;3.2 (A)</a>. Ad pro quod definitiønem, mel no laudem delectus, te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset!</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that there are five types of callouts, including: <code>note</code>, <code>tip</code>, <code>warning</code>, <code>caution</code>, and <code>important</code>.</p>
+</div>
+</div>
+<p>No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex <span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>, ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that there are five types of callouts, including: <code>note</code>, <code>tip</code>, <code>warning</code>, <code>caution</code>, and <code>important</code>.</p>
+</div>
+</div>
+<p>Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that there are five types of callouts, including: <code>note</code>, <code>tip</code>, <code>warning</code>, <code>caution</code>, and <code>important</code>.</p>
+</div>
+</div>
+</section>
+<section id="stimulus-plotting" class="level2 page-columns page-full" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="stimulus-plotting"><span class="header-section-number">3.3</span> Stimulus Plotting</h2>
+<p>Note if you have R and Python installed, you can run code like so…</p>
+<p>Here is an R plot (<a href="#fig-airquality">Figure&nbsp;3.3</a>), you need to have R installed for this to work, if not remove this document from the compile:</p>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(airquality, <span class="fu">aes</span>(Temp, Ozone)) <span class="sc">+</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display column-page">
+<div id="fig-airquality" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="quarto_files/figure-html/fig-airquality-1.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.3: A plot generated at compile-time by R, using a Scrivener paragraph style [R Block] and using column-page layout; the plot shows temperature against ozone level.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="page-columns page-full"><p>Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p><div class="no-row-height column-margin column-container"><span class="">This is an aside, which is inline to the text paragraph but will also be end up added to the margin in formats that support the margin layout.</span></div></div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-tableKable" class="anchored">
+
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;"><caption>Table&nbsp;3.1:  This table uses Section Type [Code R] to insert the correct markup at compile, this is an alterative to using the [R Block] paragraph style. This shows a table generated by the R package kableExtra. Currently this works for HTML and LaTeX. </caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> mpg </th>
+   <th style="text-align:right;"> cyl </th>
+   <th style="text-align:right;"> disp </th>
+   <th style="text-align:right;"> hp </th>
+   <th style="text-align:right;"> drat </th>
+   <th style="text-align:right;"> wt </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Mazda RX4 </td>
+   <td style="text-align:right;"> 21.0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 160 </td>
+   <td style="text-align:right;"> 110 </td>
+   <td style="text-align:right;"> 3.90 </td>
+   <td style="text-align:right;"> 2.620 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mazda RX4 Wag </td>
+   <td style="text-align:right;"> 21.0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 160 </td>
+   <td style="text-align:right;"> 110 </td>
+   <td style="text-align:right;"> 3.90 </td>
+   <td style="text-align:right;"> 2.875 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Datsun 710 </td>
+   <td style="text-align:right;"> 22.8 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 108 </td>
+   <td style="text-align:right;"> 93 </td>
+   <td style="text-align:right;"> 3.85 </td>
+   <td style="text-align:right;"> 2.320 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Hornet 4 Drive </td>
+   <td style="text-align:right;"> 21.4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 258 </td>
+   <td style="text-align:right;"> 110 </td>
+   <td style="text-align:right;"> 3.08 </td>
+   <td style="text-align:right;"> 3.215 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Hornet Sportabout </td>
+   <td style="text-align:right;"> 18.7 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 360 </td>
+   <td style="text-align:right;"> 175 </td>
+   <td style="text-align:right;"> 3.15 </td>
+   <td style="text-align:right;"> 3.440 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex, <em>ei ius apeirian cønstituam mediocritatem,</em> mei rebum detracto scaevølæ ex. Sed modo dico ullum at, <strong>sententiae definiebas ex eam</strong>! Nøstro eruditi eum ex.</p>
+</section>
+<section id="statistical-analysis" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="statistical-analysis"><span class="header-section-number">3.4</span> Statistical Analysis</h2>
+<p>Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-graphviz" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p>
+<svg width="672" height="480" viewbox="0.00 0.00 370.99 246.71" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 242.71)">
+<title>
+G
+</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-242.71 366.99,-242.71 366.99,4 -4,4"></polygon> <!-- run --> <g id="node1" class="node">
+<title>
+run
+</title>
+<ellipse fill="none" stroke="black" cx="105.22" cy="-110.03" rx="27" ry="18"></ellipse> <text text-anchor="middle" x="105.22" y="-105.83" font-family="Times,serif" font-size="14.00">run</text> </g> <!-- intr --> <g id="node2" class="node">
+<title>
+intr
+</title>
+<ellipse fill="none" stroke="black" cx="48.11" cy="-59.71" rx="27" ry="18"></ellipse> <text text-anchor="middle" x="48.11" y="-55.51" font-family="Times,serif" font-size="14.00">intr</text> </g> <!-- run&#45;&#45;intr --> <g id="edge1" class="edge">
+<title>
+run–intr
+</title>
+<path fill="none" stroke="black" d="M88.7,-95.48C81.19,-88.86 72.32,-81.04 64.79,-74.4"></path> </g> <!-- kernel --> <g id="node4" class="node">
+<title>
+kernel
+</title>
+<ellipse fill="none" stroke="black" cx="180.95" cy="-137.54" rx="35.33" ry="18"></ellipse> <text text-anchor="middle" x="180.95" y="-133.34" font-family="Times,serif" font-size="14.00">kernel</text> </g> <!-- run&#45;&#45;kernel --> <g id="edge4" class="edge">
+<title>
+run–kernel
+</title>
+<path fill="none" stroke="black" d="M129.18,-118.73C136.46,-121.38 144.54,-124.31 152.1,-127.06"></path> </g> <!-- runbl --> <g id="node3" class="node">
+<title>
+runbl
+</title>
+<ellipse fill="none" stroke="black" cx="31.42" cy="-126.16" rx="31.34" ry="18"></ellipse> <text text-anchor="middle" x="31.42" y="-121.96" font-family="Times,serif" font-size="14.00">runbl</text> </g> <!-- intr&#45;&#45;runbl --> <g id="edge2" class="edge">
+<title>
+intr–runbl
+</title>
+<path fill="none" stroke="black" d="M43.64,-77.51C41.25,-87.05 38.3,-98.76 35.91,-108.3"></path> </g> <!-- runbl&#45;&#45;run --> <g id="edge3" class="edge">
+<title>
+runbl–run
+</title>
+<path fill="none" stroke="black" d="M61.01,-119.7C67.11,-118.36 73.48,-116.97 79.43,-115.67"></path> </g> <!-- zombie --> <g id="node5" class="node">
+<title>
+zombie
+</title>
+<ellipse fill="none" stroke="black" cx="168.31" cy="-220.71" rx="39.42" ry="18"></ellipse> <text text-anchor="middle" x="168.31" y="-216.51" font-family="Times,serif" font-size="14.00">zombie</text> </g> <!-- kernel&#45;&#45;zombie --> <g id="edge5" class="edge">
+<title>
+kernel–zombie
+</title>
+<path fill="none" stroke="black" d="M178.21,-155.58C176.09,-169.54 173.17,-188.76 171.05,-202.7"></path> </g> <!-- sleep --> <g id="node6" class="node">
+<title>
+sleep
+</title>
+<ellipse fill="none" stroke="black" cx="253.25" cy="-154.97" rx="30.76" ry="18"></ellipse> <text text-anchor="middle" x="253.25" y="-150.77" font-family="Times,serif" font-size="14.00">sleep</text> </g> <!-- kernel&#45;&#45;sleep --> <g id="edge6" class="edge">
+<title>
+kernel–sleep
+</title>
+<path fill="none" stroke="black" d="M212.87,-145.23C216.81,-146.18 220.81,-147.15 224.69,-148.08"></path> </g> <!-- runmem --> <g id="node7" class="node">
+<title>
+runmem
+</title>
+<ellipse fill="none" stroke="black" cx="240.17" cy="-83.36" rx="43.44" ry="18"></ellipse> <text text-anchor="middle" x="240.17" y="-79.16" font-family="Times,serif" font-size="14.00">runmem</text> </g> <!-- kernel&#45;&#45;runmem --> <g id="edge7" class="edge">
+<title>
+kernel–runmem
+</title>
+<path fill="none" stroke="black" d="M198.4,-121.57C205.9,-114.71 214.67,-106.69 222.23,-99.77"></path> </g> <!-- sleep&#45;&#45;runmem --> <g id="edge13" class="edge">
+<title>
+sleep–runmem
+</title>
+<path fill="none" stroke="black" d="M249.95,-136.9C247.98,-126.13 245.49,-112.49 243.51,-101.67"></path> </g> <!-- swap --> <g id="node8" class="node">
+<title>
+swap
+</title>
+<ellipse fill="none" stroke="black" cx="330.95" cy="-148.25" rx="30.77" ry="18"></ellipse> <text text-anchor="middle" x="330.95" y="-144.05" font-family="Times,serif" font-size="14.00">swap</text> </g> <!-- sleep&#45;&#45;swap --> <g id="edge8" class="edge">
+<title>
+sleep–swap
+</title>
+<path fill="none" stroke="black" d="M283.96,-152.31C289.3,-151.85 294.86,-151.37 300.21,-150.91"></path> </g> <!-- runswap --> <g id="node9" class="node">
+<title>
+runswap
+</title>
+<ellipse fill="none" stroke="black" cx="319.23" cy="-73.46" rx="43.51" ry="18"></ellipse> <text text-anchor="middle" x="319.23" y="-69.26" font-family="Times,serif" font-size="14.00">runswap</text> </g> <!-- swap&#45;&#45;runswap --> <g id="edge9" class="edge">
+<title>
+swap–runswap
+</title>
+<path fill="none" stroke="black" d="M328.11,-130.15C326.28,-118.47 323.91,-103.35 322.08,-91.66"></path> </g> <!-- runswap&#45;&#45;runmem --> <g id="edge11" class="edge">
+<title>
+runswap–runmem
+</title>
+<path fill="none" stroke="black" d="M276.92,-78.76C276.78,-78.77 276.63,-78.79 276.48,-78.81"></path> </g> <!-- new --> <g id="node10" class="node">
+<title>
+new
+</title>
+<ellipse fill="none" stroke="black" cx="278.31" cy="-18" rx="27.25" ry="18"></ellipse> <text text-anchor="middle" x="278.31" y="-13.8" font-family="Times,serif" font-size="14.00">new</text> </g> <!-- runswap&#45;&#45;new --> <g id="edge10" class="edge">
+<title>
+runswap–new
+</title>
+<path fill="none" stroke="black" d="M306.51,-56.21C301.35,-49.22 295.42,-41.18 290.33,-34.29"></path> </g> <!-- new&#45;&#45;runmem --> <g id="edge12" class="edge">
+<title>
+new–runmem
+</title>
+<path fill="none" stroke="black" d="M268.49,-34.83C263.01,-44.21 256.2,-55.89 250.62,-65.44"></path> </g> </g>
+</svg>
+</p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.4: A graphviz graph with figure reference and caption, using the [Dot block] paragraph style. Currently in LaTeX this could overflow the page depending on verso/recto, but renders fine in HTML; see <a href="https://quarto.org/docs/authoring/diagrams.html#sizing" class="uri">https://quarto.org/docs/authoring/diagrams.html#sizing</a> for more details…</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam. See <a href="#fig-statemachine">Figure&nbsp;3.5</a> and <a href="#fig-mermaid">Figure&nbsp;3.6</a> for details.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-statemachine" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p>
+<svg width="672" height="480" viewbox="0.00 0.00 578.10 255.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 251)">
+<title>
+finite_state_machine
+</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-251 574.1,-251 574.1,4 -4,4"></polygon> <!-- 0 --> <g id="node1" class="node">
+<title>
+0
+</title>
+<ellipse fill="none" stroke="black" cx="22" cy="-77" rx="18" ry="18"></ellipse> <ellipse fill="none" stroke="black" cx="22" cy="-77" rx="22" ry="22"></ellipse> <text text-anchor="middle" x="22" y="-72.8" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">0</text> </g> <!-- 2 --> <g id="node5" class="node">
+<title>
+2
+</title>
+<ellipse fill="none" stroke="black" cx="132.23" cy="-106" rx="18" ry="18"></ellipse> <text text-anchor="middle" x="132.23" y="-101.8" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">2</text> </g> <!-- 0&#45;&gt;2 --> <g id="edge1" class="edge">
+<title>
+0-&gt;2
+</title>
+<path fill="none" stroke="black" d="M43.36,-82.45C60.72,-87.11 85.8,-93.83 104.72,-98.9"></path> <polygon fill="black" stroke="black" points="103.95,-102.31 114.52,-101.52 105.76,-95.55 103.95,-102.31"></polygon> <text text-anchor="middle" x="79.12" y="-100.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">SS(B)</text> </g> <!-- 1 --> <g id="node6" class="node">
+<title>
+1
+</title>
+<ellipse fill="none" stroke="black" cx="132.23" cy="-50" rx="18" ry="18"></ellipse> <text text-anchor="middle" x="132.23" y="-45.8" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">1</text> </g> <!-- 0&#45;&gt;1 --> <g id="edge2" class="edge">
+<title>
+0-&gt;1
+</title>
+<path fill="none" stroke="black" d="M42.54,-68.08C48.67,-65.56 55.53,-63.01 62,-61.2 75.65,-57.38 91.2,-54.72 104.1,-52.95"></path> <polygon fill="black" stroke="black" points="104.74,-56.4 114.22,-51.67 103.86,-49.46 104.74,-56.4"></polygon> <text text-anchor="middle" x="79.12" y="-66.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">SS(S)</text> </g> <!-- 3 --> <g id="node2" class="node">
+<title>
+3
+</title>
+<ellipse fill="none" stroke="black" cx="252.56" cy="-22" rx="18" ry="18"></ellipse> <ellipse fill="none" stroke="black" cx="252.56" cy="-22" rx="22" ry="22"></ellipse> <text text-anchor="middle" x="252.56" y="-17.8" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">3</text> </g> <!-- 4 --> <g id="node3" class="node">
+<title>
+4
+</title>
+<ellipse fill="none" stroke="black" cx="252.56" cy="-225" rx="18" ry="18"></ellipse> <ellipse fill="none" stroke="black" cx="252.56" cy="-225" rx="22" ry="22"></ellipse> <text text-anchor="middle" x="252.56" y="-220.8" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">4</text> </g> <!-- 8 --> <g id="node4" class="node">
+<title>
+8
+</title>
+<ellipse fill="none" stroke="black" cx="548.1" cy="-114" rx="18" ry="18"></ellipse> <ellipse fill="none" stroke="black" cx="548.1" cy="-114" rx="22" ry="22"></ellipse> <text text-anchor="middle" x="548.1" y="-109.8" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">8</text> </g> <!-- 6 --> <g id="node7" class="node">
+<title>
+6
+</title>
+<ellipse fill="none" stroke="black" cx="252.56" cy="-133" rx="18" ry="18"></ellipse> <text text-anchor="middle" x="252.56" y="-128.8" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">6</text> </g> <!-- 8&#45;&gt;6 --> <g id="edge13" class="edge">
+<title>
+8-&gt;6
+</title>
+<path fill="none" stroke="black" d="M526.57,-119.79C520.64,-121.32 514.15,-122.86 508.1,-124 431.66,-138.44 411.59,-144.86 333.88,-141 316.03,-140.11 296.02,-138.12 280.44,-136.35"></path> <polygon fill="black" stroke="black" points="280.79,-132.87 270.45,-135.17 279.97,-139.82 280.79,-132.87"></polygon> <text text-anchor="middle" x="399.94" y="-145.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S(b)</text> </g> <!-- 5 --> <g id="node8" class="node">
+<title>
+5
+</title>
+<ellipse fill="none" stroke="black" cx="351.88" cy="-80" rx="18" ry="18"></ellipse> <text text-anchor="middle" x="351.88" y="-75.8" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">5</text> </g> <!-- 8&#45;&gt;5 --> <g id="edge14" class="edge">
+<title>
+8-&gt;5
+</title>
+<path fill="none" stroke="black" d="M525.96,-112.73C495.19,-110.53 436.46,-105.06 387.88,-93 384.67,-92.2 381.36,-91.21 378.1,-90.13"></path> <polygon fill="black" stroke="black" points="379.27,-86.83 368.68,-86.72 376.89,-93.41 379.27,-86.83"></polygon> <text text-anchor="middle" x="447.99" y="-110.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S(a)</text> </g> <!-- 2&#45;&gt;4 --> <g id="edge6" class="edge">
+<title>
+2-&gt;4
+</title>
+<path fill="none" stroke="black" d="M145.05,-119.18C151.75,-126.57 160.35,-135.9 168.23,-144 188.25,-164.56 211.74,-187.27 228.67,-203.4"></path> <polygon fill="black" stroke="black" points="226.29,-205.97 235.95,-210.32 231.11,-200.9 226.29,-205.97"></polygon> <text text-anchor="middle" x="190.4" y="-190.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S(A)</text> </g> <!-- 2&#45;&gt;6 --> <g id="edge4" class="edge">
+<title>
+2-&gt;6
+</title>
+<path fill="none" stroke="black" d="M149.94,-109.81C169.49,-114.27 202.13,-121.72 225.13,-126.97"></path> <polygon fill="black" stroke="black" points="224.41,-130.4 234.94,-129.21 225.97,-123.57 224.41,-130.4"></polygon> <text text-anchor="middle" x="190.4" y="-127.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">SS(b)</text> </g> <!-- 2&#45;&gt;5 --> <g id="edge5" class="edge">
+<title>
+2-&gt;5
+</title>
+<path fill="none" stroke="black" d="M150.04,-102.6C169.38,-98.8 202.14,-92.73 230.56,-89.2 262.29,-85.26 298.95,-82.75 323.39,-81.36"></path> <polygon fill="black" stroke="black" points="323.9,-84.84 333.7,-80.8 323.52,-77.85 323.9,-84.84"></polygon> <text text-anchor="middle" x="252.56" y="-93.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">SS(a)</text> </g> <!-- 1&#45;&gt;3 --> <g id="edge3" class="edge">
+<title>
+1-&gt;3
+</title>
+<path fill="none" stroke="black" d="M149.94,-46.05C168.39,-41.68 198.48,-34.56 221.15,-29.2"></path> <polygon fill="black" stroke="black" points="222.04,-32.58 230.97,-26.87 220.43,-25.77 222.04,-32.58"></polygon> <text text-anchor="middle" x="190.4" y="-45.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S($end)</text> </g> <!-- 6&#45;&gt;6 --> <g id="edge9" class="edge">
+<title>
+6-&gt;6
+</title>
+<path fill="none" stroke="black" d="M243.93,-148.92C241.67,-159.15 244.55,-169 252.56,-169 257.81,-169 260.86,-164.76 261.7,-158.95"></path> <polygon fill="black" stroke="black" points="265.19,-158.73 261.19,-148.92 258.2,-159.08 265.19,-158.73"></polygon> <text text-anchor="middle" x="252.56" y="-173.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S(b)</text> </g> <!-- 6&#45;&gt;5 --> <g id="edge10" class="edge">
+<title>
+6-&gt;5
+</title>
+<path fill="none" stroke="black" d="M268.77,-124.72C284.34,-116.24 308.76,-102.94 326.93,-93.04"></path> <polygon fill="black" stroke="black" points="328.67,-96.08 335.78,-88.22 325.33,-89.93 328.67,-96.08"></polygon> <text text-anchor="middle" x="304.22" y="-115.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S(a)</text> </g> <!-- 5&#45;&gt;5 --> <g id="edge8" class="edge">
+<title>
+5-&gt;5
+</title>
+<path fill="none" stroke="black" d="M343.87,-96.29C341.93,-106.39 344.61,-116 351.88,-116 356.54,-116 359.32,-112.06 360.2,-106.57"></path> <polygon fill="black" stroke="black" points="363.69,-106.18 359.9,-96.29 356.69,-106.39 363.69,-106.18"></polygon> <text text-anchor="middle" x="351.88" y="-120.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S(a)</text> </g> <!-- 7 --> <g id="node9" class="node">
+<title>
+7
+</title>
+<ellipse fill="none" stroke="black" cx="447.99" cy="-60" rx="18" ry="18"></ellipse> <text text-anchor="middle" x="447.99" y="-55.8" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">7</text> </g> <!-- 5&#45;&gt;7 --> <g id="edge7" class="edge">
+<title>
+5-&gt;7
+</title>
+<path fill="none" stroke="black" d="M369.71,-76.42C383.76,-73.44 404.05,-69.13 420.31,-65.67"></path> <polygon fill="black" stroke="black" points="421.26,-69.05 430.31,-63.54 419.8,-62.2 421.26,-69.05"></polygon> <text text-anchor="middle" x="399.94" y="-76.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S(b)</text> </g> <!-- 7&#45;&gt;8 --> <g id="edge11" class="edge">
+<title>
+7-&gt;8
+</title>
+<path fill="none" stroke="black" d="M465.39,-64.98C477.59,-69.03 494.43,-75.35 508.1,-83.2 513.15,-86.1 518.25,-89.61 523.02,-93.21"></path> <polygon fill="black" stroke="black" points="521.16,-96.2 531.17,-99.67 525.51,-90.72 521.16,-96.2"></polygon> <text text-anchor="middle" x="496.05" y="-87.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S(b)</text> </g> <!-- 7&#45;&gt;5 --> <g id="edge12" class="edge">
+<title>
+7-&gt;5
+</title>
+<path fill="none" stroke="black" d="M432.03,-51.58C419.84,-45.88 402.34,-40.36 387.88,-46.2 381.25,-48.88 375.18,-53.48 370.02,-58.44"></path> <polygon fill="black" stroke="black" points="367.43,-56.09 363.16,-65.79 372.54,-60.87 367.43,-56.09"></polygon> <text text-anchor="middle" x="399.94" y="-51.2" font-family="Avenir,Helvetica,sans-serif" font-size="14.00">S(a)</text> </g> </g>
+</svg>
+</p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.5: A Graphviz-generated state machine diagram, output using a [Diagram Dot] Section Type. Currently in LaTeX this could overflow the page depending on verso/recto, but renders fine in HTML; see <a href="https://quarto.org/docs/authoring/diagrams.html#sizing" class="uri">https://quarto.org/docs/authoring/diagrams.html#sizing</a> for more details…</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ad pro quod definitiønem, mel no laudem delectus, te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset!</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-mermaid" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p>
+</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-1">%%{init: {
+  "theme": "forest",
+  "themeCSS": ".extension { fill: white !important; };"
+}}%%
+
+flowchart LR
+  A[Hard edge] --&gt; B(Round edge)
+  B --&gt; C{Decision}
+  C --&gt; D[Result one]
+  C --&gt; E[Result two]
+
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.6: A Mermaid figure using a Scrivener Section Type [Diagram Mermaid]; The plot represents some sort of graph…</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex, ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.</p>
+<p>Åd nam omnis ullamcørper vituperatoribus. Sed vereartincidunt rationibus an. Elit såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt.</p>
+<p>No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex <span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>, ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.</p>
+<p>Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam. See <a href="#fig-withattributes">Figure&nbsp;3.7</a> for details.</p>
+<div id="fig-withattributes" class="quarto-figure quarto-figure-right anchored">
+<figure class="figure">
+<p><img src="Elephant3.jpg" class="myclass figure-img" style="width:3cm;height:2cm"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.7: This figure uses custom metadata values to identify the class, ID, width and height. The ««A​B»» tag at the start of the caption is replaced with the correct Scrivener placeholders by the compiler; see global replacements for the details…</figcaption><p></p>
+</figure>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="results" class="level1 page-columns page-full" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Results</h1>
+<section id="lunar-cycles" class="level2 page-columns page-full" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="lunar-cycles"><span class="header-section-number">4.1</span> Lunar Cycles</h2>
+<p>Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex (see <a href="#fig-elespan">Figure&nbsp;4.1</a>). Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p>
+<div class="column-page">
+<div id="fig-elespan" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Elephant1.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.1: This should span the whole page. This uses raw markdown in the editor to insert the correct markup, a div with a <code>.column-page</code> class, for Quarto’s layout for extend-to-page-width.</figcaption><p></p>
+</figure>
+</div>
+</div>
+<p>Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.</p>
+<div class="column-page">
+<div id="fig-elespan2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Elephant1.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.2: This should also span the whole page, using a paragraph block style [<code>Column Page</code>]. This method has the caveat that we cannot use an editor-embedded image as in <a href="#fig-elespan">Figure&nbsp;4.1</a>; only an Scrivener Binder document link to the file and direct pandoc markup…</figcaption><p></p>
+</figure>
+</div>
+</div>
+<p>Ad pro quod definitiønem <span class="citation" data-cites="crivellato2007">(<a href="#ref-crivellato2007" role="doc-biblioref"><em><span class="nodecoration">Crivellato</span> &amp; <span class="nodecoration">Ribatti</span></em> 2007</a>)</span>, mel no laudem delectus <span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>, te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo!</p>
+<div class="column-page-right">
+<div id="fig-elespan3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Elephant1.jpg" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.3: This should span the page to the right in HTML. This uses a Section Type [<code>Layout Page Right</code>] to generate the correct markup by the compile format.</figcaption><p></p>
+</figure>
+</div>
+</div>
+<p>Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset! We can reference sub-tables, for example see <a href="#tbl-second">Table&nbsp;4.1 (B)</a>.</p>
+<div id="tbl-panel" class="tbl-parent quarto-layout-panel anchored">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="tbl-first" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-panel" style="flex-basis: 50.0%;justify-content: center;">
+<table class="table">
+<caption>(A) First Table</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Col1</th>
+<th style="text-align: left;">Col2</th>
+<th style="text-align: left;">Col3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">C</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">G</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">G</td>
+<td style="text-align: left;">G</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tbl-second" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-panel" style="flex-basis: 50.0%;justify-content: center;">
+<table class="table">
+<caption>(B) Second Table</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Col1</th>
+<th style="text-align: left;">Col2</th>
+<th style="text-align: left;">Col3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">C</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">G</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">G</td>
+<td style="text-align: left;">G</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="panel-caption table-caption">
+<p>Table&nbsp;4.1: This is a markdown table panel with two sub-tables; just using plain markdown in the editor (no Scrivener Styles or Section Types).</p>
+</div>
+</div>
+<p>No meæ menandri mediøcritatem, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex, ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.</p>
+<p>Åd nam omnis ullamcørper vituperatoribus. Sed verear tincidunt rationibus an. Elit såperet recteque sit et, tåmquåm noluisse eloquentiåm ei mei. In pri solet soleat timeam, tale possit vis æt. Please refer to <a href="#tbl-panel2">Table&nbsp;4.2</a>, including <a href="#tbl-first2">Table&nbsp;4.2 (A)</a> and <a href="#tbl-second2">Table&nbsp;4.2 (B)</a> for more details.</p>
+<div id="tbl-panel2" class="tbl-parent quarto-layout-panel anchored">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="tbl-first2" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-panel2" style="flex-basis: 100.0%;justify-content: center;">
+<table class="table">
+<caption>(A) First Table</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Column 1</th>
+<th style="text-align: center;">Column 2</th>
+<th style="text-align: center;">Column 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">C</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">D</td>
+<td style="text-align: center;">E</td>
+<td style="text-align: center;">F</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">G</td>
+<td style="text-align: center;">H</td>
+<td style="text-align: center;">I</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="tbl-second2" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-panel2" style="flex-basis: 100.0%;justify-content: center;">
+<table class="table">
+<caption>(B) Second Table</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Column 1</th>
+<th style="text-align: center;">Column 2</th>
+<th style="text-align: center;">Column 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">J</td>
+<td style="text-align: center;">K</td>
+<td style="text-align: center;">L</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">M</td>
+<td style="text-align: center;">N</td>
+<td style="text-align: center;">O</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">P</td>
+<td style="text-align: center;">Q</td>
+<td style="text-align: center;">R</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="panel-caption table-caption">
+<p>Table&nbsp;4.2: This is a markdown multi-table panel with two sub-tables generated using a Section Type [<code>Multipart Table</code>]. Note that Custom Metadata holds the cross-referencing label, layout class and the attributes for this multipart table, which will be added by the Section Layout by the compiler, using the Scrivener placeholders: <code>&lt;​$​​custom:ID&gt;</code> <code>&lt;​$​​custom:Class&gt;</code> <code>&lt;​$​​custom:Attributes&gt;</code></p>
+</div>
+</div>
+</section>
+<section id="solar-cycles" class="level2 page-columns page-full" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="solar-cycles"><span class="header-section-number">4.2</span> Solar Cycles</h2>
+<p>Lørem ipsum dolør sit amet, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod. Sed illum minimum at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no, mei nostrud necessitatibus te?</p>
+<p>Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.</p>
+<div id="fig-elephants2" class="column-body quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-bottom">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 44.3%;justify-content: center;">
+<div id="fig-castle2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Elephant2.jpg" class="img-fluid figure-img" data-ref-parent="fig-elephants2" width="361"></p>
+<p></p><figcaption class="figure-caption">(A) Elephant.</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 55.7%;justify-content: center;">
+<div id="fig-trunk2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Elephant3.jpg" class="img-fluid figure-img" data-ref-parent="fig-elephants2" width="454"></p>
+<p></p><figcaption class="figure-caption">(B) Angry elephant with big trunk.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.4: This demonstrates generating a multi-panel figure using a Scrivener Section Type [<code>Multipart Figure</code>] instead of using raw markdown as <a href="#experimental-perturbations">shown here</a>. ID, Class and Attributes specific to the block [<code>#fig-elephants2 .column-body layout-ncol=2 layout-valign="bottom"</code>] are saved to <code>Custom Metadata-&gt;ID, Class &amp; Attributes</code>, and this is then inserted into the markup for this chunk by the Section Layout at compile time.</figcaption><p></p>
+</figure>
+</div>
+<div class="callout-caution callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Danger
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a callout, but generated using a Section Type [<code>Callout Caution</code>] rather than a paragraph style. Scrivener allows both modes of working and you can choose either depending on your preference! Don’t forget to utilise Scrivenings mode if you use lots of Section Types so you can edit as a ‘single’ document…</p>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="discussion" class="level1 page-columns page-full" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Discussion</h1>
+<p>Lørem ipsum dolør sit amet <span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>, eu ipsum movet vix, veniam låoreet posidonium te eøs, eæm in veri eirmod <span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>. Sed illum minimum<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> at, est mægna alienum mentitum ne. Amet equidem sit ex. Ludus øfficiis suåvitate sea in, ius utinam vivendum no (see <a href="#introduction">Introduction</a>), mei nostrud necessitatibus te?</p>
+<div id="fig-alignright" class="quarto-figure quarto-figure-right anchored">
+<figure class="figure">
+<p><img src="Elephant3.jpg" width="400" height="324" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5.1: This should be right-aligned if there is space…</figcaption><p></p>
+</figure>
+</div>
+<p>Sint meis quo et, vis ad fæcete dolorem! Ad quøt moderatius elaboraret eum, pro paulo ridens quaestio ut! Iudico nullam sit ad <span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>, ad has åperiam senserit conceptåm? Tritani posidonium suscipiantur ex duo, meæ essent mentitum ad. Nåm ex mucius mandamus, ut duo cåusae offendit laboramus. Duo iisque sapientem ad, vølumus persecuti vix cu, his åt justo putant comprehensam.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>This Marginalia is using a Section Type [<code>Layout Margin</code>]. We can therefore use paragraph styles here, like [<code>Maths Block</code>]. We know from the <em>first fundamental theorem of calculus</em> that for <span class="math inline">\(x\)</span> in <span class="math inline">\([a, b]\)</span> <span id="eq-marginalia"><span class="math display">\[
+\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).
+\tag{5.1}\]</span></span></p>
+</div></div><p>Ad pro quod definitiønem, mel no laudem delectus <span class="citation" data-cites="siegel2015">(<a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>, te mei prompta maiorum pønderum. Solum aeque singulis duo ex, est an iriure øblique. Volumus åntiøpam iudicåbit et pro, cibo ubique hås an? Cu his movet feugiåt pårtiendo! Eam in ubique høneståtis ullåmcorper, no eos vitae orætiø viderer. Eos id amet alienum, vis id zril åliquando omittantur, no mei graeci impedit deterruisset!</p>
+<p>No meæ menandri mediøcritatem <span class="citation" data-cites="siegel2015 barrett2015 crivellato2007">(<a href="#ref-crivellato2007" role="doc-biblioref"><em><span class="nodecoration">Crivellato</span> &amp; <span class="nodecoration">Ribatti</span></em> 2007</a>; <a href="#ref-barrett2015" role="doc-biblioref"><em><span class="nodecoration">Barrett</span> &amp; <span class="nodecoration">Simmons</span></em> 2015</a>; <a href="#ref-siegel2015" role="doc-biblioref"><em><span class="nodecoration">Siegel</span> &amp; <span class="nodecoration">Silins</span></em> 2015</a>)</span>, meis tibique convenire vis id! Delicata intellegam mei ex. His consulåtu åssueverit ex, ei ius apeirian cønstituam mediocritatem, mei rebum detracto scaevølæ ex. Sed modo dico ullum at, sententiae definiebas ex eam! Nøstro eruditi eum ex.</p>
+</section>
+
+
+<section id="bibliography" class="level1 unnumbered">
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="acknowledgments" class="level1 appendix unnumbered"><h2 class="quarto-appendix-heading">Acknowledgments</h2><div class="quarto-appendix-contents">
+
+<p>I am grateful for the insightful comments offered by the anonymous peer reviewers at Cephalopoda &amp; Daughters. The generosity and expertise of one and all have improved this study in innumerable ways and saved me from many errors; those that inevitably remain are entirely my own responsibility.</p>
+</div></section><section id="conflicts-of-interest" class="level1 appendix unnumbered"><h2 class="quarto-appendix-heading">Conflicts of Interest</h2><div class="quarto-appendix-contents">
+
+<p>The authors do <strong><em>love</em></strong> octopods, but this in no way biases their work.</p>
+</div></section><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-barrett2015" class="csl-entry" role="doc-biblioentry">
+Barrett L, &amp; Simmons W.<span class="nodecoration"> (2015)</span>. Interoceptive predictions in the brain. <em>Nature Reviews Neuroscience</em>, 16(7), 419–429. <a href="https://doi.org/10.1038/nrn3950">https://doi.org/10.1038/nrn3950</a>
+</div>
+<div id="ref-copenhaver2014" class="csl-entry" role="doc-biblioentry">
+Copenhaver R.<span class="nodecoration"> (2014)</span>. Berkeley on the language of nature and the objects of vision. <em>Res Philosophica</em>, 91(1), 29–46. <a href="https://doi.org/10.11612/resphil.2014.91.1.2">https://doi.org/10.11612/resphil.2014.91.1.2</a>
+</div>
+<div id="ref-crivellato2007" class="csl-entry" role="doc-biblioentry">
+Crivellato E, &amp; Ribatti D.<span class="nodecoration"> (2007)</span>. Soul, mind, brain: Greek philosophy and the birth of neuroscience. <em>Journal of Anatomy</em>, 71(4), 327–336. <a href="https://doi.org/10.1016/j.brainresbull.2006.09.020">https://doi.org/10.1016/j.brainresbull.2006.09.020</a>
+</div>
+<div id="ref-hoffman2014" class="csl-entry" role="doc-biblioentry">
+Hoffman DD, &amp; Prakash C.<span class="nodecoration"> (2014)</span>. Objects of consciousness. <em>Frontiers in Psychology</em>, 5, 577. <a href="https://doi.org/10.3389/fpsyg.2014.00577">https://doi.org/10.3389/fpsyg.2014.00577</a>
+</div>
+<div id="ref-siegel2015" class="csl-entry" role="doc-biblioentry">
+Siegel S, &amp; Silins N.<span class="nodecoration"> (2015)</span>. The epistemology of perception. In M. Matthen (Ed.), <em>The oxford handbook of philosophy of perception</em> (pp. 781–811). Oxford University Press. <a href="https://doi.org/10.1093/oxfordhb/9780199600472.013.040">https://doi.org/10.1093/oxfordhb/9780199600472.013.040</a>
+</div>
+<div id="ref-simmons2013" class="csl-entry" role="doc-biblioentry">
+Simmons A.<span class="nodecoration"> (2015)</span>. Perception in early modern philosophy. In M. Matthen (Ed.), <em>The oxford handbook of philosophy of perception</em> (pp. 81–99). Oxford University Press. <a href="https://doi.org/10.1093/oxfordhb/9780199600472.013.015">https://doi.org/10.1093/oxfordhb/9780199600472.013.015</a>
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>This is a footnote, <strong>with</strong> a citation <span class="citation" data-cites="crivellato2007">(<a href="#ref-crivellato2007" role="doc-biblioref"><em><span class="nodecoration">Crivellato</span> &amp; <span class="nodecoration">Ribatti</span></em> 2007</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Another footnote. Although footnotes get converted just fine, one caveat is you cannot use Scrivener inline styles, so you <strong>must</strong> use Pandoc markup <em>directly</em>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A final footnote.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
