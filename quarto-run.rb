@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby 
 # encoding: utf-8 
 
-# This script rewrites markdown from Scrivener to be compatible with
-# the cross-referencing system used by Quarto. It also adds paths for
-# LaTeX, python and others so that compilation works directly from
-# Scrivener (which by default doesn't use the user environment). 
+# This script rewrites markdown compiled from Scrivener to be compatible
+# with the cross-referencing system used by Quarto. It also adds paths for
+# LaTeX, python and others so that compilation works directly from Scrivener
+# (which by default doesn't use the user's environment or path).
 # Version: 0.1.8
 
 Encoding.default_external = Encoding::UTF_8
