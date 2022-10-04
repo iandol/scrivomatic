@@ -4,7 +4,7 @@
 # This script rewrites markdown compiled from Scrivener to be compatible
 # with the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from Scrivener
-# (which by default doesn't use the user's environment or path).
+# (Scrivener doesn't use the user's environment or path by default).
 # Version: 0.1.8
 
 Encoding.default_external = Encoding::UTF_8

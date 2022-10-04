@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Scrivener + Quarto Template"
-permalink: /scrivener+quarto/
+permalink: /scrivener-quarto/
 ---
 
 # Scrivener + Quarto Template

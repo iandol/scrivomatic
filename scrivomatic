@@ -1,6 +1,11 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+# scrivomatic is a wrapper script that adds tools to the path (as Scrivener
+# does not use the user's path), and enables some other tweaks to optimise
+# the workflow when scrivener calls pandocomatic.
+# `scrivomatic --help` for details…
+
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
@@ -14,7 +19,7 @@ require 'shellwords' # escapes strings to run in the shell
 class Scrivomatic
 	##
 	# Sets up the path and performs other functions to improve running
-	# pandocomatic/panzer from scrivener...
+	# pandocomatic from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
 	VER = '1.0.33'.freeze

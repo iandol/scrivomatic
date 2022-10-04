@@ -1,27 +1,27 @@
 ### Pandocomatic Configuration ###
 # IMPORTANT: 
-# YAML configuration files uses spaces for indentation to define structure
+# YAML configuration files uses SPACES with indentation to define structure!
 #
-# Path values are normally relative to the Pandoc data dir: /Users/MYNAME/.pandoc
-# so csl/apa.csl will be searched as /Users/MYNAME/.pandoc/csl/apa.csl
-# see https://heerdebeer.org/Software/markdown/pandocomatic/#specifying-paths 
+# Path values are normally relative to the Pandoc data dir:
+# /Users/MYNAME/.local/share/pandoc so csl/apa.csl will be searched as
+# /Users/MYNAME/.local/share/pandoc/csl/apa.csl see
+# https://heerdebeer.org/Software/markdown/pandocomatic/#specifying-paths 
 #
-# This has been updated for the Pandoc V2.11 citeproc engine, not the older filter
 templates:
 #-----------------------------------------------------------------------------
   refs:
-    setup: [] #runs a general script to rename or copy files before anything is run
-    preprocessors: [] #runs a script on the markdown file itself
+    setup: [] #could run general scripts to rename or copy files before anything is run
+    preprocessors: [] #could run a script on the markdown file itself
     pandoc:
       citeproc: true #this enables the built-in citeproc engine
       bibliography: "core.bib" #bibtex file, default search path will be your pandoc data-dir
       csl: "csl/apa.csl" #CSL style file, in the csl/ folder of pandoc data-dir
     metadata:
       reference-section-title: "Bibliography"
-      notes-after-punctuation: false #don't put refs after .
+      notes-after-punctuation: false #don't put refs after the period
       link-citations: true #hyperlink intext references to the bibliography
-      csl-hanging-indent: true #try to add hanging indents to formatted bibliogrpahy
-    postprocessors: [] #runs on the output file (unless it is binary like docx)
+      csl-hanging-indent: true #add hanging indents to formatted bibliogrpahy
+    postprocessors: [] #could run on the output file (unless it is binary like docx)
     cleanup: [] #general cleanup script
 #-----------------------------------------------------------------------------
   paper-with-refs-latex:
@@ -34,13 +34,13 @@ templates:
       toc-depth: 4
       base-header-level: 2
     metadata: 
+      documentclass: 'article'
+      papersize: 'A4'
       mainfont: 'Hoefler Text'
       sansfont: 'Avenir Next'
       monofont: 'Menlo'
       CJKmainfont: 'PingFang SC'
       lang: 'en-GB'
-      papersize: 'A4'
-      documentclass: 'article'
       fontsize: '12pt'
       linestretch: '1.75'
       geometry: 'margin=2cm'
