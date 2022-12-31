@@ -8,7 +8,7 @@ permalink: /installing-ruby/
 
 Versions of pandocomatic since V0.2.4.1 do not support the *ancient* version of Ruby (V2.3.7) that comes by default with macOS versions **before** macOS Catalina (10.15). 
 
-Below are a series of options to get ruby installed. **_Remember_**: these should be considered mutually exclusive, choose either Catalina's system ruby, `rbenv` **OR** homebrew's Ruby, do not mix them together…
+Below are a series of options to get ruby installed. **_Remember_**: these should be considered mutually exclusive, choose either Catalina's system ruby, `rbenv` **OR** homebrew's Ruby, *do not mix them together*…
 
 
 ## Users on macOS Catalina and later ««simple»»
@@ -49,8 +49,8 @@ echo '\neval "$(rbenv init -)"' >> ~/.zsh
 Restart your terminal to trigger this adjustment, then install a modern ruby (you can see a list with `rbenv install -l`) and finally pandocomatic:
 
 ```shell
-rbenv install 3.1.2
-rbenv global 3.1.2
+rbenv install 3.2.0
+rbenv global 3.2.0
 gem install paru pandocomatic
 ```
 

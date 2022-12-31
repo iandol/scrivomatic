@@ -5,7 +5,7 @@
 # with the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from Scrivener
 # (Scrivener doesn't use the user's environment or path by default).
-# Version: 0.1.8
+# Version: 0.1.9
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -60,6 +60,8 @@ lineSeparator = "\n"
 begin
 	File.open(infilename, 'r') do |file|
 		text = file.read
+
+		text.gsub!(/\${USERHOME}\//, ENV['HOME']+'/')
 
 		# cosmetic only: remove long runs (4 or more) of newlines
 		text.gsub!(/\n{4,}/,"\n\n")

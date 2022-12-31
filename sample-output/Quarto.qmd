@@ -10,7 +10,7 @@
 # the location of your bibliography files and change any fonts
 # to those present on your system.
 #
-title: "Scrivener + Quarto Workflow"
+title: "Quarto & Scrivener"
 subtitle: "A Compiler Workflow…"
 author: 
   - name: Jane Doe
@@ -26,7 +26,7 @@ author:
 keywords: [pandoc, quarto, scrivener]
 subject: workflow
 lang: en
-date: 2022-09-21      # Scrivener placeholder
+date: 2022-12-31      # Scrivener placeholder
 verbose: true                 # pandoc verbosity
 toc: true                     # table of contents
 number-sections: true         # numbered headings
@@ -37,7 +37,7 @@ crossref:                     # cross-referencing options
 cap-location: bottom          # where put figure & table captions
 link-citations: true          # in-document links to refs
 bibliography: /Users/ian/.local/share/pandoc/Core.json
-csl: /Users/ian/.local/share/pandoc/csl/apa-ian.csl
+csl: /Users/ian/.local/share/pandoc/csl/apa.csl
 appendix-style: default       # see https://quarto.org/docs/authoring/appendices.html#appendix-style
 dpi: 300
 format:
@@ -95,7 +95,7 @@ format:
   epub:
     html-math-method: katex
     identifier: 45DRE66-YTX
-    epub-cover-image: cover.png
+    epub-cover-image: /Users/ian/.local/share/pandoc/templates/cover.jpg
     fig-format: png
   docx:
     prefer-html: true          # stops non-HTML format errors 
@@ -254,7 +254,7 @@ Note that there are five types of callouts, including:
 
 Note if you have R and Python installed, you can run code like so...
 
-Here is an R plot (@fig-airquality), you need to have R installed for this to work, if not remove this document from the compile:  
+Here is an R plot (@fig-airquality), you need to have R installed for this to work and also the tidy verse packages, if not simply remove this document from the compile:  
 
 ```{r}
 #| label: fig-airquality
