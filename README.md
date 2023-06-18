@@ -1,6 +1,6 @@
 # Scrivomatic: Scrivener & Pandoc*\{omatic\}* #
 
-*For Scrivener + Quarto [see the forum post here](https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769)*, or download the [Scrivener template directly](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivener%20+%20Quarto.scrivtemplate).
+*For Scrivener + Quarto [see the forum post here](https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769)*, or download the [Scrivener template directly](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivener%20+%20Quarto.scrivtemplate). Another Quarto template can be found here: [ScrivQ](https://github.com/bcdavasconcelos/ScrivQ).
 
 ## TL;DR (simple summary) ##
 This guide is a series of steps, which you can combine *a-la-carte* to integrate [Scrivener](http://literatureandlatte.com) (an app that excels at organised writing), and [Pandoc](http://pandoc.org/index.html) (a tool that excels at transforming text into documents). Scrivener already comes with MultiMarkDown, but in my opinion Pandoc provides numerous additional benefits and installation is quite simple. I use [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) to flexibly manage Pandoc settings directly from Scrivener.
