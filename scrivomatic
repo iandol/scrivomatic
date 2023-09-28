@@ -22,7 +22,7 @@ class Scrivomatic
 	# pandocomatic from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.33'.freeze
+	VER = '1.0.34'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -160,7 +160,7 @@ class Scrivomatic
 			home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', 
 			'/opt/homebrew/bin', '/usr/local/bin', 
 			home+'/anaconda/bin', home+'/anaconda3/bin',
-			home+'/miniconda/bin', home+'/miniconda3/bin',
+			home+'/miniconda/bin', home+'/miniconda3/bin', home+'/micromamba/bin',
 			home+'/.cabal/bin', home+'/.local/bin', 
 			rvm_check]
 		pathtest.each { |p| @options[:envpath] = @options[:envpath] + ':' + p if File.directory?(p) }

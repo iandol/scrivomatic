@@ -5,7 +5,7 @@
 # with the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from Scrivener
 # (Scrivener doesn't use the user's environment or path by default).
-# Version: 0.1.9
+# Version: 0.1.10
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -17,11 +17,11 @@ require 'fileutils' # ruby standard library to deal with files
 def makePath() # this method augments our environment path
 	home = ENV['HOME'] + '/'
 	envpath = ''
-	pathtest = [home+'.rbenv/shims', home+'.pyenv/shims', '/usr/local/bin',
-		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
-		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', '/opt/homebrew/bin',
+	pathtest = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
+		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin',
+		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin',
 		home+'anaconda/bin', home+'anaconda3/bin', home+'miniconda/bin', home+'miniconda3/bin',
-		home+'.cabal/bin', home+'.local/bin']
+		home+'micromamba/bin', home+'.cabal/bin', home+'.local/bin']
 	pathtest.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
 	envpath.gsub!(/\/{2}/, '/')
 	envpath.gsub!(/:{2}/, ':')
@@ -48,12 +48,12 @@ puts "--> Input Filename: #{infilename}"
 fail "The specified file does not exist!" unless infilename and File.file?(infilename)
 
 fileType = ARGV[1]
-if fileType.nil? || fileType !~ /(plain|markdown|html|pdf|epub|docx|latex|odt|beamer|revealjs|pptx)/
+if fileType.nil? || fileType !~ /(plain|markdown|typst|html|pdf|epub|docx|latex|odt|beamer|revealjs|pptx)/
 	fileType = ''
 end
 
 makePath()
-outfilename = infilename.gsub(/\.[q]?md$/,"2.qmd") # output to [name]2.qmd
+outfilename = infilename.gsub(/\.[q]?md$/,".qmd") # output to [name].qmd
 tfile = Tempfile.new('fix-x-refs') # create a temp file
 lineSeparator = "\n"
 
@@ -68,6 +68,9 @@ begin
 
 		# This regex puts {#id} onto end of $$ math block lines
 		text.gsub!(/\$\$ ?\n\{\#eq/,'$$ {#eq')
+
+		# This regex removes {sizes} from images, e.g. [Fig1]: Fig1.pdf {width=596 height=233}
+		text.gsub!(/^(\[[\d\w\s]+\]:[^\{]+)(\{.+\})/, '\1')
 
 		# this finds all reference-link figures with cross-refs and moves
 		# the reference down to the reference link
