@@ -22,7 +22,7 @@ class Scrivomatic
 	# pandocomatic from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.34'.freeze
+	VER = '1.0.35'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -228,7 +228,7 @@ class Scrivomatic
 					if exit_status.success? && @options[:cleanup] == true
 						logPath = File.basename(options.input, '.*') + '.log'
 						FileUtils.cp(logPath, 'latexlog_' + logPath) if File.file?(logPath)
-						`latexmk -c -quiet`
+						`latexmk -C -quiet`
 						puts ":: Clean-up: used latexmk -c, but kept the latex build log as #{'latexlog_' + logPath}" if @options[:verbose] == true
 					elsif !exit_status.success?
 						puts "!!!---Scrivomatic: errors on build #{xcmd}, check logs!!!"

@@ -5,7 +5,7 @@
 # with the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from Scrivener
 # (Scrivener doesn't use the user's environment or path by default).
-# Version: 0.1.10
+# Version: 0.1.11
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -74,13 +74,13 @@ begin
 
 		# this finds all reference-link figures with cross-refs and moves
 		# the reference down to the reference link
-		figID = /^!\[(?<id>\{#fig-.+?\} ?)(?<cap>.+?)\]\[(?<ref>.+?)\]/
+		figID = /^!\[(?<markup>[ \*_]*?)(?<id>\{#fig-.+?\} ?)(?<cap>.+?)\]\[(?<ref>.+?)\]/
 		refs = text.scan(figID)
 		refs.each {|ref|
-			puts "--> CrossRef figure details: Label=#{ref[0]} | #{ref[1]} | #{ref[2]}"
-			re = Regexp.compile("^(\\[" + ref[2] + "\\]: *)([^{\\n]+)({(.+)})?$")
+			puts "--> CrossRef figure details: Label=#{ref[0]} | #{ref[1]} | #{ref[2]} | | #{ref[3]}"
+			re = Regexp.compile("^(\\[" + ref[3] + "\\]: *)([^{\\n]+)({(.+)})?$")
 			mtch = text.match(re)
-			label = ref[0].gsub(/\{([^\}]+?)\}/,'\1').strip
+			label = ref[1].gsub(/\{([^\}]+?)\}/,'\1').strip
 			if mtch.nil?
 				puts "----> Failed to match #{label} in the references"
 			elsif mtch[4].nil?
@@ -90,7 +90,7 @@ begin
 			end
 		}
 		# We now need to remove all #{label} from figure captions
-		text.gsub!(figID, '![\k<cap>][\k<ref>]')
+		text.gsub!(figID, '![\k<markup>\k<cap>][\k<ref>]')
 
 		tfile.puts text
 	end
