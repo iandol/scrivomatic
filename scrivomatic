@@ -53,7 +53,7 @@ class Scrivomatic
 		texPath = options.input.gsub(/#{@fileext}$/, '.tex')
 		texFile = texPath.gsub(/\\+/, '')
 		if File.exist?(texFile)
-			puts "\n===------ Delte OLD TeX File: #{texFile}: ------===" if @options[:verbose] == true
+			puts "\n===------ Delete OLD TeX File: #{texFile}: ------===" if @options[:verbose] == true
 			system("latexmk -quiet -c #{texFile} >/dev/null 2>&1")
 			File.delete(texFile)
 		end
