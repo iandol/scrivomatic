@@ -39,11 +39,70 @@ class Scrivomatic
 
 	#-------------------------------run all options
 	def run
-		makePath
-		printInfo
-		buildCommand
-		runCommand
-		postBuild
+		preBuild # removes old tex file if we are building
+		makePath # build the path
+		printInfo # print some information
+		buildCommand # build the pandoc[omatic] command
+		runCommand # run the pandoc[omatic] command
+		postBuild # run latexmk if we are building
+	end
+
+	#--------------------------------if we will run latexmk, remove old tex file before running pandoc
+	def preBuild
+		return unless options.build && !(options.dry_run)
+		texPath = options.input.gsub(/#{@fileext}$/, '.tex')
+		texFile = texPath.gsub(/\\+/, '')
+		if File.exist?(texFile)
+			puts "\n===------ Delte OLD TeX File: #{texFile}: ------===" if @options[:verbose] == true
+			system("latexmk -quiet -c #{texFile} >/dev/null 2>&1")
+			File.delete(texFile)
+		end
+	end
+
+	#-------------------------------make env path
+	def makePath
+		home = ENV['HOME'] + '/'
+		pathtest = [home+'/.rbenv/shims', 
+			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
+			home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', 
+			'/opt/homebrew/bin', '/usr/local/bin', 
+			home+'/anaconda/bin', home+'/anaconda3/bin',
+			home+'/miniconda/bin', home+'/miniconda3/bin', home+'/micromamba/bin',
+			home+'/.cabal/bin', home+'/.local/bin', 
+			rvm_check]
+		pathtest.each { |p| @options[:envpath] = @options[:envpath] + ':' + p if File.directory?(p) }
+		ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
+		@options[:envpath].gsub!(%r{(//)}, '/') # remove double slash
+		@options[:envpath].gsub!(/(::)/, ':') # remove double colon
+		@options[:envpath].gsub!(/:$/, '') # remove final colon
+		ENV['PATH'] = @options[:envpath] + ':' + ENV['PATH']
+	end # end makePath()
+
+	#-------------------------------print initial report
+	def printInfo
+		return if @options[:verbose] == false
+		puts "\n=== ------------------------------------------------------ ==="
+		puts '=== Scrivomatic V' + @version + ' Report @ ' + Time.now.to_s + ' ==='
+		puts '=== ------------------------------------------------------ ==='
+		puts ' Running shell: ' + `printf $SHELL`
+		puts ' Working directory: ' + `pwd`
+		puts " Initiating with Ruby #{RUBY_VERSION}"
+		puts '===------ Input Options: ------==='
+		puts @options
+		puts '===------ Final ENV PATH: ------==='
+		puts ENV['PATH']
+		puts '===------ TOOL PATHS: ------==='
+		puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
+		puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
+		puts '!--ruby version incompatible with new pandocomatic, see https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md' if `ruby -v` =~ /ruby 2\.3\.\d/
+		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1s/^Pandocomatic version /''/p')"`
+		puts '---paru library: V: ' + `ruby -e 'require "paru"; puts Paru::VERSION.join(".")'`
+		puts `echo "---rbenv versions:"; [[ -x $(which rbenv) ]] && rbenv versions`
+		%w[rbenv rvm gem panzer python xelatex latexmk].each do |c|
+			location = `which #{c}`.chomp
+			puts "---#{c}: #{location}" unless location.empty?
+		end
+		puts "\n … running #{@options[:command]}, please wait …\n"
 	end
 
 	#-------------------------------build the command line
@@ -152,25 +211,6 @@ class Scrivomatic
 		end
 	end # end parseInputs
 
-	#-------------------------------make env path
-	def makePath
-		home = ENV['HOME'] + '/'
-		pathtest = [home+'/.rbenv/shims', 
-			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
-			home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', 
-			'/opt/homebrew/bin', '/usr/local/bin', 
-			home+'/anaconda/bin', home+'/anaconda3/bin',
-			home+'/miniconda/bin', home+'/miniconda3/bin', home+'/micromamba/bin',
-			home+'/.cabal/bin', home+'/.local/bin', 
-			rvm_check]
-		pathtest.each { |p| @options[:envpath] = @options[:envpath] + ':' + p if File.directory?(p) }
-		ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
-		@options[:envpath].gsub!(%r{(//)}, '/') # remove double slash
-		@options[:envpath].gsub!(/(::)/, ':') # remove double colon
-		@options[:envpath].gsub!(/:$/, '') # remove final colon
-		ENV['PATH'] = @options[:envpath] + ':' + ENV['PATH']
-	end # end makePath()
-
 	#-------------------------------check for RVM
 	def rvm_check
 		rvm_home = ENV['HOME'] + '/.rvm'
@@ -178,40 +218,13 @@ class Scrivomatic
 		rvm_home + '/wrappers/default'
 	end
 
-	#-------------------------------print initial report
-	def printInfo
-		return if @options[:verbose] == false
-		puts "\n=== ------------------------------------------------------ ==="
-		puts '=== Scrivomatic V' + @version + ' Report @ ' + Time.now.to_s + ' ==='
-		puts '=== ------------------------------------------------------ ==='
-		puts ' Running shell: ' + `printf $SHELL`
-		puts ' Working directory: ' + `pwd`
-		puts " Initiating with Ruby #{RUBY_VERSION}"
-		puts '===------ Input Options: ------==='
-		puts @options
-		puts '===------ Final ENV PATH: ------==='
-		puts ENV['PATH']
-		puts '===------ TOOL PATHS: ------==='
-		puts `echo "---pandoc: $(which pandoc) | V: $(pandoc -v | sed -nE '1 s/^pandoc // gp')"`
-		puts `echo "---ruby: $(which ruby) | V: $(ruby -v)"`
-		puts '!--ruby version incompatible with new pandocomatic, see https://github.com/iandol/scrivomatic/blob/master/Installing-Ruby.md' if `ruby -v` =~ /ruby 2\.3\.\d/
-		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1s/^Pandocomatic version /''/p')"`
-		puts '---paru library: V: ' + `ruby -e 'require "paru"; puts Paru::VERSION.join(".")'`
-		puts `echo "---rbenv versions:"; [[ -x $(which rbenv) ]] && rbenv versions`
-		%w[rbenv rvm gem panzer python xelatex latexmk].each do |c|
-			location = `which #{c}`.chomp
-			puts "---#{c}: #{location}" unless location.empty?
-		end
-		puts "\n … running #{@options[:command]}, please wait …\n"
-	end
-
-	# ###############################check if we want to run latexmk
+	#------------------------------check if we want to run latexmk
 	def postBuild
 		return unless options.build && !(options.dry_run)
 		texPath = options.input.gsub(/#{@fileext}$/, '.tex')
 		texFile = texPath.gsub(/\\+/, '')
-		puts "\n===------ RUN LATEXMK on #{texPath}: ------===" if @options[:verbose] == true
 		if File.exist?(texFile)
+			puts "\n===------ RUN LATEXMK on #{texPath}: ------===" if @options[:verbose] == true
 			@latexEngine = 'pdf' if @latexEngine =~ /pdflatex/
 			xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -f -pv -time -#{@latexEngine} -f #{texPath}"
 			puts ":: directory: #{Dir.pwd}" if @options[:verbose] == true
