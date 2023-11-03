@@ -22,7 +22,7 @@ class Scrivomatic
 	# pandocomatic from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.35'.freeze
+	VER = '1.0.36'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -223,7 +223,12 @@ class Scrivomatic
 		return unless options.build && !(options.dry_run)
 		texPath = options.input.gsub(/#{@fileext}$/, '.tex')
 		texFile = texPath.gsub(/\\+/, '')
+		pdfFile = texPath.gsub(/\.tex/, '.pdf')
 		if File.exist?(texFile)
+			if File.exist?(pdfFile)
+				puts "\n===------ Remove old #{pdfFile} ------===" if @options[:verbose] == true
+				File.delete(pdfFile)
+			end
 			puts "\n===------ RUN LATEXMK on #{texPath}: ------===" if @options[:verbose] == true
 			@latexEngine = 'pdf' if @latexEngine =~ /pdflatex/
 			xcmd = "latexmk -logfilewarnings -interaction=nonstopmode -f -pv -time -#{@latexEngine} -f #{texPath}"
