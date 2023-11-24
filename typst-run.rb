@@ -78,31 +78,32 @@ begin
 
 		# This regex replaces @fig-… as a @reference
 		# otherwise Pandoc treats it as a citation
-		text.gsub!(/(@fig-\w+)/, "`\\1[Figure]`{=typst}")
+		#text.gsub!(/(@fig-\w+)/, "\\1[Figure]")
 
 		# This regex replaces @tbl-… as a @reference
 		# otherwise Pandoc treats it as a citation
-		text.gsub!(/(@tbl-\w+)/, "`\\1[Table]`{=typst}")
+		#text.gsub!(/(@tbl-\w+)/, "\\1[Table]")
 
 		# This regex replaces @eq-… as a @reference
 		# otherwise Pandoc treats it as a citation
-		text.gsub!(/(@eq-\w+)/, "`\\1[Equation]`{=typst}")
+		#text.gsub!(/(@eq-\w+)/, "\\1[Equation]")
 
 		# This regex replaces {#eq-} as a <label> to end of $$ math block lines
-		text.gsub!(/\$\$\s*\n\s*{#(eq-.+?)}/,"$$\n`<\\1>`{=typst}")
+		text.gsub!(/\$\$\s*\n\s*{#(eq-.+?)}/,"$$\n<\\1>")
 
 		# This regex replaces table cross-refs with <label>
-		text.gsub!(/{#(tbl-.+?)}/,"\n\n`<\\1>`{=typst}")
+		text.gsub!(/{#(tbl-.+?)}/,"<\\1>")
+		text.gsub!(/(<tbl-.+?>)\s*$/,"\n\n\\1\n")
 
 		# This regex first replaces figure cross-refs with raw <label>
 		text.gsub!(/(?<=!\[){#(fig-.+?)}/,"<\\1>")
 
 		# this finds all figure labels  and moves them below the figure block
 		figID = /^!\[(?<markup>[ \*_]*?)(?<id>\<fig-.+?\> ?)(?<cap>.+?)\]\[(?<ref>.+?)\]/
-		text.gsub!(figID, "![\\k<markup>\\k<cap>][\\k<ref>]\n\n`\\k<id>`{=typst}\n\n")
+		text.gsub!(figID, "![\\k<markup>\\k<cap>][\\k<ref>]\n\n\\k<id>\n\n")
 
 		# This regex removes {sizes} from images, e.g. [Fig1]: Fig1.pdf {width=596 height=233}
-		text.gsub!(/^(\[[\d\w\s]+\]:[^\{]+)(\{.+\})/, '\1')
+		text.gsub!(/width=\d+\s+height=\d+/, '')
 
 		tfile.puts text
 	end
@@ -112,10 +113,6 @@ ensure
 	tfile.close
 	tfile.delete
 end
-
-puts "--> Modified File with fixed cross-references: #{outfilename}"
-tend = Time.now - tstart
-puts "--> Parsing took: " + tend.to_s + "s"
 
 # Build and run our pandoc command
 cmd = "pandoc -d #{defType} -o #{outfilename2} #{outfilename}"
@@ -145,12 +142,18 @@ ensure
 	tfile.delete
 end
 
+puts "--> Modified File with fixed cross-references: #{outfilename}"
+tend = Time.now - tstart
+puts "--> Parsing took: " + tend.to_s + "s"
+
 # Build and run our typst command
+tstart = Time.now
 outpdf = infilename.gsub(/\.[q]?md$/,".pdf")
 cmd = "typst compile #{outfilename3} #{outpdf}"
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
-
+tend = Time.now - tstart
+puts "--> Typst took: " + tend.to_s + "s"
 
 # open any log file (generated from scrivener's post-processing)
 `open Typst.log` if File.file?('Typst.log') and isRecent('Typst.log')
