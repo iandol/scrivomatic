@@ -47,7 +47,6 @@ def isRecent(infile) # checks if a file is less than 3 minutes old
 	end
 end
 
-tstart = Time.now
 infilename = File.expand_path(ARGV[0])
 puts "--> Input Filename: #{infilename}"
 fail "The specified file does not exist!" unless infilename and File.file?(infilename)
@@ -56,16 +55,20 @@ defType = ARGV[1]
 if defType.nil?
 	defType = 'lapreprint'
 end
+tstart = Time.now
 
 #binding.break
 
+# we choose to create several files rather than rewrite the same one to
+# check transformations at each stage
 makePath()
-outfilename = infilename.gsub(/\.[q]?md$/,"-typst.md") # output to [name].md
-outfilename2 = infilename.gsub(/\.[q]?md$/,"-typst.typ") # output to [name].typ
-outfilename3 = infilename.gsub(/\.[q]?md$/,"-typst2.typ") # output to [name].typ
+outfilename = infilename.gsub(/\.[q]?md$/,"-typst.md") # output to [name]-typst.md
+outfilename2 = infilename.gsub(/\.[q]?md$/,"-typst.typ") # output to [name]-typst.typ
+outfilename3 = infilename.gsub(/\.[q]?md$/,"-typst2.typ") # output to [name]-typst2.typ
 tfile = Tempfile.new('fix-x-refs') # create a temp file
 lineSeparator = "\n"
 
+# begin our regex replacements
 begin
 	File.open(infilename, 'r') do |file|
 		text = file.read
@@ -76,14 +79,13 @@ begin
 		# cosmetic only: remove long runs (4 or more) of newlines
 		text.gsub!(/\n{4,}/,"\n\n")
 
+		# NOW HANDLED BY LUA FILTER ↓
 		# This regex replaces @fig-… as a @reference
 		# otherwise Pandoc treats it as a citation
 		#text.gsub!(/(@fig-\w+)/, "\\1[Figure]")
-
 		# This regex replaces @tbl-… as a @reference
 		# otherwise Pandoc treats it as a citation
 		#text.gsub!(/(@tbl-\w+)/, "\\1[Table]")
-
 		# This regex replaces @eq-… as a @reference
 		# otherwise Pandoc treats it as a citation
 		#text.gsub!(/(@eq-\w+)/, "\\1[Equation]")
@@ -95,9 +97,12 @@ begin
 		text.gsub!(/{#(tbl-.+?)}/,"<\\1>")
 		text.gsub!(/(<tbl-.+?>)\s*$/,"\n\n\\1\n")
 
+		# This regex replaces listing cross-refs with <label>
+		text.gsub!(/{#(lst-.+?)}/,"<\\1>")
+		text.gsub!(/(<lst-.+?>)\s*$/,"\n\n\\1\n")
+
 		# This regex first replaces figure cross-refs with raw <label>
 		text.gsub!(/(?<=!\[){#(fig-.+?)}/,"<\\1>")
-
 		# this finds all figure labels  and moves them below the figure block
 		figID = /^!\[(?<markup>[ \*_]*?)(?<id>\<fig-.+?\> ?)(?<cap>.+?)\]\[(?<ref>.+?)\]/
 		text.gsub!(figID, "![\\k<markup>\\k<cap>][\\k<ref>]\n\n\\k<id>\n\n")
@@ -119,6 +124,7 @@ cmd = "pandoc -d #{defType} -o #{outfilename2} #{outfilename}"
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 
+# Now fix the figure widths in the typst file
 tfile = Tempfile.new('typst-mod') # create a temp file
 begin
 	File.open(outfilename2, 'r') do |file|
