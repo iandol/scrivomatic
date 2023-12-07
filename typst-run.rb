@@ -64,7 +64,7 @@ tstart = Time.now
 makePath()
 outfilename = infilename.gsub(/\.[q]?md$/,"-typst.md") # output to [name]-typst.md
 outfilename2 = infilename.gsub(/\.[q]?md$/,"-typst.typ") # output to [name]-typst.typ
-outfilename3 = infilename.gsub(/\.[q]?md$/,"-typst2.typ") # output to [name]-typst2.typ
+#outfilename3 = infilename.gsub(/\.[q]?md$/,"-typst2.typ") # output to [name]-typst2.typ
 tfile = Tempfile.new('fix-x-refs') # create a temp file
 lineSeparator = "\n"
 
@@ -124,42 +124,39 @@ cmd = "pandoc -d #{defType} -o #{outfilename2} #{outfilename}"
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 
-# Now fix the figure widths in the typst file
-tfile = Tempfile.new('typst-mod') # create a temp file
-begin
-	File.open(outfilename2, 'r') do |file|
-		text = file.read
-
-		# These two regexes are not needed anymore for Pandoc >3.19
-		# This regex wraps table in figure
-		#text.gsub!(/^#align\(center\)\[#table\(/, "#figure(table(")
-		# This regex converts the table text to a figure caption
-		#text.gsub!(/\)\n#align\(center, \[(.+?)(<tbl-.+?>)\]\)\n\s*\]/, "),\ncaption: [\\1]\n) \\2")
-
-		# This regex replaces widths
-		text.gsub!(/(#figure\(\[#box\(width:\s*).+?pt/, "\\1 100%")
-
-		tfile.puts text
-	end
-	tfile.close
-	FileUtils.mv(tfile.path, outfilename3)
-ensure
-	tfile.close
-	tfile.delete
-end
+# Process Typst File: Now fix the figure widths in the typst file
+#tfile = Tempfile.new('typst-mod') # create a temp file
+#begin
+#	File.open(outfilename2, 'r') do |file|
+#		text = file.read
+#		# These two regexes are not needed anymore for Pandoc >3.19
+#		# This regex wraps table in figure
+#		#text.gsub!(/^#align\(center\)\[#table\(/, "#figure(table(")
+#		# This regex converts the table text to a figure caption
+#		#text.gsub!(/\)\n#align\(center, \[(.+?)(<tbl-.+?>)\]\)\n\s*\]/, "),\ncaption: [\\1]\n) \\2")
+#		# This regex replaces widths
+#		#text.gsub!(/(#figure\(\[#box\(width:\s*).+?pt/, "\\1 100%")
+#		tfile.puts text
+#	end
+#	tfile.close
+#	FileUtils.mv(tfile.path, outfilename3)
+#ensure
+#	tfile.close
+#	tfile.delete
+#end
 
 puts "--> Modified File with fixed cross-references: #{outfilename}"
 tend = Time.now - tstart
-puts "--> Parsing took: " + tend.to_s + "s"
+puts "--> All Parsing took: " + tend.to_s + "s"
 
 # Build and run our typst command
 tstart = Time.now
 outpdf = infilename.gsub(/\.[q]?md$/,".pdf")
-cmd = "typst compile #{outfilename3} #{outpdf}"
+cmd = "typst compile #{outfilename2} #{outpdf}"
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 tend = Time.now - tstart
 puts "--> Typst took: " + tend.to_s + "s"
 
 # open any log file (generated from scrivener's post-processing)
-`open Typst.log` if File.file?('Typst.log') and isRecent('Typst.log')
+#`open Typst.log` if File.file?('Typst.log') and isRecent('Typst.log')
