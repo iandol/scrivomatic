@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby 
 # encoding: utf-8 
-
-# This script rewrites markdown compiled from Scrivener to be compatible
-# with the cross-referencing system used by Typst. It also adds paths for
-# LaTeX, python and others so that compilation works directly from Scrivener
-# (Scrivener doesn't use the user's environment or path by default).
-# Version: 0.1.0
+# This script rewrites markdown compiled from Scrivener to be more
+# compatible with the cross-referencing system used by Typst. It also adds
+# paths for Typst and other system tools so that compilation works directly
+# from Scrivener (Scrivener doesn't use the user's environment or path by
+# default).
+# Version: 0.1.1
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
