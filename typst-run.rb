@@ -17,12 +17,12 @@ require 'fileutils' # ruby standard library to deal with files
 def makePath() # this method augments our environment path
 	home = ENV['HOME'] + '/'
 	envpath = ''
-	pathtest = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
+	paths = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
 		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin',
 		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin',
 		home+'anaconda/bin', home+'anaconda3/bin', home+'miniconda/bin', home+'miniconda3/bin',
 		home+'micromamba/bin', home+'.cabal/bin', home+'.local/bin']
-	pathtest.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
+	paths.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
 	envpath.gsub!(/\/{2}/, '/')
 	envpath.gsub!(/:{2}/, ':')
 	envpath.gsub!(/(^:|:$)/, '')
@@ -93,19 +93,22 @@ begin
 		# This regex replaces {#eq-} as a <label> to end of $$ math block lines
 		text.gsub!(/\$\$\s*\n\s*{#(eq-.+?)}/,"$$\n<\\1>")
 
-		# This regex replaces table cross-refs with <label>
+		# This regex replaces quarto table cross-refs with <label>
 		text.gsub!(/{#(tbl-.+?)}/,"<\\1>")
 		text.gsub!(/(<tbl-.+?>)\s*$/,"\n\n\\1\n")
 
-		# This regex replaces listing cross-refs with <label>
+		# This regex replaces quarto listing cross-refs with <label>
 		text.gsub!(/{#(lst-.+?)}/,"<\\1>")
 		text.gsub!(/(<lst-.+?>)\s*$/,"\n\n\\1\n")
 
-		# This regex first replaces figure cross-refs with raw <label>
+		# This regex first replaces quarto figure cross-refs with raw <label>
 		text.gsub!(/(?<=!\[){#(fig-.+?)}/,"<\\1>")
 		# this finds all figure labels  and moves them below the figure block
 		figID = /^!\[(?<markup>[ \*_]*?)(?<id>\<fig-.+?\> ?)(?<cap>.+?)\]\[(?<ref>.+?)\]/
 		text.gsub!(figID, "![\\k<markup>\\k<cap>][\\k<ref>]\n\n\\k<id>\n\n")
+		# also for labels at the end of captions
+		figID = /^!\[(?<cap>.+?)(?<id>\<fig-.+?\> ?)\]\[(?<ref>.+?)\]/
+		text.gsub!(figID, "![\\k<cap>][\\k<ref>]\n\n\\k<id>\n\n")
 
 		# This regex removes {sizes} from images, e.g. [Fig1]: Fig1.pdf {width=596 height=233}
 		text.gsub!(/width=\d+\s+height=\d+/, '')
