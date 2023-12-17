@@ -5,7 +5,9 @@
 # paths for Typst and other system tools so that compilation works directly
 # from Scrivener (Scrivener doesn't use the user's environment or path by
 # default).
-# Version: 0.1.1
+#
+# Usage: typst-run.rb FILE [defaults-file] [options]
+# Version: 0.1.2
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -55,6 +57,10 @@ defType = ARGV[1]
 if defType.nil?
 	defType = 'lapreprint'
 end
+
+op = ARGV[2..-1].join(' ')
+puts "--> Options: #{op}"
+
 tstart = Time.now
 
 #binding.break
@@ -123,7 +129,7 @@ ensure
 end
 
 # Build and run our pandoc command
-cmd = "pandoc -d #{defType} -o #{outfilename2} #{outfilename}"
+cmd = "pandoc -d #{defType} #{op} -o #{outfilename2} #{outfilename}"
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 
@@ -155,7 +161,7 @@ puts "--> All Parsing took: " + tend.to_s + "s"
 # Build and run our typst command
 tstart = Time.now
 outpdf = infilename.gsub(/\.[q]?md$/,".pdf")
-cmd = "typst compile #{outfilename2} #{outpdf}"
+cmd = "typst compile --root=/ #{outfilename2} #{outpdf}"
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 tend = Time.now - tstart
