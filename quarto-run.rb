@@ -5,14 +5,14 @@
 # with the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from Scrivener
 # (Scrivener doesn't use the user's environment or path by default).
-# Version: 0.1.11
+# Version: 0.1.12
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 require 'tempfile' # temp file tools
 require 'fileutils' # ruby standard library to deal with files
-#require 'debug/open_nonstop' # debugger
+#require 'debug/open_nonstop' # debugger, use binding.break to stop
 
 def makePath() # this method augments our environment path
 	home = ENV['HOME'] + '/'
@@ -57,10 +57,12 @@ outfilename = infilename.gsub(/\.[q]?md$/,".qmd") # output to [name].qmd
 tfile = Tempfile.new('fix-x-refs') # create a temp file
 lineSeparator = "\n"
 
+# begin our regex replacements
 begin
 	File.open(infilename, 'r') do |file|
 		text = file.read
 
+		# replace any ${USERHOME} with the user's home directory
 		text.gsub!(/\${USERHOME}\//, ENV['HOME']+'/')
 
 		# cosmetic only: remove long runs (4 or more) of newlines
@@ -107,9 +109,9 @@ puts "--> Parsing took: " + tend.to_s + "s"
 
 # Build and run our quarto command
 if fileType.empty?
-	cmd = "quarto render #{outfilename} --log-level=INFO --verbose"
+	cmd = "quarto render \"#{outfilename}\" --log-level=INFO --verbose"
 else
-	cmd = "quarto render #{outfilename} --to #{fileType} --log-level=INFO --verbose"
+	cmd = "quarto render \"#{outfilename}\" --to #{fileType} --log-level=INFO --verbose"
 end
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})

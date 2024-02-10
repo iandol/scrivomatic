@@ -19,12 +19,12 @@ require 'fileutils' # ruby standard library to deal with files
 def makePath() # this method augments our environment path
 	home = ENV['HOME'] + '/'
 	envpath = ''
-	paths = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
+	pathtest = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
 		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin',
 		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin',
 		home+'anaconda/bin', home+'anaconda3/bin', home+'miniconda/bin', home+'miniconda3/bin',
 		home+'micromamba/bin', home+'.cabal/bin', home+'.local/bin']
-	paths.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
+	pathtest.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
 	envpath.gsub!(/\/{2}/, '/')
 	envpath.gsub!(/:{2}/, ':')
 	envpath.gsub!(/(^:|:$)/, '')
