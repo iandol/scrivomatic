@@ -7,18 +7,31 @@
 
 		{
 			"name": "Debug Scrivomatic",
-			"type": "Ruby",
+			"type": "rdbg",
 			"request": "launch",
 			"cwd": "${workspaceRoot}",
-			"program": "${file}",
-			"args": ["--data-dir=/Users/ian/.local/share/pandoc","-v","test.md"]
+			"script": "${file}",
+			"args": ["--data-dir=/Users/ian/.local/share/pandoc","-v","test.md"],
+			"askParameters": true,
+			"rdbgPath": "~/.rbenv/shims/rdbg"
 		},
-		{
+		{ // Name: VSCode rdbg Ruby Debugger https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
+			"type": "rdbg",
 			"name": "Debug < MD",
-			"type": "Ruby",
 			"request": "launch",
-			"program": "${file}",
-			"args": [" < ${workspaceROOT}/test.md"]
+			"script": "${file}",
+			"args": [" < ${workspaceROOT}/test.md"],
+			"askParameters": true,
+			"rdbgPath": "~/.rbenv/shims/rdbg"
+		},
+		{ // Name: VSCode rdbg Ruby Debugger https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
+			"name": "Debug pass test.md",
+			"type": "rdbg",
+			"request": "launch",
+			"script": "${file}",
+			"args": ["./test.md"],
+			"askParameters": true,
+			"rdbgPath": "~/.rbenv/shims/rdbg"
 		},
 		{ // Name: VSCode rdbg Ruby Debugger https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
 			"type": "rdbg",

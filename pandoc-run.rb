@@ -1,0 +1,111 @@
+#!/usr/bin/env ruby 
+# encoding: utf-8 
+
+# This script rewrites markdown compiled from Scrivener and runs Pandoc.
+# Version: 0.1.01
+
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
+require 'tempfile' # temp file tools
+require 'fileutils' # ruby standard library to deal with files
+#require 'debug/open_nonstop' # debugger, use binding.break to stop
+
+bib = '/Users/ian/.local/share/pandoc/Core.json'
+filter = '/Users/ian/.local/share/pandoc/filters/pretty-urls.lua'
+
+def makePath() # this method augments our environment path
+	home = ENV['HOME'] + '/'
+	envpath = ''
+	pathtest = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
+		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin',
+		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin',
+		home+'anaconda/bin', home+'anaconda3/bin', home+'miniconda/bin', home+'miniconda3/bin',
+		home+'micromamba/bin', home+'.cabal/bin', home+'.local/bin']
+	pathtest.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
+	envpath.gsub!(/\/{2}/, '/')
+	envpath.gsub!(/:{2}/, ':')
+	envpath.gsub!(/(^:|:$)/, '')
+	ENV['PATH'] = envpath + ':' + ENV['PATH']
+	ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
+	puts "--> Modified path: #{ENV['PATH'].chomp}"
+end # end makePath()
+
+def isRecent(infile) # checks if a file is less than 3 minutes old
+	return false if !File.file?(infile)
+	filetime = File.mtime(infile) # modified time
+	difftime = Time.now - filetime # compare to now
+	if difftime <= 180
+		return true
+	else
+		return false
+	end
+end
+
+tstart = Time.now
+infilename = File.expand_path(ARGV[0])
+puts "--> Input Filename: #{infilename}"
+fail "The specified file does not exist!" unless infilename and File.file?(infilename)
+
+fileType = ARGV[1]
+if fileType.nil? || fileType !~ /(plain|markdown|typst|html|pdf|epub|docx|latex|odt|beamer|revealjs|pptx)/
+	fileType = 'docx'
+end
+
+makePath()
+editedFile = infilename.gsub(/\.[q]?md$/,"-edit.md") # output to [name]-edit.md
+tfile = Tempfile.new('fix-x-refs') # create a temp file
+lineSeparator = "\n"
+
+# begin our regex replacements
+begin
+	File.open(infilename, 'r') do |file|
+		tout = ""
+		text = file.read
+
+		# replace any ${USERHOME} with the user's home directory
+		text.gsub!(/\${USERHOME}\//, ENV['HOME']+'/')
+
+		# cosmetic only: remove long runs (4 or more) of newlines
+		text.gsub!(/\n{4,}/,"\n\n")
+
+		# finds footnotes and removes escaping of _
+		fnID = /^\[\^.+?\]:.+/
+		text.each_line { |line| 
+			if line.match(fnID)
+				line.gsub!(/\\_/,"_")
+			end
+			tout = tout + line
+		}
+
+		tfile.puts tout
+	end
+	tfile.close
+	FileUtils.mv(tfile.path, editedFile)
+ensure
+	tfile.close
+	tfile.delete
+end
+
+puts "--> Modified File with fixed footnotes: #{editedFile}"
+tend = Time.now - tstart
+puts "--> Parsing took: " + tend.to_s + "s"
+
+output = infilename.gsub(/\.[q]?md$/,".#{fileType}")
+cmd = 'pandoc --verbose -s --citeproc --lua-filter=' + filter + 
+	' --bibliography=' + bib + ' --output=' + output + ' ' + editedFile
+
+# Build and run our pandoc command
+puts "\n--> Running Command: #{cmd}"
+puts %x(#{cmd})
+
+# now try to open the resultant file
+fileType = 'html' if fileType.match(/revealjs|s5|slidous|html5/)
+if File.file?(output) && isRecent(output)
+	`open #{output}`
+else
+	puts "There was some problem opening #{output}, check compiler log…"
+end
+
+# open any log file (generated from scrivener's post-processing)
+`open Pandoc.log` if File.file?('Pandoc.log') and isRecent('Pandoc.log')
