@@ -5,7 +5,7 @@
 # with the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from Scrivener
 # (Scrivener doesn't use the user's environment or path by default).
-# Version: 0.1.12
+# Version: 0.1.13
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -15,17 +15,16 @@ require 'fileutils' # ruby standard library to deal with files
 #require 'debug/open_nonstop' # debugger, use binding.break to stop
 
 def makePath() # this method augments our environment path
-	home = ENV['HOME'] + '/'
 	envpath = ''
-	pathtest = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
+	home = ENV['HOME'] + '/'
+	paths = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
 		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin',
 		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin',
 		home+'anaconda/bin', home+'anaconda3/bin', home+'miniconda/bin', home+'miniconda3/bin',
 		home+'micromamba/bin', home+'.cabal/bin', home+'.local/bin']
-	pathtest.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
-	envpath.gsub!(/\/{2}/, '/')
-	envpath.gsub!(/:{2}/, ':')
-	envpath.gsub!(/(^:|:$)/, '')
+	paths.each { |p| envpath = envpath + ':' + p if File.directory?(p) } #ENV['PATH'] = paths.select { |p| File.directory?(p) }.join(':') + ':' + ENV['PATH']
+	envpath.gsub!(/[:\/]+/, ':')
+	envpath.gsub!(/^:|:$/, '')
 	ENV['PATH'] = envpath + ':' + ENV['PATH']
 	ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
 	puts "--> Modified path: #{ENV['PATH'].chomp}"
@@ -34,12 +33,7 @@ end # end makePath()
 def isRecent(infile) # checks if a file is less than 3 minutes old
 	return false if !File.file?(infile)
 	filetime = File.mtime(infile) # modified time
-	difftime = Time.now - filetime # compare to now
-	if difftime <= 180
-		return true
-	else
-		return false
-	end
+	Time.now - filetime <= 180 # compare to now
 end
 
 tstart = Time.now
@@ -120,9 +114,9 @@ puts %x(#{cmd})
 fileType = 'html' if fileType.match(/revealjs|s5|slidous|html5/)
 res = outfilename.gsub(/\.qmd$/, '.' + fileType)
 if File.file?(res) && isRecent(res)
-	`open #{res}`
+	`open "#{res}"`
 else
-	puts "There was some problem opening #{res}, check compiler log…"
+	puts "There was some problem opening \"#{res}\", check compiler log…"
 end
 
 # open any log file (generated from scrivener's post-processing)

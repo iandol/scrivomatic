@@ -7,7 +7,7 @@
 # default).
 #
 # Usage: typst-run.rb FILE [defaults-file] [options]
-# Version: 0.1.2
+# Version: 0.1.03
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -17,21 +17,20 @@ require 'fileutils' # ruby standard library to deal with files
 #require 'debug/open_nonstop' # debugger, use binding.break to stop
 
 def makePath() # this method augments our environment path
-	home = ENV['HOME'] + '/'
 	envpath = ''
-	pathtest = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
+	home = ENV['HOME'] + '/'
+	paths = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
 		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin',
 		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin',
 		home+'anaconda/bin', home+'anaconda3/bin', home+'miniconda/bin', home+'miniconda3/bin',
 		home+'micromamba/bin', home+'.cabal/bin', home+'.local/bin']
-	pathtest.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
-	envpath.gsub!(/\/{2}/, '/')
-	envpath.gsub!(/:{2}/, ':')
-	envpath.gsub!(/(^:|:$)/, '')
+	paths.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
+	envpath.gsub!(/[:\/]+/, ':')
+	envpath.gsub!(/^:|:$/, '')
 	ENV['PATH'] = envpath + ':' + ENV['PATH']
 	ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
 	puts "--> Modified path: #{ENV['PATH'].chomp}"
-	lap = ENV['HOME'] + '/.local/share/pandoc/custom/lapreprint.typ'
+	lap = home + '.local/share/pandoc/custom/lapreprint.typ'
 	if File.exist?(lap)
 		puts "--> Copied #{lap} to current directory"
 		FileUtils.cp(lap, './')
@@ -41,12 +40,7 @@ end # end makePath()
 def isRecent(infile) # checks if a file is less than 3 minutes old
 	return false if !File.file?(infile)
 	filetime = File.mtime(infile) # modified time
-	difftime = Time.now - filetime # compare to now
-	if difftime <= 180
-		return true
-	else
-		return false
-	end
+	Time.now - filetime <= 180 # compare to now
 end
 
 infilename = File.expand_path(ARGV[0])
@@ -129,7 +123,7 @@ ensure
 end
 
 # Build and run our pandoc command
-cmd = "pandoc -d #{defType} #{op} -o #{outfilename2} #{outfilename}"
+cmd = "pandoc -d #{defType} #{op} -o \"#{outfilename2}\" \"#{outfilename}\""
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 
@@ -161,7 +155,7 @@ puts "--> All Parsing took: " + tend.to_s + "s"
 # Build and run our typst command
 tstart = Time.now
 outpdf = infilename.gsub(/\.[q]?md$/,".pdf")
-cmd = "typst compile --root=/ #{outfilename2} #{outpdf}"
+cmd = "typst compile --root=/ \"#{outfilename2}\" \"#{outpdf}\""
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 tend = Time.now - tstart

@@ -34,12 +34,7 @@ end # end makePath()
 def isRecent(infile) # checks if a file is less than 3 minutes old
 	return false if !File.file?(infile)
 	filetime = File.mtime(infile) # modified time
-	difftime = Time.now - filetime # compare to now
-	if difftime <= 180
-		return true
-	else
-		return false
-	end
+	Time.now - filetime <= 180 # compare to now
 end
 
 #binding.break
