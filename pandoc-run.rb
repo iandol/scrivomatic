@@ -2,7 +2,7 @@
 # encoding: utf-8 
 
 # This script rewrites markdown compiled from Scrivener and runs Pandoc.
-# Version: 0.1.03
+# Version: 0.1.04
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -67,7 +67,7 @@ begin
 
 		text.gsub!(/\\_/,"_")
 
-		tfile.puts tout
+		tfile.puts text
 	end
 	tfile.close
 	FileUtils.mv(tfile.path, editedFile)
