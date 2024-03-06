@@ -2,7 +2,7 @@
 # encoding: utf-8 
 
 # This script rewrites markdown compiled from Scrivener and runs Pandoc.
-# Version: 0.1.01
+# Version: 0.1.02
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -51,6 +51,7 @@ fileType = ARGV[1]
 if fileType.nil? || fileType !~ /(plain|markdown|typst|html|pdf|epub|docx|latex|odt|beamer|revealjs|pptx)/
 	fileType = 'docx'
 end
+puts "--> Output Filetype: #{fileType}"
 
 makePath()
 editedFile = infilename.gsub(/\.[q]?md$/,"-edit.md") # output to [name]-edit.md
@@ -62,12 +63,6 @@ begin
 	File.open(infilename, 'r') do |file|
 		tout = ""
 		text = file.read
-
-		# replace any ${USERHOME} with the user's home directory
-		text.gsub!(/\${USERHOME}\//, ENV['HOME']+'/')
-
-		# cosmetic only: remove long runs (4 or more) of newlines
-		text.gsub!(/\n{4,}/,"\n\n")
 
 		# finds footnotes and removes escaping of _
 		fnID = /^\[\^.+?\]:.+/
@@ -92,15 +87,14 @@ tend = Time.now - tstart
 puts "--> Parsing took: " + tend.to_s + "s"
 
 output = infilename.gsub(/\.[q]?md$/,".#{fileType}")
-cmd = 'pandoc --verbose -s --citeproc --lua-filter=' + filter + 
-	' --bibliography=' + bib + ' --output=' + output + ' ' + editedFile
+cmd = 'pandoc -s --verbose --citeproc --lua-filter=' + filter + 
+	' --bibliography=' + bib + ' --to=' + fileType + ' --output=' + output + ' ' + editedFile
 
 # Build and run our pandoc command
 puts "\n--> Running Command: #{cmd}"
 puts %x(#{cmd})
 
 # now try to open the resultant file
-fileType = 'html' if fileType.match(/revealjs|s5|slidous|html5/)
 if File.file?(output) && isRecent(output)
 	`open #{output}`
 else
@@ -108,4 +102,4 @@ else
 end
 
 # open any log file (generated from scrivener's post-processing)
-`open Pandoc.log` if File.file?('Pandoc.log') and isRecent('Pandoc.log')
+`open pandoc-run.log` if File.file?('pandoc-run.log') and isRecent('pandoc-run.log')
