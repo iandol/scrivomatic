@@ -64,9 +64,7 @@ begin
 	File.open(infilename, 'r') do |file|
 		tout = ""
 		text = file.read
-
-		text.gsub!(/\\_/,"_")
-
+		text.gsub!(/\\_/,"_") #replace escaped underscores with normal underscores
 		tfile.puts text
 	end
 	tfile.close
@@ -90,7 +88,7 @@ puts %x(#{cmd})
 
 # now try to open the resultant file
 if File.file?(output) && isRecent(output)
-	`open #{output}`
+	`open "#{output}"`
 else
 	puts "There was some problem opening #{output}, check compiler log…"
 end
