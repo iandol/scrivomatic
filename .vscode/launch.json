@@ -39,7 +39,6 @@
 			"request": "launch",
 			"script": "${file}",
 			"args": [],
-			"askParameters": true,
 			"rdbgPath": "~/.rbenv/shims/rdbg"
 		},
 		{ // Name: VSCode rdbg Ruby Debugger https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg

@@ -2,7 +2,7 @@
 # encoding: utf-8 
 
 # This script rewrites markdown compiled from Scrivener and runs Pandoc.
-# Version: 0.1.02
+# Version: 0.1.03
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -42,13 +42,14 @@ def isRecent(infile) # checks if a file is less than 3 minutes old
 	end
 end
 
+#binding.break
 tstart = Time.now
 infilename = File.expand_path(ARGV[0])
 puts "--> Input Filename: #{infilename}"
 fail "The specified file does not exist!" unless infilename and File.file?(infilename)
 
 fileType = ARGV[1]
-if fileType.nil? || fileType !~ /(plain|markdown|typst|html|pdf|epub|docx|latex|odt|beamer|revealjs|pptx)/
+if fileType.nil? || fileType !~ /(txt|md|typst|html|pdf|epub|docx|latex|odt|beamer|revealjs|pptx)/
 	fileType = 'docx'
 end
 puts "--> Output Filetype: #{fileType}"
@@ -64,14 +65,7 @@ begin
 		tout = ""
 		text = file.read
 
-		# finds footnotes and removes escaping of _
-		fnID = /^\[\^.+?\]:.+/
-		text.each_line { |line| 
-			if line.match(fnID)
-				line.gsub!(/\\_/,"_")
-			end
-			tout = tout + line
-		}
+		text.gsub!(/\\_/,"_")
 
 		tfile.puts tout
 	end
@@ -87,8 +81,8 @@ tend = Time.now - tstart
 puts "--> Parsing took: " + tend.to_s + "s"
 
 output = infilename.gsub(/\.[q]?md$/,".#{fileType}")
-cmd = 'pandoc -s --verbose --citeproc --lua-filter=' + filter + 
-	' --bibliography=' + bib + ' --to=' + fileType + ' --output=' + output + ' ' + editedFile
+cmd = 'pandoc -s --verbose --citeproc --lua-filter="' + filter + 
+	'" --bibliography="' + bib + '" --to=' + fileType + ' --output="' + output + '" "' + editedFile + '"'
 
 # Build and run our pandoc command
 puts "\n--> Running Command: #{cmd}"
