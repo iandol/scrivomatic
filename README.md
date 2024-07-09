@@ -1,16 +1,17 @@
+> [!TIP]
+> *For Scrivener ⇨ [Quarto](https://quarto.org) see the forum post [here](https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769), and download the [Scrivener template](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivener%20+%20Quarto.scrivtemplate). Another Scrivener+Quarto template can be found here: [ScrivQ](https://github.com/bcdavasconcelos/ScrivQ). I also developed a Scrivener ⇨ [Typst](https://typst.app/docs/) workflow: [Typst.scriv.zip](https://github.com/iandol/scrivomatic) and [forum post](https://forum.literatureandlatte.com/t/typst-a-new-markup-page-layout-engine-to-take-on-latex/134674/46).*
+
 # Scrivomatic: Scrivener & Pandoc*\{omatic\}* #
 
-*For Scrivener & [Quarto](https://quarto.org) [see the forum post here](https://forum.literatureandlatte.com/t/scrivener-quarto-a-technical-academic-publishing-workflow/129769), and download the [Scrivener template](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivener%20+%20Quarto.scrivtemplate). Another Quarto template can be found here: [ScrivQ](https://github.com/bcdavasconcelos/ScrivQ). There is also a Pandoc⇨Typst workflow here: [Typst.scriv.zip](https://github.com/iandol/scrivomatic) and [forum post](https://forum.literatureandlatte.com/t/typst-a-new-markup-page-layout-engine-to-take-on-latex/134674/46).*
-
 ## TL;DR (simple summary) ##
-This guide is a series of steps to integrate two useful tools: [Scrivener](http://literatureandlatte.com) and [Pandoc](http://pandoc.org/index.html). Scrivener is **great** for organized writing, while Pandoc can transform text into various formats. Although Scrivener already has MultiMarkDown support, I think using Pandoc offers more benefits and it's easy to install. Additionally, you can use [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) for flexible management of Pandoc settings directly from Scrivener.
+I document a series of steps to integrate two indispensible writing tools: [Scrivener](http://literatureandlatte.com) and [Pandoc](http://pandoc.org/index.html). Scrivener is **wonderful** for organized writing, while Pandoc can transform text into many formats. Although Scrivener already has MultiMarkDown support, using Pandoc offers more benefits and is easy to install. Additionally, I use a Pandoc manager, [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/), for flexible management of Pandoc settings directly from the Scrivener binder.
 
-1. Install the latest `pandoc` and `pandocomatic` tools.
+1. Install the latest `pandoc` and `pandocomatic` commands.
 2. Create one or more `pandocomatic` "recipes"; you can base them on the one [shared below](#configuration).
-3. In Scrivener, use a front-matter document with required settings and compile via MultiMarkdown format to generate Pandoc output.
-4. Scrivener will automatically trigger pandocomatic during post-processing, creating your final outputs for you..
+3. In Scrivener, use a front-matter document with required settings and compile via MMD to generate Pandoc output.
+4. Scrivener's post-processor will automatically trigger pandocomatic during post-processing, creating the final outputs for you.
 
-As a sample of the fuller workflow, I've made a self-contained [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) (you still need to install `pandoc` and `pandocomatic` first). This should give you a better idea of the various parts of the workflow, and you can look at the simultaneously produced [PDF/HTML/DOCX/TXT](https://github.com/iandol/scrivomatic/tree/master/sample-output) outputs from the sample project to get an idea of the sort of end documents that are possible. I also provide a [Scrivomatic.scrivtemplate](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrivtemplate) if you prefer the more complete workflow.
+As a sample of the full workflow, I've made a self-contained [Scrivener project](https://raw.githubusercontent.com/iandol/scrivomatic/master/Workflow.scriv.zip) (you still need to install `pandoc` and `pandocomatic` first). This should give you a better idea of the various parts of the workflow. Look at the simultaneously produced [PDF/HTML/DOCX/TXT](https://github.com/iandol/scrivomatic/tree/master/sample-output) outputs from the sample project to get an idea of the sort of end documents that are possible. I also provide a [Scrivomatic.scrivtemplate](https://raw.githubusercontent.com/iandol/scrivomatic/master/Scrivomatic.scrivtemplate) if you prefer the more complete workflow.
 
 Scrivener has many options, and to better understand the workflow outlined on this page, you should read at least sections **§21** and **§24** of the **Scrivener user manual**.
 
@@ -48,12 +49,14 @@ Scrivener has many options, and to better understand the workflow outlined on th
 * For academics, [Pandoc](http://pandoc.org/index.html) enables *generation of a full [Bibliography](http://pandoc.org/MANUAL.html#citations)* using thousands of available [publication styles](https://citationstyles.org/). 
 * For technical writers, you can add semantic custom block and span structures (warning or info boxes for example).
 * For LaTeX users, there is a lot of flexibility using rich templates and meta-data.
+* For those who want a nice PDF but don't want to use LaTeX, Typst and PrinceXML are small fast PDF generators that work well with this workflow.
 
 This all save you lots of time, especially if you compile regularly during collaborative editing.  
 
-Because of [Pandoc's](http://pandoc.org/index.html) great flexibility, there are many possible settings to configure. To simplify this, you can run Pandoc using "template" tools like [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/). For each document output, the template specifies all the options in Scrivener front-matter and/or a seperate configuration file. Pandocomatic templates allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after Scrivener compile). To use the Pandocomatic templates with Scrivener, you specify their name in the front–matter or metadata, and all the settings are automated when Pandoc is run.
+Because of [Pandoc's](http://pandoc.org/index.html) flexibility, there are numerous settings to configure. To simplify this, "template" tools like [Pandocomatic](https://heerdebeer.org/Software/markdown/pandocomatic/) can organise settings into recipes. For each document output, the template specifies all the options in Scrivener front-matter and/or a seperate configuration file. Pandocomatic templates allow you to run pre– and post–processors for more complex workflows (i.e. you could automate moving a HTML file to a web server after Scrivener compile). To use the Pandocomatic templates with Scrivener, you specify their name in the front–matter or metadata, and all the settings are automated when Pandoc is run.
 
-**_UPDATE:_**: In Pandoc V2.8+, you can create "sets" of Pandoc options: [see some examples here](https://github.com/iandol/dotpandoc/tree/master/defaults). I still prefer `pandocomatic` (described below) as I can use metadata, processor scripts and gain more control, but I think this defaults system will be great for others who want a simpler setup. The workflow I use is just one of *many ways* of using Pandoc and Scrivener together…
+> [!TIP]
+> In Pandoc V2.8+, you can create "sets" of Pandoc options: [see some examples here](https://github.com/iandol/dotpandoc/tree/master/defaults). I still prefer `pandocomatic` (described below) as we can use metadata, processor scripts and gain more control, but the defaults system will be great for others who want a simpler setup. Remember: the workflow I use is just one of *many ways* of using Pandoc and Scrivener together…
 
 ### Requirements ###
 
