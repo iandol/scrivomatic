@@ -22,7 +22,7 @@ class Scrivomatic
 	# pandocomatic from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.36'.freeze
+	VER = '1.0.37'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -62,7 +62,7 @@ class Scrivomatic
 	#-------------------------------make env path
 	def makePath
 		home = ENV['HOME'] + '/'
-		pathtest = [home+'/.rbenv/shims', 
+		pathtest = [home+'/.pixi/bin', home+'/.rbenv/shims', 
 			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
 			home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', 
 			'/opt/homebrew/bin', '/usr/local/bin', 
@@ -98,7 +98,7 @@ class Scrivomatic
 		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1s/^Pandocomatic version /''/p')"`
 		puts '---paru library: V: ' + `ruby -e 'require "paru"; puts Paru::VERSION.join(".")'`
 		puts `echo "---rbenv versions:"; [[ -x $(which rbenv) ]] && rbenv versions`
-		%w[rbenv rvm gem panzer python xelatex latexmk].each do |c|
+		%w[pixi rbenv rvm gem panzer python xelatex latexmk].each do |c|
 			location = `which #{c}`.chomp
 			puts "---#{c}: #{location}" unless location.empty?
 		end
@@ -148,7 +148,7 @@ class Scrivomatic
 		optparse = OptionParser.new do |opts|
 			opts.banner = 'Scrivomatic V' + @version + "\n"
 			opts.banner += "=======================\n"
-			opts.banner += "Scrivomatic is a wrapper around pandocomatic or panzer, that sets up the environment path, enforces UTF8 encoding and other settings so they can be run from any other process that may not do this (e.g. Scrivener).\n\n"
+			opts.banner += "Scrivomatic is a wrapper to set up the shell environment, enforces UTF8 encoding and other settings.\n\n"
 			opts.banner += 'Usage: scrivomatic [additional options] FILE'
 			opts.on('-i', '--input FILE', 'Input file') do |v|
 				v.gsub!(/(\A'|'\Z)/, '')
