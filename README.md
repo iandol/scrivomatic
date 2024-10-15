@@ -38,9 +38,7 @@ I outline a process to combine two powerful writing tools: [Scrivener](http://li
 
 ## Introduction ##
 
-[Scrivener (macOS / Windows)](http://literatureandlatte.com) is a versatile writing tool that handles both the structural organization and constructive process of writing, allowing users to manage text, ideas, figures, and reference materials in one place without worrying about the final presentation. This is achieved through a process called compiling, where users can choose output formats and select contents with great flexibility. Although Scrivener uses rich text internally, it seamlessly integrates with plain text [markdown](https://en.wikipedia.org/wiki/Markdown) for more structured and flexible documents.
-
-**Advantages of compiling via markdown: **
+[Scrivener (macOS / Windows)](http://literatureandlatte.com) is a versatile writing tool that handles both the structural organization and constructive process of writing, allowing users to manage text, ideas, figures, and reference materials in one place without worrying about the final presentation. This is achieved through a process called compiling, where users can choose output formats and select contents with great flexibility. Although Scrivener uses rich text internally, it seamlessly integrates with plain text [markdown](https://en.wikipedia.org/wiki/Markdown) for more structured and flexible documents. Advantages of compiling via markdown include:
 
 * Automatically converts binder headings into semantic heading levels (properly nested Headings 1-6).
 * Styles figures and figure captions appropriately.
@@ -48,8 +46,8 @@ I outline a process to combine two powerful writing tools: [Scrivener](http://li
 * Parses mathematical equations for many output formats.
 * Generates multiple outputs (PDF, LaTeX, DOCX, PPTX, ODT, EPub3, HTML, etc.) simultaneously from a single compile and can trigger further tools to automate workflows.
 * Allows using Microsoft Word/LibreOffice files for page setup and custom styles without post-processing.
-* For academics, [Pandoc](http://pandoc.org/index.html) enables generating a full bibliography using thousands of available publication styles.
-* For technical writers, add semantic custom block and span structures (e.g., warning or info boxes).
+* For academics, Pandoc generates [a full bibliography using thousands of available publication styles (CSL files)](https://pandoc.org/MANUAL.html#citations).
+* For technical writers, you can add semantic custom block and span structures (e.g., warning or info boxes), indexes and arbitrarily complex modifications using [Pandoc filters](https://pandoc.org/lua-filters.html).
 * For LaTeX users, provides flexibility using rich templates and metadata.
 * For PDF generation without using LaTeX, Typst and PrinceXML are recommended small and fast PDF generators.
 
