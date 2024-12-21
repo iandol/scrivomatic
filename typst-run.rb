@@ -19,12 +19,14 @@ require 'fileutils' # ruby standard library to deal with files
 def makePath() # this method augments our environment path
 	envpath = ''
 	home = ENV['HOME'] + '/'
-	paths = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
-		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin',
-		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin',
-		home+'anaconda/bin', home+'anaconda3/bin', home+'miniconda/bin', home+'miniconda3/bin',
-		home+'micromamba/bin', home+'.cabal/bin', home+'.local/bin']
-	paths.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
+	pathtest = [home+'.pixi/bin', home+'.rbenv/shims', home+'.pyenv/shims'
+			home+'bin', '/opt/homebrew/bin', '/usr/local/bin', 
+			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
+			home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', 
+			home+'anaconda/bin', home+'anaconda3/bin',
+			home+'miniconda/bin', home+'miniconda3/bin', home+'micromamba/bin',
+			home+'.cabal/bin', home+'.local/bin']
+	pathtest.each { |p| envpath = envpath + ':' + p if File.directory?(p) }
 	envpath.gsub!(/[:\/]+/, ':')
 	envpath.gsub!(/^:|:$/, '')
 	ENV['PATH'] = envpath + ':' + ENV['PATH']

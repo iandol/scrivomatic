@@ -13,7 +13,7 @@
 			"script": "${file}",
 			"args": ["--data-dir=/Users/ian/.local/share/pandoc","-v","test.md"],
 			"askParameters": true,
-			"rdbgPath": "~/.rbenv/shims/rdbg"
+			"rdbgPath": "~/.pixi/bin/rdbg"
 		},
 		{ // Name: VSCode rdbg Ruby Debugger https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
 			"type": "rdbg",
@@ -22,7 +22,7 @@
 			"script": "${file}",
 			"args": [" < ${workspaceROOT}/test.md"],
 			"askParameters": true,
-			"rdbgPath": "~/.rbenv/shims/rdbg"
+			"rdbgPath": "~/.pixi/bin/rdbg"
 		},
 		{ // Name: VSCode rdbg Ruby Debugger https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
 			"name": "Debug pass test.md",
@@ -31,7 +31,7 @@
 			"script": "${file}",
 			"args": ["./test.md"],
 			"askParameters": true,
-			"rdbgPath": "~/.rbenv/shims/rdbg"
+			"rdbgPath": "~/.pixi/bin/rdbg"
 		},
 		{ // Name: VSCode rdbg Ruby Debugger https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
 			"type": "rdbg",
@@ -39,13 +39,13 @@
 			"request": "launch",
 			"script": "${file}",
 			"args": [],
-			"rdbgPath": "~/.rbenv/shims/rdbg"
+			"rdbgPath": "~/.pixi/bin/rdbg"
 		},
 		{ // Name: VSCode rdbg Ruby Debugger https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg
 				"type": "rdbg",
 				"name": "Attach with Ruby Debug rdbg",
 				"request": "attach",
-				"rdbgPath": "~/.rbenv/shims/rdbg"
+				"rdbgPath": "~/.pixi/bin/rdbg"
 		}
 	]
 }

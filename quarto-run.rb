@@ -15,20 +15,21 @@ require 'fileutils' # ruby standard library to deal with files
 #require 'debug/open_nonstop' # debugger, use binding.break to stop
 
 def makePath() # this method augments our environment path
-	envpath = ''
-	home = ENV['HOME'] + '/'
-	paths = [home+'.rbenv/shims', home+'.pyenv/shims', '/opt/homebrew/bin', '/usr/local/bin',
-		'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin',
-		home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin',
-		home+'anaconda/bin', home+'anaconda3/bin', home+'miniconda/bin', home+'miniconda3/bin',
-		home+'micromamba/bin', home+'.cabal/bin', home+'.local/bin']
-	paths.each { |p| envpath = envpath + ':' + p if File.directory?(p) } #ENV['PATH'] = paths.select { |p| File.directory?(p) }.join(':') + ':' + ENV['PATH']
-	envpath.gsub!(/[:\/]+/, ':')
-	envpath.gsub!(/^:|:$/, '')
-	ENV['PATH'] = envpath + ':' + ENV['PATH']
-	ENV['LANG'] = 'en_GB.UTF-8' if ENV['LANG'].nil? # Just in case we have no LANG, which breaks UTF8 encoding
-	puts "--> Modified path: #{ENV['PATH'].chomp}"
-end # end makePath()
+  home = ENV['HOME'] + '/'
+  paths = ['.pixi/bin', '.rbenv/shims', '.pyenv/shims', 'bin', 
+    'Library/TinyTeX/bin/universal-darwin', 'anaconda/bin', 
+    'anaconda3/bin', 'miniconda/bin', 'miniconda3/bin', 
+    'micromamba/bin', '.cabal/bin', '.local/bin'
+  ].map { |dir| home + dir } + [
+    '/opt/homebrew/bin', '/usr/local/bin', 
+    '/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
+    '/Library/TeX/texbin'
+  ]
+  envpath = paths.select { |p| File.directory?(p) }.join(':')
+  ENV['PATH'] = [envpath, ENV['PATH']].compact.join(':').gsub(/:{2,}/, ':').sub(/^:|:$/, '')
+  ENV['LANG'] ||= 'en_GB.UTF-8' # Ensure LANG is set for UTF-8 encoding
+  puts "--> Modified path: #{ENV['PATH'].chomp}"
+end
 
 def isRecent(infile) # checks if a file is less than 3 minutes old
 	return false if !File.file?(infile)
