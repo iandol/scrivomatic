@@ -13,7 +13,7 @@ require 'open3' # ruby standard library class to handle stderr and stdout
 require 'optparse' # ruby standard option parser
 require 'fileutils' # ruby standard library to deal with files
 require 'shellwords' # escapes strings to run in the shell
-require 'debug/open_nonstop' # debugger, use binding.break to stop
+#require 'debug/open_nonstop' # debugger, use binding.break to stop
 
 ##
 # main scrivomatic class
@@ -23,7 +23,7 @@ class Scrivomatic
 	# pandocomatic from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.39'.freeze
+	VER = '1.0.40'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -103,7 +103,7 @@ class Scrivomatic
 		puts `echo "---pandocomatic: $(which pandocomatic) | V: $(pandocomatic -v | sed -En '1s/^Pandocomatic version /''/p')"`
 		puts '---paru library: V: ' + `ruby -e 'require "paru"; puts Paru::VERSION.join(".")'`
 		puts `echo "---rbenv versions:"; [[ -x $(which rbenv) ]] && rbenv versions`
-		%w[pixi rbenv rvm gem panzer python xelatex latexmk].each do |c|
+		%w[pixi rbenv rvm gem python xelatex latexmk].each do |c|
 			location = `which #{c}`.chomp
 			puts "---#{c}: #{location}" unless location.empty?
 		end
@@ -118,7 +118,7 @@ class Scrivomatic
 		@cmd += ' -c ' + @options[:yaml] if !@options[:yaml].nil? && @options[:command] == 'pandocomatic'
 		@cmd += ' --enable pandoc-verbose' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
 		@cmd += ' --log pandocomatic.log' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
-		@cmd += ' ---debug "panzerlogs"' if @options[:verbose] == true && @options[:command] == 'panzer'
+		@cmd += ' --log-level debug' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
 		@toolPath = `which #{@options[:command]}`.chomp
 		@cmd = @toolPath + @cmd + ' ' + @options[:input] + ' ' unless @options[:input].nil?
 	end
@@ -171,9 +171,6 @@ class Scrivomatic
 			opts.on('-y', '--yaml [file]', 'Specify which YAML file for pandocomatic.') do |v|
 				@options[:yaml] = v.strip.shellescape
 			end
-			opts.on('-c', '--command [command]', 'Tool to use: [pandocomatic] | panzer') do |v|
-				@options[:command] = v
-			end
 			opts.on('-p', '--path [dirpath]', 'Additional Path to Search for Commands.') do |v|
 				@options[:envpath] = v.strip.shellescape + ':' + @options[:envpath]
 			end
@@ -218,13 +215,6 @@ class Scrivomatic
 		end
 	end # end parseInputs
 
-	#-------------------------------check for RVM
-	def rvm_check
-		rvm_home = ENV['HOME'] + '/.rvm'
-		return '' unless File.directory?(rvm_home)
-		rvm_home + '/wrappers/default'
-	end
-
 	#------------------------------check if we want to run latexmk
 	def postBuild
 		return unless options.build && !(options.dry_run)
@@ -268,7 +258,7 @@ class Scrivomatic
 	end
 end #--------------- end Scrivomatic class
 
-binding.break
+#binding.break
 scriv = Scrivomatic.new
 scriv.parseInputs(ARGV)
 scriv.run
