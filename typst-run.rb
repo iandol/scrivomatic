@@ -39,10 +39,9 @@ def makePath() # this method augments our environment path
 	end
 end # end makePath()
 
-def isRecent(infile) # checks if a file is less than 3 minutes old
-	return false if !File.file?(infile)
-	filetime = File.mtime(infile) # modified time
-	Time.now - filetime <= 180 # compare to now
+#--------------------------------checks if a file is less than 3 minutes old
+def isRecent(infile)
+	File.exist?(infile) && (Time.now - File.mtime(infile)) <= 180
 end
 
 infilename = File.expand_path(ARGV[0])

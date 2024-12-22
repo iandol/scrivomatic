@@ -13,7 +13,7 @@ require 'open3' # ruby standard library class to handle stderr and stdout
 require 'optparse' # ruby standard option parser
 require 'fileutils' # ruby standard library to deal with files
 require 'shellwords' # escapes strings to run in the shell
-#require 'debug/open_nonstop' 
+require 'debug/open_nonstop' # debugger, use binding.break to stop
 
 ##
 # main scrivomatic class
@@ -46,6 +46,11 @@ class Scrivomatic
 		buildCommand # build the pandoc[omatic] command
 		runCommand # run the pandoc[omatic] command
 		postBuild # run latexmk if we are building
+	end
+
+	#--------------------------------checks if a file is less than 3 minutes old
+	def isRecent(infile)
+		File.exist?(infile) && (Time.now - File.mtime(infile)) <= 180
 	end
 
 	#--------------------------------if we will run latexmk, remove old tex file before running pandoc
@@ -120,7 +125,6 @@ class Scrivomatic
 
 	#-------------------------------run the command
 	def runCommand
-		`open scrivomatic.log` if @options[:open_log] && File.exist?('scrivomatic.log')
 		puts '===------ COMMAND OUTPUT: ------===' if @options[:verbose] == true
 		if File.exist?(@toolPath) && !options.dry_run
 			puts ":: Running: #{@cmd}\n" if @options[:verbose] == true
@@ -136,6 +140,8 @@ class Scrivomatic
 					puts "\n!!!---scrivomatic::runCommand() RETURN non-zero value: #{cmd}!!!"
 				end
 			end
+			`open scrivomatic.log` if @options[:open_log] && isRecent('scrivomatic.log')
+			`open pandocomatic.log` if @options[:open_log] && isRecent('pandocomatic.log')
 		elsif !options.dry_run
 			puts "Tool doesn't exist!!!" if @options[:verbose] == true
 			puts "\n!!!---scrivomatic::runCommand() Couldn't find #{@toolPath} to run, please supply a proper path!"
@@ -225,7 +231,7 @@ class Scrivomatic
 		texPath = options.input.gsub(/#{@fileext}$/, '.tex')
 		texFile = texPath.gsub(/\\+/, '')
 		pdfFile = texPath.gsub(/\.tex/, '.pdf')
-		if File.exist?(texFile)
+		if isRecent(texFile)
 			if File.exist?(pdfFile)
 				puts "\n===------ Remove old #{pdfFile} ------===" if @options[:verbose] == true
 				File.delete(pdfFile)
@@ -261,7 +267,8 @@ class Scrivomatic
 		end
 	end
 end #--------------- end Scrivomatic class
-#binding.break
+
+binding.break
 scriv = Scrivomatic.new
 scriv.parseInputs(ARGV)
 scriv.run
