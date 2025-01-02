@@ -5,7 +5,7 @@
 # with the cross-referencing system used by Quarto. It also adds paths for
 # LaTeX, python and others so that compilation works directly from Scrivener
 # (Scrivener doesn't use the user's environment or path by default).
-# Version: 0.1.13
+# Version: 0.1.14
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -66,7 +66,7 @@ begin
 		text.gsub!(/\$\$ ?\n\{\#eq/,'$$ {#eq')
 
 		# This regex removes {sizes} from images, e.g. [Fig1]: Fig1.pdf {width=596 height=233}
-		text.gsub!(/^(\[[\d\w\s]+\]:[^\{]+)(\{.+\})/, '\1')
+		text.gsub!(/^(\[.+\]:[^\{]+)(\{.+\})/, '\1')
 
 		# this finds all reference-link figures with cross-refs and moves
 		# the reference down to the reference link

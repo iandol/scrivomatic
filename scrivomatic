@@ -116,9 +116,7 @@ class Scrivomatic
 		@cmd += ' --output ' + @options[:output] + ' ' unless @options[:output].nil?
 		@cmd += ' --to "' + @options[:to] + '"' unless @options[:to].nil?
 		@cmd += ' -c ' + @options[:yaml] if !@options[:yaml].nil? && @options[:command] == 'pandocomatic'
-		@cmd += ' --enable pandoc-verbose' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
-		@cmd += ' --log pandocomatic.log' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
-		@cmd += ' --log-level debug' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
+		@cmd += ' --enable pandoc-verbose --log pandocomatic.log --log-level debug' if @options[:verbose] == true && @options[:command] == 'pandocomatic'
 		@toolPath = `which #{@options[:command]}`.chomp
 		@cmd = @toolPath + @cmd + ' ' + @options[:input] + ' ' unless @options[:input].nil?
 	end
