@@ -23,7 +23,7 @@ class Scrivomatic
 	# pandocomatic from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.40'.freeze
+	VER = '1.0.41'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -45,12 +45,13 @@ class Scrivomatic
 		printInfo # print some information
 		buildCommand # build the pandoc[omatic] command
 		runCommand # run the pandoc[omatic] command
-		postBuild # run latexmk if we are building
+		postBuildTeX # run latexmk if we are building
+		postBuildTypst # run typst if we are building
 	end
 
 	#--------------------------------checks if a file is less than 3 minutes old
 	def isRecent(infile)
-		File.exist?(infile) && (Time.now - File.mtime(infile)) <= 180
+		File.exist?(infile) && (Time.now - File.mtime(infile)) <= 60
 	end
 
 	#--------------------------------if we will run latexmk, remove old tex file before running pandoc
@@ -133,7 +134,7 @@ class Scrivomatic
 					@latexEngine = check_engine[1] unless check_engine.nil?
 				end
 				exit_status = thread.value
-				puts ':: exit status: ' + exit_status.to_s if @options[:verbose] == true
+				puts ':: pandocomatic exit status: ' + exit_status.to_s if @options[:verbose] == true
 				unless exit_status.success?
 					puts "\n!!!---scrivomatic::runCommand() RETURN non-zero value: #{cmd}!!!"
 				end
@@ -172,10 +173,10 @@ class Scrivomatic
 			opts.on('-p', '--path [dirpath]', 'Additional Path to Search for Commands.') do |v|
 				@options[:envpath] = v.strip.shellescape + ':' + @options[:envpath]
 			end
-			opts.on('-b', '--build', 'For LaTeX output, run latexmk') do |v|
+			opts.on('-b', '--build', 'For Typst or LaTeX, run Typst and latexmk') do |v|
 				@options[:build] = v
 			end
-			opts.on('-B', '--buildclean', 'For LaTeX output, run latexmk and cleanup') do |v|
+			opts.on('-B', '--buildclean', 'For LaTeX or Typst, run Typst and latexmk with cleanup') do |v|
 				@options[:build] = v
 				@options[:cleanup] = v
 			end
@@ -214,7 +215,7 @@ class Scrivomatic
 	end # end parseInputs
 
 	#------------------------------check if we want to run latexmk
-	def postBuild
+	def postBuildTeX
 		return unless options.build && !(options.dry_run)
 		texPath = options.input.gsub(/#{@fileext}$/, '.tex')
 		texFile = texPath.gsub(/\\+/, '')
@@ -251,9 +252,58 @@ class Scrivomatic
 				puts e
 			end
 		else
-			puts "!!!---Scrivomatic postBuild: could not find #{texPath}"
+			puts "===Scrivomatic postBuildTeX: did not find #{texPath}"
 		end
 	end
+
+	# This method performs post-build actions for Typst files.
+	# It checks if the build option is enabled and not in dry-run mode.
+	# It converts the input file path to a Typst file path and checks if the Typst file is recent.
+	# If the Typst file is recent, it removes any existing PDF file and runs the Typst compile command.
+	# The method logs various actions and outputs if the verbose option is enabled.
+	# If the Typst compile command is successful and the cleanup option is enabled, it logs success.
+	# If the Typst compile command fails, it logs an error message.
+	# If the Typst file is not found, it logs a message indicating the file was not found.
+	def postBuildTypst
+		return unless options.build && !options.dry_run
+
+		typPath = options.input.gsub(/#{@fileext}$/, '.typst').gsub(/\\+/, '')
+		pdfFile = typPath.gsub(/\.typst/, '.pdf')
+
+		unless isRecent(typPath)
+			puts "===Scrivomatic postBuildTypst: did not find #{typPath}" if @options[:verbose]
+			return
+		end
+
+		if File.exist?(pdfFile)
+			puts "\n===------ Remove old #{pdfFile} ------===" if @options[:verbose]
+			File.delete(pdfFile)
+		end
+
+		puts "\n===------ RUN TYPST on #{typPath}: ------===" if @options[:verbose]
+		xcmd = "typst compile --pdf-standard a-2b #{typPath}"
+		puts ":: directory: #{Dir.pwd}" if @options[:verbose]
+		puts ":: command: #{xcmd}" if @options[:verbose]
+
+		begin
+			Open3.popen2e(xcmd) do |_stdin, oe, wait_thr|
+				while (line = oe.gets)
+					puts '::: ' + line.chomp if @options[:verbose]
+				end
+				exit_status = wait_thr.value
+				puts ':: exit status: ' + exit_status.to_s if @options[:verbose]
+
+				if exit_status.success?
+					puts ":: Success" if @options[:verbose]
+				else
+					puts "!!!---Scrivomatic: errors on build #{xcmd}, check logs!!!"
+				end
+			end
+		rescue StandardError => e
+			puts "Error during Typst compilation: #{e.message}"
+		end
+	end
+
 end #--------------- end Scrivomatic class
 
 #binding.break
