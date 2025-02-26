@@ -23,7 +23,7 @@ class Scrivomatic
 	# pandocomatic from scrivener...
 	attr_accessor :options
 	attr_reader :version, :cmd, :runLog
-	VER = '1.0.41'.freeze
+	VER = '1.0.42'.freeze
 	OPT = Struct.new(:input, :output, :to, :yaml, :command, :envpath, :build, :cleanup, :verbose, :dry_run, :open_log, :data_dir)
 	DEFENVPATH = ENV['HOME'] + '/bin'
 
@@ -70,8 +70,9 @@ class Scrivomatic
 	def makePath
 		home = ENV['HOME'] + '/'
 		pathtest = [home+'.pixi/bin', home+'.rbenv/shims', home+'.pyenv/shims',
+			'/opt/homebrew/opt/ruby/bin', '/opt/homebrew/lib/ruby/gems/3.4.0/bin', # note homebrew installs ruby as keg only!
+			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/3.4.0/bin', 
 			home+'bin', '/opt/homebrew/bin', '/usr/local/bin', 
-			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
 			home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', 
 			home+'anaconda/bin', home+'anaconda3/bin',
 			home+'miniconda/bin', home+'miniconda3/bin', home+'micromamba/bin',
