@@ -3,7 +3,7 @@
 
 # scrivomatic is a wrapper script that adds tools to the path (as Scrivener
 # does not use the user's path), and enables some other tweaks to optimise
-# the workflow when scrivener calls pandocomatic.
+# the workflow when Scrivener calls Pandocomatic.
 # `scrivomatic --help` for details…
 
 Encoding.default_external = Encoding::UTF_8
@@ -40,18 +40,18 @@ class Scrivomatic
 
 	#-------------------------------run all options
 	def run
-		preBuild # removes old tex file if we are building
-		makePath # build the path
+		preBuild # removes old tex file if user passed -b 
+		makePath # build the path to find our tools
 		printInfo # print some information
-		buildCommand # build the pandoc[omatic] command
-		runCommand # run the pandoc[omatic] command
-		postBuildTeX # run latexmk if we are building
-		postBuildTypst # run typst if we are building
+		buildCommand # build the pandocomatic command
+		runCommand # run the pandocomatic command
+		postBuildTeX # run latexmk if user passed -b 
+		postBuildTypst # run typst if user passed -b 
 	end
 
-	#--------------------------------checks if a file is less than 3 minutes old
+	#--------------------------------checks if a file is less than 1.5 minutes old
 	def isRecent(infile)
-		File.exist?(infile) && (Time.now - File.mtime(infile)) <= 60
+		File.exist?(infile) && (Time.now - File.mtime(infile)) <= 90
 	end
 
 	#--------------------------------if we will run latexmk, remove old tex file before running pandoc
@@ -306,7 +306,9 @@ class Scrivomatic
 	end
 
 end #--------------- end Scrivomatic class
+##########################################
 
+##########################################RUN Code
 #binding.break
 scriv = Scrivomatic.new
 scriv.parseInputs(ARGV)
