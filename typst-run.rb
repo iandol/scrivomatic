@@ -7,7 +7,7 @@
 # default).
 #
 # Usage: typst-run.rb FILE [defaults-file] [options]
-# Version: 0.1.03
+# Version: 0.1.04
 
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
@@ -19,7 +19,7 @@ require 'fileutils' # ruby standard library to deal with files
 def makePath() # this method augments our environment path
 	envpath = ''
 	home = ENV['HOME'] + '/'
-	pathtest = [home+'.pixi/bin', home+'.rbenv/shims', home+'.pyenv/shims'
+	pathtest = [home+'.pixi/bin', home+'.rbenv/shims', home+'.pyenv/shims',
 			home+'bin', '/opt/homebrew/bin', '/usr/local/bin', 
 			'/usr/local/opt/ruby/bin', '/usr/local/lib/ruby/gems/2.7.0/bin', 
 			home+'Library/TinyTeX/bin/universal-darwin', '/Library/TeX/texbin', 
@@ -58,14 +58,12 @@ puts "--> Options: #{op}"
 
 tstart = Time.now
 
-#binding.break
-
 # we choose to create several files rather than rewrite the same one to
 # check transformations at each stage
 makePath()
 outfilename = infilename.gsub(/\.[q]?md$/,"-typst.md") # output to [name]-typst.md
-outfilename2 = infilename.gsub(/\.[q]?md$/,"-typst.typ") # output to [name]-typst.typ
-#outfilename3 = infilename.gsub(/\.[q]?md$/,"-typst2.typ") # output to [name]-typst2.typ
+outfilename2 = infilename.gsub(/\.[q]?md$/,".typ") # output to [name].typst
+#outfilename3 = infilename.gsub(/\.[q]?md$/,"-2.typst") # output to [name]-2.typst
 tfile = Tempfile.new('fix-x-refs') # create a temp file
 lineSeparator = "\n"
 
@@ -124,9 +122,10 @@ ensure
 end
 
 # Build and run our pandoc command
-cmd = "pandoc -d #{defType} #{op} -o \"#{outfilename2}\" \"#{outfilename}\""
-puts "\n--> Running Command: #{cmd}"
+cmd = "pandoc --verbose -s -d #{defType} #{op} -o \"#{outfilename2}\" \"#{outfilename}\""
+puts "\n--> Running Pandoc Command: #{cmd}"
 puts %x(#{cmd})
+fail "Pandoc output file #{outfilename2} does not exist!" unless outfilename2 and File.file?(outfilename2)
 
 # Process Typst File: Now fix the figure widths in the typst file
 #tfile = Tempfile.new('typst-mod') # create a temp file
@@ -149,15 +148,14 @@ puts %x(#{cmd})
 #	tfile.delete
 #end
 
-puts "--> Modified File with fixed cross-references: #{outfilename}"
 tend = Time.now - tstart
-puts "--> All Parsing took: " + tend.to_s + "s"
+puts "--> Parsing took: " + tend.to_s + "s"
 
 # Build and run our typst command
 tstart = Time.now
 outpdf = infilename.gsub(/\.[q]?md$/,".pdf")
 cmd = "typst compile --root=/ \"#{outfilename2}\" \"#{outpdf}\""
-puts "\n--> Running Command: #{cmd}"
+puts "\n--> Running Typst Command: #{cmd}"
 puts %x(#{cmd})
 tend = Time.now - tstart
 puts "--> Typst took: " + tend.to_s + "s"
